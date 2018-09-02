@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>דלתות פנדור – חברת הדלתות מספר 1 בישראל</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/jquery-ui-1.10.4.min.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+</head>
+<body>
+    <!-- Return to Top -->
+    <a href="javascript:" id="return-to-top"><i></i></a>
+    <div id="fb-root"></div>
+   
+    <div id="preload" style="display:none;">
+        <img src="/images/orangNavIcon.png" width="1" height="1" alt="Image 01" />
+    </div>
+        <!-- <div class="preloaderContainer">
+            <img class="preloaderWrapper" src="images/door.gif" />
+        </div>
+        -->
+        <a href="arcitectDesignerInfo.aspx" class="tab architectTab">
+            <span class="click">?אדריכל / מעצב<br /> <b>לחץ כאן</b></span>
+            <span class="iconBg"><img src="images/architectTab.png" /></span>            
+        </a>
+        <div id="LikeButtonTrigger" class="tab liketab">
+            <span class="iconBg"><img src="images/likeTab.png" /></span>
+            <div id="LikeButtonContainer">
+                <div class="likeBg">
+                    <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-action="like" data-size="small" data-show-faces="false" data-share="false">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="ContactFormTrigger" class="tab contactTab">
+            <span class="iconBg"><img src="images/phoneTab.png" /></span>
+            <div id="ContactFormContainer">
+                <h4>לקביעת פגישה:</h4>
+                <input class="tabTb" type="text" placeholder="שם מלא" />
+                <input class="tabTb" type="text" placeholder="אי-מייל" />
+                <input class="tabTb" type="text" placeholder="טלפון" />
+                <input class="tabButton" type="button" value="שליחה" />
+            </div>
+        </div>
+
+        <header>
+            <% include ./navbar %>    
+        </header>
+
+        <section style="all: unset;">
+            <div class="sectionsContainer">
+               <% include ./startpage %>
+            </div>
+       </section>
+
+        <footer>
+           <% include ./footer %>
+        </footer>
+
+
+        <section style="all: unset;">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.cycle2/2.1.6/jquery.cycle2.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+            <script src="/javascript/jquery.cycle2.swipe.min.js"></script>
+            <script src="/javascript/jquery.cycle2.ios6fix.js"></script>
+            <script src="/javascript/general.js"></script>
+            <script src="/javascript/stickyfloat.min.js"></script>
+            <script src="/javascript/verticalFade.js"></script>
+            <script src="/javascript/site.js"></script>
+        </section>
+
+</body>
+</html>
