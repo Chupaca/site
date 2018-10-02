@@ -11,10 +11,6 @@ $(window).resize(function () {
 $(window).load(function () {
     setFooter();
     setImageBoxHeight();
-
-    //$(".ImgBox").hover(function () {
-    //    $(".imgInfo ", this).stop().slideToggle("slow");
-    //});
     bindImgBoxesHover();
 
     if ($("#myDiv").length > 0) {
@@ -67,28 +63,12 @@ function setFooter() {
 
     var scrollHeight = document.documentElement.scrollHeight;
     
-    //var topStrip = $(".top-strip");
-    //var page = $(".page-wrap");
-    //var footerHeight = footer[0].clientHeight + offset;
-    //page.css("margin-bottom", footerHeight + "px");
-    //var clientHeight = document.documentElement.clientHeight + footerHeight;
-
-    //console.log("scrollHeight: " + scrollHeight + " clientHeight: " + clientHeight + " xxx: " + ($("#myDiv").length > 0 ? footerHeight : 0));
-    //console.log(scrollHeight + "*" + clientHeight + "*" + page[0].clientHeight + "*" + topStrip[0].clientHeight + "*" + footerHeight + "*" + document.documentElement.clientHeight);
-    //console.log(scrollHeight <= document.documentElement.clientHeight);
-    //console.log(page[0].clientHeight + topStrip[0].clientHeight + footerHeight > scrollHeight);
-    //915*1044*566*336
+    
     if (scrollHeight <= document.documentElement.clientHeight) {
         $("html, body").css("height", "100%");
         footer.css("position", "absolute");
     }
-    //if ((scrollHeight > clientHeight) || (page[0].clientHeight + topStrip[0].clientHeight + footerHeight > scrollHeight)) {
-        
-    //}
-    //else {
-    //    $("html, body").css("height", "100%");
-    //    footer.css("position", "absolute");
-    //}
+   
 }
 
 var imgBoxs = null;

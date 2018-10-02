@@ -1,0 +1,66 @@
+
+
+
+@keyframes fading{
+    0%{opacity:0.2}
+    50%{opacity:1}
+    100%{opacity:0.2}
+}
+
+@keyframes fading_half{
+    0%{opacity:0}
+    50%{opacity:0.7}
+    100%{opacity:0}
+}
+
+.cur_animate-fading{
+    animation:fading 13s infinite;
+    height: 100%;
+    background: linear-gradient( #bbb, transparent 1px), linear-gradient( 90deg, #bbb, transparent 1px);
+}
+
+.overlay_new{
+    position: absolute;
+    width: 100%;
+    background: #000000 url(../images/overlayPattern.png);
+    opacity: 0.7;
+    z-index: 300;
+    left: 0;
+    top: 0;
+    height: 72vh;
+    display: none;
+    animation:fading_half 12s infinite;
+}
+
+.door_info_container{
+    padding: 50px;
+    width: 30%;
+    max-width: 369px;
+    box-sizing: border-box;
+    background: rgba(37, 37, 37, 0.72);
+    position: absolute;
+    bottom: 25%;
+    right: 33%;
+    color: #ffffff;
+    z-index: 400;
+    display: none;
+    opacity:1
+}
+
+.door_img{
+    display: none;
+    position: absolute;
+    top: 0;
+    float: left;
+    opacity:1;
+    z-index: 400;
+}
+
+@media all and (max-width:400px){
+    .mySlides{
+        height: 28vh;
+    }
+    .overlay_new{
+        height: 30vh;
+    }
+}

@@ -14,7 +14,8 @@ $(document).mouseup(function (e) {
 $(document).on("scroll", function () {
     if ($(document).scrollTop() > 100) {
         $("a.logoMobile").addClass("small");
-
+        $('#return-to-top').fadeIn(200);
+        changeSideStickerPosition(true)
         if (document.documentElement.clientWidth > 900) {
             var nav = $('.nav');
             if (nav.css("display") == "block") {
@@ -24,15 +25,28 @@ $(document).on("scroll", function () {
             }
         }
     } else {
+        changeSideStickerPosition(false)
+        $('#return-to-top').fadeOut(200);
         $("a.logoMobile").removeClass("small");
     }
-
 });
 
+function changeSideStickerPosition(hidden) {
+    if(hidden && !$("#closed_sticker_flag").hasClass("visib")){
+        $("#side_sticker").animate({"right" : "-15vh"}, 300)
+        $("#closed_sticker_flag").css("display", "block").addClass("visib")
+    }else if(!hidden && $("#closed_sticker_flag").hasClass("visib")){
+        $("#side_sticker").animate({"right" : "1vw"}, 300)
+        $("#closed_sticker_flag").css("display", "none").removeClass("visib")
+    }
+}
+
+
 $(document).ready(function () {
-    //$(".contactTab").click(function () {
-    //    $(".contactTab > div").fadeToggle();
-    //});
+
+    $("#closed_sticker_flag").click(()=>{
+        changeSideStickerPosition(false)
+    })
     wrapBoxes();
 
     if (document.documentElement.clientWidth > 900)
@@ -52,22 +66,6 @@ $(document).ready(function () {
 
     
     $(".nav-btn").click(function () {
-        //    if ($(".nav").css("left") = "0") {
-        //        $(".nav").animate({ left: '-800px' });
-        //    }
-        //    else if ($(".nav").css("left") = "-800px")
-        //        $(".nav").animate({ left: '0' });
-        //    }
-
-        //var context = $(".nav");
-        //if (context.css("display") == "block") {
-
-        //}
-        //else {
-
-        //}
-        //$(".nav").fadeToggle();
-
         $(".nav").verticalFade({
             duration: 'slow',
         });
@@ -87,24 +85,6 @@ $(document).ready(function () {
         }
     );
 
-    $('.architectTab').stickyfloat({
-        duration: 1000,
-        easing: 'easeOutBack',
-        offsetY: 150
-    });
-
-    $('.liketab').stickyfloat({
-        duration: 1000,
-        easing: 'easeOutBack',
-        offsetY: 235
-    });
-
-    $('.contactTab').stickyfloat({
-        duration: 1000,
-        easing: 'easeOutBack',
-        offsetY: 320
-    });
-
     $("#LikeButtonTrigger").hover(
         function () {
             $("#LikeButtonContainer").fadeIn();
@@ -113,13 +93,7 @@ $(document).ready(function () {
         }
     );
 
-    $(window).scroll(function () {
-        if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
-            $('#return-to-top').fadeIn(200);    // Fade in the arrow
-        } else {
-            $('#return-to-top').fadeOut(200);   // Else fade out the arrow
-        }
-    });
+    
     $('#return-to-top').click(function () {      // When arrow is clicked
         $('body,html').animate({
             scrollTop: 0                       // Scroll to top of body
@@ -155,8 +129,6 @@ $(document).ready(function () {
                     }
                 }
             });
-            //orangNavIcon.png
-            //active
         });
     }
 });
@@ -284,18 +256,6 @@ function desktopAnimation(context) {
 }
 
 function bindCycleMobile() {
-    //$('.cycle.mobile').on('cycle-initialized', function (event, optionHash) {
-    //    if (t != null)
-    //        clearTimeout(t);
-
-    //    t = setTimeout(function () {
-    //        $(".cycle.mobile .cycle-slide-active .overlay").fadeTo("slow", 0.7, function () {
-    //            // overlay Animation complete.
-    //            $(".slider-txt", $(this).closest(".slideMobile")).animate({ left: '50px' }, "slow");
-    //        });
-    //    }, 1000);
-    //});
-
     $('.cycle.mobile').cycle({
         cycleSwipe: true,
         log: false,
@@ -305,31 +265,6 @@ function bindCycleMobile() {
         timeout: 10000,
         pause: 1,
         slides: "> .slideMobile"
-    });
-
-
-    //$.easing.custom = function (x, t, b, c, d) {
-    //    var s = 1.70158;
-    //    if ((t /= d / 2) < 1) return c / 2 * (t * t * (((s *= (1.525)) + 1) * t - s)) + b;
-    //    return c / 2 * ((t -= 2) * t * (((s *= (1.525)) + 1) * t + s) + 2) + b;
-    //}
-
-    //$('.cycle.mobile').on('cycle-after', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
-    //    if (t != null)
-    //        clearTimeout(t);
-
-    //    t = setTimeout(function () {
-    //        $(".overlay", incomingSlideEl).fadeTo("slow", 0.7, function () {
-    //            // overlay Animation complete.
-    //            $(".slider-txt", incomingSlideEl).animate({ left: '50px' }, "slow");
-    //        });
-    //    }, 1000);
-    //    $(".slider-txt", outgoingSlideEl).css("left", "-40%");
-    //    $(".overlay", outgoingSlideEl).css("opacity", "0");
-    //});
-
-    $(".preloaderContainer").fadeOut(1000, function () {
-        $("body").css("height", "auto").css("overflow", "auto");
     });
 }
 
@@ -344,3 +279,27 @@ function clearTimeouts() {
         clearTimeout(window["to_text"]);
 }
 
+
+
+//======================
+carousel(0);
+
+function carousel(myIndex) {
+    document.getElementsByClassName("overlay_new")[0].style.display = 'none'
+    let slides = document.getElementsByClassName("mySlides");
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = 'none';  
+    }
+    myIndex++;
+    if (myIndex > slides.length) {myIndex = 1}    
+    slides[myIndex-1].style.display = 'block';
+    setTimeout((myIndex) => { carousel(myIndex)}, 12000, myIndex);
+    setTimeout(carousel_addons, 2000);
+    
+}
+
+function carousel_addons(){
+    document.getElementsByClassName("overlay_new")[0].style.display = 'block';
+    document.getElementsByClassName("door_img")[0].style.display = 'block';
+    document.getElementsByClassName("door_info_container")[0].style.display = 'block';
+}
