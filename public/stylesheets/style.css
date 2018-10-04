@@ -194,10 +194,7 @@ header
     padding-bottom:6px;
     box-sizing:border-box;
 }
-.logoMobile
-{
-    display:none;
-}
+
 .nav-btn
 {
     height:113px;
@@ -462,7 +459,6 @@ header
     display:inline-block;
     height:65px;
     transition:background ease-in-out 0.5s;
-    float:right;
 }
 .tab > div, .tab > span.click
 {
@@ -1082,9 +1078,23 @@ a.pandor-collection-btn:hover
          margin-top:0 !important;
          padding-top:0;
     }
-    .logo, .header-nav
+    .header-nav
     {
         display:none;
+    }
+    .logo
+    {
+        width: 70%;
+    }
+    .logo-hover{
+        background : none;
+    }
+    .logo img{
+        width: 95%;
+        height: 81%;
+    }
+    .header-txt{
+        opacity: 0;
     }
     .logoMobile
     {
@@ -1100,14 +1110,6 @@ a.pandor-collection-btn:hover
         width:90%;
         max-width:455px;
     }
-    .header-txt
-    {
-        width:calc(100% - 160px);
-    }
-    /*.header-txt a.phoneto
-    {
-        margin-top:-15px;
-    }*/
     section.home-slider
     {
         margin-top:116px;
@@ -1148,10 +1150,7 @@ a.pandor-collection-btn:hover
     {
         display:block;
     }
-     .sale-box.decktop
-    {
-        display:none;
-    }
+     
     .sale-box.tablet
     {
         display:inline-block;
@@ -1168,7 +1167,7 @@ a.pandor-collection-btn:hover
     }   
     .sale-box.small:nth-child(5)
     {
-        width: 48%;
+        width: 100%;
         margin-left: 0;
     }
     .sale-box
@@ -1182,7 +1181,7 @@ a.pandor-collection-btn:hover
     } 
     .sale-box.small
     {
-        width:48%;
+        width:100%;
         margin-left: calc(4% - 4px);
     }
     .sale-box.small:nth-child(3n +1)
@@ -1337,10 +1336,7 @@ a.pandor-collection-btn:hover
         margin-top:10px;
         background:url(../images/sale-dual-btn.png) no-repeat 10px center
     }
-    .sale-box, .sale-box.tablet
-    {
-        display:none;
-    }
+    
     .sale-box.mobile
     {
         display:inline-block;
