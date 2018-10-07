@@ -7,12 +7,9 @@
 }
 #nav-btn {
     cursor: pointer;
-    padding: 4vh 5vh;
+    padding: 4vh 5vh 5vh 5vh;
     text-align: -webkit-center;
     float: left;
-}
-#nav-btn:hover{
-    background: #ffffff;
 }
 
 .bar1, .bar2, .bar3 {
@@ -135,7 +132,7 @@
 }
 
 
-@media all and (max-width:400px){
+@media all and (max-width:420px){
     #nav-btn{
         width: 5vh;
         height: 8vh;

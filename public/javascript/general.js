@@ -63,8 +63,8 @@ function carousel_addons(slidein, myIndex) {
 }
 
 function carousel_comments() {
-    let curr = $(".scrollingImagesWrapper.active");
-    let next = $(".scrollingImagesWrapper:not(.active)")
+    var curr = $(".scrollingImagesWrapper.active");
+    var next = $(".scrollingImagesWrapper:not(.active)")
     curr.animate({ left: "-1150px"}, 600, "easeInOutBack")
     next.animate({left: "0"}, 700, "easeInOutBack" , function () {
         curr.css({ "left": "1200px"}).removeClass("active")
@@ -74,17 +74,17 @@ function carousel_comments() {
 }
 
 function minimizeLogo(position){
-    let bLogo = $("#bigger_logo");
-    let mLogo = $("#minimize_logo")
+    var bLogo = $("#bigger_logo");
+    var mLogo = $("#minimize_logo")
     if(position && !mLogo.hasClass("active")){
         mLogo.addClass("active")
         bLogo.animate({opacity:0}, 150)
-        $(".logo").animate({width:  "-=100px" }, 200)
+        $(".logo").animate({width:  "-=130px" }, 200)
         mLogo.animate({opacity:1}, 160)
     }else if(!position && mLogo.hasClass("active")){
         mLogo.removeClass("active")
         mLogo.animate({opacity:0}, 160)
-        $(".logo").animate({width:  "+=100px" }, 200)
+        $(".logo").animate({width:  "+=130px" }, 200)
         bLogo.animate({opacity:1}, 150)
     }
 }
