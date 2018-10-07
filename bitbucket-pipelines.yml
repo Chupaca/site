@@ -12,7 +12,7 @@ pipelines:
           - /tmp/google-cloud-sdk/install.sh -q
           - source /tmp/google-cloud-sdk/path.bash.inc
           - echo base64 --decode --ignore-garbage > ./node-js-firs-app-2ce55d294b58.json
-          - gcloud auth activate-service-account --key-file=node-js-firs-app-2ce55d294b58.json
+          - gcloud auth activate-service-account \ pandoorsp@gmail.com \ --key-file=node-js-firs-app-2ce55d294b58.json
           # Linking to the Google Cloud project
           - gcloud config set project node-js-firs-app
   branches:
@@ -29,6 +29,6 @@ pipelines:
             - source /tmp/google-cloud-sdk/path.bash.inc
             # Authenticating with the service account key file
             - echo base64 --decode --ignore-garbage > ./node-js-firs-app-2ce55d294b58.json
-            - gcloud auth activate-service-account --key-file=node-js-firs-app-2ce55d294b58.json
+            - gcloud auth activate-service-account \ pandoorsp@gmail.com \ --key-file=node-js-firs-app-2ce55d294b58.json
             # Linking to the Google Cloud project
             - gcloud config set project node-js-firs-app
