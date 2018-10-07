@@ -78,12 +78,12 @@ function minimizeLogo(position){
     var mLogo = $("#minimize_logo")
     if(position && !mLogo.hasClass("active")){
         mLogo.addClass("active")
-        bLogo.animate({opacity:0}, 150)
+        bLogo.animate({opacity:0}, 10)
         $(".logo").animate({width:  "-=130px" }, 200)
         mLogo.animate({opacity:1}, 160)
     }else if(!position && mLogo.hasClass("active")){
         mLogo.removeClass("active")
-        mLogo.animate({opacity:0}, 160)
+        mLogo.animate({opacity:0}, 10)
         $(".logo").animate({width:  "+=130px" }, 200)
         bLogo.animate({opacity:1}, 150)
     }
@@ -113,7 +113,7 @@ $(document).mouseup(function (e) {
 });
 
 $(document).on("scroll", function () {
-    if ($(document).scrollTop() > 10) {
+    if ($(document).scrollTop() > 20) {
         closeNav()
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             minimizeLogo(true)
