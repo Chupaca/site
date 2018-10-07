@@ -17,3 +17,4 @@ pipelines:
           - gcloud auth activate-service-account --key-file gcloud-api-key.json
           # Linking to the Google Cloud project
           - gcloud config set project $GCLOUD_PROJECT
+          - gcloud -q app deploy app.yaml
