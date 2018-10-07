@@ -11,7 +11,7 @@ pipelines:
           - tar -xvf /tmp/google-cloud-sdk.tar.gz -C /tmp/
           - /tmp/google-cloud-sdk/install.sh -q
           - source /tmp/google-cloud-sdk/path.bash.inc
-          - echo node-js-firs-app-2ce55d294b58.json | base64 --decode --ignore-garbage > ./gcloud-api-key.json
+          - echo node-js-firs-app-2ce55d294b58.json | base64 --decode --ignore-garbage > ./node-js-firs-app-2ce55d294b58.json
           - gcloud auth activate-service-account --key-file node-js-firs-app-2ce55d294b58.json
           # Linking to the Google Cloud project
           - gcloud config set project node-js-firs-app
@@ -27,7 +27,7 @@ pipelines:
             - tar -xvf /tmp/google-cloud-sdk.tar.gz -C /tmp/
             - /tmp/google-cloud-sdk/install.sh -q
             - source /tmp/google-cloud-sdk/path.bash.inc
-            - echo node-js-firs-app-2ce55d294b58.json | base64 --decode --ignore-garbage > ./gcloud-api-key.json
+            - echo node-js-firs-app-2ce55d294b58.json | base64 --decode --ignore-garbage > ./node-js-firs-app-2ce55d294b58.json
             - gcloud auth activate-service-account --key-file node-js-firs-app-2ce55d294b58.json
             # Linking to the Google Cloud project
             - gcloud config set project node-js-firs-app
