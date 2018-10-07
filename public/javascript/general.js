@@ -1,14 +1,14 @@
 'use strict'
 
 function nav_on_click() {
-    $(".nav").slideDown("slow")
+    $(".nav").slideDown(400)
     $("#nav-btn").addClass("change")
     $("#nav-btn").css("background", "#ffffff")
 }
 
 function closeNav(e) {
     if ($("#nav-btn").hasClass('change')) {
-        $(".nav").slideUp("slow")
+        $(".nav").slideUp(400)
         $("#nav-btn").removeClass("change")
         $("#nav-btn").css("background", "none")
     }
@@ -73,6 +73,21 @@ function carousel_comments() {
     });
 }
 
+function minimizeLogo(position){
+    let bLogo = $("#bigger_logo");
+    let mLogo = $("#minimize_logo")
+    if(position && !mLogo.hasClass("active")){
+        mLogo.addClass("active")
+        bLogo.animate({opacity:0}, 150)
+        $(".logo").animate({width:  "-=100px" }, 200)
+        mLogo.animate({opacity:1}, 160)
+    }else if(!position && mLogo.hasClass("active")){
+        mLogo.removeClass("active")
+        mLogo.animate({opacity:0}, 160)
+        $(".logo").animate({width:  "+=100px" }, 200)
+        bLogo.animate({opacity:1}, 150)
+    }
+}
 
 $(document).ready(function () {
     EasingFunctions()
@@ -99,20 +114,23 @@ $(document).mouseup(function (e) {
 
 $(document).on("scroll", function () {
     if ($(document).scrollTop() > 10) {
-        changeSideStickerPosition(true)
         closeNav()
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            minimizeLogo(true)
+            changeSideStickerPosition(true)
         } else {
             $('#return-to-top').fadeIn(200);
+            changeSideStickerPosition(true)
         }
 
     } else {
-        changeSideStickerPosition(false)
         closeNav()
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-
+            minimizeLogo(false)
+            changeSideStickerPosition(true)
         } else {
             $('#return-to-top').fadeOut(200);
+            changeSideStickerPosition(false)
         }
     }
 });

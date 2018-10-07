@@ -1,5 +1,10 @@
 
 /*  === nav ===============*/
+#nav_panel{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
 #nav-btn {
     cursor: pointer;
     padding: 4vh 5vh;
@@ -28,6 +33,10 @@
 .change .bar3 {
     -webkit-transform: rotate(45deg) translate(-8px, -8px);
     transform: rotate(45deg) translate(-8px, -8px);
+}
+
+#minimize_logo{
+    opacity: 0;
 }
 
 /*==============*/
@@ -125,7 +134,16 @@
     right: 38%;
 }
 
+
 @media all and (max-width:400px){
+    #nav-btn{
+        width: 5vh;
+        height: 8vh;
+    }
+    .logo
+    {
+        width: 70%;
+    }
     .mySlides, #cur_wrap{
         height: 28vh;
     }
@@ -137,6 +155,7 @@
     }
     #closed_sticker_flag{
         display:block;
+        right: 6vh;
     }
     #side_sticker{
         right: -15vh;
@@ -149,22 +168,10 @@
     }
 }
 
-
-@media screen and (orientation:landscape) and (max-device-width: 900px) {
-    html{
-        -webkit-transform: rotate(-90deg);
-           -moz-transform: rotate(-90deg);
-            -ms-transform: rotate(-90deg);
-             -o-transform: rotate(-90deg);
-                transform: rotate(-90deg);
-        -webkit-transform-origin: left top;
-           -moz-transform-origin: left top;
-            -ms-transform-origin: left top;
-             -o-transform-origin: left top;
-                transform-origin: left top;
-        width: 320px; /*Разрешение экрана iPhone*/
-        position: absolute;
-        top: 100%;
-            left: 0
+@media all and (orientation: landscape) and (max-width:900px){
+    #nav-btn{
+        width: 16vh;
+        height: 18vh;
+        padding-top: 7vh;
     }
 }
