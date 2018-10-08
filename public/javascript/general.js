@@ -1,8 +1,12 @@
 'use strict'
 
+var device = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
 function nav_on_click() {
-    $(".navLink").slideUp(1)
-    $(".header.only_mobile").removeClass("active")
+    if(device){
+        $(".navLink").slideUp(1)
+        $(".header.only_mobile").removeClass("active")
+    }
     $(".nav").slideDown(400)
     $("#nav-btn").addClass("change")
     $("#nav-btn").css("background", "#ffffff")
@@ -136,7 +140,7 @@ $(document).mouseup(function (e) {
 $(document).on("scroll", function () {
     if ($(document).scrollTop() > 20) {
         closeNav()
-        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        if (device) {
             minimizeLogo(true)
             changeSideStickerPosition(true)
         } else {
@@ -146,7 +150,7 @@ $(document).on("scroll", function () {
 
     } else {
         closeNav()
-        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        if (device) {
             minimizeLogo(false)
             changeSideStickerPosition(true)
         } else {
