@@ -1,6 +1,8 @@
 'use strict'
 
 function nav_on_click() {
+    $(".navLink").slideUp(1)
+    $(".header.only_mobile").removeClass("active")
     $(".nav").slideDown(400)
     $("#nav-btn").addClass("change")
     $("#nav-btn").css("background", "#ffffff")

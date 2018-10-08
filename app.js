@@ -9,6 +9,7 @@ var methodOverride = require('method-override');
 var bodyParser = require('body-parser');
 var http = require('http');
 var path = require('path');
+var device = require('express-device');
 
 var app = express();
 
@@ -36,7 +37,7 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '5mb' }));
 
 app.use(methodOverride());
 app.use(cookieParser());
-
+app.use(device.capture());
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));

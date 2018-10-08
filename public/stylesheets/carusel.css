@@ -344,6 +344,10 @@
     .scrollingImageContainer img{
         width:10%;
     }
+    #phone_number_mobile{
+        margin-top: 4vh;
+        font-size: 5vw;
+    }
 }
 
 @media (min-width: 320px) and (max-width: 480px) {   /* mobile Portrait */
