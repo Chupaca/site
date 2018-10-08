@@ -42,6 +42,11 @@
     z-index: 1000;
     right: 21px;
 }
+.nav{
+    width: 38%;
+    padding: 3%;
+    padding-top: 1%;
+}
 
 /*==============*/
 
@@ -95,6 +100,10 @@
     top: 4%;
 }
 
+.header-txt{
+    padding-top: 8px;
+}
+
 .slider_left_text{
     position:absolute;
     z-index:400;
@@ -116,7 +125,7 @@
 
 #closed_sticker_flag{
     border: 1px solid #ff4200;
-    height: 100px;
+    height: 107px;
     background: #ff4200;
     padding-top: 5px;
     width: 14vh;
@@ -130,6 +139,7 @@
     width: 40px;
     height: 40px;
     left: 0;
+    text-align: center;
 }
 
 .btn_wrap_comments{
@@ -138,27 +148,205 @@
     right: 38%;
 }
 
+.header{
+    display: none;
+}
+#logo_pandoor_bav_desktop{
+    padding: 4% 3%;
+    float: left;
+}
+#phone_number_mobile{
+    display: none;
+    right: 0;
+    position: absolute;
+    direction: rtl;
+    top:2vh;
+    z-index: -1;
+    color: #ffffff;
+}
+
+.iconBg
+{
+    background: #ff4200;
+    transition: background ease-in-out 0.5s;
+    color: #ffffff;
+    padding: 2vh;
+    margin-bottom: 3px;
+    cursor: pointer;
+}
+.iconBg a{
+    color: #ffffff;
+}
+.iconBg:hover{
+    background: #ffffff;
+    transition: background ease-in-out 0.5s;
+}
+.iconBg:hover a{
+    color: #000000;
+    transition: color ease-in-out 0.5s;
+}
+.light_style{
+    color: #ffffff;
+    font-size: 5vh;
+}
+.light_style *{
+    color: #ffffff;
+    font-size: 5vh;
+}
+.footerBtn:hover{
+    background: #ff4200;
+    transition: background ease-in-out 0.5s;
+}
+.footer-nav li:hover{
+    background: #ff4200;
+    transition: background ease-in-out 0.5s;
+}
+
 @media all and (max-width:900px){
     #nav-btn{
         width: 3vh;
         height: 2vh;
-        padding: 3vh 5vh 5vh 5vh;
+        padding: 1vh 4vh 4vh 2vh;
     }
     #minimize_logo{
-        width: 29%;
-        height: 73%;
+        width: 19%;
+        height: 71%;
+    }
+    #nav_warp{
+        height: 60px;   
+    }
+    .slider_left_text, .door_img, .door_info_container{
+        display: none;
+    }
+    .sectionsContainer{
+        padding-top: 56px;
+    }
+    #cur_wrap, .overlay_slides_wrap{
+        height: 35vh;
+    }
+    .nav{
+        top: 58px;
+    }
+    .mobileNavDesignerInfo .fas{
+        position: absolute;
+        font-size: 6vh;
+        margin-right: 5vh;
+    }
+    #phone_number_mobile{
+        display: inline-block;
+    }
+    #logo_pandoor_bav_desktop{
+        display: none;
     }
 }
 
-@media all and (orientation: landscape) and (max-width:900px){
+@media (min-width: 1025px) and (max-width: 1280px) {
     #nav-btn{
         width: 16vh;
         height: 18vh;
-        padding-top: 7vh;
+        
+    }
+    .logo
+    {
+        width: 40%;
+    }
+    .slider_left_text, .door_img, .door_info_container{
+        display: none;
+    }
+    #phone_number_mobile{
+        display: block;
     }
 }
 
-@media all and (max-width:500px){
+  
+@media (min-width: 768px) and (max-width: 1024px) {
+    .nav{
+        width: 100%;
+        padding: 0 0 20px 0 !important;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    #nav-btn{
+        width: 16vh;
+        height: 18vh;
+        
+    }
+    .logo
+    {
+        width: 40%;
+    }
+    .slider_left_text, .door_img, .door_info_container{
+        display: none;
+    }
+    #phone_number_mobile{
+        display: block;
+    }
+    .nav{
+        width: 100%;
+        padding: 0 0 20px 0 !important;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 767px) { /* mobile Landscape */
+    #nav-btn{
+        width: 5vh;
+        height: 8vh;
+        padding: 3vh 10vh 7vh 7vh;
+    }
+    .logo
+    {
+        width: 50%;
+    }
+    #minimize_logo{
+        width: 23%;
+    }
+    
+    .slider_left_text, .door_img, .door_info_container{
+        display: none;
+    }
+    #closed_sticker_flag{
+        display:block;
+        margin-right: 1vw;
+        right: 6vh;
+        
+    }
+    #side_sticker{
+        top:3%;
+        margin-top: 8vw;
+        right: -10vh;
+    }
+    .btn_wrap_comments{
+        bottom: -10vw;
+        right: 25vw;
+    }
+    .second_comment_slide{
+        display: none;
+    }
+    .only_mobile{
+        display: block;
+    }
+    .nav{
+        width: 100%;
+    }
+    #nav_warp{
+        height: 60px;   
+    }
+    #cur_wrap {
+        height: 47vw;
+    }
+    .mySlides{
+        height: 70%
+    }
+    .overlay_slides_wrap{
+        height: 70%;
+    }
+    .scrollingImageContainer img{
+        width:10%;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {   /* mobile Portrait */
     #nav-btn{
         width: 5vh;
         height: 8vh;
@@ -168,28 +356,41 @@
         width: 70%;
     }
     #minimize_logo{
-        width: 38%;
+        width: 27%;
     }
     .mySlides, #cur_wrap{
-        height: 28vh;
+        height: 45vh;
     }
     .overlay_slides_wrap{
-        height: 30vh;
+        height: 45vh;
     }
     .slider_left_text, .door_img, .door_info_container{
         display: none;
     }
     #closed_sticker_flag{
         display:block;
-        right: 6vh;
+        right: 7vh;
     }
     #side_sticker{
         right: -15vh;
     }
     .btn_wrap_comments{
-        right: 5vh;
+        right: 7vh;
     }
     .second_comment_slide{
         display: none;
     }
+    .only_mobile{
+        display: block;
+    }
+    .nav{
+        width: 100%;
+    }
+    #nav_warp{
+        height: 60px;   
+    }
+    .scrollingImageContainer img{
+        width:15%;
+    }
+
 }

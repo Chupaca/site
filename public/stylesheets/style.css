@@ -165,7 +165,7 @@ header
     margin:0 auto;
     width:251px;
     height:37px;
-    background:url(../images/logo_hover.jpg)
+    /* background:url(../images/logo_hover.jpg) */
 }
 .logo img
 {
@@ -313,10 +313,9 @@ header
     margin:0;
     display:inline-block;
     vertical-align:top;
-    font-size:22px;
+    font-size:3vh;
     margin-left:20px;
     margin-bottom:72px;
-    width:calc(33.333% - 17px);
 }
 .nav ul.long
 {
@@ -453,13 +452,7 @@ header
     display:block;
     top:150px;
 }
-.iconBg
-{
-    background:#ff4200;
-    display:inline-block;
-    height:65px;
-    transition:background ease-in-out 0.5s;
-}
+
 .tab > div, .tab > span.click
 {
     display:inline-block;
@@ -1038,6 +1031,7 @@ a.pandor-collection-btn:hover
     {
         display:inline-block;
         vertical-align:middle;
+        font-size:3vh;
     }
     .mobileNavDesignerInfo .click
     {
@@ -1045,7 +1039,7 @@ a.pandor-collection-btn:hover
         vertical-align:middle;
         margin-left:10px;
         margin-right:50px;
-        font-size:28px;
+        font-size:3vh;
     }
     footer ul.site-map, .footer-bottom-strip
     {
@@ -1527,8 +1521,8 @@ footer ul li
 .site-map li
 {
     width:calc(25% - 56px);
-    margin-left:70px;
-    margin-bottom:80px;
+    margin-right: 5vh;
+    margin-bottom: 6vh;
     vertical-align:top;
 }
 .site-map li:nth-child(4n)

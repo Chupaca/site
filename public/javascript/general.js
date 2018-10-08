@@ -16,7 +16,7 @@ function closeNav(e) {
 
 function changeSideStickerPosition(hidden) {
     if (hidden && !$("#closed_sticker_flag").hasClass("visib")) {
-        $("#closed_sticker_flag").addClass("visib").animate({ "right": "6vh" }, 300)
+        $("#closed_sticker_flag").addClass("visib").animate({ "right": "8vh" }, 300)
         $("#side_sticker").animate({ "right": "-15vh" }, 300)
     } else if (!hidden && $("#closed_sticker_flag").hasClass("visib")) {
         $("#closed_sticker_flag").removeClass("visib").animate({ "right": "-18vh" }, 300)
@@ -65,27 +65,44 @@ function carousel_addons(slidein, myIndex) {
 function carousel_comments() {
     var curr = $(".scrollingImagesWrapper.active");
     var next = $(".scrollingImagesWrapper:not(.active)")
-    curr.animate({ left: "-1150px"}, 600, "easeInOutBack")
-    next.animate({left: "0"}, 700, "easeInOutBack" , function () {
-        curr.css({ "left": "1200px"}).removeClass("active")
+    curr.animate({ left: "-1150px" }, 600, "easeInOutBack")
+    next.animate({ left: "0" }, 700, "easeInOutBack", function () {
+        curr.css({ "left": "1200px" }).removeClass("active")
         next.addClass("active")
         setTimeout(function () { carousel_comments() }, 3000);
     });
 }
 
-function minimizeLogo(position){
+function openSubMenu(){
+    if(!$(this).hasClass('active')){
+        $(".navLink").slideUp(80)
+        $(".header.only_mobile").removeClass("active")
+        $(this).addClass("active")
+        $(this).closest('ul').find(".navLink").slideDown(100)
+    }else{
+        $(".navLink").slideUp(80)
+        $(".header.only_mobile").removeClass("active")
+        $(this).removeClass("active")
+        $(this).closest('ul').find(".navLink").slideUp(100)
+    }
+}
+
+function minimizeLogo(position) {
     var bLogo = $("#bigger_logo");
-    var mLogo = $("#minimize_logo")
-    if(position && !mLogo.hasClass("active")){
+    var mLogo = $("#minimize_logo");
+    var mPhone = $("#phone_number_mobile");
+    if (position && !mLogo.hasClass("active")) {
         mLogo.addClass("active")
-        bLogo.animate({opacity:0}, 10)
-        $(".logo").animate({width:  "-=130px" }, 200)
-        mLogo.animate({opacity:1}, 160)
-    }else if(!position && mLogo.hasClass("active")){
+        bLogo.animate({ opacity: 0 }, 10)
+        $(".logo").animate({ width: "-=130px" }, 200)
+        mPhone.animate({ right: "35%", "z-index": 1 }, 450)
+        mLogo.animate({ opacity: 1 }, 160)
+    } else if (!position && mLogo.hasClass("active")) {
         mLogo.removeClass("active")
-        mLogo.animate({opacity:0}, 10)
-        $(".logo").animate({width:  "+=130px" }, 200)
-        bLogo.animate({opacity:1}, 150)
+        mLogo.animate({ opacity: 0 }, 10)
+        $(".logo").animate({ width: "+=130px" }, 200)
+        mPhone.animate({ right: 0, "z-index": -1 }, 150)
+        bLogo.animate({ opacity: 1 }, 150)
     }
 }
 
@@ -102,6 +119,8 @@ $(document).ready(function () {
     $("#closed_sticker_flag").unbind().click(function () { changeSideStickerPosition(false) })
     setTimeout(function () { carousel(0) }, 500);
     setTimeout(function () { carousel_comments() }, 1000);
+    window.addEventListener("orientationchange", function () { location.reload(); });
+    $(".header.only_mobile").unbind().click(openSubMenu)
 })
 
 
@@ -134,7 +153,6 @@ $(document).on("scroll", function () {
         }
     }
 });
-
 
 
 function EasingFunctions() {
