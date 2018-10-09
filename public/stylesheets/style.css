@@ -165,7 +165,7 @@ header
     margin:0 auto;
     width:251px;
     height:37px;
-    /* background:url(../images/logo_hover.jpg) */
+    background:url(../images/logo_hover.jpg)
 }
 .logo img
 {
@@ -174,7 +174,6 @@ header
     width:251px;
     height:37px;
     opacity:1.0;
-    transition:opacity ease-in-out 0.5s;
 }
 .logo:hover .logo-hover img
 {
