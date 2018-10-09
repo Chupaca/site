@@ -1,4 +1,4 @@
-<div class="contactForm">
+<div class="contactForm" style="z-index: 0;margin-top: 5vh;">
     <img class="contactMainImg" alt="" src="images/pandorOfferBg.jpg" />
     <h2>מעוניינים לקבל הצעת מחיר?</h2>
     <div class="contactTxt">השאירו פרטים ואנחנו נשמח לחזור אליכם בהקדם האפשרי!</div>
@@ -46,40 +46,78 @@
                 </span>
             </div>
             <div class="infoContactBox">
-                <img src="images/googleMapsIcon.png" />
-                <span>
-                    ללוקיישן בגוגל-מפות <b>לחץ כאן!</b>
-                </span>
+                <div style="display:inline-block">
+                    <h3>אולם התצוגה ראשל”צ</h3>
+                    <span style="vertical-align: sub;"><b>כתובת:</b>ישראל פולק 44 קרית גת</span>
+                    <div style="display: inline-flex;">
+                        <img src="images/icon-waze.png" />
+                        <img src="images/icon-google-maps.png" />
+                    </div>
+                </div>
             </div>
             <div class="infoContactBox">
-                <img src="images/wazeIcon.png" />
-                <span>
-                    הכוונה ב WAZE <b>לחץ כאן!</b>
-                </span>
+                <div>
+                    <h3>אולם התצוגה נתניה</h3>
+                    <span style="vertical-align: sub;"><b>כתובת:</b>ישראל פולק 44 קרית גת</span>
+                    <div style="display: inline-flex;">
+                        <img src="images/icon-waze.png" />
+                        <img src="images/icon-google-maps.png" />
+                    </div>
+                </div>
+            </div>
+            <div class="infoContactBox">
+                <div>
+                    <h3>אולם התצוגה בני ברק</h3>
+                    <span style="vertical-align: sub;"><b>כתובת:</b>ישראל פולק 44 קרית גת</span>
+                    <div style="display: inline-flex;">
+                        <img src="images/icon-waze.png" />
+                        <img src="images/icon-google-maps.png" />
+                    </div>
+                </div>
+            </div>
+            <div class="infoContactBox">
+                <div>
+                    <h3>אולם התצוגה קרית גת</h3>
+                    <span style="vertical-align: sub;"><b>כתובת:</b>ישראל פולק 44 קרית גת</span>
+                    <div style="display: inline-flex;">
+                        <img src="images/icon-waze.png" />
+                        <img src="images/icon-google-maps.png" />
+                    </div>
+                </div>
             </div>
         </div>
         <div class="branchesMap">
-            <div class="tooltip tooltip1">
-                <img src="images/toolTip.png" />
-                <span>בני ברק</span>
+            <div id="tag_on_map_bnay_brak">
+                <div>
+                    <div class="dialogbubbl_left">
+                        <b>בני ברק</b>
+                    </div>
+                </div>
             </div>
-            <div class="tooltip tooltipMirror tooltip2">
-                <img src="images/toolTip.png" />
-                <span>נתניה</span>
+            <div id="tag_on_map_kriayt_gat">
+                <div>
+                    <div class="dialogbubbl_left">
+                        <b>קרית גת</b>
+                    </div>
+                </div>
             </div>
-            <div class="tooltip tooltip3">
-                <img src="images/toolTip.png" />
-                <span>קרית גת</span>
+            <div id="tag_on_map_natania">
+                <div>
+                    <div class="dialogbubbl_right">
+                        <b>נתניה</b>
+                    </div>
+                </div>
             </div>
-            <div class="tooltip tooltip4">
-                <img src="images/toolTipBig.png" />
-                <span>ראשל"צ<br /><b>אולם תצוגה</b></span>
+            <div id="tag_on_map_rashlatz">
+                <div>
+                    <div class="dialogbubbl_right">
+                        <span>ראשל"צ<br /><b>הנהלת פנדור</b></span>
+                    </div>
+                </div>
             </div>
-            <div class="tooltip tooltip5">
-                <img src="images/toolTipBigRectanglel.png" />
-                <span>ראשל"צ<br /><b>הנהלת פנדור</b></span>
-            </div>
+
         </div>
+
     </div>
 </div>
 <div class="faq offers">
@@ -88,149 +126,178 @@
         <div class="txt">שילוב של ידע וניסיון רב שנים, שימוש בחומרים מהשורה הראשונה ובאמצעים האיכותיים והמתקדמים ביותר,
             תורמים להיותה יצרנית דלתות הפנים הגדולה בישראל.</div>
         <div class="accordionContainer">
-            <h3>איזור <b>הצפון</b></h3>
-            <div>
+            <button class="accordion_row">
+                <h3>איזור <b>הצפון</b></h3>
+            </button>
+            <div class="accordion_inside_panel">
                 <div>
                     <span class="brancheName"><b>חדרה</b><br />דלתות רון</span>
-                    <span class="addres">
-                        <img class="offersBranche" src="images/contactIconsMapW.png" alt="" /><span class="addresInfo"><b>כתובת:</b>
-                            ישראל פולק 44 קרית גת<br />
-                            <a class="mapIcons" href="#"><img src="images/googleMapsIcon.png" /></a><a class="mapIcons"
-                                href="#"><img src="images/wazeIcon.png" /></a></span>
+                    <span class="addresInfo"><b>כתובת:</b>
+                        ישראל פולק 44 קרית גת<br />
+                        <a href="https://www.waze.com/ul?ll=31.99031540%2C34.76359606&navigate=yes&zoom=17">
+                            <img src="images/icon-waze.png" />
+                        </a>
+                        <a href="#">
+                            <img src="images/icon-google-maps.png" />
+                        </a>
                     </span>
-                    <span class="addres">
-                        <img class="offersBranche" src="images/contactIconsPhoneW.png" alt="" /><span class="phoneInfo"><b>טלפון:</b>
-                            04-8450726</span>
-                    </span>
+                    <span class="addres"><span class="phoneInfo"><b>טלפון:</b>04-8450726</span></span>
                 </div>
+
+                <hr>
+
                 <div>
                     <span class="brancheName"><b>חדרה</b><br />דלתות רון</span>
-                    <span class="addres">
-                        <img class="offersBranche" src="images/contactIconsMapW.png" alt="" /><span class="addresInfo"><b>כתובת:</b>
-                            ישראל פולק 44 קרית גת<br />
-                            <a class="mapIcons" href="#"><img src="images/googleMapsIcon.png" /></a><a class="mapIcons"
-                                href="#"><img src="images/wazeIcon.png" /></a></span>
+                    <span class="addresInfo"><b>כתובת:</b>
+                        ישראל פולק 44 קרית גת<br />
+                        <a href="https://www.waze.com/ul?ll=31.99031540%2C34.76359606&navigate=yes&zoom=17">
+                            <img src="images/icon-waze.png" />
+                        </a>
+                        <a href="#">
+                            <img src="images/icon-google-maps.png" />
+                        </a>
                     </span>
-                    <span class="addres">
-                        <img class="offersBranche" src="images/contactIconsPhoneW.png" alt="" /><span class="phoneInfo"><b>טלפון:</b>
-                            04-8450726</span>
-                    </span>
-                </div>
-            </div>
-            <h3>איזור <b>השרון</b></h3>
-            <div>
-                <div>
-                    <span class="brancheName"><b>חדרה</b><br />דלתות רון</span>
-                    <span class="addres">
-                        <img class="offersBranche" src="images/contactIconsMapW.png" alt="" /><span class="addresInfo"><b>כתובת:</b>
-                            ישראל פולק 44 קרית גת<br />
-                            <a class="mapIcons" href="#"><img src="images/googleMapsIcon.png" /></a><a class="mapIcons"
-                                href="#"><img src="images/wazeIcon.png" /></a></span>
-                    </span>
-                    <span class="addres">
-                        <img class="offersBranche" src="images/contactIconsPhoneW.png" alt="" /><span class="phoneInfo"><b>טלפון:</b>
-                            04-8450726</span>
-                    </span>
-                </div>
-                <div>
-                    <span class="brancheName"><b>חדרה</b><br />דלתות רון</span>
-                    <span class="addres">
-                        <img class="offersBranche" src="images/contactIconsMapW.png" alt="" /><span class="addresInfo"><b>כתובת:</b>
-                            ישראל פולק 44 קרית גת<br />
-                            <a class="mapIcons" href="#"><img src="images/googleMapsIcon.png" /></a><a class="mapIcons"
-                                href="#"><img src="images/wazeIcon.png" /></a></span>
-                    </span>
-                    <span class="addres">
-                        <img class="offersBranche" src="images/contactIconsPhoneW.png" alt="" /><span class="phoneInfo"><b>טלפון:</b>
-                            04-8450726</span>
-                    </span>
+                    <span class="addres"><span class="phoneInfo"><b>טלפון:</b>04-8450726</span></span>
                 </div>
             </div>
-            <h3>איזור <b>ירושליים והסביבה</b></h3>
-            <div>
+
+            <button class="accordion_row">
+                <h3>איזור <b>השרון</b></h3>
+            </button>
+            <div class="accordion_inside_panel">
                 <div>
                     <span class="brancheName"><b>חדרה</b><br />דלתות רון</span>
-                    <span class="addres">
-                        <img class="offersBranche" src="images/contactIconsMapW.png" alt="" /><span class="addresInfo"><b>כתובת:</b>
-                            ישראל פולק 44 קרית גת<br />
-                            <a class="mapIcons" href="#"><img src="images/googleMapsIcon.png" /></a><a class="mapIcons"
-                                href="#"><img src="images/wazeIcon.png" /></a></span>
+                    <span class="addresInfo"><b>כתובת:</b>
+                        ישראל פולק 44 קרית גת<br />
+                        <a href="https://www.waze.com/ul?ll=31.99031540%2C34.76359606&navigate=yes&zoom=17">
+                            <img src="images/icon-waze.png" />
+                        </a>
+                        <a href="#">
+                            <img src="images/icon-google-maps.png" />
+                        </a>
                     </span>
-                    <span class="addres">
-                        <img class="offersBranche" src="images/contactIconsPhoneW.png" alt="" /><span class="phoneInfo"><b>טלפון:</b>
-                            04-8450726</span>
-                    </span>
+                    <span class="addres"><span class="phoneInfo"><b>טלפון:</b>04-8450726</span></span>
                 </div>
+
+                <hr>
+
                 <div>
                     <span class="brancheName"><b>חדרה</b><br />דלתות רון</span>
-                    <span class="addres">
-                        <img class="offersBranche" src="images/contactIconsMapW.png" alt="" /><span class="addresInfo"><b>כתובת:</b>
-                            ישראל פולק 44 קרית גת<br />
-                            <a class="mapIcons" href="#"><img src="images/googleMapsIcon.png" /></a><a class="mapIcons"
-                                href="#"><img src="images/wazeIcon.png" /></a></span>
+                    <span class="addresInfo"><b>כתובת:</b>
+                        ישראל פולק 44 קרית גת<br />
+                        <a href="https://www.waze.com/ul?ll=31.99031540%2C34.76359606&navigate=yes&zoom=17">
+                            <img src="images/icon-waze.png" />
+                        </a>
+                        <a href="#">
+                            <img src="images/icon-google-maps.png" />
+                        </a>
                     </span>
-                    <span class="addres">
-                        <img class="offersBranche" src="images/contactIconsPhoneW.png" alt="" /><span class="phoneInfo"><b>טלפון:</b>
-                            04-8450726</span>
-                    </span>
-                </div>
-            </div>
-            <h3>איזור <b>הדרום</b></h3>
-            <div>
-                <div>
-                    <span class="brancheName"><b>חדרה</b><br />דלתות רון</span>
-                    <span class="addres">
-                        <img class="offersBranche" src="images/contactIconsMapW.png" alt="" /><span class="addresInfo"><b>כתובת:</b>
-                            ישראל פולק 44 קרית גת<br />
-                            <a class="mapIcons" href="#"><img src="images/googleMapsIcon.png" /></a><a class="mapIcons"
-                                href="#"><img src="images/wazeIcon.png" /></a></span>
-                    </span>
-                    <span class="addres">
-                        <img class="offersBranche" src="images/contactIconsPhoneW.png" alt="" /><span class="phoneInfo"><b>טלפון:</b>
-                            04-8450726</span>
-                    </span>
-                </div>
-                <div>
-                    <span class="brancheName"><b>חדרה</b><br />דלתות רון</span>
-                    <span class="addres">
-                        <img class="offersBranche" src="images/contactIconsMapW.png" alt="" /><span class="addresInfo"><b>כתובת:</b>
-                            ישראל פולק 44 קרית גת<br />
-                            <a class="mapIcons" href="#"><img src="images/googleMapsIcon.png" /></a><a class="mapIcons"
-                                href="#"><img src="images/wazeIcon.png" /></a></span>
-                    </span>
-                    <span class="addres">
-                        <img class="offersBranche" src="images/contactIconsPhoneW.png" alt="" /><span class="phoneInfo"><b>טלפון:</b>
-                            04-8450726</span>
-                    </span>
+                    <span class="addres"><span class="phoneInfo"><b>טלפון:</b>04-8450726</span></span>
                 </div>
             </div>
-            <h3>איזור <b>השפלה</b></h3>
-            <div>
+
+            <button class="accordion_row">
+                <h3>איזור <b>ירושליים והסביבה</b></h3>
+            </button>
+            <div class="accordion_inside_panel">
                 <div>
                     <span class="brancheName"><b>חדרה</b><br />דלתות רון</span>
-                    <span class="addres">
-                        <img class="offersBranche" src="images/contactIconsMapW.png" alt="" /><span class="addresInfo"><b>כתובת:</b>
-                            ישראל פולק 44 קרית גת<br />
-                            <a class="mapIcons" href="#"><img src="images/googleMapsIcon.png" /></a><a class="mapIcons"
-                                href="#"><img src="images/wazeIcon.png" /></a></span>
+                    <span class="addresInfo"><b>כתובת:</b>
+                        ישראל פולק 44 קרית גת<br />
+                        <a href="https://www.waze.com/ul?ll=31.99031540%2C34.76359606&navigate=yes&zoom=17">
+                            <img src="images/icon-waze.png" />
+                        </a>
+                        <a href="#">
+                            <img src="images/icon-google-maps.png" />
+                        </a>
                     </span>
-                    <span class="addres">
-                        <img class="offersBranche" src="images/contactIconsPhoneW.png" alt="" /><span class="phoneInfo"><b>טלפון:</b>
-                            04-8450726</span>
-                    </span>
+                    <span class="addres"><span class="phoneInfo"><b>טלפון:</b>04-8450726</span></span>
                 </div>
+
+                <hr>
+
                 <div>
                     <span class="brancheName"><b>חדרה</b><br />דלתות רון</span>
-                    <span class="addres">
-                        <img class="offersBranche" src="images/contactIconsMapW.png" alt="" /><span class="addresInfo"><b>כתובת:</b>
-                            ישראל פולק 44 קרית גת<br />
-                            <a class="mapIcons" href="#"><img src="images/googleMapsIcon.png" /></a><a class="mapIcons"
-                                href="#"><img src="images/wazeIcon.png" /></a></span>
+                    <span class="addresInfo"><b>כתובת:</b>
+                        ישראל פולק 44 קרית גת<br />
+                        <a href="https://www.waze.com/ul?ll=31.99031540%2C34.76359606&navigate=yes&zoom=17">
+                            <img src="images/icon-waze.png" />
+                        </a>
+                        <a href="#">
+                            <img src="images/icon-google-maps.png" />
+                        </a>
                     </span>
-                    <span class="addres">
-                        <img class="offersBranche" src="images/contactIconsPhoneW.png" alt="" /><span class="phoneInfo"><b>טלפון:</b>
-                            04-8450726</span>
+                    <span class="addres"><span class="phoneInfo"><b>טלפון:</b>04-8450726</span></span>
+                </div>
+            </div>
+
+            <button class="accordion_row">
+                <h3>איזור <b>הדרום</b></h3>
+            </button>
+            <div class="accordion_inside_panel">
+                <div>
+                    <span class="brancheName"><b>חדרה</b><br />דלתות רון</span>
+                    <span class="addresInfo"><b>כתובת:</b>
+                        ישראל פולק 44 קרית גת<br />
+                        <a href="https://www.waze.com/ul?ll=31.99031540%2C34.76359606&navigate=yes&zoom=17">
+                            <img src="images/icon-waze.png" />
+                        </a>
+                        <a href="#">
+                            <img src="images/icon-google-maps.png" />
+                        </a>
                     </span>
+                    <span class="addres"><span class="phoneInfo"><b>טלפון:</b>04-8450726</span></span>
+                </div>
+
+                <hr>
+
+                <div>
+                    <span class="brancheName"><b>חדרה</b><br />דלתות רון</span>
+                    <span class="addresInfo"><b>כתובת:</b>
+                        ישראל פולק 44 קרית גת<br />
+                        <a href="https://www.waze.com/ul?ll=31.99031540%2C34.76359606&navigate=yes&zoom=17">
+                            <img src="images/icon-waze.png" />
+                        </a>
+                        <a href="#">
+                            <img src="images/icon-google-maps.png" />
+                        </a>
+                    </span>
+                    <span class="addres"><span class="phoneInfo"><b>טלפון:</b>04-8450726</span></span>
+                </div>
+            </div>
+
+            <button class="accordion_row">
+                <h3>איזור <b>השפלה</b></h3>
+            </button>
+            <div class="accordion_inside_panel">
+                <div>
+                    <span class="brancheName"><b>חדרה</b><br />דלתות רון</span>
+                    <span class="addresInfo"><b>כתובת:</b>
+                        ישראל פולק 44 קרית גת<br />
+                        <a href="https://www.waze.com/ul?ll=31.99031540%2C34.76359606&navigate=yes&zoom=17">
+                            <img src="images/icon-waze.png" />
+                        </a>
+                        <a href="#">
+                            <img src="images/icon-google-maps.png" />
+                        </a>
+                    </span>
+                    <span class="addres"><span class="phoneInfo"><b>טלפון:</b>04-8450726</span></span>
+                </div>
+
+                <hr>
+
+                <div>
+                    <span class="brancheName"><b>חדרה</b><br />דלתות רון</span>
+                    <span class="addresInfo"><b>כתובת:</b>
+                        ישראל פולק 44 קרית גת<br />
+                        <a href="https://www.waze.com/ul?ll=31.99031540%2C34.76359606&navigate=yes&zoom=17">
+                            <img src="images/icon-waze.png" />
+                        </a>
+                        <a href="#">
+                            <img src="images/icon-google-maps.png" />
+                        </a>
+                    </span>
+                    <span class="addres"><span class="phoneInfo"><b>טלפון:</b>04-8450726</span></span>
                 </div>
             </div>
         </div>

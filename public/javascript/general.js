@@ -207,6 +207,8 @@ function accordionEvents() {
         if ($(this).hasClass("active_row_acc")) {
             $(this).next().slideUp(350)
         } else {
+            $(".accordion_row.active_row_acc").next().slideUp(350)
+            $(".accordion_row.active_row_acc").removeClass("active_row_acc")
             $(this).next().slideDown(350)
         }
         $(this).toggleClass("active_row_acc");

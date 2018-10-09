@@ -209,11 +209,10 @@
     padding: 18px;
     width: 100%;
     border: none;
-    text-align: left;
+    text-align: right;
     outline: none;
     font-size: 15px;
     transition: 0.4s;
-    direction: rtl
 }
 
 .accordion_row:hover {
@@ -231,13 +230,116 @@
     background-color: white;
     overflow: hidden;
     font-size: 1em;
+    background: #dcd9d9;
 }
 .contactImgBg ul li div:hover{
     background: #ff4200;
     color: #ffffff;
     cursor: pointer;
 }
+.dialogbubbl_left {
+    width: 120px;
+    height: 50px;
+    background:  #ff4200;
+    position: relative;
+    color: #ffffff;
+    cursor: pointer;
+}
 
+.dialogbubbl_left:before {
+    content: "";
+    position: absolute;
+    right: 95%;
+    top: 32px;
+    width: 0;
+    height: 0;
+    border-top: 13px solid transparent;
+    border-right: 59px solid  #ff4200;
+    transform: rotate(-25deg)
+  }
+.dialogbubbl_right {
+    width: 120px;
+    height: 50px;
+    background:  #ff4200;
+    position: relative;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.dialogbubbl_right:before {
+    content: "";
+    position: absolute;
+    right: -33%;
+    top: 24px;
+    width: 0;
+    height: 0;
+    border-bottom: 16px solid transparent;
+    border-left: 59px solid #ff4200;
+    transform: rotate(38deg);
+}
+
+.dialogbubbl_left:hover, .dialogbubbl_right:hover{
+    background: #ffffff;
+    color: #ff4200;
+    transition: background ease-in-out 0.5s;
+}
+.dialogbubbl_left:hover:before{
+    border-right: 59px solid #ffffff;
+    transition: border-right ease-in-out 0.5s;
+}
+.dialogbubbl_right:hover:before{
+    border-left: 59px solid #ffffff;
+    transition: border-left ease-in-out 0.5s;
+  }
+
+  #tag_on_map_bnay_brak{
+    width: 35%;
+    top: 30%;
+    position: absolute;
+    right: 15%;
+  }
+
+  #tag_on_map_kriayt_gat{
+    width: 35%;
+    top: 40%;
+    position: absolute;
+    right: 15%;
+  }
+  #tag_on_map_natania{
+    width: 35%;
+    top: 24%;
+    position: absolute;
+    left: -6%;
+  }
+
+  #tag_on_map_rashlatz{
+    width: 35%;
+    top: 33%;
+    position: absolute;
+    left: -6%;
+  }
+  #branches_wrap{
+    width: 100%;
+    top: 50%;
+    margin: 5%;
+  }
+  #branches_wrap div{
+    width:96%;
+    background: #ffffff;
+    height: 5%;
+    margin-top: 1%;
+    text-align: right;
+    padding: 2% 2% 2% 2%;
+    display: inline-block;
+  }
+  #branches_wrap div h3{
+    width: 40%;
+    float: right;
+    padding-top: 3px;
+  }
+  #branches_wrap div img{
+    float: left;
+  }
 /* ------------  media --------------------------------------*/
 @media all and (max-width:900px){
     #nav-btn{
@@ -303,7 +405,7 @@
     }
   }
 
-  @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
     #nav-btn{
         width: 16vh;
         height: 18vh;
@@ -397,6 +499,12 @@
         height: 2%;
         width: 100%;
     }
+    #branches_wrap{
+        font-size: 4vh; 
+    }
+    .brancheName, .addresInfo{
+        width:100%;
+    }
 }
 
 @media (min-width: 320px) and (max-width: 480px) {   /* mobile Portrait */
@@ -456,6 +564,13 @@
         padding: 0;
         height: 2%;
         width: 100%;
+    }
+    #branches_wrap{
+        font-size: 2vh; 
+    }
+    .brancheName, .addresInfo{
+        width:100%;
+        font-size: 1em;
     }
 
 }

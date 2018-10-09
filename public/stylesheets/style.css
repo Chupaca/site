@@ -2477,11 +2477,14 @@ a.btn-model:hover
      display:inline-block;
      vertical-align:top;
      margin-left:20px;
+     width: 15%;
 }
 .offersBranches, .addresInfo
 {
      display:inline-block;
      vertical-align:top;
+     width: 50%;
+    
 }
 .offersBranche
 {
@@ -2774,7 +2777,7 @@ a.galleryCategory:hover
         margin-top:160px;
         line-height:62px;   
         padding:0;
-        font-size:65px;     
+        font-size:8vh;     
     }
     .contactTxt
     {
