@@ -10,3 +10,7 @@ exports.GetStartPage = (req, res) => {
 exports.GetContactPage = (req, res) => {
     res.render('contactpage/index', {Desktop:(req.device.type == 'desktop'?true:false) });
 }
+
+exports.GetBranchesPage = (req, res) => {
+    res.render('branchespage/index', {Desktop:(req.device.type == 'desktop'?true:false) });
+}
