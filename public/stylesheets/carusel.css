@@ -202,6 +202,43 @@
     transition: background ease-in-out 0.5s;
 }
 
+.accordion_row {
+    background-color: #323234;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+    direction: rtl
+}
+
+.accordion_row:hover {
+    background: #ff4200;
+    transition: background ease-in-out 0.5s;
+}
+.active_row_acc{
+    background: #ff4200;
+    color: #ffffff;
+}
+
+.accordion_inside_panel {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+    overflow: hidden;
+    font-size: 1em;
+}
+.contactImgBg ul li div:hover{
+    background: #ff4200;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+/* ------------  media --------------------------------------*/
 @media all and (max-width:900px){
     #nav-btn{
         width: 3vh;
@@ -348,6 +385,18 @@
         margin-top: 4vh;
         font-size: 5vw;
     }
+    .container ul{
+        width: 72%;
+        margin: 2% 14%;
+    }
+    .contactImgBg ul li{
+        width: 100%;
+    }
+    .contactImgBg ul li div{
+        padding: 0;
+        height: 2%;
+        width: 100%;
+    }
 }
 
 @media (min-width: 320px) and (max-width: 480px) {   /* mobile Portrait */
@@ -395,6 +444,18 @@
     }
     .scrollingImageContainer img{
         width:15%;
+    }
+    .container ul{
+        width: 72%;
+        margin: 2% 14%;
+    }
+    .contactImgBg ul li{
+        width: 100%;
+    }
+    .contactImgBg ul li div{
+        padding: 0;
+        height: 2%;
+        width: 100%;
     }
 
 }

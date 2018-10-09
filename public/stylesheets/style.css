@@ -1769,13 +1769,6 @@ html, body
     color:#ffffff;
 }
 
-@media all and (max-width: 1917px)
-{
-    .contactImgBg
-    {
-        background-size:100%;
-    }
-}
 .contactImgBg .ttl
 {
     font-size: 25px;
@@ -1800,10 +1793,10 @@ html, body
     height:155px;
     background:#ffffff;
     color:#000000;
-    border-radius:100px;
     padding-top:48px;
     box-sizing:border-box;
     font-size:20px;
+    display: grid;
 }
 .accordionContainer h3, .accordionContainer a
 {
@@ -2689,3 +2682,778 @@ a.galleryCategory:hover
     top: 5px;
 }
 /*#endregion*/
+
+
+
+.infoContact .container
+{
+    text-align:center;
+}
+.infoContactBox
+{
+    background:#ffffff;
+    width:calc(25% - 4px);
+    min-width:283px;
+    padding: 25px;
+    box-sizing:border-box;
+    display:inline-block;
+    margin-bottom:4px;
+}
+.infoContactBox a:hover
+{
+    text-decoration:underline;
+}
+.contactForm h2
+{
+    position:relative;
+    z-index:1000;
+    margin-top:210px;
+    color:#ffffff;
+    text-align:center;
+    border:none;
+    font-size:80px;
+    font-weight:300;
+    line-height:70px;
+}
+
+.contactTxt
+{
+    position:relative;
+    z-index:1000;
+    color:#ffffff;
+    text-align:center;
+    border:none;
+    font-size:25px;
+    font-weight:300;
+    direction:rtl;
+    width:90%;
+    margin:0 auto;
+}
+@media all and (max-width: 970px)
+{
+    .contactImgBg
+    {
+        background:#282828;
+        height:auto;
+        padding:26px 0;
+    }
+    .contactImgBg ul li
+    {
+        margin-bottom:10px;
+    }
+    .contactImgBg ul li:last-child
+    {
+        margin-bottom:0;
+    }
+}
+@media all and (max-width: 900px)
+{
+    .tbContainer, .faq
+    {
+        width:calc(90% - 60px);
+        margin:0 auto;
+    }
+    /*.contactForm
+    {
+        margin-top:100px;
+    }*/
+}
+@media all and (max-width: 600px)
+{
+    .infoContactBox
+    {
+        min-width:233px;
+        padding: 25px 5px;
+    }
+    .infoContactBox span
+    {
+        font-size:20px;
+    }
+    .contactForm h2
+    {
+        margin-top:160px;
+        line-height:62px;   
+        padding:0;
+        font-size:65px;     
+    }
+    .contactTxt
+    {
+        margin-bottom:20px;
+    }
+    .tb
+    {
+        width:100%;
+        height:60px;
+    }
+    .tbContainer .tb3:nth-child(1)
+    {
+        margin-left:10px;
+        width:calc(50% - 7px);
+    }
+    .tbContainer .tb3:nth-child(2)
+    {
+        width:calc(50% - 7px);
+        margin-left:0;
+    }
+    .faq h3
+    {
+        text-align:center;
+    }
+}
+@media all and (max-width: 500px)
+{
+    .infoContactBox
+    {
+        min-width:283px;
+        padding: 25px;
+    }
+}
+@media all and (max-width: 400px)
+{
+    .contactForm h2
+    {
+        margin-top:30px;
+        line-height:62px;
+    }
+    .tbContainer .sale-btn
+    {
+        width:100%;
+    }
+}
+.catalog .container
+{
+    text-align:center;
+    max-width:1057px;
+}
+.catTxt
+{
+    overflow:hidden;
+    height:80px;
+    text-align:justify;
+    padding:0;
+    max-width:1057px;
+}
+.catTxtMobile
+{
+    display:none;
+}
+.doorsBox
+{
+    width:133px;
+    margin-top:125px;
+    display:inline-block;
+    margin-left:40px;
+}
+.doorsBox img
+{
+    width:100%;
+}
+.doorsBox:last-child
+{
+    margin-left:0;
+}
+a.btn-model
+{
+    display:block;
+    padding:12px 0;
+    text-align:center;
+    color:#ffffff;
+    border:solid 1px #ffffff;
+    margin-bottom:20px;
+    transition:all 0.5s ease-in-out;
+}
+a.btn-model:hover
+{
+    background:#ff4200;
+    border:solid 1px #ff4200;
+}
+.catalogMobileDemo
+{
+    display:none;
+}
+@media all and (max-width: 1100px)
+{
+    .catalog
+    {
+        /*padding-top:200px;*/
+        height:700px;
+    }
+    .catTxt
+    {
+        padding:0 30px;
+        height:90px;
+    }
+    .doorsBox
+    {
+        margin-left:20px;
+        margin-top:70px;
+        width:100px;
+    }
+}
+@media all and (max-width: 800px)
+{
+    .catalog
+    {
+        padding-top:30px;
+        height:660px;
+    }
+    .doorsBox
+    {
+        margin-left:20px;
+        margin-top:110px;
+        width:80px;
+    }
+}
+@media all and (max-width: 660px)
+{
+    .catalog
+    {
+        padding-top:200px;
+        height:auto;
+        background:#1c1c1c;
+        margin-top:0;
+
+    }
+    .doorsBox
+    {
+        margin-left:10px;
+        margin-right:10px;
+        margin-top:30px;
+        width:120px;
+    }
+}
+@media all and (max-width: 400px)
+{
+    .catTxtMobile
+    {
+        display:block;
+        padding:45px;
+        text-align:right;
+    }
+    .catTxt
+    {
+        display:none;
+    }
+    .catalog
+    {
+        padding-top:30px;
+    }
+    .catalog h1
+    {
+        font-size:25px;
+    }
+    .doorsBox
+    {
+        margin-top:60px;
+        position:relative;
+        width:calc(100% - 60px);
+        box-sizing:border-box;
+        text-align:right;
+        padding-bottom:80px;
+    }
+    .doorsBox a img
+    {
+        width:88px;
+        display:inline-block;
+        vertical-align:middle;
+    }
+    .catalogMobileDemo
+    {
+        width:calc(100% - 110px) !important;
+        display:inline-block;
+        vertical-align:middle;
+        margin-right:10px;
+    }
+    a.btn-model
+    {
+        position:absolute;
+        bottom:0;
+        right:101px;
+        width:calc(100% - 110px) !important;
+    }
+}
+
+.arrowLeft
+{
+    width:112px;
+    height:112px;
+    background:url(../images/arrowLeft.png) center center;
+    display:inline-block;
+    cursor:pointer;
+}
+.arrowRight
+{
+    width:112px;
+    height:112px;
+    background:url(../images/arrowRight.png) center center;
+    display:inline-block;
+    cursor:pointer;
+}
+.doorsBoxMobile, .typeMobile
+{
+    display:none;
+}
+@media all and (max-width: 1117px)
+{
+    /*.catalog
+    {
+        padding-top: 20px;
+    }*/
+    .inside a.btn-model
+    {
+        margin-bottom:20px !important;
+    }
+    .headerImgTextL
+    {
+        width:90%;
+        margin-right:0;
+        margin-top:20px;
+        height:auto;
+        text-align:center;
+        box-sizing:border-box;
+    }
+    .catInsideDoorDemo
+    {
+        width:25%;
+        max-width:158px;
+    }   
+     section.lightGrey
+    {
+        background:#f1f1f1;
+    }
+}
+@media all and (max-width: 660px)
+{
+    .inside .doorsBox
+    {
+        display:none;
+    }
+    .catalog
+    {
+        padding:50px 70px;
+    }
+    .doorsBoxMobile
+    {
+        display:block;
+    }
+    .doorsBoxMobile h3
+    {
+        font-size:24px;
+        margin-bottom:30px;
+    }
+    .headerImgTextL
+    {
+        display:none;
+    }
+    .catInsideDoorDemo
+    {
+        float:right;
+        width:calc(100% - 240px);
+    }
+    .headerImgTextR
+    {
+        margin-left:0;
+        margin-right:20px;
+        width:200px;
+    }
+    .doorsBoxMobile .selectboxit-container .selectboxit
+    {
+        height:60px;
+        background:#1c1c1c;
+        border:solid 1px #686868;
+        box-sizing:border-box;
+        margin-bottom:30px;
+    }
+    .doorsBoxMobile .selectboxit-arrow-container
+    {
+        width:60px;
+        right:auto;
+        left:0;
+    }
+    .doorsBoxMobile .selectboxit-text
+    {
+        float:right;
+        padding:13px 10px;
+        font:24px 'Assistant', Exo2_Light, Arial;
+    }
+    .doorsBoxMobile .selectboxit-container .selectboxit-options
+    {
+        top:60px !important;
+    }
+    .doorsBoxMobile .selectboxit-container .selectboxit-options a
+    {
+        padding:10px;
+        height:auto;
+        text-align:right;
+        font:24px 'Assistant', Exo2_Light, Arial;
+    }
+    .doorsBoxMobile .selectboxit-list > .selectboxit-focus > .selectboxit-option-anchor
+    {
+        background:#ff4200;
+    }
+    .pandorSampleBottom
+    {
+        position:absolute;
+        top:40px;
+    }
+    .arrowRight
+    {
+        width:47px;
+        height:78px;
+    }
+    .arrowLeft
+    {
+        width:47px;
+        height:78px;
+    }
+    .pandorSampleLeft
+    {
+        position:absolute;
+        top:160px;
+        width:100%;
+        display:block;
+    }
+    .thumbContainer
+    {
+        width:auto;
+    }
+    .thumb
+    {
+        padding:10px;
+        height:78px;
+        width:78px;
+        border:none;
+    }
+    .thumb:hover
+    {
+        border:none;
+        background:#ff4200;
+    }
+    .thumb div
+    {
+        border:none;
+    }
+    .thumb:hover > div
+    {
+        background:none !important;
+        border:none !important;
+    }
+    .thumb img
+    {
+        display:none;
+
+    }
+    .pandorSampleRight
+    {
+        margin-top:530px;
+        width:100%;
+        margin-left:0;
+    }
+    .archiDesForm.catalogInn
+    {
+        margin-bottom:30px;
+    }
+    .type, .colors
+    {
+        display:none;
+    }
+    .typeMobile
+    {
+        display:inline-block;
+    }
+    .dinblock
+    {
+        display:inline-block;
+        width:calc(50% - 7px);
+    }
+    .pandorSampleRight .selectboxit-container .selectboxit
+    {
+        height:60px;
+        background:#ffffff;
+        border:solid 1px #ffffff;
+        box-sizing:border-box;
+        margin-bottom:30px;
+    }
+    .pandorSampleRight .selectboxit-arrow-container
+    {
+        width:60px;
+        right:auto;
+        left:0;
+    }
+    .pandorSampleRight .selectboxit-text
+    {
+        float:right;
+        padding:13px 10px;        
+        font:24px 'Assistant', Exo2_Light, Arial;
+    }
+    .pandorSampleRight .selectboxit-container .selectboxit-options
+    {
+        top:60px !important;
+        background:#ffffff;
+        border:solid 1px #ffffff;
+    }
+    .pandorSampleRight .selectboxit-container .selectboxit-options a
+    {
+        padding:10px;
+        height:auto;
+        text-align:right;
+        font:24px 'Assistant', Exo2_Light, Arial;
+        color:#000000;
+    }
+    .pandorSampleRight .selectboxit-list > .selectboxit-focus > .selectboxit-option-anchor
+    {
+        background:#ff4200;
+    }
+    .dinblock .selectboxit-container .selectboxit, .dinblock .selectboxit-container
+    {
+        width:100%;
+        display:block;
+    }
+    .dinblock.first
+    {
+        margin-left:10px;
+    }
+}
+@media all and (max-width: 500px)
+{
+    .catInsideDoorDemo
+    {
+        float:right;
+        width:100px;
+        margin-top:15px;
+    }
+
+    .headerImgTextR
+    {
+        margin-left:0;
+        margin-right:20px;
+        width:calc(100% - 150px);
+        font-size:16px;
+        
+    }
+    .headerImgTextR h1
+    {
+        line-height:40px;
+        font-size:40px;
+    }
+    .catalog
+    {
+        padding:50px 20px;
+    }   
+    .lightGrey h2
+    {
+        font-size:24px;
+        font-weight:400;
+        line-height:24px;
+    }
+    .lightGrey h2 b
+    {
+        display:block;
+    }
+}
+.contentImages img
+{
+    margin-bottom:40px;
+    border:solid 1px #ffffff;
+    cursor:pointer;
+    transition:all ease-in-out 0.5s;
+}
+.contentImages img:hover
+{
+    border:solid 1px #000000;
+}
+.contentTextContainer
+{
+    float:left;
+    width:calc(100% - 400px);
+    line-height:30px;
+}
+@media all and (max-width: 900px)
+{
+    .contentMainImgContainer h3
+    {
+        margin-top:150px;
+        font-size:120px;
+        line-height:100px;
+    }
+    .contentTextContainer
+    {
+        width:100%;
+        margin-bottom:40px;
+    }
+    .contentImages
+    {
+        width:100%;
+        max-width:unset;
+        text-align:center;
+    }
+    .contentImages img
+    {
+        width:100%;
+        max-width:339px;
+    }
+}
+.arcitectDesignerInfo .archiDes
+{
+    background:rgba(0, 0, 0, 0.75);
+    position:relative;
+    z-index:1000;
+    margin:250px auto 0 auto;
+    width:calc(100% - 60px);
+    max-width:1145px;
+    color:#ffffff;
+    padding:30px 60px 60px 60px;
+    box-sizing:border-box;
+    font-size:25px;
+    font-weight:200;
+    text-align:center;
+}
+.archiDes h3
+{
+    font-size:80px;
+    line-height:70px;
+    margin-top:0;
+    margin-bottom:20px;
+    font-weight:200;
+}
+@media all and (max-width: 900px)
+{
+    .arcitectDesignerInfo .archiDes
+    {
+        margin:40px auto 0 auto;
+        padding:30px;
+        font-size:24px;
+    }
+    .accordionContainer h3
+    {
+        text-align:right;
+    }
+    .archiDesForm .sale-btn, a.sale-btn
+    {
+        width:100%;
+        padding:6px 20px 10px 40px;
+        height:60px;
+        background:#ff4200 url('../images/sale-btn.png') no-repeat 16px 17px;
+        border:solid 1px #ff4200;
+        color:#ffffff;
+    }
+    .archiDesForm
+    {
+        background:#eeeeee;
+        padding:30px;
+        margin-bottom:0;
+    }
+    .archiDesForm .tb3, .archiDesForm .tb2
+    {
+        height:60px;
+        border:none !important;
+        width:100%;
+    }
+    .archiDesForm .tb3:nth-child(2)
+    {
+        width: calc(50% - 7px);
+        margin-left:10px;
+    }
+    .archiDesForm .tb3:nth-child(3)
+    {
+        width: calc(50% - 7px);
+        margin-left: 0;
+    }
+}
+@media all and (max-width: 400px)
+{
+    .downBtn
+    {
+        margin:20px auto;
+    }
+}
+.h1Mobile, .h2Mobile, .branch
+{
+    display:none;
+}
+.branch1
+{
+    display:block;
+}
+@media all and (max-width: 1250px)
+{
+    .branchInfo
+    {
+        width:100%;
+        max-width:800px;
+    }
+    .branch
+    {
+        margin-bottom:20px;
+        display:block;
+    }
+    .branchesMap
+    {
+        display:none;
+    }
+    .h1Mobile
+    {
+        display:block;
+        font-weight:normal;
+        font-size:24px;
+        line-height:25px;
+        margin-bottom:20px;
+    }
+    .h2Mobile
+    {
+        display:block;
+        background:#ff4200;
+        color:#ffffff;
+        padding:4px;
+        border:none;
+        font-size:24px;
+        width:120px;
+        margin:0 auto 13px auto;
+        line-height:24px;
+    }
+}
+@media all and (max-width: 900px)
+{
+    .contentMainImgContainer.gallery h3
+    {
+        margin-top:200px;
+        line-height:60px;
+        margin-bottom:30px;
+        font-size:70px;
+    }
+    .galleryContainer .col50pre
+    {
+        width:100%;       
+    }
+    .thumbW, .galleryContainer a
+    {
+         width:calc(100% - 46px);
+         box-sizing:border-box;
+    }
+    .contentTxt
+    {
+        text-align:center;
+        padding:0 30px;
+    }
+    a.galleryCategory
+    {
+        padding:2px 5px;
+        font-size:18px;
+        margin-top:0;
+    }
+    .contentMainImgContainer.gallery .downBtn
+    {
+        margin:60px auto;
+    }
+}
+@media all and (max-width: 400px)
+{
+    .contentMainImgContainer.gallery .downBtn
+    {
+        margin:30px auto;
+    }
+    .contentTxt
+    {
+        font-size:24px;
+    }
+}

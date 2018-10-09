@@ -1,5 +1,7 @@
 'use strict'
 
+
+var globalconfig = require("./globalconfig.js");
 var express = require('express');
 var serveStatic = require('serve-static')
 var engine = require('ejs-mate');
