@@ -164,6 +164,15 @@
     z-index: -1;
     color: #ffffff;
 }
+.mySlides.cur_animate{
+    opacity: 0;
+}
+.mySlides.cur_animate.active{
+    opacity: 1;
+}
+.slide_inside{
+    display: none;
+}
 
 .iconBg
 {
@@ -394,6 +403,20 @@
     text-align: center;
     margin-top: -3vh;
   }
+
+  .dark_warp{
+    background: rgba(0, 0, 0, 0.75);
+    position: relative;
+    margin: 1vh auto 0 auto;
+    width: calc(67% - 60px);
+    max-width: 1145px;
+    padding: 0px;
+    height: 45%;
+    color:#ffffff;
+  }
+  .slideMobile{
+    height: 42vh;
+  }
  
 /* ------------  media --------------------------------------*/
 @media all and (max-width:900px){
@@ -410,7 +433,7 @@
         height: 60px;   
     }
     .slider_left_text, .door_img, .door_info_container{
-        display: none;
+       
     }
     .sectionsContainer{
         padding-top: 56px;
@@ -445,7 +468,7 @@
         width: 40%;
     }
     .slider_left_text, .door_img, .door_info_container{
-        display: none;
+        
     }
     #phone_number_mobile{
         display: block;
@@ -487,7 +510,7 @@
         width: 40%;
     }
     .slider_left_text, .door_img, .door_info_container{
-        display: none;
+        
     }
     #phone_number_mobile{
         display: block;
@@ -518,7 +541,7 @@
     }
     
     .slider_left_text, .door_img, .door_info_container{
-        display: none;
+       
     }
     #closed_sticker_flag{
         display:block;
@@ -621,7 +644,24 @@
     .overlay_slides_wrap{
         height: 45vh;
     }
-    .slider_left_text, .door_img, .door_info_container{
+    .door_info_container{
+        max-width: 369px;
+        box-sizing: border-box;
+        background: rgba(37, 37, 37, 0.72);
+        position: absolute;
+        top: 5vh !important;
+        padding: 0 5px !important;
+        bottom: auto;
+        height: 30vh;
+        width: 58%
+    }
+    .door_img{
+        top: 6vh !important;
+        padding: 0 5px !important;
+        height: 25vh;
+        width: 20%
+    }
+    .slider_left_text{
         display: none;
     }
     #closed_sticker_flag{
@@ -678,10 +718,10 @@
         height: -moz-fit-content;
     }
     .contentMainImgContainer *{
-        font-size: 4vh;
+        font-size: 3vh;
     }
     .contentMainImgContainer h3{
-        font-size: 8vh;
+        font-size: 6vh;
         font-weight: bold;
         margin-top: 15vh;
     }
@@ -691,5 +731,8 @@
     .downBtn{
         display: none;
     }
-
+    .dark_warp{
+        width: calc(100% - 60px);
+        height: 60%;
+    }
 }

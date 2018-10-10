@@ -25,3 +25,7 @@ exports.GetAboutUsPage = (req, res) => {
 exports.GetGalleryPage = (req, res) => {
     res.render('gallerypage/index', {Desktop:(req.device.type == 'desktop'?true:false) });
 }
+
+exports.GetArchitectsPage = (req, res) => {
+    res.render('architectspage/index', {Desktop:(req.device.type == 'desktop'?true:false) });
+}

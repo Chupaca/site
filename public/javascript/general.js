@@ -37,6 +37,7 @@ function carousel(myIndex) {
             $(item).animate({
                 opacity: 0
             }, 1000)
+            $(".slide_inside:eq(" + $(item).index() + ")").css({"display":"none"})
         }
     });
     ++myIndex
@@ -45,6 +46,7 @@ function carousel(myIndex) {
     $(".mySlides").eq(myIndex - 1).animate({
         opacity: 1
     }, 1000, function () {
+        $(".slide_inside").eq(myIndex -1).css({"display":"block"})
         $(".overlay_slides_wrap").animate({
             opacity: "0.7"
         }, 500)
@@ -64,7 +66,7 @@ function carousel_addons(slidein, myIndex) {
         $(".door_info_container").animate({ opacity: 0, right: "25%" }, 500)
         $(".slider_left_text").animate({ opacity: 0, left: "-25%" }, 500)
         $(".overlay_slides_wrap").animate({ opacity: 0 }, 800)
-        setTimeout(function () { carousel(myIndex) }, 1000);
+        setTimeout(function () { carousel(myIndex) }, 2000);
     }
 }
 
@@ -126,7 +128,7 @@ function Setup() {
     })
     $(".xNav").unbind().click(closeNav)
     $("#closed_sticker_flag").unbind().click(function () { changeSideStickerPosition(false) })
-    setTimeout(function () { carousel(0) }, 500);
+    carousel(1)
     setTimeout(function () { carousel_comments() }, 1000);
     window.addEventListener("orientationchange", function () { location.reload(); });
     $(".header.only_mobile").unbind().click(openSubMenu)
