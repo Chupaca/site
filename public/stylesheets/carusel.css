@@ -340,6 +340,21 @@
   #branches_wrap div img{
     float: left;
   }
+  .description_door_catalog{
+    position: absolute;
+    vertical-align: middle;
+    margin-right: 10px;
+    height: 21vh;
+    background: #1c1c1c;
+    padding: 2%;
+    font-size: 3vh;
+    border: 1px solid #ff4200;
+    display: none;
+  }
+  .catalog_link_door:hover+.description_door_catalog{
+    display: inline-block;
+    width: 150px;
+  }
 /* ------------  media --------------------------------------*/
 @media all and (max-width:900px){
     #nav-btn{
@@ -505,6 +520,12 @@
     .brancheName, .addresInfo{
         width:100%;
     }
+    .description_door_catalog{
+        display: inline-block;
+    }
+    .catalog{
+        background: #1c1c1c;
+    }
 }
 
 @media (min-width: 320px) and (max-width: 480px) {   /* mobile Portrait */
@@ -571,6 +592,12 @@
     .brancheName, .addresInfo{
         width:100%;
         font-size: 1em;
+    }
+    .description_door_catalog{
+        display: inline-block;
+    }
+    .catalog{
+        background: #1c1c1c;
     }
 
 }

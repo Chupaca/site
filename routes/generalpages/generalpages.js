@@ -14,3 +14,7 @@ exports.GetContactPage = (req, res) => {
 exports.GetBranchesPage = (req, res) => {
     res.render('branchespage/index', {Desktop:(req.device.type == 'desktop'?true:false) });
 }
+
+exports.GetCatalogPage = (req, res) => {
+    res.render('catalogpage/index', {Desktop:(req.device.type == 'desktop'?true:false) });
+}

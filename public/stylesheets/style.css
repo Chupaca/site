@@ -2909,20 +2909,52 @@ a.btn-model:hover
 }
 @media all and (max-width: 660px)
 {
+    .catTxtMobile
+    {
+        display:block;
+        padding:45px;
+        text-align:right;
+    }
+    .catTxt
+    {
+        display:none;
+    }
     .catalog
     {
-        padding-top:200px;
-        height:auto;
-        background:#1c1c1c;
-        margin-top:0;
-
+        padding-top:30px;
+    }
+    .catalog h1
+    {
+        font-size:25px;
     }
     .doorsBox
     {
-        margin-left:10px;
+        margin-top:60px;
+        position:relative;
+        width:calc(100% - 60px);
+        box-sizing:border-box;
+        text-align:right;
+        padding-bottom:80px;
+    }
+    .doorsBox a img
+    {
+        width:88px;
+        display:inline-block;
+        vertical-align:middle;
+    }
+    .catalogMobileDemo
+    {
+        width:calc(100% - 110px) !important;
+        display:inline-block;
+        vertical-align:middle;
         margin-right:10px;
-        margin-top:30px;
-        width:120px;
+    }
+    a.btn-model
+    {
+        position:absolute;
+        bottom:0;
+        right:101px;
+        width:calc(100% - 110px) !important;
     }
 }
 @media all and (max-width: 400px)
