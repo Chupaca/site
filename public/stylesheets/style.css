@@ -1680,7 +1680,7 @@ html, body
 {
     position:relative;
     z-index:1000;
-    width:70%;
+    width: 45%;
     margin:0 auto;
     max-width:930px;
     margin-top:40px;
@@ -1688,7 +1688,7 @@ html, body
 .tb
 {
     background:#ffffff;
-    height:88px;
+    height: 7vh;
     padding:0 10px;
     font:18px 'Assistant', Exo2_Light, Arial;
     color:#000000;
@@ -2195,7 +2195,7 @@ a.btn-model:hover
 .contentTxt
 {
     position:relative;
-    z-index:1000;
+    z-index:300;
     color:#ffffff;
     text-align:center;
     border:none;

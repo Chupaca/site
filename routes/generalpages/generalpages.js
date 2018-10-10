@@ -22,3 +22,6 @@ exports.GetCatalogPage = (req, res) => {
 exports.GetAboutUsPage = (req, res) => {
     res.render('aboutuspage/index', {Desktop:(req.device.type == 'desktop'?true:false) });
 }
+exports.GetGalleryPage = (req, res) => {
+    res.render('gallerypage/index', {Desktop:(req.device.type == 'desktop'?true:false) });
+}
