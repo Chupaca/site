@@ -112,6 +112,10 @@ function minimizeLogo(position) {
     }
 }
 
+function scrollPageToFirstElement() {
+    $('html').animate({ scrollTop: $('#' + $(this).attr("data-scrollto")).position().top - 100 }, 600, "easeOutBack")
+}
+
 function Setup() {
     $("#nav-btn").unbind().click(function () {
         if ($(this).hasClass('change')) {
@@ -126,6 +130,7 @@ function Setup() {
     setTimeout(function () { carousel_comments() }, 1000);
     window.addEventListener("orientationchange", function () { location.reload(); });
     $(".header.only_mobile").unbind().click(openSubMenu)
+    $(".downBtn").unbind().click(scrollPageToFirstElement)
     accordionEvents()
 }
 

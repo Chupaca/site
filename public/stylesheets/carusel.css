@@ -351,10 +351,40 @@
     border: 1px solid #ff4200;
     display: none;
   }
+  .doorsBox{
+      position: relative;
+  }
   .catalog_link_door:hover+.description_door_catalog{
     display: inline-block;
     width: 150px;
+    top: 9vh;
+    left: -20vh;
+    z-index: 1000;
+    font-size: 2vh;
   }
+  .downBtn{
+    color: #ffffff;
+    font-size: 6vh;
+  }
+  .downBtn i:hover{
+    color: #ff4200;
+    cursor: pointer;
+    transition: color ease-in-out 0.5s;
+  }
+  .contentMainImgContainer *{
+    font-size: 6vh;
+  }
+  .contentMainImgContainer h3{
+        font-size: 10vh;
+        margin-top: 16vh;
+  }
+  .catalog{
+    background-size: 110%;
+    background-position: top;
+    background-color: #1c1c1c;
+    height: 92vh;
+  }
+ 
 /* ------------  media --------------------------------------*/
 @media all and (max-width:900px){
     #nav-btn{
@@ -410,6 +440,14 @@
     #phone_number_mobile{
         display: block;
     }
+    .contentMainImgContainer *{
+        font-size: 6vh;
+    }
+    .contentMainImgContainer h3{
+        font-size: 10vh;
+        font-weight: bold;
+        margin-top: 16vh;
+    }
 }
 
   
@@ -417,6 +455,14 @@
     .nav{
         width: 100%;
         padding: 0 0 20px 0 !important;
+    }
+    .contentMainImgContainer *{
+        font-size: 6vh;
+    }
+    .contentMainImgContainer h3{
+        font-size: 10vh;
+        font-weight: bold;
+        margin-top: 16vh;
     }
   }
 
@@ -435,11 +481,16 @@
     }
     #phone_number_mobile{
         display: block;
+        margin-top: 1vh;
     }
     .nav{
         width: 100%;
         padding: 0 0 20px 0 !important;
     }
+    .contentTxt{
+        display: none;
+    }
+    
 }
 
 @media (min-width: 481px) and (max-width: 767px) { /* mobile Landscape */
@@ -499,7 +550,7 @@
         width:10%;
     }
     #phone_number_mobile{
-        margin-top: 4vh;
+        margin-top: 1vh;
         font-size: 5vw;
     }
     .container ul{
@@ -520,11 +571,25 @@
     .brancheName, .addresInfo{
         width:100%;
     }
+    .catalog{
+        background: #1c1c1c;
+        height:85vh;
+        height: fit-content;
+        height: -moz-fit-content;
+    }
     .description_door_catalog{
         display: inline-block;
     }
-    .catalog{
-        background: #1c1c1c;
+    .contentMainImgContainer *{
+        font-size: 6vh;
+    }
+    .contentMainImgContainer h3{
+        font-size: 10vh;
+        font-weight: bold;
+        margin-top: 16vh;
+    }
+    .contentMainImgContainer .downBtn{
+        display: none;
     }
 }
 
@@ -598,6 +663,20 @@
     }
     .catalog{
         background: #1c1c1c;
+        height:85vh;
+        height: fit-content;
+        height: -moz-fit-content;
+    }
+    .contentMainImgContainer *{
+        font-size: 4vh;
+    }
+    .contentMainImgContainer h3{
+        font-size: 8vh;
+        font-weight: bold;
+        margin-top: 15vh;
+    }
+    .contentMainImgContainer .downBtn{
+        display: none;
     }
 
 }

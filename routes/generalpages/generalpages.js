@@ -18,3 +18,7 @@ exports.GetBranchesPage = (req, res) => {
 exports.GetCatalogPage = (req, res) => {
     res.render('catalogpage/index', {Desktop:(req.device.type == 'desktop'?true:false) });
 }
+
+exports.GetAboutUsPage = (req, res) => {
+    res.render('aboutuspage/index', {Desktop:(req.device.type == 'desktop'?true:false) });
+}

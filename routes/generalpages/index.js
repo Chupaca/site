@@ -8,5 +8,6 @@ router.get('/', generalpages.GetStartPage);
 router.get('/contact', generalpages.GetContactPage);
 router.get('/branches', generalpages.GetBranchesPage);
 router.get('/catalog', generalpages.GetCatalogPage);
+router.get('/aboutus', generalpages.GetAboutUsPage);
 
 module.exports = router;
