@@ -46,6 +46,8 @@
     width: 38%;
     padding: 3%;
     padding-top: 1%;
+    border-right: 4px solid rgb(255, 66, 0);
+    border-bottom: 4px solid rgb(255, 66, 0);
 }
 
 /*==============*/
@@ -121,6 +123,7 @@
     top: 33%;
     right: 1vw;
     z-index: 1000;
+    display: inline-grid;
 }
 
 #closed_sticker_flag{
@@ -132,7 +135,7 @@
     cursor: pointer;
     position: absolute;
     right: -18vh;
-    margin-top: -18vh;
+    margin-top: 2vh;
 }
 .small_icons_slider{
     position: absolute;
@@ -141,13 +144,11 @@
     left: 0;
     text-align: center;
 }
-
 .btn_wrap_comments{
     position: absolute;
     bottom: -4vh;
     right: 38%;
 }
-
 .header{
     display: none;
 }
@@ -174,14 +175,17 @@
     display: none;
 }
 
-.iconBg
-{
+.iconBg{
     background: #ff4200;
     transition: background ease-in-out 0.5s;
     color: #ffffff;
     padding: 2vh;
     margin-bottom: 3px;
     cursor: pointer;
+    width: 12%;
+    float: right;
+    padding: 6%;
+    text-align: center;
 }
 .iconBg a{
     color: #ffffff;
@@ -194,6 +198,22 @@
     color: #000000;
     transition: color ease-in-out 0.5s;
 }
+.sticker_description{
+    position: absolute;
+    right: -30vh;
+    width: 75%;
+    height: 70%;
+    font-size: 15px;
+    padding: 1vh !important;
+    color:#ffffff;
+    z-index: -1;
+}
+.iconBg:hover+.sticker_description{
+    right: 7vh;
+    color:#ffffff;
+    transition: right ease-in-out 0.5s;
+} 
+
 .light_style{
     color: #ffffff;
     font-size: 5vh;
@@ -201,6 +221,11 @@
 .light_style *{
     color: #ffffff;
     font-size: 5vh;
+}
+.light_style *:hover{
+    color: #ff4200;
+    transition: color ease-in-out 0.5s;
+}
 }
 .footerBtn:hover{
     background: #ff4200;
@@ -301,110 +326,110 @@
     transition: border-left ease-in-out 0.5s;
   }
 
-  #tag_on_map_bnay_brak{
-    width: 35%;
-    top: 30%;
-    position: absolute;
-    right: 15%;
-  }
+#tag_on_map_bnay_brak{
+width: 35%;
+top: 30%;
+position: absolute;
+right: 15%;
+}
 
-  #tag_on_map_kriayt_gat{
-    width: 35%;
-    top: 40%;
-    position: absolute;
-    right: 15%;
-  }
-  #tag_on_map_natania{
-    width: 35%;
-    top: 24%;
-    position: absolute;
-    left: -6%;
-  }
+#tag_on_map_kriayt_gat{
+width: 35%;
+top: 40%;
+position: absolute;
+right: 15%;
+}
+#tag_on_map_natania{
+width: 35%;
+top: 24%;
+position: absolute;
+left: -6%;
+}
 
-  #tag_on_map_rashlatz{
-    width: 35%;
-    top: 33%;
-    position: absolute;
-    left: -6%;
-  }
-  #branches_wrap{
-    width: 100%;
-    top: 50%;
-    margin: 5%;
-  }
-  #branches_wrap div{
-    width:96%;
-    background: #ffffff;
-    height: 5%;
-    margin-top: 1%;
-    text-align: right;
-    padding: 2% 2% 2% 2%;
-    display: inline-block;
-  }
-  #branches_wrap div h3{
-    width: 40%;
-    float: right;
-    padding-top: 3px;
-  }
-  #branches_wrap div img{
-    float: left;
-  }
-  .description_door_catalog{
-    position: absolute;
-    vertical-align: middle;
-    margin-right: 10px;
-    height: 21vh;
-    background: #1c1c1c;
-    padding: 2%;
+#tag_on_map_rashlatz{
+width: 35%;
+top: 33%;
+position: absolute;
+left: -6%;
+}
+#branches_wrap{
+width: 100%;
+top: 50%;
+margin: 5%;
+}
+#branches_wrap div{
+width:96%;
+background: #ffffff;
+height: 5%;
+margin-top: 1%;
+text-align: right;
+padding: 2% 2% 2% 2%;
+display: inline-block;
+}
+#branches_wrap div h3{
+width: 40%;
+float: right;
+padding-top: 3px;
+}
+#branches_wrap div img{
+float: left;
+}
+.description_door_catalog{
+position: absolute;
+vertical-align: middle;
+margin-right: 10px;
+height: 21vh;
+background: #1c1c1c;
+padding: 2%;
+font-size: 3vh;
+border: 1px solid #ff4200;
+display: none;
+}
+.doorsBox{
+    position: relative;
+}
+.catalog_link_door:hover+.description_door_catalog{
+display: inline-block;
+width: 150px;
+top: 9vh;
+left: -20vh;
+z-index: 1000;
+font-size: 2vh;
+}
+
+.contentMainImgContainer *{
     font-size: 3vh;
-    border: 1px solid #ff4200;
-    display: none;
-  }
-  .doorsBox{
-      position: relative;
-  }
-  .catalog_link_door:hover+.description_door_catalog{
-    display: inline-block;
-    width: 150px;
-    top: 9vh;
-    left: -20vh;
-    z-index: 1000;
-    font-size: 2vh;
-  }
+}
+.contentMainImgContainer h3{
+    font-size: 10vh;
+    margin-top: 26vh;
+}
+.contentMainImgContainer i{
+font-size: 6vh;
+}
+.catalog{
+background-size: 110%;
+background-position: top;
+background-color: #1c1c1c;
+height: 92vh;
+}
 
-  .contentMainImgContainer *{
-        font-size: 3vh;
-  }
-  .contentMainImgContainer h3{
-        font-size: 10vh;
-        margin-top: 26vh;
-  }
-  .contentMainImgContainer i{
-    font-size: 6vh;
-  }
-  .catalog{
-    background-size: 110%;
-    background-position: top;
-    background-color: #1c1c1c;
-    height: 92vh;
-  }
-
-  .downBtn{
-    color: #ffffff;
-    font-size: 6vh;
-  }
-  .downBtn i:hover{
+.downBtn{
+color: #ffffff;
+font-size: 6vh;
+}
+.downBtn i:hover{
     color: #ff4200;
     cursor: pointer;
     transition: color ease-in-out 0.5s;
-  }
+}
 
-  #warp_gallery_categories{
+#warp_gallery_categories{
     text-align: center;
     margin-top: -3vh;
-  }
+}
 
-  .dark_warp{
+.dark_warp{
     background: rgba(0, 0, 0, 0.75);
     position: relative;
     margin: 1vh auto 0 auto;
@@ -413,11 +438,11 @@
     padding: 0px;
     height: 45%;
     color:#ffffff;
-  }
-  .slideMobile{
+}
+.slideMobile{
     height: 42vh;
-  }
-  .project_gallery_row {
+}
+.project_gallery_row {
     display: -ms-flexbox;
     /* IE10 */
     display: flex;
@@ -478,7 +503,45 @@
     from {transform:scale(0)} 
     to {transform:scale(1)}
 }
+#priceoffer_popup {
+    display: none;
+    position: fixed;
+    z-index: -100;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.7);
+}
+.popup_priceoffer_modal_content{
+    position: relative;
+    margin: auto;
+    margin-top:5vh;
+    padding: 0;
+    width: 20%;
+    background: #ff4200;
+    padding: 18px;
+    text-align: right;
+    direction: rtl;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
 
+@-webkit-keyframes animatetop {
+    from { top: -300px; opacity: 0 }
+    to { top: 0; opacity: 1 }
+}
+
+@keyframes animatetop {
+    from { top: -300px; opacity: 0 }
+    to { top: 0; opacity: 1 }
+}
  
 /* ------------  media --------------------------------------*/
 @media all and (max-width:900px){
@@ -559,7 +622,7 @@
         font-weight: bold;
         margin-top: 16vh;
     }
-  }
+}
 
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
     #nav-btn{
@@ -585,7 +648,6 @@
     .contentTxt{
         display: none;
     }
-    
 }
 
 @media (min-width: 481px) and (max-width: 767px) { /* mobile Landscape */
@@ -593,6 +655,10 @@
         width: 5vh;
         height: 8vh;
         padding: 3vh 10vh 7vh 7vh;
+    }
+    .nav{
+        border-right: 0;
+        border-bottom: 4px solid rgb(255, 66, 0);
     }
     .logo
     {
@@ -602,9 +668,10 @@
         width: 23%;
     }
     
-    .slider_left_text, .door_img, .door_info_container{
-       
+    .iconBg:hover+.sticker_description{
+        right: -27vh;
     }
+
     #closed_sticker_flag{
         display:block;
         margin-right: 1vw;
@@ -699,7 +766,7 @@
         top:1%;
         width: 65%;
     }
-    .nav ul li:hover{
+    .nav ul .navLink:hover{
         box-shadow: unset;
         color: unset;
         -webkit-transition :  unset;
@@ -707,12 +774,22 @@
         -o-transition: unset;
         transition: unset;
     }
+    .contactForm{
+        height: 110vh;
+    }
+    .contactForm .tb3, .contactForm .tb2{
+        height: 10vh;
+    }
 }
 
 @media (min-width: 320px) and (max-width: 480px) {   /* mobile Portrait */
     #nav-btn{
         width: 5vh;
         height: 8vh;
+    }
+    .nav{
+        border-right: 0;
+        border-bottom: 4px solid rgb(255, 66, 0);
     }
     .logo
     {
@@ -753,6 +830,9 @@
     }
     #side_sticker{
         right: -15vh;
+    }
+    .iconBg:hover+.sticker_description{
+        right: -27vh;
     }
     .btn_wrap_comments{
         right: 7vh;
@@ -830,12 +910,18 @@
     .modal-content {
         width: 85%;
     }
-    .nav ul li:hover{
+    .nav ul .navLink:hover{
         box-shadow: unset;
         color: unset;
         -webkit-transition :  unset;
         -moz-transition: unset;
         -o-transition: unset;
         transition: unset;
+    }
+    .contactForm{
+        height: 110vh;
+    }
+    .popup_priceoffer_modal_content{
+        width: 80%;
     }
 }

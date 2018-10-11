@@ -351,7 +351,7 @@ header
 {
     padding: 0 7px;
 }
-.nav ul li:hover
+.nav ul .navLink:hover
 {
     box-shadow: inset 300px 0 0 0 #ff4200;
     color: #ffffff;
@@ -1646,7 +1646,7 @@ html, body
 .contactForm
 {
     position:relative;
-    height:756px;
+    height: 80vh;
     overflow:hidden;
     direction:rtl;
 }
@@ -2720,7 +2720,7 @@ a.galleryCategory:hover
 {
     position:relative;
     z-index:1000;
-    margin-top:210px;
+    margin-top: 15vh;
     color:#ffffff;
     text-align:center;
     border:none;
@@ -2787,7 +2787,7 @@ a.galleryCategory:hover
         margin-top:160px;
         line-height:62px;   
         padding:0;
-        font-size:8vh;     
+        font-size:8vh;  
     }
     .contactTxt
     {

@@ -22,7 +22,7 @@ function closeNav(e) {
 
 function changeSideStickerPosition(hidden) {
     if (hidden && !$("#closed_sticker_flag").hasClass("visib")) {
-        $("#closed_sticker_flag").addClass("visib").animate({ "right": "8vh" }, 300)
+        $("#closed_sticker_flag").addClass("visib").animate({ "right": "6vh" }, 300)
         $("#side_sticker").animate({ "right": "-15vh" }, 300)
     } else if (!hidden && $("#closed_sticker_flag").hasClass("visib")) {
         $("#closed_sticker_flag").removeClass("visib").animate({ "right": "-18vh" }, 300)
@@ -135,6 +135,7 @@ function Setup() {
     $(".downBtn").unbind().click(scrollPageToFirstElement)
     $(".project_gallery_column img").unbind().click(previewImageModal)
     accordionEvents()
+    $("#priceofferbtn").unbind().click(popupPriceOffer)
 }
 
 $(document).ready(function () {
@@ -224,9 +225,19 @@ function accordionEvents() {
 }
 
 function previewImageModal() {
-    $("#project_preview_modal").css({"display" : "block", "z-index" : 3000});
-    $("#preview_image").attr("src",  this.src);
-    $("#project_preview_modal").unbind().click(function(){
-        $("#project_preview_modal").css({"display" : "none", "z-index" : 1});
+    $("#project_preview_modal").css({ "display": "block", "z-index": 3000 });
+    $("#preview_image").attr("src", this.src);
+    $("#project_preview_modal").unbind().click(function () {
+        $(this).css({ "display": "none", "z-index": 1 });
+    })
+}
+
+function popupPriceOffer() {
+    $("#priceoffer_popup").css({ "display": "block", "z-index": 3000 });
+    $("#priceoffer_popup").unbind().click(function (e) {
+        var container = $("#ContactFormContainer");
+        if ((!container.is(e.target) && container.has(e.target).length === 0)) {
+            $(this).css({ "display": "none", "z-index": 1 });
+        }
     })
 }
