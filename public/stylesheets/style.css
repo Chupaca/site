@@ -333,7 +333,6 @@ header
 .nav ul li
 {
     border-bottom:solid 1px #ded0cc;
-    padding-right:10px;
 }
 .nav ul.social
 {
@@ -350,11 +349,16 @@ header
 }
 .nav ul li a
 {
-    padding:10px 0 10px 10px;
+    padding: 0 7px;
 }
-.nav ul li a:hover
+.nav ul li:hover
 {
-    text-decoration:underline;
+    box-shadow: inset 300px 0 0 0 #ff4200;
+    color: #ffffff;
+    -webkit-transition :  box-shadow ease-in-out 0.5s;
+    -moz-transition: box-shadow ease-in-out 0.5s;
+    -o-transition: box-shadow ease-in-out 0.5s;
+    transition: box-shadow ease-in-out 0.5s;
 }
 .nav ul li.header
 {
@@ -2561,6 +2565,7 @@ a.galleryCategory:hover
 {
     text-align:right; 
     direction:rtl;
+    padding: 1% 8%;
 }
 .galleryContainer .col50pre
 {
@@ -2582,7 +2587,7 @@ a.galleryCategory:hover
     bottom:0;
     left:0;
     width:100%;
-    height:114px;
+    bottom: -20vh;
     color:#ffffff;
     padding:30px 20px;
     box-sizing:border-box;
@@ -2592,6 +2597,8 @@ a.galleryCategory:hover
 .galleryContainer a:hover span.imgInfo
 {
     background:rgba(0, 0, 0, 0.8);
+    bottom: 0;
+    height: 20vh;
 }
 
 .galleryContainer a span.imgInfo b

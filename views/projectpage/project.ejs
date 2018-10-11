@@ -1,0 +1,138 @@
+<div class="contentMainImgContainer">
+    <img class="contentMainImg" alt="" src="images/contentMainImg.jpg" />
+    <h3>דירות בתל אביב</h3>
+    <div class="contentTxt">
+        <h5>מעצב/ת :</h5><span>גלעד אביב</span><br>
+        <h5>פרטים :</h5><span>0525555555</span><br>
+        <span>blabla@gmail.com</span><br>
+    </div>
+    <span class="downBtn" data-scrollto="wrap_container"><i class="far fa-caret-square-down"></i></span>
+</div>
+
+<style>
+    .project_gallery_container {
+        position: relative;
+    }
+
+    /* Hide the images by default */
+    .mySlides {
+        display: none;
+    }
+
+    /* Add a pointer when hovering over the thumbnail images */
+    .cursor {
+        cursor: pointer;
+    }
+
+    /* Next & previous buttons */
+    .prev,
+    .next {
+        cursor: pointer;
+        position: absolute;
+        top: 40%;
+        width: auto;
+        padding: 16px;
+        margin-top: -50px;
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    /* Position the "next button" to the right */
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+    /* On hover, add a black background color with a little bit see-through */
+    .prev:hover,
+    .next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    /* Number text (1/3 etc) */
+    .numbertext {
+        color: #f2f2f2;
+        font-size: 12px;
+        padding: 8px 12px;
+        position: absolute;
+        top: 0;
+    }
+
+    /* Container for image text */
+    .caption-container {
+        text-align: center;
+        background-color: #222;
+        padding: 2px 16px;
+        color: white;
+    }
+
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    /* Six columns side by side */
+    .column {
+        float: left;
+        width: 16.66%;
+    }
+
+    /* Add a transparency effect for thumnbail images */
+    .demo {
+        opacity: 0.6;
+    }
+
+    .active,
+    .demo:hover {
+        opacity: 1;
+    }
+</style>
+
+<section id="wrap_container">
+    <div class="container">
+        <div>
+            <p>
+                דירת נופש מדהימה בסגנון מודרני בעיצובו של גלעד יצחקי ובכיכובן, איך לא, דלתות פנדור יוניק! "דירת 3 חדרים
+                בת 85 מ״ר בצפון הישן של תל אביב. הלקוח תושב חוץ אשר הדירה משמשת לו ולמשפחתו כדירת נופש בביקורים התכופים
+                שלהם בארץ ומושכרת לתיירים בהעדרם. השיפוץ היה שיפוץ חלקי והתמקד בעיקר בהשבחת הדירה והתאמתה לצרכי הלקוח
+                קרי קונספט דירת נופש דירת נופש! הסגנון המודרני והמינימלסטי השתלב בצורה הרמונית עם הקווים הקלאסים של
+                הבית. חדרי השינה נצבעו בפלטת צבעים ים תיכונית יחד עם מסגרות גופי התאורה והשתלבו נהדר עם רצפת החלילה
+                הקיימת שעברה חידוש וליטוש. בחדר האורחים הצר והמוארך נכנסה עוד מקלחת וכיור רחצה נוספים הפתוחים לחלל
+                ומוגדרים בו על ידי הנמכת התקרה. את מרפסת השמש הנפתחת אל הסלון והמטבח הרחבתי על חשבון שטח לא מנוצל של
+                פינת האוכל וחיפיתי בגרניט פורצלן דמוי דק להשגת מראה חם ומזמין. הדלתות מסדרת יוניק של פנדור הוסיפו שלמות
+                למראה המודרני והנקי של הדירה." צילום: נדב פקט. עיצוב פנים: גלעד יצחקי.
+            </p>
+        </div>
+        <br>
+        
+        <div class="project_gallery_row">
+            <div class="project_gallery_column">
+                <img src="/images/galleryImg/thumbW.jpg" style="width:100%">
+                <img src="/images/galleryImg/thumbV.jpg" style="width:100%">
+                <img src="/images/galleryImg/thumbW.jpg" style="width:100%">
+            </div>
+            <div class="project_gallery_column">
+                <img src="/images/galleryImg/thumbV.jpg" style="width:100%">
+                <img src="/images/galleryImg/thumbW.jpg" style="width:100%">
+                <img src="/images/galleryImg/thumbW.jpg" style="width:100%">
+            </div>
+            <div class="project_gallery_column">
+                <img src="/images/galleryImg/thumbW.jpg" style="width:100%">
+                <img src="/images/galleryImg/thumbW.jpg" style="width:100%">
+                <img src="/images/galleryImg/thumbV.jpg" style="width:100%">
+            </div>
+        </div>
+
+    </div>
+    <!-- The Modal -->
+      <div id="project_preview_modal" class="preview_modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="preview_image">
+      </div>
+      
+</section>

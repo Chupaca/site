@@ -11,5 +11,6 @@ router.get('/catalog', generalpages.GetCatalogPage);
 router.get('/aboutus', generalpages.GetAboutUsPage);
 router.get('/gallery', generalpages.GetGalleryPage);
 router.get('/architects', generalpages.GetArchitectsPage);
+router.get('/project', generalpages.GetProjectPage);
 
 module.exports = router;

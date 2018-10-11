@@ -120,7 +120,7 @@
     position:fixed;
     top: 33%;
     right: 1vw;
-    z-index: 500;
+    z-index: 1000;
 }
 
 #closed_sticker_flag{
@@ -417,6 +417,68 @@
   .slideMobile{
     height: 42vh;
   }
+  .project_gallery_row {
+    display: -ms-flexbox;
+    /* IE10 */
+    display: flex;
+    -ms-flex-wrap: wrap;
+    /* IE10 */
+    flex-wrap: wrap;
+    padding: 0 5%;
+    width: 100%;
+}
+
+.project_gallery_column {
+    -ms-flex: 25%;
+    /* IE10 */
+    flex: 25%;
+    max-width: 25%;
+    padding: 1vh 2vh;
+}
+
+.project_gallery_column img {
+    margin-top: 8px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.project_gallery_column img:hover{
+    opacity: 0.7;
+}
+.preview_modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 30%;
+    max-width: 700px;
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)} 
+    to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+    from {transform:scale(0)} 
+    to {transform:scale(1)}
+}
+
  
 /* ------------  media --------------------------------------*/
 @media all and (max-width:900px){
@@ -624,6 +686,27 @@
     .downBtn{
         display: none;
     }
+    .galleryContainer a span.imgInfo{
+        bottom:0;
+    }
+    .project_gallery_column {
+        -ms-flex: 45%;
+        flex: 45%;
+        max-width: 45%;
+        padding: 0 1%;
+    }
+    .modal-content {
+        top:1%;
+        width: 65%;
+    }
+    .nav ul li:hover{
+        box-shadow: unset;
+        color: unset;
+        -webkit-transition :  unset;
+        -moz-transition: unset;
+        -o-transition: unset;
+        transition: unset;
+    }
 }
 
 @media (min-width: 320px) and (max-width: 480px) {   /* mobile Portrait */
@@ -734,5 +817,25 @@
     .dark_warp{
         width: calc(100% - 60px);
         height: 60%;
+    }
+    .galleryContainer a span.imgInfo{
+        bottom:0;
+    }
+    .project_gallery_column {
+        -ms-flex: 100%;
+        flex: 100%;
+        max-width: 89%;
+        padding: 0 1%;
+    }
+    .modal-content {
+        width: 85%;
+    }
+    .nav ul li:hover{
+        box-shadow: unset;
+        color: unset;
+        -webkit-transition :  unset;
+        -moz-transition: unset;
+        -o-transition: unset;
+        transition: unset;
     }
 }
