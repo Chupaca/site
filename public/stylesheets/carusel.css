@@ -226,7 +226,7 @@
     color: #ff4200;
     transition: color ease-in-out 0.5s;
 }
-}
+
 .footerBtn:hover{
     background: #ff4200;
     transition: background ease-in-out 0.5s;
