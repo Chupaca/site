@@ -348,7 +348,7 @@ header
 }
 .nav ul li a
 {
-    padding: 0 7px;
+    padding: 0 6px;
 }
 .nav ul .navLink:hover
 {
@@ -720,9 +720,7 @@ section:nth-child(2n)
 .recommendations-box
 {
     display:inline-block;
-    /*width:485px;*/
     text-align:center;
-    /*margin-left:170px;*/
     vertical-align:top;
     width:49%;
     height:500px;
@@ -741,27 +739,29 @@ section:nth-child(2n)
     width:385px;
     margin:30px auto;
     padding:0 50px;
-    box-sizing:border-box;
     position:relative;
+    quotes: '”' '“' '’' '‘';
 }
 .scrollingImagesWrapper
 {
     width:100%;
 }
-q:before { 
-    content: url(../images/apostrophe-open.png);
+.recommendations-box q:before { 
+    content: open-quote;
     color:#ff4200;
     position:absolute;
     top:-10px;
-    right:0;
+    right:3vh;
+    font-size: 5vh;
 }
 
-q:after { 
-    content: url(../images/apostrophe-close.png);
+.recommendations-box q:after { 
+    content: close-quote;
     color:#ff4200;
     position:absolute;
     bottom:-10px;
-    left:0;
+    left:3vh;
+    font-size: 5vh;
 }
 .client-name
 {
@@ -1420,14 +1420,14 @@ a.pandor-collection-btn:hover
         padding:10px;
         width:100%;
     }
-    q::before
+    .recommendations-box q::before
     {
-        right:0;
+        right:2ch;
         top:-10px;
     }
-    q::after
+    .recommendations-box q::after
     {
-        left:0;
+        left:3vh;
         bottom:-10px;
     }
     .logoMobile

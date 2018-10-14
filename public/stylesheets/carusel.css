@@ -402,7 +402,7 @@ z-index: -1;
 }
 .doorsBox:hover .image_door{
    animation: opendoor 0.8s forwards;
-   animation-timing-function: ease;
+   animation-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53);
 }
 
 @keyframes opendoor {
@@ -566,8 +566,48 @@ font-size: 6vh;
     from { top: -300px; opacity: 0 }
     to { top: 0; opacity: 1 }
 }
- 
+
+.tbContainer .longinput{
+    width: calc(50vh - 14px);
+}
+.comments_row{
+    display: -webkit-inline-box;
+    padding: 2vh;
+    margin: 2vh;
+    display: -ms-inline-flexbox;
+}
+.comments_row div:first-child{
+    margin-left: 2vh;
+    display: inline-block;
+}
+.comments_row div:last-child{
+    max-width: 80%;
+    display: inline-block;
+}
+.comments_row img{
+    width:50%;
+}
+.comments_row q{
+    quotes: '”' '“' '’' '‘';
+    padding: 1vh 1vh;
+    word-break: break-word;
+}
+.comments_row q::before{
+    font-size: 5vh;
+    content: open-quote;
+    color: #ff4200;
+}
+.comments_row q::after{
+    font-size: 5vh;
+    content: close-quote;
+    color: #ff4200;
+}
 /* ------------  media --------------------------------------*/
+@media all and (min-width:1900px){
+    .catalog .container{
+        margin-top: 14vh;
+    }
+}
 @media all and (max-width:900px){
     #nav-btn{
         width: 3vh;
@@ -810,6 +850,9 @@ font-size: 6vh;
      .catalog_frame_door{
         display: none;
     }
+    .tbContainer .longinput{
+        width: calc(36vh - 14px);
+    }
 }
 
 @media (min-width: 320px) and (max-width: 480px) {   /* mobile Portrait */
@@ -865,7 +908,7 @@ font-size: 6vh;
         right: -27vh;
     }
     .btn_wrap_comments{
-        right: 7vh;
+        right: 8vw;
     }
     .second_comment_slide{
         display: none;
@@ -961,4 +1004,7 @@ font-size: 6vh;
      .catalog_frame_door{
          display: none;
      }
+     .tbContainer .longinput{
+        width: calc(36vh - 14px);
+    }
 }

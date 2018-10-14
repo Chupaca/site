@@ -1,3 +1,5 @@
+<% layout('layoutindex/mainpage') -%>
+
 <div class="contentMainImgContainer">
     <img class="contentMainImg" alt="" src="images/contentMainImg.jpg" />
     <h3>דירות בתל אביב</h3>
@@ -9,89 +11,6 @@
     <span class="downBtn" data-scrollto="wrap_container"><i class="far fa-caret-square-down"></i></span>
 </div>
 
-<style>
-    .project_gallery_container {
-        position: relative;
-    }
-
-    /* Hide the images by default */
-    .mySlides {
-        display: none;
-    }
-
-    /* Add a pointer when hovering over the thumbnail images */
-    .cursor {
-        cursor: pointer;
-    }
-
-    /* Next & previous buttons */
-    .prev,
-    .next {
-        cursor: pointer;
-        position: absolute;
-        top: 40%;
-        width: auto;
-        padding: 16px;
-        margin-top: -50px;
-        color: white;
-        font-weight: bold;
-        font-size: 20px;
-        border-radius: 0 3px 3px 0;
-        user-select: none;
-        -webkit-user-select: none;
-    }
-
-    /* Position the "next button" to the right */
-    .next {
-        right: 0;
-        border-radius: 3px 0 0 3px;
-    }
-
-    /* On hover, add a black background color with a little bit see-through */
-    .prev:hover,
-    .next:hover {
-        background-color: rgba(0, 0, 0, 0.8);
-    }
-
-    /* Number text (1/3 etc) */
-    .numbertext {
-        color: #f2f2f2;
-        font-size: 12px;
-        padding: 8px 12px;
-        position: absolute;
-        top: 0;
-    }
-
-    /* Container for image text */
-    .caption-container {
-        text-align: center;
-        background-color: #222;
-        padding: 2px 16px;
-        color: white;
-    }
-
-    .row:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-
-    /* Six columns side by side */
-    .column {
-        float: left;
-        width: 16.66%;
-    }
-
-    /* Add a transparency effect for thumnbail images */
-    .demo {
-        opacity: 0.6;
-    }
-
-    .active,
-    .demo:hover {
-        opacity: 1;
-    }
-</style>
 
 <section id="wrap_container">
     <div class="container">
@@ -129,7 +48,7 @@
         </div>
 
     </div>
-    <!-- The Modal -->
+
       <div id="project_preview_modal" class="preview_modal">
         <span class="close">&times;</span>
         <img class="modal-content" id="preview_image">
