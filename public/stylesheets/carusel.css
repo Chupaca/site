@@ -330,7 +330,7 @@
 .dialogbubbl_right:hover:before{
     border-left: 59px solid #ffffff;
     transition: border-left ease-in-out 0.5s;
-  }
+}
 
 #tag_on_map_bnay_brak{
 width: 35%;
@@ -601,6 +601,31 @@ font-size: 6vh;
     font-size: 5vh;
     content: close-quote;
     color: #ff4200;
+}
+.infoContactBox.active{
+    background: #ff4200;
+    color: #ffffff;
+    transition: background ease-in-out 0.5s;
+}
+.branches_descriptions{
+    display: none;
+}
+.branches_descriptions.active{
+    display: block;
+}
+.on_map_btn.active .dialogbubbl_left, 
+.on_map_btn.active .dialogbubbl_right{
+    background: #ffffff;
+    color: #ff4200;
+    transition: background ease-in-out 0.5s;
+}
+.on_map_btn.active .dialogbubbl_left:before{
+    border-right: 59px solid #ffffff;
+    transition: border-right ease-in-out 0.5s;
+}
+.on_map_btn.active .dialogbubbl_right:before{
+    border-left: 59px solid #ffffff;
+    transition: border-left ease-in-out 0.5s;
 }
 /* ------------  media --------------------------------------*/
 @media all and (min-width:1900px){

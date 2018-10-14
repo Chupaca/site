@@ -1746,6 +1746,7 @@ html, body
     padding: 25px;
     box-sizing:border-box;
     display:inline-block;
+    cursor: pointer;
 }
 .infoContactBox img
 {

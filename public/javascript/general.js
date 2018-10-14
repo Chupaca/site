@@ -135,6 +135,7 @@ function Setup() {
     $(".downBtn").unbind().click(scrollPageToFirstElement)
     $(".project_gallery_column img").unbind().click(previewImageModal)
     accordionEvents()
+    $(".infoContactBox.branch_name, .on_map_btn").unbind().click(changeBranchPreview)
     $("#priceofferbtn").unbind().click(popupPriceOffer)
 }
 
@@ -240,4 +241,19 @@ function popupPriceOffer() {
             $(this).css({ "display": "none", "z-index": 1 });
         }
     })
+}
+
+function changeBranchPreview() {
+    $(".infoContactBox.branch_name, .on_map_btn").removeClass("active")
+    $(".branches_descriptions").removeClass("active");
+    var index;
+    if ($(this).attr("data-index")) {
+        $(".infoContactBox.branch_name").eq($(this).attr("data-index")).addClass("active");
+        index = $(this).attr("data-index")
+    } else {
+        $(".on_map_btn[data-index=" + $(this).index() + "]").addClass("active");
+        index = $(this).index()
+    }
+    $(this).addClass("active")
+    $(".branches_descriptions").eq(index).addClass("active")
 }
