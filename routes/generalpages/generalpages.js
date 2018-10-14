@@ -36,3 +36,7 @@ exports.GetProjectPage = (req, res) => {
 exports.GetCommentsPage = (req, res) => {
     res.render('commentspage/comments', {Desktop:(req.device.type == 'desktop'?true:false) });
 }
+
+exports.GetArchitectsListPage = (req, res) => {
+    res.render('architectslistpage/architectslist', {Desktop:(req.device.type == 'desktop'?true:false) });
+}

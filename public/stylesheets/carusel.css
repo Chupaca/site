@@ -627,6 +627,37 @@ font-size: 6vh;
     border-left: 59px solid #ffffff;
     transition: border-left ease-in-out 0.5s;
 }
+#architects_tb{
+    border-collapse: collapse;
+}
+#architects_tb .architect_name{
+    font-weight: bold;
+}
+#architects_tb tr{
+    border-bottom: 2px solid #ff4200;
+}
+#architects_tb .architect_description{
+    width:45%;
+    padding: 1vh 3vh;
+}
+.btn_all_pages{
+    background: #ff4200 url(../images/sale-btn.png) no-repeat 1vh 2.5vh;
+    padding: 2vh 2vh 2vh 5vh;
+    height: 7vh;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #ffffff;
+    margin: 1vh 1vh;
+    position:relative;
+}
+
+.btn_all_pages:hover{
+    
+    background: #ffffff;
+    color: #ff4200;
+    transition: background ease-in-out 0.5s;
+}
 /* ------------  media --------------------------------------*/
 @media all and (min-width:1900px){
     .catalog .container{
@@ -878,6 +909,16 @@ font-size: 6vh;
     .tbContainer .longinput{
         width: calc(36vh - 14px);
     }
+    #architects_tb{
+        font-size: 15px;
+    }
+    #architects_tb .architect_logo{
+        width: 25%;
+        float: right;
+    }
+    #architects_tb .architect_description{
+        width: auto;
+    }
 }
 
 @media (min-width: 320px) and (max-width: 480px) {   /* mobile Portrait */
@@ -1031,5 +1072,18 @@ font-size: 6vh;
      }
      .tbContainer .longinput{
         width: calc(36vh - 14px);
+    }
+    #architects_tb{
+        font-size: 15px;
+    }
+    #architects_tb tbody tr td{
+        display: block;
+    }
+    #architects_tb .architect_logo{
+        width: 25%;
+        float: right;
+    }
+    #architects_tb .architect_description{
+        width: auto;
     }
 }

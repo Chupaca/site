@@ -1766,7 +1766,7 @@ html, body
 }
 .contactImgBg
 {
-    background:url(../images/contactImgBg.jpg) no-repeat center center;
+    background:url(../images/mainsimg/contactImgBgqq.jpg) no-repeat center center;
     height:677px;
     padding:60px 0;
     box-sizing:border-box;
@@ -1867,7 +1867,7 @@ h3.ui-accordion-header-active span
 
 .catalog
 {
-    background:url(../images/CatalogBg.jpg) no-repeat bottom center;
+    background:url(../images/mainsimg/CatalogBgqq.jpg) no-repeat bottom center;
     background-size:100%;
     height:817px;
     padding-top:60px;
