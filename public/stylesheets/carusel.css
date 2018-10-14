@@ -124,6 +124,12 @@
     right: 1vw;
     z-index: 1000;
     display: inline-grid;
+   
+}
+.side_sticker_slide{
+    position: relative;
+    width: 25vh;
+    display: table;
 }
 
 #closed_sticker_flag{
@@ -269,7 +275,7 @@
 .contactImgBg ul li div:hover{
     background: #ff4200;
     color: #ffffff;
-    cursor: pointer;
+    transition: background ease-in-out 0.5s;
 }
 .dialogbubbl_left {
     width: 120px;
@@ -376,25 +382,43 @@ float: left;
 }
 .description_door_catalog{
 position: absolute;
-vertical-align: middle;
 margin-right: 10px;
-height: 21vh;
+height: auto;
+min-height: 70%;
 background: #1c1c1c;
-padding: 2%;
-font-size: 3vh;
-border: 1px solid #ff4200;
-display: none;
+padding: 2% 9% 2% 9%;
+font-size: 15px;
+display: block;
+top: 2vh;
+z-index: -1;
 }
 .doorsBox{
     position: relative;
 }
-.catalog_link_door:hover+.description_door_catalog{
-display: inline-block;
-width: 150px;
-top: 9vh;
-left: -20vh;
-z-index: 1000;
-font-size: 2vh;
+.catalog_frame_door{
+    position: absolute;
+    top: 0;
+    right:0;
+}
+.doorsBox:hover .image_door{
+   animation: opendoor 0.8s forwards;
+   animation-timing-function: ease;
+}
+
+@keyframes opendoor {
+    0% {
+        transform: perspective(1000px) rotateY(0deg);
+        transform-origin: 100% 50%;
+        border-left: 0 ;
+        border-left-width:0;
+    }
+    100% {
+        transform: perspective(1000px) rotateY(-78deg);
+        transform-origin: 100% 50%;
+        border-right: 5px solid;
+        border-right-width:5px;
+        border-color: #bbb;
+    }
 }
 
 .contentMainImgContainer *{
@@ -780,6 +804,12 @@ font-size: 6vh;
     .contactForm .tb3, .contactForm .tb2{
         height: 10vh;
     }
+    .doorsBox:hover .image_door{
+        animation: 0;
+     }
+     .catalog_frame_door{
+        display: none;
+    }
 }
 
 @media (min-width: 320px) and (max-width: 480px) {   /* mobile Portrait */
@@ -873,6 +903,7 @@ font-size: 6vh;
     }
     .description_door_catalog{
         display: inline-block;
+        top: 0;
     }
     .catalog{
         background: #1c1c1c;
@@ -924,4 +955,10 @@ font-size: 6vh;
     .popup_priceoffer_modal_content{
         width: 80%;
     }
+    .doorsBox:hover .image_door{
+        animation: 0;
+     }
+     .catalog_frame_door{
+         display: none;
+     }
 }

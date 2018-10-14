@@ -298,7 +298,6 @@ header
     font-weight:300;
     font-size:22px;
     display:inline-block;
-     margin-left:20px;
 }
 .nav ul.social li
 {
@@ -387,6 +386,7 @@ header
     .nav ul li
     {
         padding-right:0;
+        font-size: 4vh;
     }
     .nav ul li a
     {
@@ -1352,7 +1352,7 @@ a.pandor-collection-btn:hover
     }
     section
     {
-        padding:25px 20px;
+        padding:25px 13%;
     }
     .month-recommended-box .sale-btn
     {
@@ -3012,7 +3012,7 @@ a.btn-model:hover
     a.btn-model
     {
         position:absolute;
-        bottom:0;
+        bottom: 10vh;
         right:101px;
         width:calc(100% - 110px) !important;
     }
