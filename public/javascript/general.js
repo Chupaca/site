@@ -133,7 +133,7 @@ function Setup() {
     window.addEventListener("orientationchange", function () { location.reload(); });
     $(".header.only_mobile").unbind().click(openSubMenu);
     $(".downBtn").unbind().click(scrollPageToFirstElement);
-    $(".project_gallery_column img").unbind().click(previewImageModal);
+    $(".project_gallery_row img").unbind().click(previewImageModal);
     accordionEvents();
     $(".infoContactBox.branch_name, .on_map_btn").unbind().click(changeBranchPreview);
     $("#priceofferbtn").unbind().click(popupPriceOffer);
@@ -228,10 +228,23 @@ function accordionEvents() {
 }
 
 function previewImageModal() {
+    var currImg =  Number($(this).attr("data-index"))
     $("#project_preview_modal").css({ "display": "block", "z-index": 3000 });
     $("#preview_image").attr("src", this.src);
-    $("#project_preview_modal").unbind().click(function () {
-        $(this).css({ "display": "none", "z-index": 1 });
+    $("#project_preview_modal .close").unbind().click(function () {
+        $("#project_preview_modal").css({ "display": "none", "z-index": 1 });
+    })
+    $("#project_preview_modal .next").unbind().click(function () {
+        currImg++
+        if(currImg == $(".project_gallery_row img").length) currImg = 0;
+        $("#preview_image").attr("src", $(".project_gallery_row img[data-index='" + currImg + "']").attr("src"));
+        console.log(currImg)
+    })
+    $("#project_preview_modal .prev").unbind().click(function () {
+        currImg--
+        if(currImg == -1) currImg = $(".project_gallery_row img").length-1;
+        $("#preview_image").attr("src", $(".project_gallery_row img[data-index='" + currImg + "']").attr("src"));
+        console.log(currImg)
     })
 }
 
@@ -262,15 +275,15 @@ function changeBranchPreview() {
 
 function changeChoicePart() {
     var img_part = $(this).attr("data-large-door");
-    $(".for_fun_after_door").css({"display": ""});
+    $(".for_fun_after_door").css({ "display": "" });
 
     $(".image_door").animate({ textIndent: 85 }, {
         step: function (now, fx) {
             $(".image_door").css({
                 'transform': 'perspective(1000px) rotateY(' + (-now) + 'deg)',
-                '-ms-transform' : 'perspective(1000px) rotateY(' + (-now) + 'deg)',
+                '-ms-transform': 'perspective(1000px) rotateY(' + (-now) + 'deg)',
                 "transform-origin": "100% 50%",
-                "-ms-transform-origin" :  "100% 50%"
+                "-ms-transform-origin": "100% 50%"
             });
         },
         complete: function () {
@@ -283,26 +296,26 @@ function changeChoicePart() {
             step: function (now, fx) {
                 $(".image_door").css({
                     'transform': 'perspective(1000px) rotateY(' + (-now) + 'deg)',
-                    '-ms-transform' : 'perspective(1000px) rotateY(' + (-now) + 'deg)',
-                    "transform-origin":" 100% 50%",
-                    "-ms-transform-origin" :  "100% 50%"
+                    '-ms-transform': 'perspective(1000px) rotateY(' + (-now) + 'deg)',
+                    "transform-origin": " 100% 50%",
+                    "-ms-transform-origin": "100% 50%"
                 });
             }
         }, 800, "easeOutBack");
     }, 1000);
 }
 
-function selectChoiceDoorMobile(){
+function selectChoiceDoorMobile() {
     var img_part = $(".select_part_door option:selected").val();
-    setTimeout(function(){
+    setTimeout(function () {
         $(".image_door").animate({
-            opacity:0
-        }, 300, function(){
+            opacity: 0
+        }, 300, function () {
             $(".image_door").attr("src", img_part);
             $(".image_door").animate({
-                opacity:1
+                opacity: 1
             }, 300)
         })
     }, 0)
-    
+
 }

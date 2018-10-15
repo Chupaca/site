@@ -533,6 +533,40 @@ font-size: 6vh;
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
 }
+.preview_modal .close{
+    position: absolute;
+    top: 14vh;
+    right: 14vh;
+    color: #f1f1f1;
+    font-size: 8vh;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.preview_modal .next, .preview_modal .prev{
+    position: absolute;
+    color: #323234;
+    font-size: 8vh;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+    background: #f1f1f1;
+    width: 8vh;
+    opacity: 0.5;
+    text-align: center;
+}
+.preview_modal .next{
+    top: 50%;
+    left: 1vh;
+}
+.preview_modal .prev{
+    top: 50%;
+    right: 1vh;
+}
+.preview_modal .next:hover, .preview_modal .prev:hover, .preview_modal .close:hover{
+    color: #ff4200;
+    opacity: 1;
+}
 
 .modal-content {
     margin: auto;
@@ -1228,5 +1262,9 @@ font-size: 6vh;
         height: 100%;
         top: 0;
         right: 0;
+    }
+    .preview_modal .close{
+        right: 47%;
+        top: 10vh;
     }
 }
