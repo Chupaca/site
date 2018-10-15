@@ -26,8 +26,8 @@ exports.GetGalleryPage = (req, res) => {
     res.render('gallerypage/gallery', {Desktop:(req.device.type == 'desktop'?true:false) });
 }
 
-exports.GetArchitectsPage = (req, res) => {
-    res.render('architectspage/architects', {Desktop:(req.device.type == 'desktop'?true:false) });
+exports.GetArchitectsContactPage = (req, res) => {
+    res.render('architectscontactpage/architectscontact', {Desktop:(req.device.type == 'desktop'?true:false) });
 }
 
 exports.GetProjectPage = (req, res) => {
@@ -39,4 +39,7 @@ exports.GetCommentsPage = (req, res) => {
 
 exports.GetArchitectsListPage = (req, res) => {
     res.render('architectslistpage/architectslist', {Desktop:(req.device.type == 'desktop'?true:false) });
+}
+exports.GetArchitectPage = (req, res) => {
+    res.render('architectpage/architect', {Desktop:(req.device.type == 'desktop'?true:false) });
 }

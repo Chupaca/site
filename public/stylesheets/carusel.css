@@ -635,6 +635,11 @@ font-size: 6vh;
 }
 #architects_tb tr{
     border-bottom: 2px solid #ff4200;
+    cursor: pointer;
+}
+#architects_tb tr:hover{
+    box-shadow: 0px 4px 16px 4px #ff4200;
+    transition: box-shadow ease-in-out 0.5s;
 }
 #architects_tb .architect_description{
     width:45%;
@@ -643,8 +648,8 @@ font-size: 6vh;
 .btn_all_pages{
     background: #ff4200 url(../images/sale-btn.png) no-repeat 1vh 2.5vh;
     padding: 2vh 2vh 2vh 5vh;
-    height: 7vh;
-    font-size: 25px;
+    height: 7.5vh;
+    font-size: 3vh;
     font-weight: bold;
     cursor: pointer;
     color: #ffffff;
