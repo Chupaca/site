@@ -7,18 +7,28 @@
 }
 #nav-btn {
     cursor: pointer;
-    padding: 4vh 5vh 5vh 5vh;
+    text-align: center;
     text-align: -webkit-center;
+    text-align: -moz-center;
     float: left;
+    background: #222;
+    position: absolute;
+    height: 100%;
+    width: 7%;
 }
 
 .bar1, .bar2, .bar3 {
-    width: 35px;
+    width: 40px;
     height: 5px;
-    background-color: #333;
-    margin: 6px 0;
+    background-color: #ff4200;
+    margin: 6px auto;
     transition: 0.4s;
 }
+
+.bar1{
+    margin-top: 4vh;
+}
+
 
 .change .bar1 {
     -webkit-transform: rotate(-45deg) translate(-9px, 6px);
@@ -757,8 +767,18 @@ font-size: 6vh;
 .choice_parts_preview_wrap>.part_preview img{
     float: left;
 }
+.header_door_wrap{
+    font-size: 17px;
+    position: relative;
+    padding: 6vh 5vh;
+    text-align: center;
+    background: #000 url(../images/mainsimg/contentMainImgqq.jpg);
+    color: #ffffff;
+    height: 30vh;
+}
 /* ------------  media --------------------------------------*/
 @media all and (min-width:1900px){
+    
     .catalog .container{
         margin-top: 14vh;
     }
@@ -767,11 +787,6 @@ font-size: 6vh;
     }
 }
 @media all and (max-width:900px){
-    #nav-btn{
-        width: 3vh;
-        height: 2vh;
-        padding: 1vh 4vh 4vh 2vh;
-    }
     #minimize_logo{
         width: 19%;
         height: 71%;
@@ -805,11 +820,6 @@ font-size: 6vh;
 }
 
 @media (min-width: 1025px) and (max-width: 1280px) {
-    #nav-btn{
-        width: 16vh;
-        height: 18vh;
-        
-    }
     .logo
     {
         width: 40%;
@@ -847,11 +857,6 @@ font-size: 6vh;
 }
 
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
-    #nav-btn{
-        width: 16vh;
-        height: 18vh;
-        
-    }
     .logo
     {
         width: 40%;
@@ -874,10 +879,8 @@ font-size: 6vh;
 
 @media (min-width: 481px) and (max-width: 767px) { /* mobile Landscape */
     #nav-btn{
-        width: 5vh;
-        height: 8vh;
-        padding: 3vh 10vh 7vh 7vh;
-    }
+        width: 13%;
+     }
     .nav{
         border-right: 0;
         border-bottom: 4px solid rgb(255, 66, 0);
@@ -1021,12 +1024,32 @@ font-size: 6vh;
     #architects_tb .architect_description{
         width: auto;
     }
+    .choice_parts_door_list ul{
+        display: inline-flex;
+        position: relative;
+        width: 77%;
+        margin: 2% 8%;
+    }
+    .choice_parts_door_list ul li{
+        position: relative;
+        height: auto;
+    }
+    .choice_parts_door_list ul li select{
+        opacity: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        right: 0;
+    }
 }
 
 @media (min-width: 320px) and (max-width: 480px) {   /* mobile Portrait */
     #nav-btn{
-        width: 5vh;
-        height: 8vh;
+       width: 17%;
+    }
+    .bar1{
+        margin-top: 3vh;
     }
     .nav{
         border-right: 0;
@@ -1187,5 +1210,23 @@ font-size: 6vh;
     }
     #architects_tb .architect_description{
         width: auto;
+    }
+    .choice_parts_door_list ul{
+        display: inline-flex;
+        position: relative;
+        width: 77%;
+        margin: 2% 8%;
+    }
+    .choice_parts_door_list ul li{
+        position: relative;
+        height: auto;
+    }
+    .choice_parts_door_list ul li select{
+        opacity: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        right: 0;
     }
 }

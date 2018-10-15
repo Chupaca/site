@@ -16,7 +16,7 @@ function closeNav(e) {
     if ($("#nav-btn").hasClass('change')) {
         $(".nav").slideUp(400)
         $("#nav-btn").removeClass("change")
-        $("#nav-btn").css("background", "none")
+        $("#nav-btn").css("background", "#222")
     }
 }
 
@@ -138,7 +138,7 @@ function Setup() {
     $(".infoContactBox.branch_name, .on_map_btn").unbind().click(changeBranchPreview);
     $("#priceofferbtn").unbind().click(popupPriceOffer);
     $(".part_preview").unbind().click(changeChoicePart)
-
+    $(".select_part_door").unbind().change(selectChoiceDoorMobile)
 }
 
 $(document).ready(function () {
@@ -262,7 +262,8 @@ function changeBranchPreview() {
 
 function changeChoicePart() {
     var img_part = $(this).attr("data-large-door");
-    $(".for_fun_after_door").css({"display": ""})
+    $(".for_fun_after_door").css({"display": ""});
+
     $(".image_door").animate({ textIndent: 85 }, {
         step: function (now, fx) {
             $(".image_door").css({
@@ -275,7 +276,8 @@ function changeChoicePart() {
         complete: function () {
             $(".image_door").attr("src", img_part);
         }
-    }, 800, "easeOutBack")
+    }, 800, "easeOutBack");
+
     setTimeout(function () {
         $(".image_door").animate({ textIndent: 0 }, {
             step: function (now, fx) {
@@ -286,6 +288,21 @@ function changeChoicePart() {
                     "-ms-transform-origin" :  "100% 50%"
                 });
             }
-        }, 800, "easeOutBack")
-    }, 1000)
+        }, 800, "easeOutBack");
+    }, 1000);
+}
+
+function selectChoiceDoorMobile(){
+    var img_part = $(".select_part_door option:selected").val();
+    setTimeout(function(){
+        $(".image_door").animate({
+            opacity:0
+        }, 300, function(){
+            $(".image_door").attr("src", img_part);
+            $(".image_door").animate({
+                opacity:1
+            }, 300)
+        })
+    }, 0)
+    
 }

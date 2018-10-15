@@ -1,4 +1,7 @@
 <% layout('layoutindex/mainpage') -%>
+
+<% if(Desktop){%>
+
 <!--[if lt IE 10]> 
       <style>
             .ie_class{
@@ -10,13 +13,14 @@
             }
         </style>
 <![endif]-->
+
 <div class="catalog door_preview_wrap">
     <div class="flex_container">
         <div class="flex_container_box ie_class">
             <div class="door_wrap">
-            <img class="image_door" alt="" src="images/doors/unik_exlusive_broun/blank1.jpg" class="" />
-            <img alt="" src="images/doors/unik_exlusive_broun/ff.png" class="" />
-            <img alt="" src="images/doors/unik_exlusive_broun/fun.jpg" class="for_fun_after_door" style="width: 26vh;height: 53vh;z-index:-1;display:none;" />
+                <img class="image_door" alt="" src="images/doors/unik_exlusive_broun/blank1.jpg" class="" />
+                <img alt="" src="images/doors/unik_exlusive_broun/ff.png" class="" />
+                <img alt="" src="images/doors/unik_exlusive_broun/fun.jpg" class="for_fun_after_door" style="width: 26vh;height: 53vh;z-index:-1;display:none;" />
             </div>
         </div>
         <div class="flex_container_box ie_class">
@@ -60,3 +64,47 @@
         </div>
     </div>
 </div>
+<%} else { %>
+<div style="margin-top:8vh;">
+    <div class="header_door_wrap">
+        <h2><span>פנדור</span> יוניק קלאסיק </h2>
+        <div>
+            <b>פנדור יוניק קלאסיק:</b> אַדְרִיכָלוּת או אַרְכִיטֶקְטוּרָה מוגדרת באופן מסורתי כאמנות
+            הבנייה,
+            כתחום
+            העוסק בתכנון ועיצוב חללים.
+        </div>
+    </div>
+</div>
+<div class="container" style="padding: 3vh 0;">
+    <div style="text-align: -webkit-center;">
+        <img class="image_door" alt="" src="images/doors/unik_exlusive_broun/blank1.jpg" class="" style="width:40%;" />
+    </div>
+    <div class="choice_parts_door_list">
+        <ul>
+            <li>חלונות
+                <select class="select_part_door">
+                    <option value="images/doors/unik_exlusive_broun/blank1.jpg">ללא חלון</option>
+                    <option value="images/doors/unik_exlusive_broun/window1.jpg">חלון גדול</option>
+                    <option value="images/doors/unik_exlusive_broun/window_1530_1.jpg">חלון קטן</option>
+                    <option value="images/doors/unik_exlusive_broun/window_rhombus_1.jpg">חלון רומב</option>
+                </select>
+            </li>
+            <li>חריטות
+                <select name="" id="">
+                    <option value="1">חלון גדול</option>
+                    <option value="1">חלון גדול</option>
+                    <option value="1">חלון גדול</option>
+                </select>
+            </li>
+            <li>פתח לחתול\כלב
+                <select name="" id="">
+                    <option value="1">חלון גדול</option>
+                    <option value="1">חלון גדול</option>
+                    <option value="1">חלון גדול</option>
+                </select>
+            </li>
+        </ul>
+    </div>
+</div>
+<%}%>
