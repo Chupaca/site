@@ -115,7 +115,7 @@ function minimizeLogo(position) {
 }
 
 function scrollPageToFirstElement() {
-    $('html').animate({ scrollTop: $('#' + $(this).attr("data-scrollto")).position().top - 100 }, 600, "easeOutBack")
+    $('html').animate({ scrollTop: $('#' + $(this).attr("data-scrollto")).position().top - 100 }, 600, "easeOutBack");
 }
 
 function Setup() {
@@ -125,18 +125,20 @@ function Setup() {
         } else {
             nav_on_click()
         }
-    })
-    $(".xNav").unbind().click(closeNav)
-    $("#closed_sticker_flag").unbind().click(function () { changeSideStickerPosition(false) })
-    carousel(1)
+    });
+    $(".xNav").unbind().click(closeNav);
+    $("#closed_sticker_flag").unbind().click(function () { changeSideStickerPosition(false) });
+    carousel(1);
     setTimeout(function () { carousel_comments() }, 1000);
     window.addEventListener("orientationchange", function () { location.reload(); });
-    $(".header.only_mobile").unbind().click(openSubMenu)
-    $(".downBtn").unbind().click(scrollPageToFirstElement)
-    $(".project_gallery_column img").unbind().click(previewImageModal)
-    accordionEvents()
-    $(".infoContactBox.branch_name, .on_map_btn").unbind().click(changeBranchPreview)
-    $("#priceofferbtn").unbind().click(popupPriceOffer)
+    $(".header.only_mobile").unbind().click(openSubMenu);
+    $(".downBtn").unbind().click(scrollPageToFirstElement);
+    $(".project_gallery_column img").unbind().click(previewImageModal);
+    accordionEvents();
+    $(".infoContactBox.branch_name, .on_map_btn").unbind().click(changeBranchPreview);
+    $("#priceofferbtn").unbind().click(popupPriceOffer);
+    $(".part_preview").unbind().click(changeChoicePart)
+
 }
 
 $(document).ready(function () {
@@ -256,4 +258,34 @@ function changeBranchPreview() {
     }
     $(this).addClass("active")
     $(".branches_descriptions").eq(index).addClass("active")
+}
+
+function changeChoicePart() {
+    var img_part = $(this).attr("data-large-door");
+    $(".for_fun_after_door").css({"display": ""})
+    $(".image_door").animate({ textIndent: 85 }, {
+        step: function (now, fx) {
+            $(".image_door").css({
+                'transform': 'perspective(1000px) rotateY(' + (-now) + 'deg)',
+                '-ms-transform' : 'perspective(1000px) rotateY(' + (-now) + 'deg)',
+                "transform-origin": "100% 50%",
+                "-ms-transform-origin" :  "100% 50%"
+            });
+        },
+        complete: function () {
+            $(".image_door").attr("src", img_part);
+        }
+    }, 800, "easeOutBack")
+    setTimeout(function () {
+        $(".image_door").animate({ textIndent: 0 }, {
+            step: function (now, fx) {
+                $(".image_door").css({
+                    'transform': 'perspective(1000px) rotateY(' + (-now) + 'deg)',
+                    '-ms-transform' : 'perspective(1000px) rotateY(' + (-now) + 'deg)',
+                    "transform-origin":" 100% 50%",
+                    "-ms-transform-origin" :  "100% 50%"
+                });
+            }
+        }, 800, "easeOutBack")
+    }, 1000)
 }

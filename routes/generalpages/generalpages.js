@@ -40,6 +40,11 @@ exports.GetCommentsPage = (req, res) => {
 exports.GetArchitectsListPage = (req, res) => {
     res.render('architectslistpage/architectslist', {Desktop:(req.device.type == 'desktop'?true:false) });
 }
+
 exports.GetArchitectPage = (req, res) => {
     res.render('architectpage/architect', {Desktop:(req.device.type == 'desktop'?true:false) });
+}
+
+exports.GetDoorPage = (req, res) => {
+    res.render('doorpage/door', {Desktop:(req.device.type == 'desktop'?true:false) });
 }

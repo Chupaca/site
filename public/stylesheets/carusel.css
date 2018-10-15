@@ -391,6 +391,7 @@ font-size: 15px;
 display: block;
 top: 2vh;
 z-index: -1;
+color: #ffffff;
 }
 .doorsBox{
     position: relative;
@@ -418,6 +419,22 @@ z-index: -1;
         border-right: 5px solid;
         border-right-width:5px;
         border-color: #bbb;
+    }
+}
+
+@keyframes closedoor {
+    0% {
+        transform: perspective(1000px) rotateY(-78deg);
+        transform-origin: 100% 50%;
+        border-right: 5px solid;
+        border-right-width:5px;
+        border-color: #bbb;
+    }
+    100% {
+        transform: perspective(1000px) rotateY(0deg);
+        transform-origin: 100% 50%;
+        border-left: 0 ;
+        border-left-width:0;
     }
 }
 
@@ -663,10 +680,90 @@ font-size: 6vh;
     color: #ff4200;
     transition: background ease-in-out 0.5s;
 }
+.door_name_catalog_preview{
+   float: right;
+}
+
+.flex_container{
+    display: flex;
+    height: 54vh;
+    min-height: 50vh;
+    width: 70%;
+    margin: 10.5vh 15%;
+    position: absolute;
+}
+
+.flex_container > .flex_container_box {
+    width: 60%;
+    text-align: center;
+    float: right;
+}
+
+.flex_container > .flex_container_box:last-child, .flex_container > .flex_container_box:first-child{
+    width: 20%;
+    background:none;
+}
+
+.door_wrap{
+    float: left;
+    position: relative;
+}
+
+.door_wrap img{
+    position: absolute;
+    width: 13.5vw;
+}
+
+.choice_parts_door_list{
+    position: relative;
+    text-align: center;
+}
+
+.choice_parts_door_list ul{
+    list-style-type: none;
+    margin: 0 5%;
+    padding: 2vh;
+    overflow: hidden; 
+}
+
+.choice_parts_door_list ul li {
+    float: right;
+    border: 1px solid #dcd9d9;
+    width: 27%;
+    height: 100%;
+    padding: 2vh;
+}
+
+.choice_parts_door_list ul li:hover{
+    background: #ff4200;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background ease-in-out 0.5s;
+}
+.choice_parts_door_list ul li.active{
+    background: #ff4200;
+    color: #ffffff;
+}
+.choice_parts_preview_wrap{
+    display: inline-flex;
+    width: 100%;
+    margin-top: 2vh;
+}
+.choice_parts_preview_wrap>.part_preview{
+    width: 33%;
+    cursor: pointer;
+    padding: 1vh 7vh;
+}
+.choice_parts_preview_wrap>.part_preview img{
+    float: left;
+}
 /* ------------  media --------------------------------------*/
 @media all and (min-width:1900px){
     .catalog .container{
         margin-top: 14vh;
+    }
+    .flex_container{
+        margin: 13.5vh 15%;
     }
 }
 @media all and (max-width:900px){
