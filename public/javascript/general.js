@@ -35,7 +35,8 @@ function carousel(myIndex) {
     $(".mySlides").each(function (i, item) {
         if ($(item).hasClass("active")) {
             $(item).animate({
-                opacity: 0
+                opacity: 0.1,
+                "z-index" :100
             }, 1000)
             $(".slide_inside:eq(" + $(item).index() + ")").css({ "display": "none" })
         }
@@ -44,7 +45,8 @@ function carousel(myIndex) {
     if (myIndex > $(".mySlides").length) { myIndex = 1 }
     $(".mySlides").eq(myIndex - 1).addClass("active")
     $(".mySlides").eq(myIndex - 1).animate({
-        opacity: 1
+        opacity: 1,
+        "z-index" :200
     }, 1000, function () {
         $(".slide_inside").eq(myIndex - 1).css({ "display": "block" })
         $(".overlay_slides_wrap").animate({
@@ -52,7 +54,7 @@ function carousel(myIndex) {
         }, 500)
     })
 
-    setTimeout(function () { carousel_addons(true, myIndex) }, 3000);
+    setTimeout(function () { carousel_addons(true, myIndex) }, 2000);
 }
 
 function carousel_addons(slidein, myIndex) {
