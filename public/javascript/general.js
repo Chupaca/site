@@ -4,12 +4,12 @@ var device = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.te
 
 function nav_on_click() {
     if (device) {
-        $(".navLink").slideUp(1)
-        $(".header.only_mobile").removeClass("active")
+        $(".navLink").slideUp(1);
+        $(".header.only_mobile").removeClass("active");
     }
-    $(".nav").slideDown(400)
-    $("#nav-btn").addClass("change")
-    $("#nav-btn").css("background", "#ffffff")
+    $(".nav").slideDown(400);
+    $("#nav-btn").addClass("change");
+    $("#nav-btn").css("background", "#ffffff");
 }
 
 function closeNav(e) {
@@ -21,13 +21,12 @@ function closeNav(e) {
 }
 
 function changeSideStickerPosition(hidden) {
-    if (hidden && !$("#closed_sticker_flag").hasClass("visib")) {
-        $("#closed_sticker_flag").addClass("visib").animate({ "right": "6vh" }, 300)
+    if (hidden && device && !$("#closed_sticker_flag").hasClass("visib")) {
+        $("#closed_sticker_flag").addClass("visib").animate({ "right": "6.5vh" }, 300)
         $("#side_sticker").animate({ "right": "-15vh" }, 300)
-    } else if (!hidden && $("#closed_sticker_flag").hasClass("visib")) {
+    } else if (!hidden && device && $("#closed_sticker_flag").hasClass("visib")) {
         $("#closed_sticker_flag").removeClass("visib").animate({ "right": "-18vh" }, 300)
         $("#side_sticker").animate({ "right": "1vh" }, 300)
-
     }
 }
 

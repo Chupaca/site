@@ -290,9 +290,9 @@
 .dialogbubbl_left {
     width: 120px;
     height: 50px;
-    background:  #ff4200;
+    background: #ffffff;
     position: relative;
-    color: #ffffff;
+    color: #ff4200;
     cursor: pointer;
 }
 
@@ -304,15 +304,16 @@
     width: 0;
     height: 0;
     border-top: 13px solid transparent;
-    border-right: 59px solid  #ff4200;
+    border-right: 59px solid #ffffff;
     transform: rotate(-25deg)
-  }
+}
+
 .dialogbubbl_right {
     width: 120px;
     height: 50px;
-    background:  #ff4200;
+    background:  #ffffff;
     position: relative;
-    color: #ffffff;
+    color: #ff4200;
     cursor: pointer;
 }
 
@@ -324,49 +325,60 @@
     width: 0;
     height: 0;
     border-bottom: 16px solid transparent;
-    border-left: 59px solid #ff4200;
+    border-left: 59px solid #ffffff;
     transform: rotate(38deg);
 }
 
 .dialogbubbl_left:hover, .dialogbubbl_right:hover{
-    background: #ffffff;
-    color: #ff4200;
+    background: #ff4200;
+    color: #ffffff;
     transition: background ease-in-out 0.5s;
 }
 .dialogbubbl_left:hover:before{
-    border-right: 59px solid #ffffff;
+    border-right: 59px solid #ff4200;
     transition: border-right ease-in-out 0.5s;
 }
 .dialogbubbl_right:hover:before{
-    border-left: 59px solid #ffffff;
+    border-left: 59px solid #ff4200;
     transition: border-left ease-in-out 0.5s;
 }
 
 #tag_on_map_bnay_brak{
-width: 35%;
-top: 30%;
-position: absolute;
-right: 15%;
+    width: 35%;
+    top: 26%;
+    position: absolute;
+    right: 12%;
 }
-
+#tag_on_map_reashin_top{
+    width: 35%;
+    top: 32%;
+    position: absolute;
+    right: 13%;
+}
 #tag_on_map_kriayt_gat{
-width: 35%;
-top: 40%;
-position: absolute;
-right: 15%;
+    width: 35%;
+    top: 48%;
+    position: absolute;
+    right: 15%;
 }
 #tag_on_map_natania{
-width: 35%;
-top: 24%;
-position: absolute;
-left: -6%;
+    width: 35%;
+    top: 21%;
+    position: absolute;
+    left: -6%;
 }
 
 #tag_on_map_rashlatz{
-width: 35%;
-top: 33%;
-position: absolute;
-left: -6%;
+    width: 35%;
+    top: 33%;
+    position: absolute;
+    left: -6%;
+}
+#tag_on_map_ashdod{
+    width: 35%;
+    top: 40%;
+    position: absolute;
+    left: -21%;
 }
 #branches_wrap{
 width: 100%;
@@ -453,7 +465,7 @@ color: #ffffff;
 }
 .contentMainImgContainer h3{
     font-size: 10vh;
-    margin-top: 26vh;
+    margin-top: 20vh;
 }
 .contentMainImgContainer i{
 font-size: 6vh;
@@ -676,16 +688,16 @@ font-size: 6vh;
 }
 .on_map_btn.active .dialogbubbl_left, 
 .on_map_btn.active .dialogbubbl_right{
-    background: #ffffff;
-    color: #ff4200;
+    background: #ff4200;
+    color:#ffffff;
     transition: background ease-in-out 0.5s;
 }
 .on_map_btn.active .dialogbubbl_left:before{
-    border-right: 59px solid #ffffff;
+    border-right: 59px solid #ff4200;
     transition: border-right ease-in-out 0.5s;
 }
 .on_map_btn.active .dialogbubbl_right:before{
-    border-left: 59px solid #ffffff;
+    border-left: 59px solid #ff4200;
     transition: border-left ease-in-out 0.5s;
 }
 #architects_tb{

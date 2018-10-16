@@ -1646,7 +1646,7 @@ html, body
 .contactForm
 {
     position:relative;
-    height: 80vh;
+    height: 70vh;
     overflow:hidden;
     direction:rtl;
 }
@@ -1668,6 +1668,7 @@ html, body
     border:none;
     font-size:80px;
     font-weight:300;
+    margin-bottom: 15px;
 }
 .contactTxt
 {
@@ -1688,6 +1689,7 @@ html, body
     margin:0 auto;
     max-width:930px;
     margin-top:40px;
+    margin-top: 1vh;
 }
 .tb
 {
@@ -2175,7 +2177,7 @@ a.btn-model:hover
 .contentMainImgContainer
 {
     position:relative;
-    height:80vh;
+    height:70vh;
     overflow:hidden;
     direction:rtl;
 }
