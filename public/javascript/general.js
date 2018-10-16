@@ -228,7 +228,8 @@ function accordionEvents() {
 }
 
 function previewImageModal() {
-    var currImg =  Number($(this).attr("data-index"))
+    var currImg = Number($(this).attr("data-index"))
+    $("#count_images").html((currImg + 1) + "/" + $(".project_gallery_row img").length)
     $("#project_preview_modal").css({ "display": "block", "z-index": 3000 });
     $("#preview_image").attr("src", this.src);
     $("#project_preview_modal .close").unbind().click(function () {
@@ -236,16 +237,37 @@ function previewImageModal() {
     })
     $("#project_preview_modal .next").unbind().click(function () {
         currImg++
-        if(currImg == $(".project_gallery_row img").length) currImg = 0;
+        if (currImg == $(".project_gallery_row img").length) currImg = 0;
         $("#preview_image").attr("src", $(".project_gallery_row img[data-index='" + currImg + "']").attr("src"));
-        console.log(currImg)
+        $("#count_images").html((currImg + 1) + "/" + $(".project_gallery_row img").length)
     })
     $("#project_preview_modal .prev").unbind().click(function () {
         currImg--
-        if(currImg == -1) currImg = $(".project_gallery_row img").length-1;
+        if (currImg == -1) currImg = $(".project_gallery_row img").length - 1;
         $("#preview_image").attr("src", $(".project_gallery_row img[data-index='" + currImg + "']").attr("src"));
-        console.log(currImg)
+        $("#count_images").html((currImg + 1) + "/" + $(".project_gallery_row img").length)
     })
+    $("#project_preview_modal").on('touchstart', function (e) {
+        var swipe = e.originalEvent.touches;
+        var start = swipe[0].pageX;
+        var distance;
+        $(this).on('touchmove', function (e) {
+            var contact = e.originalEvent.touches;
+            var end = contact[0].pageX;
+            distance = end - start;
+        })
+            .one('touchend', function () {
+                if (distance < -30) {
+                    currImg++
+                    if (currImg == $(".project_gallery_row img").length) currImg = 0;
+                } else if (distance > 30) {
+                    currImg--
+                    if (currImg == -1) currImg = $(".project_gallery_row img").length - 1;
+                }
+                $("#preview_image").attr("src", $(".project_gallery_row img[data-index='" + currImg + "']").attr("src"));
+                $("#count_images").html((currImg + 1) + "/" + $(".project_gallery_row img").length)
+            });
+    });
 }
 
 function popupPriceOffer() {

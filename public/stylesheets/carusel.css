@@ -810,6 +810,12 @@ font-size: 6vh;
     color: #ffffff;
     height: 30vh;
 }
+.preview_modal #count_images{
+    color: #ccc;
+    position: absolute;
+    left: 5vh;
+    bottom: 21vh;
+}
 /* ------------  media --------------------------------------*/
 @media all and (min-width:1900px){
     
@@ -1076,6 +1082,9 @@ font-size: 6vh;
         top: 0;
         right: 0;
     }
+    .preview_modal .next, .preview_modal .prev{
+        display: none;
+    }
 }
 
 @media (min-width: 320px) and (max-width: 480px) {   /* mobile Portrait */
@@ -1266,5 +1275,8 @@ font-size: 6vh;
     .preview_modal .close{
         right: 47%;
         top: 10vh;
+    }
+    .preview_modal .next, .preview_modal .prev{
+        display: none;
     }
 }
