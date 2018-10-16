@@ -17,5 +17,6 @@ router.get('/architectslist', generalpages.GetArchitectsListPage);
 router.get('/architect', generalpages.GetArchitectPage);
 router.get('/door', generalpages.GetDoorPage);
 router.get('/sales', generalpages.GetSalesPage);
+router.get('/blog', generalpages.GetBlogPage);
 
 module.exports = router;

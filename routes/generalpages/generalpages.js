@@ -52,3 +52,7 @@ exports.GetDoorPage = (req, res) => {
 exports.GetSalesPage = (req, res) => {
     res.render('salespage/sales', {Desktop:(req.device.type == 'desktop'?true:false) });
 }
+
+exports.GetBlogPage = (req, res) => {
+    res.render('blogpage/blog', {Desktop:(req.device.type == 'desktop'?true:false) });
+}
