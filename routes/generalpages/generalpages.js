@@ -48,3 +48,7 @@ exports.GetArchitectPage = (req, res) => {
 exports.GetDoorPage = (req, res) => {
     res.render('doorpage/door', {Desktop:(req.device.type == 'desktop'?true:false) });
 }
+
+exports.GetSalesPage = (req, res) => {
+    res.render('salespage/sales', {Desktop:(req.device.type == 'desktop'?true:false) });
+}
