@@ -56,3 +56,11 @@ exports.GetSalesPage = (req, res) => {
 exports.GetBlogPage = (req, res) => {
     res.render('blogpage/blog', {Desktop:(req.device.type == 'desktop'?true:false) });
 }
+
+exports.GetVideoPage = (req, res) => {
+    res.render('videopage/video', {Desktop:(req.device.type == 'desktop'?true:false) });
+}
+
+exports.GetPrivacyPage = (req, res) => {
+    res.render('privacypage/privacy', {Desktop:(req.device.type == 'desktop'?true:false) });
+}

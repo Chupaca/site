@@ -35,7 +35,7 @@ function carousel(myIndex) {
         if ($(item).hasClass("active")) {
             $(item).animate({
                 opacity: 0.1,
-                "z-index" :100
+                "z-index": 100
             }, 1000)
             $(".slide_inside:eq(" + $(item).index() + ")").css({ "display": "none" })
         }
@@ -45,7 +45,7 @@ function carousel(myIndex) {
     $(".mySlides").eq(myIndex - 1).addClass("active")
     $(".mySlides").eq(myIndex - 1).animate({
         opacity: 1,
-        "z-index" :200
+        "z-index": 200
     }, 1000, function () {
         $(".slide_inside").eq(myIndex - 1).css({ "display": "block" })
         $(".overlay_slides_wrap").animate({
@@ -131,9 +131,9 @@ function Setup() {
     $("#closed_sticker_flag").unbind().click(function () { changeSideStickerPosition(false) });
     carousel(1);
     setTimeout(function () { carousel_comments() }, 1000);
-    window.addEventListener("orientationchange", function () { location.reload(); });
+    $(window).off("orientationchange").on("orientationchange", windowOrientationChange)
     $(".header.only_mobile").unbind().click(openSubMenu);
-    $(".downBtn").unbind().click(scrollPageToFirstElement);
+    $(".downBtn, .event_scroll_to_el").unbind().click(scrollPageToFirstElement);
     $(".project_gallery_row img").unbind().click(previewImageModal);
     accordionEvents();
     $(".infoContactBox.branch_name, .on_map_btn").unbind().click(changeBranchPreview);
@@ -213,6 +213,12 @@ function EasingFunctions() {
             }
         }
     )
+}
+
+function windowOrientationChange() {
+    if ((document.webkitFullscreenElement !== undefined && document.webkitFullscreenElement === null) || (document.msRequestFullscreen !== undefined && document.msRequestFullscreen === null)) {
+        location.reload();
+    }
 }
 
 function accordionEvents() {
