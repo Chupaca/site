@@ -4,7 +4,6 @@ var device = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.te
 
 function nav_on_click() {
     if (device) {
-        $(".navLink").slideUp(1);
         $(".header.only_mobile").removeClass("active");
     }
     $(".nav").slideDown(400);
@@ -46,7 +45,7 @@ function carousel(myIndex) {
     $(".mySlides").eq(myIndex - 1).animate({
         opacity: 1,
         "z-index": 200
-    }, 1000, function () {
+    }, 700, function () {
         $(".slide_inside").eq(myIndex - 1).css({ "display": "block" })
         $(".overlay_slides_wrap").animate({
             opacity: "0.7"
@@ -57,17 +56,32 @@ function carousel(myIndex) {
 }
 
 function carousel_addons(slidein, myIndex) {
-    if (slidein) {
-        $(".door_img").animate({ opacity: 1, right: "15%" }, 1000)
-        $(".door_info_container").animate({ opacity: 1, right: "40%" }, 1000)
-        $(".slider_left_text").animate({ opacity: 1, left: "9%" }, 1000)
-        setTimeout(function () { carousel_addons(false, myIndex) }, 3000);
-    } else {
-        $(".door_img").animate({ opacity: 0, right: "10%" }, 500)
-        $(".door_info_container").animate({ opacity: 0, right: "25%" }, 500)
-        $(".slider_left_text").animate({ opacity: 0, left: "-25%" }, 500)
-        $(".overlay_slides_wrap").animate({ opacity: 0 }, 800)
-        setTimeout(function () { carousel(myIndex) }, 2000);
+    if(device){
+        if (slidein) {
+            $(".door_img").animate({ opacity: 1, right: "10%" }, 1000)
+            $(".door_info_container").animate({ opacity: 1, right: "40%" }, 1000)
+            $(".slider_left_text").animate({ opacity: 1, left: "9%" }, 1000)
+            setTimeout(function () { carousel_addons(false, myIndex) }, 3000);
+        } else {
+            $(".door_img").animate({ opacity: 0, right: "0" }, 500)
+            $(".door_info_container").animate({ opacity: 0, right: "25%" }, 500)
+            $(".slider_left_text").animate({ opacity: 0, left: "-25%" }, 500)
+            $(".overlay_slides_wrap").animate({ opacity: 0 }, 800)
+            setTimeout(function () { carousel(myIndex) }, 1000);
+        }
+    }else{
+        if (slidein) {
+            $(".door_img").animate({ opacity: 1, right: "15%" }, 1000)
+            $(".door_info_container").animate({ opacity: 1, right: "40%" }, 1000)
+            $(".slider_left_text").animate({ opacity: 1, left: "9%" }, 1000)
+            setTimeout(function () { carousel_addons(false, myIndex) }, 3000);
+        } else {
+            $(".door_img").animate({ opacity: 0, right: "10%" }, 500)
+            $(".door_info_container").animate({ opacity: 0, right: "25%" }, 500)
+            $(".slider_left_text").animate({ opacity: 0, left: "-25%" }, 500)
+            $(".overlay_slides_wrap").animate({ opacity: 0 }, 800)
+            setTimeout(function () { carousel(myIndex) }, 1800);
+        }
     }
 }
 
@@ -82,20 +96,6 @@ function carousel_comments() {
     });
 }
 
-function openSubMenu() {
-    if (!$(this).hasClass('active')) {
-        $(".navLink").slideUp(80)
-        $(".header.only_mobile").removeClass("active")
-        $(this).addClass("active")
-        $(this).closest('ul').find(".navLink").slideDown(100)
-    } else {
-        $(".navLink").slideUp(80)
-        $(".header.only_mobile").removeClass("active")
-        $(this).removeClass("active")
-        $(this).closest('ul').find(".navLink").slideUp(100)
-    }
-}
-
 function minimizeLogo(position) {
     var bLogo = $("#bigger_logo");
     var mLogo = $("#minimize_logo");
@@ -103,13 +103,13 @@ function minimizeLogo(position) {
     if (position && !mLogo.hasClass("active")) {
         mLogo.addClass("active")
         bLogo.animate({ opacity: 0 }, 10)
-        $(".logo").animate({ width: "-=130px" }, 200)
+        $("#logo_side").animate({ width: "-=130px" }, 200)
         mPhone.animate({ right: "35%", "z-index": 1 }, 450)
         mLogo.animate({ opacity: 1 }, 160)
     } else if (!position && mLogo.hasClass("active")) {
         mLogo.removeClass("active")
         mLogo.animate({ opacity: 0 }, 10)
-        $(".logo").animate({ width: "+=130px" }, 200)
+        $("#logo_side").animate({ width: "+=130px" }, 200)
         mPhone.animate({ right: 0, "z-index": -1 }, 150)
         bLogo.animate({ opacity: 1 }, 150)
     }
@@ -132,7 +132,6 @@ function Setup() {
     carousel(1);
     setTimeout(function () { carousel_comments() }, 1000);
     $(window).off("orientationchange").on("orientationchange", windowOrientationChange)
-    $(".header.only_mobile").unbind().click(openSubMenu);
     $(".downBtn, .event_scroll_to_el").unbind().click(scrollPageToFirstElement);
     $(".project_gallery_row img").unbind().click(previewImageModal);
     accordionEvents();

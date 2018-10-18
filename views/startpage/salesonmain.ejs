@@ -1,0 +1,95 @@
+<h2>מבצעים חמים בפנדור</h2>
+
+<style>
+    .content_sales {
+        display: flex;
+        direction: ltr;
+    }
+
+    .left_one {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        margin-right: 2vh;
+    }
+
+    .right_one {
+        position: relative;
+        flex: 2;
+        overflow: hidden;
+    }
+
+    .box_one {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .right_one img,
+    .box_one img {
+        width: 100%;
+        transform: scale(1);
+        transition: all 1s ease-in-out;
+        height: 100%;
+    }
+
+    .right_one a {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+    .info {
+        position: absolute;
+        bottom: 0;
+        height: 20%;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.2);
+        right: 0;
+        color: #ffffff;
+        padding: 3vh 9vh;
+    }
+
+    .right_one img:hover,
+    .box_one img:hover {
+        transform: scale(1.2);
+    }
+
+    .right_one img:hover+.info,
+    .box_one img:hover+.info {
+        background: rgba(0, 0, 0, 0.65);
+        transition: background ease-in-out 0.5s;
+    }
+</style>
+
+<div class="content_sales">
+    <div class="left_one">
+        <div class="box_one">
+            <a href="/sales">
+                <img alt="" src="images/demo-pic-home-sale.jpg" />
+                <div class="info">
+                    <div class="middle"><span>פנדור יוניק קלאסיק</span></div>
+                    <div class="sale-btn"></div>
+                </div>
+            </a>
+        </div>
+        <div class="box_one">
+            <a href="/sales">
+                <img alt="" src="images/demo-pic-home-sale.jpg" />
+                <div class="info">
+                    <div class="middle"><span>פנדור יוניק קלאסיק</span></div>
+                    <div class="sale-btn"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="right_one">
+        <a href="/sales">
+            <img alt="" src="images/demo-pic-home-sale.jpg" />
+            <div class="info">
+                <div class="middle"><span>פנדור יוניק קלאסיק</span> <br />דלת פנים עמידה למים, במחיר השקה חסר תקדים</div>
+                <div class="sale-btn">לפרטים</div>
+            </div>
+        </a>
+    </div>
+</div>
