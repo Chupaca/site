@@ -64,3 +64,7 @@ exports.GetVideoPage = (req, res) => {
 exports.GetPrivacyPage = (req, res) => {
     res.render('privacypage/privacy', {Desktop:(req.device.type == 'desktop'?true:false) });
 }
+
+exports.GetBlogsListPage = (req, res) => {
+    res.render('blogslistpage/blogslist', {Desktop:(req.device.type == 'desktop'?true:false) });
+}

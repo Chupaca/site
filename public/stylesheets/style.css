@@ -559,7 +559,7 @@ header
 /*#endregion*/
 
 /*#region home*/
-
+/* 
 section
 {
     padding:50px;
@@ -567,7 +567,7 @@ section
 section:nth-child(2n)
 {
     background:#f6f6f6;
-}
+} */
 .sale-box
 {
     position:relative;

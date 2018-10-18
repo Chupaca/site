@@ -1,113 +1,111 @@
 <% layout('layoutindex/mainpage') -%>
 
+<section style="background: #f6f6f6;padding: 0;">
+    <% include ./carusel %>
+</section>
 
-<div class="sectionsContainer">
-    <section style="background: #f6f6f6;padding: 0;">
-        <% include ./carusel %>
-    </section>
+<section class="wrap_container">
+    <div class="container">
+        <% include ./gallerystartpage %>
+    </div>
+</section>
 
-    <section>
-        <div class="container">
-            <% include ./gallerystartpage %>
-        </div>
-    </section>
-
-    <section>
-        <div class="container">
-            <h2>מומלצי החודש בפנדור</h2>
-            <a href="/door" class="month-recommended-box">
-                <img class="home-sale-long" alt="" src="images/door_demo-pic.jpg" />
-                <div class="info"><span>פנדור יוניק קלאסיק</span>
-                    <div class="sale-btn"></div>
-                </div>
-            </a>
-            <a href="/door" class="month-recommended-box">
-                <img class="home-sale-long" alt="" src="images/door_demo-pic.jpg" />
-                <div class="info"><span>פנדור יוניק קלאסיק</span>
-                    <div class="sale-btn"></div>
-                </div>
-            </a>
-            <a href="/door" class="month-recommended-box">
-                <img class="home-sale-long" alt="" src="images/door_demo-pic.jpg" />
-                <div class="info"><span>פנדור יוניק קלאסיק</span>
-                    <div class="sale-btn"></div>
-                </div>
-            </a>
-            <a href="/door" class="month-recommended-box">
-                <img class="home-sale-long" alt="" src="images/door_demo-pic.jpg" />
-                <div class="info"><span>פנדור יוניק קלאסיק</span>
-                    <div class="sale-btn"></div>
-                </div>
-            </a>
-        </div>
-    </section>
-
-    <section>
-        <div class="container recommendations" style="min-height: 70vh;">
-            <h2>לקוחות מספרים</h2>
-            <div id="HomeScrollingImagesBlockContainer" class="recommendations-slider" style="position: relative;overflow: hidden;height: 46vh;">
-                <div class="scrollingImagesWrapper active" style="width:100%;float:right;position: absolute;">
-                    <a class="scrollingImageContainer recommendations-box" href="#">
-                        <img src="images/Recommendations-demo-pic.jpg" />
-                        <q>תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב. תודה
-                            רבה.
-                            <span class="client-name">בראד פיט, פתח תקווה</span></q>
-                    </a>
-                    <a class="scrollingImageContainer recommendations-box" href="#">
-                        <img src="images/Recommendations-demo-pic.jpg" />
-                        <q>תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב. תודה
-                            רבה.
-                            <span class="client-name">בראד פיט, פתח תקווה</span></q>
-                    </a>
-                </div>
-                <div class="scrollingImagesWrapper" style="width:100%;float:right;position: absolute;left:1200px;">
-                    <a class="scrollingImageContainer recommendations-box" href="#">
-                        <img src="images/Recommendations-demo-pic2.jpg" />
-                        <q>תודה על השירות האדיב, ודה רבה. <span class="client-name">בראד פיט, פתח תקווה</span></q>
-                    </a>
-                    <a class="scrollingImageContainer recommendations-box" href="#">
-                        <img src="images/Recommendations-demo-pic2.jpg" />
-                        <q>תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב. תודה
-                            רבה.
-                            תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב. תודה
-                            רבה.
-                            <span class="client-name">בראד פיט, פתח תקווה</span></q>
-                    </a>
-                </div>
+<section class="wrap_container">
+    <div class="container">
+        <h2>מומלצי החודש בפנדור</h2>
+        <a href="/door" class="month-recommended-box">
+            <img class="home-sale-long" alt="" src="images/door_demo-pic.jpg" />
+            <div class="info"><span>פנדור יוניק קלאסיק</span>
+                <div class="sale-btn"></div>
             </div>
-            <div class="btn_wrap_comments">
-                <a class="sale-btn" href="/comments">לכל ההמלצות</a>
+        </a>
+        <a href="/door" class="month-recommended-box">
+            <img class="home-sale-long" alt="" src="images/door_demo-pic.jpg" />
+            <div class="info"><span>פנדור יוניק קלאסיק</span>
+                <div class="sale-btn"></div>
             </div>
-        </div>
-    </section>
-    <section>
-        <h2 class="section_title">לקוחות מספרים</h2>
-        <div class="block_wrap">
-            <div class="block_box">
-                <a href="/blog">
-                    <img src="images/demo-pic-home-sale-long.jpg" />
-                    <div class="block_description">
-                        <div class="block_date">15.02</div>
-                        <div class="block_title">
-                            <h5>בלה בלה בלה</h5>
-                            <span>נות המקסימים. הילדות בעננים, והמתקין נתן שירות</span>
-                        </div>
-                    </div>
+        </a>
+        <a href="/door" class="month-recommended-box">
+            <img class="home-sale-long" alt="" src="images/door_demo-pic.jpg" />
+            <div class="info"><span>פנדור יוניק קלאסיק</span>
+                <div class="sale-btn"></div>
+            </div>
+        </a>
+        <a href="/door" class="month-recommended-box">
+            <img class="home-sale-long" alt="" src="images/door_demo-pic.jpg" />
+            <div class="info"><span>פנדור יוניק קלאסיק</span>
+                <div class="sale-btn"></div>
+            </div>
+        </a>
+    </div>
+</section>
+
+<section class="wrap_container">
+    <div class="container recommendations" style="min-height: 70vh;">
+        <h2>לקוחות מספרים</h2>
+        <div id="HomeScrollingImagesBlockContainer" class="recommendations-slider" style="position: relative;overflow: hidden;height: 46vh;">
+            <div class="scrollingImagesWrapper active" style="width:100%;float:right;position: absolute;">
+                <a class="scrollingImageContainer recommendations-box" href="#">
+                    <img src="images/Recommendations-demo-pic.jpg" />
+                    <q>תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב. תודה
+                        רבה.
+                        <span class="client-name">בראד פיט, פתח תקווה</span></q>
+                </a>
+                <a class="scrollingImageContainer recommendations-box" href="#">
+                    <img src="images/Recommendations-demo-pic.jpg" />
+                    <q>תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב. תודה
+                        רבה.
+                        <span class="client-name">בראד פיט, פתח תקווה</span></q>
                 </a>
             </div>
-
-            <div class="block_box">
-                <a href="/blog">
-                    <img src="images/demo-pic-home-sale-long.jpg" />
-                    <div class="block_description">
-                        <div class="block_date">15.02</div>
-                        <div class="block_title">
-                            <h5>בלה בלה בלה</h5>
-                            <span>נות המקסימים. הילדות בעננים, והמתקין נתן שירות</span>
-                        </div>
-                    </div>
+            <div class="scrollingImagesWrapper" style="width:100%;float:right;position: absolute;left:1200px;">
+                <a class="scrollingImageContainer recommendations-box" href="#">
+                    <img src="images/Recommendations-demo-pic2.jpg" />
+                    <q>תודה על השירות האדיב, ודה רבה. <span class="client-name">בראד פיט, פתח תקווה</span></q>
+                </a>
+                <a class="scrollingImageContainer recommendations-box" href="#">
+                    <img src="images/Recommendations-demo-pic2.jpg" />
+                    <q>תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב. תודה
+                        רבה.
+                        תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב. תודה
+                        רבה.
+                        <span class="client-name">בראד פיט, פתח תקווה</span></q>
                 </a>
             </div>
         </div>
-    </section>
-</div>
+        <div class="btn_wrap_comments">
+            <a class="sale-btn" href="/comments">לכל ההמלצות</a>
+        </div>
+    </div>
+</section>
+
+<section class="wrap_container">
+    <h2 class="section_title">מעמרים</h2>
+    <div class="block_wrap">
+        <div class="block_box">
+            <a href="/blog">
+                <img src="images/demo-pic-home-sale-long.jpg" />
+                <div class="block_description">
+                    <div class="block_date">15.02</div>
+                    <div class="block_title">
+                        <h5>בלה בלה בלה</h5>
+                        <span>נות המקסימים. הילדות בעננים, והמתקין נתן שירות</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="block_box">
+            <a href="/blog">
+                <img src="images/demo-pic-home-sale-long.jpg" />
+                <div class="block_description">
+                    <div class="block_date">15.02</div>
+                    <div class="block_title">
+                        <h5>בלה בלה בלה</h5>
+                        <span>נות המקסימים. הילדות בעננים, והמתקין נתן שירות</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
