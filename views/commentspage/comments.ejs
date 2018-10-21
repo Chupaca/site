@@ -1,62 +1,100 @@
 <% layout('layoutindex/mainpage') -%>
 
-<div class="contactForm" style="z-index: 0;">
-    <img class="contactMainImg" alt="" src="images/mainsimg/contactMainImgqq.jpg" />
-    <h2>לקוחות מספרים</h2>
-    <div class="contactTxt">bla bla bla תשיר המלצה</div>
-    <div class="tbContainer">
-        <input type="text" class="tb tb3" placeholder="שם מלא:" />
-        <input type="text" class="tb tb3" placeholder="טלפון:" />
-        <input type="text" class="tb tb3" placeholder="אימייל:" />
-        <input type="text" class="tb tb3 floatR longinput" placeholder="תוכן:" />
-        <input type="button" class="sale-btn" value="שליחה" style="color:#ffffff;" />
+<div class="contentMainImgContainer">
+        <img class="contentMainImg" alt="" src="images/mainsimg/contactMainImgqq.jpg" />
+        <h3>לקוחות מספרים</h3>
+        <div class="contentTxt">תשיר למו משהו</div>
+        <% if(Desktop){ %>
+        <div class="tbContainer">
+            <input type="text" class="tb" placeholder="שם מלא:" />
+            <input type="text" class="tb" placeholder="טלפון:" />
+            <input type="text" class="tb" placeholder="אימייל:" />
+            <input type="text" class="tb" placeholder="כתובת:" />
+            <input type="text" class="tb" placeholder="תוכן:" />
+            <input type="button" class="tb send_btn" value="שליחה" />
+        </div>
+        <%}%>
+        <span data-scrollto="bottom_side_form" class="event_scroll_to_el to_form_section" >תשיר למו משהו</span>
+    
+        <span class="downBtn" data-scrollto="wrap_container"><i class="far fa-caret-square-down"></i></span>
     </div>
-    <span class="downBtn" data-scrollto="wrap_container" ><i class="far fa-caret-square-down"></i></span>
-</div>
-
 
 <section id="wrap_container" class="wrap_container">
     <div class="container">
-        <div class="comments_row">
-            <div>
-                <img class="" src="images/Recommendations-demo-pic.jpg" />
-                <span class="client-name">בראד פיט, פתח תקווה</span></q>
-            </div>
-            <div>
-                <q>תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב. תודה
-                    רבה.</q>
-            </div>
+        <h2>לקוחות מספרים</h2>
+        <div style="margin-bottom: 5vh;">
+            <table id="architects_tb">
+                <tbody>
+                    <tr>
+                        <td class="architect_logo">
+                            <img class="" src="images/Recommendations-demo-pic.jpg" />
+                        </td>
+                        <td class="architect_name"><span class="client-name">בראד פיט, פתח תקווה</span></q></td>
+                        <td class="architect_description">
+                            <q>תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב.
+                                תודה
+                                רבה.</q>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="architect_logo">
+                            <img class="" src="images/Recommendations-demo-pic.jpg" />
+                        </td>
+                        <td class="architect_name"><span class="client-name">בראד פיט, פתח תקווה</span></q></td>
+                        <td class="architect_description">
+                            <q>תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב.
+                                תודה
+                                רבה.</q>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="architect_logo">
+                            <img class="" src="images/Recommendations-demo-pic.jpg" />
+                        </td>
+                        <td class="architect_name"><span class="client-name">בראד פיט, פתח תקווה</span></q></td>
+                        <td class="architect_description">
+                            <q>תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב.
+                                תודה
+                                רבה.</q>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="architect_logo">
+                            <img class="" src="images/Recommendations-demo-pic.jpg" />
+                        </td>
+                        <td class="architect_name"><span class="client-name">בראד פיט, פתח תקווה</span></q></td>
+                        <td class="architect_description">
+                            <q>תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב.
+                                תודה
+                                רבה.</q>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="comments_row">
-            <div>
-                <img class="" src="images/Recommendations-demo-pic.jpg" />
-                <span class="client-name">בראד פיט, פתח תקווה</span></q>
-            </div>
-            <div>
-                <q>תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב. תודה
-                        תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב. תודה
-                        תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב. תודה
-                    רבה.</q>
-            </div>
+        <div class="num_pages_wrap">
+            <div class="num_page_btn">1</div>
+            <div class="num_page_btn">2</div>
+            <div class="num_page_btn">3</div>
+            <div class="num_page_btn">4</div>
+            <div class="num_page_btn">...</div>
+            <div class="num_page_btn">&gt;</div>
         </div>
-        <div class="comments_row">
-            <div>
-                <img class="" src="images/Recommendations-demo-pic.jpg" />
-                <span class="client-name">בראד פיט, פתח תקווה</span></q>
-            </div>
-            <div>
-                <q>תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב. תודה
-                    רבה.</q>
-            </div>
-        </div>
-        <div class="comments_row">
-            <div>
-                <img class="" src="images/Recommendations-demo-pic.jpg" />
-                <span class="client-name">בראד פיט, פתח תקווה</span></q>
-            </div>
-            <div>
-                <q>תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב. תודה
-                    רבה.</q>
-            </div>
-        </div>
+    </div>
 </section>
+
+<% if(!Desktop){%>
+    <section id="bottom_side_form" class="wrap_container">
+        <div class="container">
+            <h2>להזמנת שירות</h2>
+            <div class="tbContainer bottom_side">
+                <input type="text" class="tb" placeholder="שם מלא:" />
+                <input type="text" class="tb" placeholder="טלפון:" />
+                <input type="text" class="tb" placeholder="אימייל:" />
+                <input type="text" class="tb" placeholder="כתובת:" />
+                <input type="text" class="tb" placeholder="תוכן:" />
+                <input type="button" class="tb send_btn" value="שליחה" />
+            </div>
+        </div>
+    </section>
+    <%}%>

@@ -1,343 +1,336 @@
 <% layout('layoutindex/mainpage') -%>
 
-<div class="contactForm" style="z-index: 0;">
-    <img class="contactMainImg" alt="" src="images/mainsimg/pandorOfferBgqq.jpg" />
-    <h2>מעוניינים לקבל הצעת מחיר?</h2>
-    <div class="contactTxt">השאירו פרטים ואנחנו נשמח לחזור אליכם בהקדם האפשרי!</div>
+<div class="contentMainImgContainer">
+    <img class="contentMainImg" alt="" src="images/mainsimg/pandorOfferBgqq.jpg" />
+    <h3>מעוניינים לקבל הצעת מחיר?</h3>
+    <div class="contentTxt">השאירו פרטים ואנחנו נשמח לחזור אליכם בהקדם האפשרי!</div>
+    <% if(Desktop){ %>
     <div class="tbContainer">
-        <input type="text" class="tb tb3" placeholder="שם מלא:" />
-        <input type="text" class="tb tb3" placeholder="טלפון:" />
-        <input type="text" class="tb tb3" placeholder="אימייל:" />
-        <input type="text" class="tb tb2" placeholder="כתובת:" />
-        <input type="text" class="tb tb2 floatL" placeholder="תוכן:" />
-        <input type="button" class="sale-btn" value="שליחה" style="color:#ffffff;" />
+        <input type="text" class="tb" placeholder="שם מלא:" />
+        <input type="text" class="tb" placeholder="טלפון:" />
+        <input type="text" class="tb" placeholder="אימייל:" />
+        <input type="text" class="tb" placeholder="כתובת:" />
+        <input type="text" class="tb" placeholder="תוכן:" />
+        <input type="button" class="tb send_btn" value="שליחה" />
     </div>
+    <%}%>
+    <span data-scrollto="bottom_side_form" class="event_scroll_to_el to_form_section">מעוניינים לקבל הצעת מחיר</span>
     <span class="downBtn" data-scrollto="wrap_container"><i class="far fa-caret-square-down"></i></span>
 </div>
 
 <section id="wrap_container" class="wrap_container">
-<div class="infoContact">
-<div class="container">
-<h2 style="text-align: right;">סניפי פנדור</h2>
-        <div class="branchInfo">
-            <div class="infoContactBox branch_name active">
-                <div style="display:inline-block">
-                    <h3>אולם התצוגה ראשל”צ</h3>
+    <div class="container">
+        <h2>סניפי פנדור</h2>
+        <div class="branches_wrap">
+            <div class="branchInfo">
+                <div class="infoContactBox branch_name  active" data-scrollto="rishon_branch">
+                    <div style="display:inline-block" >
+                        <h3>אולם התצוגה ראשל”צ</h3>
 
-                </div>
-            </div>
-            <div class="infoContactBox branch_name">
-                <div style="display:inline-block">
-                    <h3>הנהלת פנדור ראשל"צ</h3>
-
-                </div>
-            </div>
-            <div class="infoContactBox branch_name">
-                <div>
-                    <h3>אולם התצוגה נתניה</h3>
-
-                </div>
-            </div>
-            <div class="infoContactBox branch_name">
-                <div>
-                    <h3>אולם התצוגה בני ברק</h3>
-
-
-                </div>
-            </div>
-            <div class="infoContactBox branch_name">
-                <div>
-                    <h3>אולם התצוגה אשדוד</h3>
-                </div>
-            </div>
-            <div class="infoContactBox branch_name">
-                <div>
-                    <h3>אולם התצוגה קרית גת</h3>
-                </div>
-            </div>
-            <div class="branches_descriptions active">
-                <div class="infoContactBox">
-                    <img src="images/contactIconsMap.png" />
-                    <span style="vertical-align: sub;"><b>כתובת:</b>ישראל פולק 44 קרית גת</span>
-                    <div style="display: inline-flex;">
-                        <img src="images/icon-waze.png" />
-                        <img src="images/icon-google-maps.png" />
                     </div>
                 </div>
-                <div class="infoContactBox">
-                    <img src="images/contactIconsTime.png" />
-                    <span>
-                        <b>שעות פעילות</b>
-                        א'-ה' 09:00-18:00
-                        יום ו': 9:00-13:00
-                    </span>
-                    <div style="display: inline-flex;">
-                        <img src="images/icon-waze.png" style="visibility: hidden;" />
-                        <img src="images/icon-google-maps.png" style="visibility: hidden;" />
+                <div class="infoContactBox branch_name " data-scrollto="rishon_top_branch">
+                    <div style="display:inline-block">
+                        <h3>הנהלת פנדור ראשל"צ</h3>
+
                     </div>
                 </div>
-                <div class="infoContactBox">
-                    <img src="images/contactIconsEmail.png" />
-                    <span>
-                        <b>אימייל</b><br />
-                        <a href="mailto:sp@pandoor.co.il">sp@pandoor.co.il</a>
-                    </span>
-                </div>
-                <div class="infoContactBox">
-                    <img src="images/contactIconsPhone.png" />
-                    <span>
-                        <b>טלפון</b> <a href="tel:03-9555034">03-9555034</a><br />
-                        <b>פקס</b> 08-6869997<br />
+                <div class="infoContactBox branch_name " data-scrollto="natania_branch">
+                    <div>
+                        <h3>אולם התצוגה נתניה</h3>
 
-                    </span>
+                    </div>
                 </div>
+                <div class="infoContactBox branch_name " data-scrollto="bnaib_branch">
+                    <div>
+                        <h3>אולם התצוגה בני ברק</h3>
+
+
+                    </div>
+                </div>
+                <div class="infoContactBox branch_name " data-scrollto="ashdod_branch">
+                    <div>
+                        <h3>אולם התצוגה אשדוד</h3>
+                    </div>
+                </div>
+                <div class="infoContactBox branch_name " data-scrollto="gat_branch">
+                    <div>
+                        <h3>אולם התצוגה קרית גת</h3>
+                    </div>
+                </div>
+
+
+                <div class="branches_descriptions active" id="rishon_branch">
+                    <div class="infoContactBox">
+                        <i class="fas fa-map-marker-alt" style="font-size: 50px;"></i>
+                        <span style="vertical-align: sub;"><b>כתובת:</b>ישראל פולק 44 קרית גת</span>
+                        <div style="display: inline-flex;">
+                            <img src="images/icon-waze.png" style="width: 6vh;
+                            height: 6vh;" />
+                            <img src="images/icon-google-maps.png" style="width: 6vh;
+                            height: 6vh;" />
+                        </div>
+                    </div>
+                    <div class="infoContactBox">
+                        <i class="fas fa-mobile-alt" style="font-size: 50px;"></i>
+                        <span>
+                            <b>טלפון</b> <a href="tel:03-9555034">03-9555034</a><br />
+                            <b>פקס</b> 08-6869997<br />
+
+                        </span>
+                    </div>
+                    <div class="infoContactBox">
+                        <i class="far fa-clock" style="font-size: 50px;"></i>
+                        <span>
+                            <b>שעות פעילות</b>
+                            א'-ה' 09:00-18:00
+                            יום ו': 9:00-13:00
+                        </span>
+                    </div>
+                    <div class="infoContactBox">
+                        <i class="far fa-envelope" style="font-size: 50px;"></i>
+                        <span>
+                            <b>אימייל</b><br />
+                            <a href="mailto:sp@pandoor.co.il">sp@pandoor.co.il</a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="branches_descriptions" id="rishon_top_branch">
+                    <div class="infoContactBox">
+                        <i class="fas fa-map-marker-alt" style="font-size: 50px;"></i>
+                        <span style="vertical-align: sub;"><b>כתובת:</b>ישראל פולק 44 קרית גת</span>
+                        <div style="display: inline-flex;">
+                            <img src="images/icon-waze.png" style="width: 6vh;
+                                height: 6vh;" />
+                            <img src="images/icon-google-maps.png" style="width: 6vh;
+                                height: 6vh;" />
+                        </div>
+                    </div>
+                    <div class="infoContactBox">
+                        <i class="fas fa-mobile-alt" style="font-size: 50px;"></i>
+                        <span>
+                            <b>טלפון</b> <a href="tel:03-9555034">03-9555034</a><br />
+                            <b>פקס</b> 08-6869997<br />
+
+                        </span>
+                    </div>
+                    <div class="infoContactBox">
+                        <i class="far fa-clock" style="font-size: 50px;"></i>
+                        <span>
+                            <b>שעות פעילות</b>
+                            א'-ה' 09:00-18:00
+                            יום ו': 9:00-13:00
+                        </span>
+                    </div>
+                    <div class="infoContactBox">
+                        <i class="far fa-envelope" style="font-size: 50px;"></i>
+                        <span>
+                            <b>אימייל</b><br />
+                            <a href="mailto:sp@pandoor.co.il">sp@pandoor.co.il</a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="branches_descriptions" id="natania_branch">
+                    <div class="infoContactBox">
+                        <i class="fas fa-map-marker-alt" style="font-size: 50px;"></i>
+                        <span style="vertical-align: sub;"><b>כתובת:</b>ישראל פולק 44 קרית גת</span>
+                        <div style="display: inline-flex;">
+                            <img src="images/icon-waze.png" style="width: 6vh;
+                                    height: 6vh;" />
+                            <img src="images/icon-google-maps.png" style="width: 6vh;
+                                    height: 6vh;" />
+                        </div>
+                    </div>
+                    <div class="infoContactBox">
+                        <i class="fas fa-mobile-alt" style="font-size: 50px;"></i>
+                        <span>
+                            <b>טלפון</b> <a href="tel:03-9555034">03-9555034</a><br />
+                            <b>פקס</b> 08-6869997<br />
+
+                        </span>
+                    </div>
+                    <div class="infoContactBox">
+                        <i class="far fa-clock" style="font-size: 50px;"></i>
+                        <span>
+                            <b>שעות פעילות</b>
+                            א'-ה' 09:00-18:00
+                            יום ו': 9:00-13:00
+                        </span>
+                    </div>
+                    <div class="infoContactBox">
+                        <i class="far fa-envelope" style="font-size: 50px;"></i>
+                        <span>
+                            <b>אימייל</b><br />
+                            <a href="mailto:sp@pandoor.co.il">sp@pandoor.co.il</a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="branches_descriptions" id="bnaib_branch">
+                    <div class="infoContactBox">
+                        <i class="fas fa-map-marker-alt" style="font-size: 50px;"></i>
+                        <span style="vertical-align: sub;"><b>כתובת:</b>ישראל פולק 44 קרית גת</span>
+                        <div style="display: inline-flex;">
+                            <img src="images/icon-waze.png" style="width: 6vh;
+                                        height: 6vh;" />
+                            <img src="images/icon-google-maps.png" style="width: 6vh;
+                                        height: 6vh;" />
+                        </div>
+                    </div>
+                    <div class="infoContactBox">
+                        <i class="fas fa-mobile-alt" style="font-size: 50px;"></i>
+                        <span>
+                            <b>טלפון</b> <a href="tel:03-9555034">03-9555034</a><br />
+                            <b>פקס</b> 08-6869997<br />
+
+                        </span>
+                    </div>
+                    <div class="infoContactBox">
+                        <i class="far fa-clock" style="font-size: 50px;"></i>
+                        <span>
+                            <b>שעות פעילות</b>
+                            א'-ה' 09:00-18:00
+                            יום ו': 9:00-13:00
+                        </span>
+                    </div>
+                    <div class="infoContactBox">
+                        <i class="far fa-envelope" style="font-size: 50px;"></i>
+                        <span>
+                            <b>אימייל</b><br />
+                            <a href="mailto:sp@pandoor.co.il">sp@pandoor.co.il</a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="branches_descriptions" id="ashdod_branch">
+                    <div class="infoContactBox">
+                        <i class="fas fa-map-marker-alt" style="font-size: 50px;"></i>
+                        <span style="vertical-align: sub;"><b>כתובת:</b>ישראל פולק 44 קרית גת</span>
+                        <div style="display: inline-flex;">
+                            <img src="images/icon-waze.png" style="width: 6vh;
+                                            height: 6vh;" />
+                            <img src="images/icon-google-maps.png" style="width: 6vh;
+                                            height: 6vh;" />
+                        </div>
+                    </div>
+                    <div class="infoContactBox">
+                        <i class="fas fa-mobile-alt" style="font-size: 50px;"></i>
+                        <span>
+                            <b>טלפון</b> <a href="tel:03-9555034">03-9555034</a><br />
+                            <b>פקס</b> 08-6869997<br />
+
+                        </span>
+                    </div>
+                    <div class="infoContactBox">
+                        <i class="far fa-clock" style="font-size: 50px;"></i>
+                        <span>
+                            <b>שעות פעילות</b>
+                            א'-ה' 09:00-18:00
+                            יום ו': 9:00-13:00
+                        </span>
+                    </div>
+                    <div class="infoContactBox">
+                        <i class="far fa-envelope" style="font-size: 50px;"></i>
+                        <span>
+                            <b>אימייל</b><br />
+                            <a href="mailto:sp@pandoor.co.il">sp@pandoor.co.il</a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="branches_descriptions" id="gat_branch">
+                    <div class="infoContactBox">
+                        <i class="fas fa-map-marker-alt" style="font-size: 50px;"></i>
+                        <span style="vertical-align: sub;"><b>כתובת:</b>ישראל פולק 44 קרית גת</span>
+                        <div style="display: inline-flex;">
+                            <img src="images/icon-waze.png" style="width: 6vh;
+                                                height: 6vh;" />
+                            <img src="images/icon-google-maps.png" style="width: 6vh;
+                                                height: 6vh;" />
+                        </div>
+                    </div>
+                    <div class="infoContactBox">
+                        <i class="fas fa-mobile-alt" style="font-size: 50px;"></i>
+                        <span>
+                            <b>טלפון</b> <a href="tel:03-9555034">03-9555034</a><br />
+                            <b>פקס</b> 08-6869997<br />
+
+                        </span>
+                    </div>
+                    <div class="infoContactBox">
+                        <i class="far fa-clock" style="font-size: 50px;"></i>
+                        <span>
+                            <b>שעות פעילות</b>
+                            א'-ה' 09:00-18:00
+                            יום ו': 9:00-13:00
+                        </span>
+                    </div>
+                    <div class="infoContactBox">
+                        <i class="far fa-envelope" style="font-size: 50px;"></i>
+                        <span>
+                            <b>אימייל</b><br />
+                            <a href="mailto:sp@pandoor.co.il">sp@pandoor.co.il</a>
+                        </span>
+                    </div>
+                </div>
+
             </div>
-            <div class="branches_descriptions">
-                <div class="infoContactBox">
-                    <img src="images/contactIconsMap.png" />
-                    <span style="vertical-align: sub;"><b>כתובת:</b>ראשון לציון הנהלה שק'דכ'ק ק</span>
-                    <div style="display: inline-flex;">
-                        <img src="images/icon-waze.png" />
-                        <img src="images/icon-google-maps.png" />
+            <div class="branchesMap">
+                <img src="images/mapBg.jpg" style="filter: brightness(103%);"/>
+                <div id="tag_on_map_bnay_brak" class="on_map_btn" data-index="3">
+                    <div>
+                        <div class="dialogbubbl_left">
+                            <b>בני ברק</b>
+                        </div>
                     </div>
                 </div>
-                <div class="infoContactBox">
-                    <img src="images/contactIconsTime.png" />
-                    <span>
-                        <b>שעות פעילות</b>
-                        א'-ה' 09:00-18:00
-                        יום ו': 9:00-13:00
-                    </span>
-                    <div style="display: inline-flex;">
-                        <img src="images/icon-waze.png" style="visibility: hidden;" />
-                        <img src="images/icon-google-maps.png" style="visibility: hidden;" />
+                <div id="tag_on_map_reashin_top" class="on_map_btn" data-index="1">
+                    <div>
+                        <div class="dialogbubbl_left">
+                            <span>ראשל"צ<br /><b>הנהלת פנדור</b></span>
+                        </div>
                     </div>
                 </div>
-                <div class="infoContactBox">
-                    <img src="images/contactIconsEmail.png" />
-                    <span>
-                        <b>אימייל</b><br />
-                        <a href="mailto:sp@pandoor.co.il">sp@pandoor.co.il</a>
-                    </span>
+                <div id="tag_on_map_kriayt_gat" class="on_map_btn" data-index="5">
+                    <div>
+                        <div class="dialogbubbl_left">
+                            <b>קרית גת</b>
+                        </div>
+                    </div>
                 </div>
-                <div class="infoContactBox">
-                    <img src="images/contactIconsPhone.png" />
-                    <span>
-                        <b>טלפון</b> <a href="tel:03-9555034">03-9555034</a><br />
-                        <b>פקס</b> 08-6869997<br />
+                <div id="tag_on_map_natania" class="on_map_btn" data-index="2">
+                    <div>
+                        <div class="dialogbubbl_right">
+                            <b>נתניה</b>
+                        </div>
+                    </div>
+                </div>
+                <div id="tag_on_map_rashlatz" class="on_map_btn active" data-index="0">
+                    <div>
+                        <div class="dialogbubbl_right">
+                            <b>ראשל"צ</b>
+                        </div>
+                    </div>
+                </div>
+                <div id="tag_on_map_ashdod" class="on_map_btn" data-index="4">
+                    <div>
+                        <div class="dialogbubbl_right">
+                            <b>אשדוד</b>
+                        </div>
+                    </div>
+                </div>
 
-                    </span>
-                </div>
-            </div>
-            <div class="branches_descriptions">
-                <div class="infoContactBox">
-                    <img src="images/contactIconsMap.png" />
-                    <span style="vertical-align: sub;"><b>כתובת:</b>ישראל פולק 44 קרית גת</span>
-                    <div style="display: inline-flex;">
-                        <img src="images/icon-waze.png" />
-                        <img src="images/icon-google-maps.png" />
-                    </div>
-
-                </div>
-                <div class="infoContactBox">
-                    <img src="images/contactIconsTime.png" />
-                    <span>
-                        <b>שעות פעילות</b>
-                        א'-ה' 09:00-18:00
-                        יום ו': 9:00-13:00
-                    </span>
-                    <div style="display: inline-flex;">
-                        <img src="images/icon-waze.png" style="visibility: hidden;" />
-                        <img src="images/icon-google-maps.png" style="visibility: hidden;" />
-                    </div>
-                </div>
-                <div class="infoContactBox">
-                    <img src="images/contactIconsEmail.png" />
-                    <span>
-                        <b>אימייל</b><br />
-                        <a href="mailto:sp@pandoor.co.il">sp@pandoor.co.il</a>
-                    </span>
-                </div>
-                <div class="infoContactBox">
-                    <img src="images/contactIconsPhone.png" />
-                    <span>
-                        <b>טלפון</b> <a href="tel:03-9555034">03-22222222</a><br />
-                        <b>פקס</b> 08-2222222<br />
-
-                    </span>
-                </div>
-            </div>
-            <div class="branches_descriptions">
-                <div class="infoContactBox">
-                    <img src="images/contactIconsMap.png" />
-                    <span style="vertical-align: sub;"><b>כתובת:</b>ישראל פולק 44 1111 גת</span>
-                    <div style="display: inline-flex;">
-                        <img src="images/icon-waze.png" />
-                        <img src="images/icon-google-maps.png" />
-                    </div>
-
-                </div>
-                <div class="infoContactBox">
-                    <img src="images/contactIconsTime.png" />
-                    <span>
-                        <b>שעות פעילות</b>
-                        א'-ה' 09:00-18:00
-                        יום ו': 9:00-13:00
-                    </span>
-                    <div style="display: inline-flex;">
-                        <img src="images/icon-waze.png" style="visibility: hidden;" />
-                        <img src="images/icon-google-maps.png" style="visibility: hidden;" />
-                    </div>
-                </div>
-                <div class="infoContactBox">
-                    <img src="images/contactIconsEmail.png" />
-                    <span>
-                        <b>אימייל</b><br />
-                        <a href="mailto:sp@pandoor.co.il">sp@pandoor.co.il</a>
-                    </span>
-                </div>
-                <div class="infoContactBox">
-                    <img src="images/contactIconsPhone.png" />
-                    <span>
-                        <b>טלפון</b> <a href="tel:03-9555034">03-11111111</a><br />
-                        <b>פקס</b> 08-11111111<br />
-
-                    </span>
-                </div>
-            </div>
-
-            <div class="branches_descriptions">
-                <div class="infoContactBox">
-                    <img src="images/contactIconsMap.png" />
-                    <span style="vertical-align: sub;"><b>כתובת:</b>אשדוד דרע שקדכ שקכ</span>
-                    <div style="display: inline-flex;">
-                        <img src="images/icon-waze.png" />
-                        <img src="images/icon-google-maps.png" />
-                    </div>
-
-                </div>
-                <div class="infoContactBox">
-                    <img src="images/contactIconsTime.png" />
-                    <span>
-                        <b>שעות פעילות</b>
-                        א'-ה' 09:00-18:00
-                        יום ו': 9:00-13:00
-                    </span>
-                    <div style="display: inline-flex;">
-                        <img src="images/icon-waze.png" style="visibility: hidden;" />
-                        <img src="images/icon-google-maps.png" style="visibility: hidden;" />
-                    </div>
-                </div>
-                <div class="infoContactBox">
-                    <img src="images/contactIconsEmail.png" />
-                    <span>
-                        <b>אימייל</b><br />
-                        <a href="mailto:sp@pandoor.co.il">sp@0000000.co.il</a>
-                    </span>
-                </div>
-                <div class="infoContactBox">
-                    <img src="images/contactIconsPhone.png" />
-                    <span>
-                        <b>טלפון</b> <a href="tel:03-9555034">03-0000000</a><br />
-                        <b>פקס</b> 08-00000000<br />
-
-                    </span>
-                </div>
-            </div>
-
-            <div class="branches_descriptions">
-                <div class="infoContactBox">
-                    <img src="images/contactIconsMap.png" />
-                    <span style="vertical-align: sub;"><b>כתובת:</b>ישראל פולק 44 00000 גת</span>
-                    <div style="display: inline-flex;">
-                        <img src="images/icon-waze.png" />
-                        <img src="images/icon-google-maps.png" />
-                    </div>
-
-                </div>
-                <div class="infoContactBox">
-                    <img src="images/contactIconsTime.png" />
-                    <span>
-                        <b>שעות פעילות</b>
-                        א'-ה' 09:00-18:00
-                        יום ו': 9:00-13:00
-                    </span>
-                    <div style="display: inline-flex;">
-                        <img src="images/icon-waze.png" style="visibility: hidden;" />
-                        <img src="images/icon-google-maps.png" style="visibility: hidden;" />
-                    </div>
-                </div>
-                <div class="infoContactBox">
-                    <img src="images/contactIconsEmail.png" />
-                    <span>
-                        <b>אימייל</b><br />
-                        <a href="mailto:sp@pandoor.co.il">sp@0000000.co.il</a>
-                    </span>
-                </div>
-                <div class="infoContactBox">
-                    <img src="images/contactIconsPhone.png" />
-                    <span>
-                        <b>טלפון</b> <a href="tel:03-9555034">03-0000000</a><br />
-                        <b>פקס</b> 08-00000000<br />
-
-                    </span>
-                </div>
-            </div>
-
-            
-        </div>
-        <div class="branchesMap">
-            <div id="tag_on_map_bnay_brak" class="on_map_btn" data-index="3">
-                <div>
-                    <div class="dialogbubbl_left">
-                        <b>בני ברק</b>
-                    </div>
-                </div>
-            </div>
-            <div id="tag_on_map_reashin_top" class="on_map_btn" data-index="1">
-                <div>
-                    <div class="dialogbubbl_left">
-                        <span>ראשל"צ<br /><b>הנהלת פנדור</b></span>
-                    </div>
-                </div>
-            </div>
-            <div id="tag_on_map_kriayt_gat" class="on_map_btn" data-index="5">
-                <div>
-                    <div class="dialogbubbl_left">
-                        <b>קרית גת</b>
-                    </div>
-                </div>
-            </div>
-            <div id="tag_on_map_natania" class="on_map_btn" data-index="2">
-                <div>
-                    <div class="dialogbubbl_right">
-                        <b>נתניה</b>
-                    </div>
-                </div>
-            </div>
-            <div id="tag_on_map_rashlatz" class="on_map_btn active" data-index="0">
-                <div>
-                    <div class="dialogbubbl_right">
-                        <b>ראשל"צ</b>
-                    </div>
-                </div>
-            </div>
-            <div id="tag_on_map_ashdod" class="on_map_btn" data-index="4">
-            <div>
-                <div class="dialogbubbl_right">
-                    <b>אשדוד</b>
-                </div>
             </div>
         </div>
-
-        </div>
-
     </div>
-</div>
+</section>
 <div class="faq offers">
     <div class="container">
         <h2>היכן עוד אפשר למצוא דלתות פנדור?</h2>
-        <div class="txt">שילוב של ידע וניסיון רב שנים, שימוש בחומרים מהשורה הראשונה ובאמצעים האיכותיים והמתקדמים ביותר,
+        <div class="txt">שילוב של ידע וניסיון רב שנים, שימוש בחומרים מהשורה הראשונה ובאמצעים האיכותיים והמתקדמים
+            ביותר,
             תורמים להיותה יצרנית דלתות הפנים הגדולה בישראל.</div>
         <div class="accordionContainer">
             <button class="accordion_row">
@@ -522,5 +515,20 @@
         </div>
     </div>
 </div>
-
 </section>
+
+<% if(!Desktop){%>
+    <section id="bottom_side_form" class="wrap_container">
+        <div class="container">
+            <h2>להזמנת שירות</h2>
+            <div class="tbContainer bottom_side">
+                <input type="text" class="tb" placeholder="שם מלא:" />
+                <input type="text" class="tb" placeholder="טלפון:" />
+                <input type="text" class="tb" placeholder="אימייל:" />
+                <input type="text" class="tb" placeholder="כתובת:" />
+                <input type="text" class="tb" placeholder="תוכן:" />
+                <input type="button" class="tb send_btn" value="שליחה" />
+            </div>
+        </div>
+    </section>
+    <%}%>

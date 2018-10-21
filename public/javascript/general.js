@@ -115,8 +115,15 @@ function minimizeLogo(position) {
     }
 }
 
-function scrollPageToFirstElement() {
-    $('html').animate({ scrollTop: $('#' + $(this).attr("data-scrollto")).position().top - 100 }, 600, "easeOutBack");
+function scrollPageToFirstElement(e, element) {
+    var target_el = $(this);
+    var max_top = -100;
+    if(element){
+        target_el = element;
+        max_top = 250
+    }
+    
+    $('html, body').animate({ scrollTop: $('#' + $(target_el).attr("data-scrollto")).position().top + max_top }, 600, "easeOutBack");
 }
 
 function Setup() {
@@ -298,7 +305,10 @@ function changeBranchPreview() {
         index = $(this).index()
     }
     $(this).addClass("active")
-    $(".branches_descriptions").eq(index).addClass("active")
+    $(".branches_descriptions").eq(index).addClass("active");
+    if(device){
+        scrollPageToFirstElement(null, this)
+    }
 }
 
 function changeChoicePart() {

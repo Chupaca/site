@@ -1,23 +1,26 @@
 <% layout('layoutindex/mainpage') -%>
 
-<div class="contactForm" style="z-index: 0;">
-    <img class="contactMainImg" alt="" src="images/mainsimg/contactMainImgqq.jpg" />
-    <h2>שירות לקוחות</h2>
-    <div class="contactTxt">אַדְרִיכָלוּת או אַרְכִיטֶקְטוּרָה מוגדרת באופן מסורתי כאמנות הבנייה. השאירו לנו הודעה
+<div class="contentMainImgContainer">
+    <img class="contentMainImg" alt="" src="images/mainsimg/contactMainImgqq.jpg" />
+    <h3>שירות לקוחות</h3>
+    <div class="contentTxt">אַדְרִיכָלוּת או אַרְכִיטֶקְטוּרָה מוגדרת באופן מסורתי כאמנות הבנייה. השאירו לנו הודעה
         ונחזור אליכם בהקדם!</div>
+    <% if(Desktop){ %>
     <div class="tbContainer">
-        <input type="text" class="tb tb3" placeholder="שם מלא:" />
-        <input type="text" class="tb tb3" placeholder="טלפון:" />
-        <input type="text" class="tb tb3" placeholder="אימייל:" />
-        <input type="text" class="tb tb2" placeholder="כתובת:" />
-        <input type="text" class="tb tb2 floatL" placeholder="תוכן:" />
-        <input type="button" class="sale-btn" value="שליחה" style="color:#ffffff;" />
+        <input type="text" class="tb" placeholder="שם מלא:" />
+        <input type="text" class="tb" placeholder="טלפון:" />
+        <input type="text" class="tb" placeholder="אימייל:" />
+        <input type="text" class="tb" placeholder="כתובת:" />
+        <input type="text" class="tb" placeholder="תוכן:" />
+        <input type="button" class="tb send_btn" value="שליחה" />
     </div>
+    <%}%>
+    <span data-scrollto="bottom_side_form" class="event_scroll_to_el to_form_section" >להזמנת שירות</span>
+
     <span class="downBtn" data-scrollto="wrap_container"><i class="far fa-caret-square-down"></i></span>
 </div>
 
 <section id="wrap_container" class="wrap_container">
-<div class="infoContact" id="wrap_container">
     <div class="container">
         <div class="infoContactBox">
             <i class="far fa-clock" style="font-size: 60px;"></i>
@@ -30,7 +33,7 @@
             <i class="far fa-envelope" style="font-size: 60px;"></i>
             <span>
                 <b>אימייל</b><br />
-                <a href="mailto:sp@pandoor.co.il" >sp@pandoor.co.il</a>
+                <a href="mailto:sp@pandoor.co.il">sp@pandoor.co.il</a>
             </span>
         </div>
         <div class="infoContactBox">
@@ -47,70 +50,73 @@
                 03-9555050
             </span>
         </div>
-        <a href="/video" >
-        <div class="infoContactBox">
+        <a href="/video">
+            <div class="infoContactBox">
                 <i class="fas fa-film" style="font-size: 60px;"></i>
                 <span><b>פנדור T.V</b></span>
-                </div>
-                </a>
+            </div>
+        </a>
         <div class="infoContactBox event_scroll_to_el" data-scrollto="installers">
-                <i class="far fa-address-card" style="font-size: 60px;"></i>
-                <span><b>טיפול חירום</b></span>
+            <i class="far fa-address-card" style="font-size: 60px;"></i>
+            <span><b>טיפול חירום</b></span>
         </div>
     </div>
-</div>
-<div class="faq">
-    <div class="container">
-        <h2>שאלות נפוצות</h2>
-        <button class="accordion_row">Section 1</button>
-        <div class="accordion_inside_panel">
-            <p>
-                Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
-                ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
-                amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
-                odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
-            </p>
-        </div>
-        <button class="accordion_row">Section 2</button>
-        <div class="accordion_inside_panel">
-            <p>
-                Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
-                purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
-                velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
-                suscipit faucibus urna.
-            </p>
-        </div>
-        <button class="accordion_row">Section 3</button>
-        <div class="accordion_inside_panel">
-            <p>
-                Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.
-                Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero
-                ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis
-                lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.
-            </p>
-            <ul>
-                <li>List item one</li>
-                <li>List item two</li>
-                <li>List item three</li>
-            </ul>
-        </div>
-        <button class="accordion_row">Section 4</button>
-        <div class="accordion_inside_panel">
-            <p>
-                Cras dictum. Pellentesque habitant morbi tristique senectus et netus
-                et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
-                faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
-                mauris vel est.
-            </p>
-            <p>
-                Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
-                Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
-                inceptos himenaeos.
-            </p>
+</section>
+<section class="wrap_container">
+    <div class="faq">
+        <div class="container">
+            <h2>שאלות נפוצות</h2>
+            <button class="accordion_row">Section 1</button>
+            <div class="accordion_inside_panel">
+                <p>
+                    Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
+                    ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
+                    amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
+                    odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+                </p>
+            </div>
+            <button class="accordion_row">Section 2</button>
+            <div class="accordion_inside_panel">
+                <p>
+                    Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
+                    purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
+                    velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
+                    suscipit faucibus urna.
+                </p>
+            </div>
+            <button class="accordion_row">Section 3</button>
+            <div class="accordion_inside_panel">
+                <p>
+                    Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.
+                    Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero
+                    ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis
+                    lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.
+                </p>
+                <ul>
+                    <li>List item one</li>
+                    <li>List item two</li>
+                    <li>List item three</li>
+                </ul>
+            </div>
+            <button class="accordion_row">Section 4</button>
+            <div class="accordion_inside_panel">
+                <p>
+                    Cras dictum. Pellentesque habitant morbi tristique senectus et netus
+                    et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
+                    faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
+                    mauris vel est.
+                </p>
+                <p>
+                    Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
+                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
+                    inceptos himenaeos.
+                </p>
+            </div>
         </div>
     </div>
-</div>
-</div>
+</section>
+
+
 <div class="contactImgBg" id="installers">
     <div class="container ta_center">
         <div class="ttl">
@@ -210,4 +216,18 @@
         </ul>
     </div>
 </div>
+<% if(!Desktop){%>
+<section id="bottom_side_form" class="wrap_container">
+    <div class="container">
+        <h2>להזמנת שירות</h2>
+        <div class="tbContainer bottom_side">
+            <input type="text" class="tb" placeholder="שם מלא:" />
+            <input type="text" class="tb" placeholder="טלפון:" />
+            <input type="text" class="tb" placeholder="אימייל:" />
+            <input type="text" class="tb" placeholder="כתובת:" />
+            <input type="text" class="tb" placeholder="תוכן:" />
+            <input type="button" class="tb send_btn" value="שליחה" />
+        </div>
+    </div>
 </section>
+<%}%>
