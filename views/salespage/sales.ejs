@@ -4,13 +4,46 @@
     <img class="contentMainImg" alt="" src="images/mainsimg/contentMainImgqq.jpg" />
     <h3>מבצע של כל השנים!!!!</h3>
     <div class="contentTxt">כל דלתות בחינם!!!</div>
+    <% if(Desktop){ %>
+    <div class="contentTxt">מעוניינים לקבל הצעת מחיר?</div>
+    <div class="tbContainer">
+        <input type="text" class="tb" placeholder="שם מלא:" />
+        <input type="text" class="tb" placeholder="טלפון:" />
+        <input type="text" class="tb" placeholder="אימייל:" />
+        <input type="text" class="tb" placeholder="כתובת:" />
+        <input type="text" class="tb" placeholder="תוכן:" />
+        <input type="button" class="tb send_btn" value="שליחה" />
+    </div>
+    <%}%>
+    <span data-scrollto="bottom_side_form" class="event_scroll_to_el to_form_section">מעוניינים לקבל הצעת מחיר</span>
     <span class="downBtn" data-scrollto="wrap_container"><i class="far fa-caret-square-down"></i></span>
 </div>
 
 <section id="wrap_container" class="wrap_container">
     <div class="container">
+     <h2>מבצע הכול חינם</h2>
+     <div class="">דלתות פנים קולקציית לינופינו הנן דלתות מגורעות (פלץ) אשר עשויות מ- 2 לוחות
+     פורמייקה מסוג HPL, ללא MDF. ציפוי הפורמייקה בעל טקסטורה בולטת. הקנט מתואם מ- 3 עבריו - הקדמי, האחורי ודופן
+     הצילינדר. תחתית הדלת מכילה קנט פולימרי עבה, בעובי של עד 7 ס"מ, המסייע לעמידות נגד מים. מילוי הדלת הוא
+     פלקסבורד. לכל דלת 2 צירי PIPE כפולים בעלי יכולת התכווננות. הדלת מצוידת במנעול מגנטי.</div>
         <div style="text-align: center;">
-            <img src="/images/sales/sales1.jpg">
+            <img src="/images/sales/sale2.jpg" style="width:100%;">
         </div>
     </div>
 </section>
+
+<% if(!Desktop){%>
+    <section id="bottom_side_form" class="wrap_container">
+        <div class="container">
+            <h2>להזמנת שירות</h2>
+            <div class="tbContainer bottom_side">
+                <input type="text" class="tb" placeholder="שם מלא:" />
+                <input type="text" class="tb" placeholder="טלפון:" />
+                <input type="text" class="tb" placeholder="אימייל:" />
+                <input type="text" class="tb" placeholder="כתובת:" />
+                <input type="text" class="tb" placeholder="תוכן:" />
+                <input type="button" class="tb send_btn" value="שליחה" />
+            </div>
+        </div>
+    </section>
+    <%}%>

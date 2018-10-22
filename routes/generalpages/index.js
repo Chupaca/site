@@ -21,6 +21,7 @@ router.get('/blog', generalpages.GetBlogPage);
 router.get('/video', generalpages.GetVideoPage);
 router.get('/privacy', generalpages.GetPrivacyPage);
 router.get('/blogs', generalpages.GetBlogsListPage);
+router.get('/projectcontact', generalpages.GetProjectContactPage);
 
 
 module.exports = router;

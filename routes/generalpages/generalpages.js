@@ -68,3 +68,7 @@ exports.GetPrivacyPage = (req, res) => {
 exports.GetBlogsListPage = (req, res) => {
     res.render('blogslistpage/blogslist', {Desktop:(req.device.type == 'desktop'?true:false) });
 }
+
+exports.GetProjectContactPage = (req, res) => {
+    res.render('projectcontactpage/projectcontact', {Desktop:(req.device.type == 'desktop'?true:false) });
+}

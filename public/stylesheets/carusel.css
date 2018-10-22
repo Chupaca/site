@@ -168,6 +168,7 @@ h2
     text-align: left;
     padding: 2vh;
     right: 22%;
+    margin-top: 1vh;
 }
 
 .header-nav, .header-lang-nav
@@ -245,12 +246,11 @@ h2
     transform: rotate(45deg) translate(-8px, -8px);
 }
 
-.nav
-{
+.nav{
     background:#ffffff;
     width: 40%;
     padding: 3%;
-    padding-top: 1%;
+    padding-top: 2%;
     border-right: 4px solid rgb(255, 66, 0);
     border-bottom: 4px solid rgb(255, 66, 0);
     direction:rtl;
