@@ -12,26 +12,7 @@ var bodyParser = require('body-parser');
 var http = require('http');
 var path = require('path');
 var device = require('express-device');
-var multer = require('multer');
 
-
-const storageMulter = multer.diskStorage({
-    destination: 'uploads/',
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + "-" + file.originalname)
-    }
-})
-var upload = multer(
-    { storage: storageMulter },
-    {
-        fileFilter: function (req, file, callback) {
-            if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-                return callback(new Error('Only image files are allowed!'));
-            }
-            callback(null, true);
-        }
-    }
-);
 
 var app = express();
 

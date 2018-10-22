@@ -77,6 +77,34 @@ footer {
     height: 5vh;
 }
 
+h2{
+    margin-bottom: 1vh; 
+}
+
+.btn_class{
+    background-color: #ff4200; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    position: absolute;
+    font-weight: 600;
+}
+.btn_class:hover{
+    box-shadow: none;
+    background-color:#ffffff;
+    color: #ff4200;
+    transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
 @media all and (min-width: 1700px) {
     nav {
         -webkit-flex: 1;
@@ -117,13 +145,14 @@ footer {
     transition: background 0.4s ease-in-out, margin-right 0.3s ease-in-out;
 }
 #gallery_wrap{
+    position: relative;
     padding: 1vh;
 }
 .gallery_image {
     margin: 5px;
     border: 1px solid #ccc;
-    float: left;
-    width: 180px;
+    float: right;
+    width: 20%;
 }
 
 .gallery_image:hover {
@@ -138,4 +167,176 @@ footer {
 .gallery_image .desc {
     padding: 15px;
     text-align: center;
+}
+#gallery_wrap .upload_btn{
+    left:1vh;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+.modal .close_modal{
+    position: absolute;
+    top: 8vh;
+    right: 25%;
+    color: #f1f1f1;
+    font-size: 8vh;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.modal .modal-content {
+    margin: auto;
+    display: block;
+    width: 41%;
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+    height: 68%;
+    background: #ffffff;
+    position: relative;
+    text-align: center;
+}
+.modal-content .head_modal{
+    position: absolute;
+    top:0;
+    width: 100%;
+    background: #777;
+    color: #ffffff;
+    font-size: 2em;
+    padding: 1vh;
+}
+.modal-content i {
+    font-size: 15em;
+    margin-top: 16%;
+    color:rgba(149, 194, 234, 0.2784313725490196);
+    cursor: pointer;
+}
+.modal-content input{
+    position: absolute;
+    border: 1px solid;
+    width: 50%;
+    height: 53%;
+    margin-top: 13%;
+    left: 25%;
+    opacity: 0;
+    cursor: pointer;
+}
+#images_to_upload{
+    top: 6vh;
+    position: absolute;
+    width: 100%;
+    border-bottom: 3px solid #ff641a;
+    border-top: 1px solid #ff641a;
+    text-align: right;
+    font-size: 2vh;
+    font-weight: 600;
+    background: #ffffff;
+}
+
+.result_upload{
+    border: 0;
+    width: 0;
+    font-size: 1px;
+    float: right;
+    margin-left: 40px;
+    padding: 0 5px 0 5px;
+}
+
+.new_image_to_upload{
+    padding: 2vh 2vh 4vh;
+    border-bottom: 1px solid;
+}
+
+.new_image_to_upload span{
+    display: inline-flex;
+    float: right;
+}
+
+#flash {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 3px;
+    padding: 16px;
+    position: fixed;
+    z-index: 10000;
+    left: 50%;
+    top:5vh;
+    font-size: 17px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#flash.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s;
+    animation: fadein 0.5s;
+}
+#flash.success {
+    background: #43ce49;
+    color: #343434;
+}
+#flash.warning {
+    background: #ffa64d;
+    color: #343434;
+}
+#flash.error {
+    background: #ff6666;
+    color: #ffffff;
+}
+
+@-webkit-keyframes fadein {
+    from {top: 0; opacity: 0;} 
+    to {top: 5vh; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {top: 0; opacity: 0;} 
+    to {top: 5vh; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {top: 0; opacity: 0;} 
+    to {top: 5vh; opacity: 1;}
+}
+
+@keyframes fadeout {
+    from {top: 0; opacity: 0;} 
+    to {top: 5vh; opacity: 1;}
+}
+
+.progress {
+    border: 1px solid #0099CC;
+    padding: 1px;
+    position: relative;
+    border-radius: 3px;
+    margin: 10px;
+    text-align: left;
+    background: #fff;
+    box-shadow: inset 1px 3px 6px rgba(0, 0, 0, 0.12);
+    width: 55%;
+    display: inline-flex;
+    float: left;
+}
+.progress > .progress-bar{
+    border-radius: 3px;
+    background: #9292ec;
+    width: 0;
+    box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 0.11);
+    height: 3px;
 }

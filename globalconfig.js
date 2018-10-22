@@ -1,6 +1,9 @@
 'use strict'
 
 
+global.BUCKETNAME = "first-site-images-pandoor";
+
+
 Object.defineProperty(global, "Protocol", { value: "http", configurable: false, writable: false })
 Object.defineProperty(global, "HostName", { value: "localhost:3000", configurable: false, writable: false })
 

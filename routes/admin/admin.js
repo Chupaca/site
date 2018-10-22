@@ -19,3 +19,14 @@ exports.GetAllImages = (req, res) => {
             res.render("adminpanel/imagespreview", { images })
         })
 }
+
+exports.UploadNewImage = (req, res) => {
+    var image = req.files ? req.files[0] : 0;
+    if (image) {
+        imagesLogic.UploadNewImage(image)
+        res.send(true);
+    }
+    else {
+        res.sendStatus(403);
+    }
+}

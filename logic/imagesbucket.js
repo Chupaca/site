@@ -4,28 +4,31 @@
 const Storage = require('@google-cloud/storage');
 const promise = require("bluebird");
 const fs = require("fs");
+const globalconfig = require("../globalconfig")
 
 const storage = Storage({
     keyFilename: './my_app_engin_project_key.json'
 });
 
-const GetAllImages = (bucketName) => {
+
+const UploadNewImage = image => {
+    var pathToFile = "uploads/" + image.filename
     return storage
-        .bucket('first-site-images-pandoor')
-        .getFiles()
-        .then(results => {
-            const files = results[0]
-            return files;
+        .bucket(global.BUCKETNAME)
+        .upload(pathToFile)
+        .then((result) => {
+            return makePublic(image.filename, result)
         })
-        .catch(err =>{
-            console.log(err)
-            return null;
-        })
+        .catch(err => {
+            console.error('ERROR: upload new file' + pathToFile, err);
+            return false;
+        });
 }
 
-function MakePublic(bucketName, filename, insertedFile) {
+
+function makePublic(filename, insertedFile) {
     return storage
-        .bucket('first-site-images-pandoor')
+        .bucket(global.BUCKETNAME)
         .file(filename)
         .makePublic()
         .then(() => {
@@ -37,6 +40,22 @@ function MakePublic(bucketName, filename, insertedFile) {
         });
 }
 
+const GetAllImages = (bucketName) => {
+    return storage
+        .bucket(global.BUCKETNAME)
+        .getFiles()
+        .then(results => {
+            const files = results[0]
+            return files;
+        })
+        .catch(err => {
+            console.log(err)
+            return null;
+        })
+}
+
+
 module.exports = {
+    UploadNewImage,
     GetAllImages
 }

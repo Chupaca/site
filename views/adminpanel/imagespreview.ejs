@@ -1,11 +1,23 @@
-
-
 <div id="gallery_wrap">
-<h2> גלריה תמונות </h2>
+
+    <button class="btn_class upload_btn">upload file <i class="fas fa-cloud-upload-alt"></i></button>
+    <h2> גלריה תמונות </h2>
+
     <% images.forEach(image => { %>
-        <div class="gallery_image">
-            <img src="https://storage.googleapis.com/first-site-images-pandoor/<%= image.id %>" alt="" width="600" height="400">
-            <div class="desc">Add a description of the image here</div>
-        </div>
+    <div class="gallery_image">
+        <img src="https://storage.googleapis.com/first-site-images-pandoor/<%= image.id %>" alt="" width="600" height="400">
+        <div class="desc">Add a description of the image here</div>
+    </div>
     <%})%>
+</div>
+
+
+<div id="upload_modal" class="modal">
+    <span class="close_modal">&times;</span>
+    <div class="modal-content" >
+            <div class="head_modal">upload files</div>
+            <div id="images_to_upload"></div>
+            <i class="fas fa-cloud-upload-alt"></i>
+            <input type="file" id="upload_image_input" />
+    </div>
 </div>
