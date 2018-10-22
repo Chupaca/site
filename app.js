@@ -12,6 +12,26 @@ var bodyParser = require('body-parser');
 var http = require('http');
 var path = require('path');
 var device = require('express-device');
+var multer = require('multer');
+
+
+const storageMulter = multer.diskStorage({
+    destination: 'uploads/',
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + "-" + file.originalname)
+    }
+})
+var upload = multer(
+    { storage: storageMulter },
+    {
+        fileFilter: function (req, file, callback) {
+            if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+                return callback(new Error('Only image files are allowed!'));
+            }
+            callback(null, true);
+        }
+    }
+);
 
 var app = express();
 
@@ -54,7 +74,13 @@ function parseController(req, res, next) {
     next();
 };
 
-
+var skip = /^\/$|\/favicon.ico|\/javascripts|\/images|\/stylesheets|\/fonts|\/data/;
+app.use((req, res, next) => {
+    if (!skip.test(req.url)) {
+        console.log(`${req.method} : ${req.url}`)
+    }
+    next()
+})
 
 app.use((err, req, res, next) => {
     if (!err) {
@@ -75,6 +101,8 @@ app.use((err, req, res, next) => {
 //============= routes ====================================================
 app.use("/", require("./routes/generalpages"));
 
+app.use("/admin", require("./routes/admin"))
+
 //============ end routes =================================================
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
@@ -83,7 +111,7 @@ http.createServer(app).listen(app.get('port'), function () {
 
 //=============== process exceptions ======================================
 process.on('uncaughtException', function (error) {
-    if(error){
+    if (error) {
         console.error("Not cached exception with out stack! : " + error);
     }
     else if (error.stack) {
@@ -95,7 +123,7 @@ process.on('uncaughtException', function (error) {
 });
 
 process.on('unhandledRejection', function (reason, p) {
-    if(error){
+    if (error) {
         console.error("Not handled cached exception with out stack! : " + error);
     }
     else if (reason.stack) {

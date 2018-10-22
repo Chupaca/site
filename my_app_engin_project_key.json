@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "node-js-firs-app",
+  "private_key_id": "eef9086572e99d2e50f1bf1d15f146dffa24ffd9",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCt3cXTTvBgt2uu\nilRgeOCceec2H+0+4n8NhTJQKACO++gO3+01f57NnsaZXF/id8K+5tFh9TwcQtjy\nhQfdoVcHwKmh2+AonWCeh0Gu1DZHz/l7zeB8PNo2lldWLU3HLeppTssw21ZYTvXI\nYpf/tiUpwqMhsQGZRHf3gKKNr2CBHudQBaAWO0pmnJysiaA8PYD38AxQApNQllBS\nJE4LIQp1CV46MDB2apFuIBZFG2eOZdlMNEUHEylDxhLAfEa4I62+GhtF+1yjyEfj\nACR0aitn2oL/rv13/784eja0ij2MvlY4AAzPMMgTC6cvx019qtkwDbkZHDB0xEJq\n3MbHdLedAgMBAAECggEAB4kSTXahMG/pEnPoW3rU5IAPQOdG7wmXnBkzwjzMzJja\nYk3bCA1Z72t8Pzu9SofXDVMPrBrNQIq2wGJ61TFshjRLDDrTwkh5d/JAxIUDo6Uk\nTCgmHJXxymZFrsFHGuTaJ51302XbBJGXhKUEe9uD5mvX8I16L9xdBRsY8HvmlAuV\nm91fxoYCwseT5Rvf+jsqVRGhcXpjw4t42J4zHWbTxUyyh5wJ3n5NGeAOL21TYDDy\nqimuzSN8y1B3AUpEToiqsvm75Zmo7sDyBUv0+3mZNZJL7xFYk46QSnKSzi+ui9BX\nqX/cXwlTymD6UsYfcIubLxdrDrrV+XmyAMiG155sAQKBgQDvDorcEZZDCn0PMW36\n8Cb1HlOFBZ1eZiQl01rX5YHzPgkfgO4vlntWTfE3W1Kzg9NufQ4nuy0hpw0k+TqM\nDQ8zR0vpMX/Af9PugoASb9mBW2a9Ah6GDudQiy163vadiBMWp2SaF9DVG5RByLgg\npiSEGhKmzhWWjcjHUtn7e2YHHQKBgQC6MGkrRzbrrGD/O5s9yNShPk5SvHDGfyd3\n9hgvfIKc2G6vdt9OVkaC9cEyhtTQ9j70GbUmqvnKuLFdhfYhRSW+c/RU0kK1hPGA\n3ghkHyeV05ueWvdH2YI4b9OYwpHdWdBkbGsv55EDLh951Hh/aUIA6lcrQ2R8vqu1\n2aqlgJQKgQKBgDXz20UVtwsEZ/sw1biH0NMLeCASh1TRyqC61craIn0KaDay+47D\n8KwmxSUQOFcJjoNmN/ahmOr6b84DbcJEBEU3dxt3L3T7pJI048DFe5plTYek3cy1\numEEOEx927zsBBrdxqe8bkZahhheu6eqt50U4VbCNj8XWtQZj9bhH8LFAoGAK+vn\no1H1XrsXVp5VDMonfrIX/+R8Jhcw1Fe1dN5GYYGc+r9sBirMD3Cx1p1/7ptoVmUK\nGskSjAPts0Y6vbZ2JOtto+TF39QwtFmsWRIQYIO+niiPVN+2nGGk5NBhYHojcs0w\nq+hQiROEUVUR59yIuXaOgaIwPk0sbIWgf9JJGgECgYEAxJ0zp1Y1auucbB8ole+/\nf6PIjChgvYVwcSm2dY2jYs11WWTVsTSHCSRdickdC5+M+E2ldxocRr65+5EXjUi1\nLxCUcEge9kr9XlHTrolIVztNFA4HQXRH1JJZXB4ZeEIe5PDBM26HmP4c0LbtCZAu\nM2EOq3TD+90KNuDuk9RTocY=\n-----END PRIVATE KEY-----\n",
+  "client_email": "admin-test-pandoor@node-js-firs-app.iam.gserviceaccount.com",
+  "client_id": "107578304956879357011",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/admin-test-pandoor%40node-js-firs-app.iam.gserviceaccount.com"
+}

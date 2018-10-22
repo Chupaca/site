@@ -1,0 +1,141 @@
+
+a, img, input, textarea{ border:0px; border-style:none; }
+a{ text-decoration:none; }
+p{ margin-bottom:12px; }
+
+
+input[type="submit"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="image"]::-moz-focus-inner, img::-moz-focus-inner, a::-moz-focus-inner{ border: 0px; }
+
+input[type="submit"]:focus, input[type="button"]:focus, input[type="image"]:focus, img:focus, a:focus{ outline: none; }
+
+html{ overflow: -moz-scrollbars-vertical; }
+html{ overflow-x: hidden; }
+html{ overflow-y: scroll; }
+
+
+*:focus {outline: none;}
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: #eeeeee;
+	color:#343434; 	
+    position:relative;
+    direction: rtl;
+    text-align: right;
+}
+
+header {
+    background-color: #666;
+    padding: 30px;
+    text-align: center;
+    font-size: 35px;
+    color: white;
+}
+
+section {
+    display: -webkit-flex;
+    display: flex;
+}
+
+nav {
+    -webkit-flex: 2;
+    -ms-flex: 2;
+    flex: 2;
+    position: relative;
+    height: 100%;
+    top: 1em;
+    width: 15%;
+    float: right;
+}
+
+article {
+    -webkit-flex: 9;
+    -ms-flex: 9;
+    flex: 9;
+    background-color: #f1f1f1;
+    padding: 10px;
+}
+
+.container{
+    width: 100%;
+    height: auto;
+    padding: 4vh;
+}
+
+footer {
+    background-color: #777;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 5vh;
+}
+
+@media all and (min-width: 1700px) {
+    nav {
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+    }
+}
+
+#nav_bar_wrap div {
+    margin-right: -5em;
+    transition: 0.3s;
+    padding: 15px;
+    width: 10em;
+    text-decoration: none;
+    font-size: 20px;
+    color: #ffffff;
+    border-radius: 5px 0px 0px 5px;
+    padding-right: 25px;
+    margin-bottom: 5px;
+    background: #343434;
+    cursor: pointer;
+}
+
+#nav_bar_wrap div span{
+    float: left;
+    margin-left: 1em;
+    width:3vh;
+    text-align: center;
+}
+#nav_bar_wrap div.active{
+    background: #ff4200;
+    color: #ffffff;
+}
+#nav_bar_wrap div:hover {
+    margin-right: -2vh;
+    background: #ff4200;
+    color: #ffffff;
+    transition: background 0.4s ease-in-out, margin-right 0.3s ease-in-out;
+}
+#gallery_wrap{
+    padding: 1vh;
+}
+.gallery_image {
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 180px;
+}
+
+.gallery_image:hover {
+    border: 1px solid #777;
+}
+
+.gallery_image img {
+    width: 100%;
+    height: auto;
+}
+
+.gallery_image .desc {
+    padding: 15px;
+    text-align: center;
+}

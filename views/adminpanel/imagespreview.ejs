@@ -1,0 +1,11 @@
+
+
+<div id="gallery_wrap">
+<h2> גלריה תמונות </h2>
+    <% images.forEach(image => { %>
+        <div class="gallery_image">
+            <img src="https://storage.googleapis.com/first-site-images-pandoor/<%= image.id %>" alt="" width="600" height="400">
+            <div class="desc">Add a description of the image here</div>
+        </div>
+    <%})%>
+</div>
