@@ -32,6 +32,7 @@ router.get("/allimages", adminPanel.GetAllImages);
 
 
 router.post('/uploadfiles', upload.any(), adminPanel.UploadNewImage);
+router.post('/uploadfiles/delete', adminPanel.DeleteFile)
 
 
 

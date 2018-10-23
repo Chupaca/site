@@ -18,17 +18,22 @@
             <% include ./navbar %>
         </nav>
         <article>
-            <% include ./adminpanel %>
+            <section>
+                <div class="container"></div>
+            </section>
         </article>
     </section>
+    <footer></footer>
 
-    <!-- <section>
-        <% include ./adminpanel %>
-    </section> -->
-
-    <footer>
-    
-    </footer>
+    <div id="conform_modal" class="modal">
+        <div class="modal-content conform_content">
+            <h2></h2>
+            <div class="buttons_wrap" >
+                <button class="btn_class" id="conform" >כן</button>
+                <button class="btn_class" id="cancel" >לא</button>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <script src="/javascript/generaladmin.js"></script>

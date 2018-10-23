@@ -32,12 +32,43 @@ function makePublic(filename, insertedFile) {
         .file(filename)
         .makePublic()
         .then(() => {
+            return RemoveTempleFileByName(filename)
+        })
+        .then(() => {
             return insertedFile[0].metadata;
         })
         .catch(err => {
             console.error('ERROR: update permissions to file - ' + filename, err);
             return false;
         });
+}
+
+function RemoveTempleFileByName(fileName) {
+    let filePath = "uploads/" + fileName;
+    return new promise((resolve, reject) => {
+        fs.unlink(filePath, (result) => {
+            if (!result) {
+                resolve(true);
+            } else {
+                resolve(false);
+            }
+        })
+    });
+}
+
+const DeleteFile = filename => {
+    return storage
+        .bucket(global.BUCKETNAME)
+        .file(filename)
+        .delete()
+        .then(() => {
+            return true;
+        })
+        .catch(err => {
+            console.error('ERROR:', err);
+            return promise.reject();
+        });
+
 }
 
 const GetAllImages = (bucketName) => {
@@ -57,5 +88,6 @@ const GetAllImages = (bucketName) => {
 
 module.exports = {
     UploadNewImage,
+    DeleteFile,
     GetAllImages
 }

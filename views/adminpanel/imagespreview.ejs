@@ -1,12 +1,14 @@
+<h2 class="title_wrap">
+    <%- title %>
+</h2>
 <div id="gallery_wrap">
-
     <button class="btn_class upload_btn">upload file <i class="fas fa-cloud-upload-alt"></i></button>
-    <h2> גלריה תמונות </h2>
-
-    <% images.forEach(image => { %>
-    <div class="gallery_image">
-        <img src="https://storage.googleapis.com/first-site-images-pandoor/<%= image.id %>" alt="" width="600" height="400">
-        <div class="desc">Add a description of the image here</div>
+    <% images.forEach((image, i) => { %>
+    <div class="gallery_image" data-imageid="<%= image.id %>">
+        <img class="image_one" data-index="<%= i %>" src="https://storage.googleapis.com/first-site-images-pandoor/<%= image.id %>"
+            alt="" width="600" height="400">
+        <div class="desc"><span>Add a description of the image here </span><i class="fas fa-trash-alt remove_file"
+                data-imageid="<%= image.id %>"></i></div>
     </div>
     <%})%>
 </div>
@@ -14,10 +16,18 @@
 
 <div id="upload_modal" class="modal">
     <span class="close_modal">&times;</span>
-    <div class="modal-content" >
-            <div class="head_modal">upload files</div>
-            <div id="images_to_upload"></div>
-            <i class="fas fa-cloud-upload-alt"></i>
-            <input type="file" id="upload_image_input" />
+    <div class="modal-content">
+        <div class="head_modal">upload files</div>
+        <div id="images_to_upload"></div>
+        <i class="fas fa-cloud-upload-alt"></i>
+        <input type="file" id="upload_image_input" />
     </div>
+</div>
+
+<div id="project_preview_modal" class="preview_modal">
+    <span class="close">&times;</span>
+    <span class="next">&gt;</span>
+    <span class="prev">&lt;</span>
+    <img class="modal-content-images" id="preview_image">
+    <span id="count_images"></span>
 </div>
