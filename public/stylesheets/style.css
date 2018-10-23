@@ -454,10 +454,14 @@ footer ul li
 }
 .site-map li
 {
-    width:calc(25% - 56px);
-    margin-right: 5vh;
+    width: calc(15% - 22px);
+    margin-right: 3.5vh;
     margin-bottom: 6vh;
-    vertical-align:top;
+    vertical-align: top;
+    font-size: 0.7em;
+}
+.site-map li:first-child{
+    margin-right: 0;
 }
 .site-map li:nth-child(4n)
 {
@@ -472,6 +476,7 @@ footer ul li
     padding-bottom:2px;
     margin-bottom:10px;
     line-height:24px;
+    font-size: 1em;
 }
 a.phoneto
 {
@@ -866,14 +871,15 @@ a.galleryCategory:hover
     padding: 25px;
     box-sizing:border-box;
     display:inline-flex;
-    cursor: pointer;
     margin-bottom: 5px;
 }
-.infoContactBox:hover {
+.infoContactBox.hover:hover {
+    cursor: pointer;
     background: #ff4200;
     color: #ffffff;
     transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
 }
+
 .infoContactBox img
 {
     vertical-align:middle;
@@ -926,8 +932,8 @@ a.galleryCategory:hover
     display: none;
     position: relative;
     z-index: 1000;
-    margin: 5px 31%;
-    padding: 2vh;
+    margin: 10px 31%;
+    padding: 1vh;
     background: #ff4200;
     color: #ffffff;
     cursor: pointer;
@@ -976,6 +982,7 @@ a.btn-model {
 
 .branches_wrap{
     display: inline-flex;
+    height: 100vh;
 }
 
 .branchInfo {  
@@ -1391,6 +1398,7 @@ a.btn-model {
     }
     .branches_wrap {
         display: block;
+        height: auto;
     }
     .branchesMap{
         display: none;
@@ -2309,36 +2317,11 @@ font-size: 6vh;
     .branches_descriptions.active .infoContactBox{
         min-height: 14vh;
     }
+    .branches_wrap{
+        height: 70vh;
+    }
 }
-/* @media all and (max-width:900px){
-    #minimize_logo{
-        width: 19%;
-        height: 71%;
-    }
-    .slider_left_text, .door_img, .door_info_container{
-       
-    }
-    .sectionsContainer{
-        padding-top: 56px;
-    }
-    #cur_wrap, .overlay_slides_wrap{
-        height: 35vh;
-    }
-    .nav{
-        top: 58px;
-    }
-    .mobileNavDesignerInfo .fas{
-        position: absolute;
-        font-size: 6vh;
-        margin-right: 5vh;
-    }
-    #phone_number_mobile{
-        display: inline-block;
-    }
-    #logo_pandoor_bav_desktop{
-        display: none;
-    }
-} */
+
 
 @media (min-width: 481px) and (max-width: 767px) { /* mobile Landscape */
     
@@ -2763,4 +2746,19 @@ font-size: 6vh;
         padding: 5px 4px;
         font-size: 12px;
     }
+}
+
+.select_item{
+    background: #ff4200;
+    color: #fff;
+    height: auto;
+    font-weight: 700;
+    padding: 1vh;
+    cursor: pointer;
+    width: 150px;
+    height: auto;
+    display: inline-block;
+    font-size: 15px;
+    border: 0;
+    margin: 0vh 3vh 2vh;
 }
