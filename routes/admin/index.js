@@ -26,6 +26,10 @@ var upload = multer(
 
 router.get("/", adminPanel.GetAdminPanel);
 router.get("/login", adminPanel.Login);
+
+router.get("/navigationeditor", adminPanel.GetNavigationEditor)
+router.post("/setnewnavigation", adminPanel.SetNewNavigation)
+
 router.get("/allimages", adminPanel.GetAllImages);
 
 

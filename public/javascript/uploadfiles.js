@@ -39,25 +39,19 @@ function previewImageModal() {
     })
 }
 
-function RemoveFile(){
+function RemoveFile() {
     let imageName = $(this).attr("data-imageid");
-    $("#conform_modal").find("h2").text("האם אתה רוצה למחוק קובץ?")
-    $("#conform_modal").css({ "display": "block", "z-index": 3000 });
-    $("#conform_modal #conform").unbind().click(()=>{
-        $.post("/admin//uploadfiles/delete", {ImageName:imageName})
+    ConformModal("האם אתה רוצה למחוק קובץ?", () => {
+        $.post("/admin//uploadfiles/delete", { ImageName: imageName })
             .then(result => {
-                if(result){
+                if (result) {
                     Flash("נמחק בהצלחה!", 'success');
-                    $("#conform_modal").css({ "display": "none", "z-index": -1 });
                     $(".gallery_image[data-imageid='" + imageName + "']").remove();
-                }else{
+                } else {
                     Flash("התרחשה שגיאה!", "error");
                 }
                 return;
             })
-    })
-    $("#conform_modal #cancel").unbind().click(()=>{
-        $("#conform_modal").css({ "display": "none", "z-index": -1 });
     })
 }
 
@@ -181,12 +175,12 @@ function sendToServer(file, filename, callback) {
     }).done(function (result) {
         $(".progress[data-name='" + filename + "']>.progress-bar").css("width", + 100 + "%");
         if (result) {
-            if (callback){
+            if (callback) {
                 Flash("קובץ נשמר בהצלחה!", "success", 1000);
                 callback(true, filename);
             }
         } else {
-            if (callback){
+            if (callback) {
                 Flash("התרחשה שגיאה!", "error");
                 callback(false, filename);
             }

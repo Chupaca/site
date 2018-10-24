@@ -36,18 +36,12 @@
     
         <div class="nav" style="">
             <ul>
-                <li class="navLink"><a href="/">עמוד הבית</a></li>
-                <li class="navLink"><a href="/aboutus">אודותינו</a></li>
-                <li class="navLink"><a href="/catalog">קולקציית פנדור</a></li>
-                <li class="navLink"><a href="/gallery">גלריה פרויקטים</a></li>
-                <li class="navLink"><a href="/architectslist">ארכיטקטים ומעצבים</a></li>
-                </ul>
-                <ul>
-                <li class="navLink"><a href="/blogs">מעמרים</a></li>
-                <li class="navLink"><a href="/comments">לקוחות מספרים</a></li>
-                <li class="navLink"><a href="/projectcontact">קבלנים</a></li>
-                <li class="navLink"><a href="/branches">סניפים</a></li>
-                <li class="navLink"><a href="/contact">צור קשר</a></li>
+             <% for(let i=0; i<Navigation.length;i++){%>
+                <li class="navLink"><a href="<%= Navigation[i].Link %>"><%= Navigation[i].Description %></a></li>
+                <% if((Navigation.length / 2).toFixed(0) == (i+1)){ %>
+                    </ul><ul>
+            <%}}%>
+               
             </ul>
             <ul id="logo_pandoor_bav_desktop">
                 <img alt="" src="images/only_door.png" style="width: 10vh;" />

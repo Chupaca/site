@@ -1,0 +1,57 @@
+<h2 class="title_wrap">
+    <%- title %>
+</h2>
+<div class="wrap_three_col_head">
+    <div class="col_head">
+        <h4>active</h4>
+    </div>
+    <div class="col_head">
+        <h4>not active</h4>
+    </div>
+    <div class="col_head"></div>
+</div>
+<div class="wrap_three_col">
+    <div id="sortable" class="col connectedSortable">
+        <% Nav.forEach(item => { %>
+        <li>
+            <div class="navigate_item">
+                <span class="navigate_item_position">
+                    <%= item.Position %></span>
+                <b><span class="navigate_item_desc" style="margin-right:5vh;">
+                        <%= item.Description%></span></b>
+                <i class="fas fa-bars nav_options"></i>
+            </div>
+            <div class="sub_navigate_item">
+                <button class="btn_class">change</button>
+                <div><input class="link_navigate_item" value="<%= item.Link %>" readonly> <i class="fas fa-trash-alt remove_nav_item"></i></div>
+            </div>
+        </li>
+        <%})%>
+    </div>
+
+
+    <div id="sortable_tmp" class="col connectedSortable">
+        <% TmpNavigation.forEach(item => { %>
+        <li>
+            <div class="navigate_item">
+                <span class="navigate_item_position">
+                    <%= item.Position %></span>
+                <b><span class="navigate_item_desc" style="margin-right:5vh;">
+                        <%= item.Description%></span></b>
+                <i class="fas fa-bars nav_options"></i>
+            </div>
+            <div class="sub_navigate_item">
+                <button class="btn_class">change</button>
+                <div><input class="link_navigate_item" value="<%= item.Link %>" readonly> <i class="fas fa-trash-alt remove_nav_item"></i></div>
+            </div>
+        </li>
+        <%})%>
+    </div>
+
+    <div class="col">
+        <button class="btn_class" id="add_new_nav_item">הוסיף חדש</button><br>
+        <button class="btn_class" id="preview_new" style="top: 36%;">להצגה</button><br>
+        <button class="btn_class" id="publish_new" style="top: 66%;">לפרסם</button>
+    </div>
+
+</div>

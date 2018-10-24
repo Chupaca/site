@@ -2,7 +2,8 @@
 
 const promise = require("bluebird")
 const moment = require('moment');
-const imagesLogic = require("../../logic/imagesbucket.js")
+const imagesLogic = require("../../logic/imagesbucket.js");
+const navLogic = require("../../logic/navigation.js");
 
 
 exports.Login = (req, res) => {
@@ -11,6 +12,25 @@ exports.Login = (req, res) => {
 
 exports.GetAdminPanel = (req, res) => {
     res.render("adminpanel/index", {})
+}
+
+exports.GetNavigationEditor = (req, res) => {
+    navLogic.GetNavigationItemsForEdit()
+        .then(result => {
+            res.render("adminpanel/navigationeditor", { title: "נווה עורך", Nav: result.NavStructure, TmpNavigation:result.TmpNavigation })
+        })
+}
+
+exports.SetNewNavigation = (req, res) => {
+    let { NewNav, TmpNav } = req.body;
+    if (NewNav) {
+        navLogic.SetNewNavigation(NewNav, TmpNav)
+            .then(result => {
+                res.sendStatus(200)
+            })
+    } else {
+        res.sendStatus(403)
+    }
 }
 
 exports.GetAllImages = (req, res) => {
