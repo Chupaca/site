@@ -2,10 +2,13 @@
 
 var permittedTypes = ["jpeg", "jpg", "bmp", "png", "png24"];
 const MAX_SIZE = 500000;
+var bucket = "general"
 
 function SetupUploadFunctions() {
+    $(".radio_btn_buckets").unbind().click(getFilesBucket)
     $(".upload_btn").unbind().click(() => {
         $("#images_to_upload").empty();
+        bucket = $(".radio_btn_buckets.active").attr("data-bucket");
         $("#upload_modal").css({ "display": "block", "z-index": 3000 });
     })
     $(".close_modal").unbind().click(function () {
@@ -15,6 +18,18 @@ function SetupUploadFunctions() {
     $('#upload_image_input').unbind().on('change', onChangeFileToUpload);
     dropUploadFiles();
     $(".remove_file").unbind().click(RemoveFile)
+}
+
+function getFilesBucket(){
+    let buck = $(this).attr("data-bucket");
+    $(".radio_btn_buckets").removeClass("active")
+    $(this).addClass("active");
+    $.get({url: "/admin/allimages?bucket=" + buck, cache: false})
+    .then(gallery => {
+        $("#gallery_wrap").html(gallery);
+        $(".image_one").unbind().click(previewImageModal);
+        $(".remove_file").unbind().click(RemoveFile)
+    })
 }
 
 function previewImageModal() {
@@ -42,7 +57,7 @@ function previewImageModal() {
 function RemoveFile() {
     let imageName = $(this).attr("data-imageid");
     ConformModal("האם אתה רוצה למחוק קובץ?", () => {
-        $.post("/admin//uploadfiles/delete", { ImageName: imageName })
+        $.post("/admin//uploadfiles/delete", { ImageName: imageName, Bucket:bucket })
             .then(result => {
                 if (result) {
                     Flash("נמחק בהצלחה!", 'success');
@@ -142,7 +157,7 @@ function uuid() {
 }
 
 function sendToServer(file, filename, callback) {
-    let sendUrl = "/admin/uploadfiles";
+    let sendUrl = "/admin/uploadfiles?bucket=" + bucket;
     let title = ["", '', 'documents', ""];
     let formdata = new FormData();
     formdata.append(title, file);

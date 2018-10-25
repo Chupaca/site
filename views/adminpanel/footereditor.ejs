@@ -1,0 +1,83 @@
+<h2 class="title_wrap">
+    <%- title %>
+</h2>
+
+<div>
+    <button class="btn_class switch_wraps active" data-wrap="navigation">עריכת נווה</button>
+    <button class="btn_class switch_wraps" data-wrap="branches">עריכת סניפים</button>
+    <button class="btn_class" id="publish_new_footer" style="float:left">לפרסם</button>
+    <button class="btn_class" id="preview_new" style="float:left">להצגה</button>
+</div>
+
+<div class="wrap_three_col" data-wrap="navigation">
+    <div id="sortable" class="col connectedSortable">
+        <% Nav.forEach(item => { %>
+        <li>
+            <div class="navigate_item">
+                <span class="navigate_item_position">
+                    <%= item.Position %></span>
+                <b><span class="navigate_item_desc" style="margin-right:5vh;">
+                        <%= item.Description%></span></b>
+                <i class="fas fa-bars nav_options"></i>
+            </div>
+            <div class="sub_navigate_item">
+                <button class="btn_class">change</button>
+                <div><input class="link_navigate_item" value="<%= item.Link %>" readonly> <i class="fas fa-trash-alt remove_nav_item"></i></div>
+            </div>
+        </li>
+        <%})%>
+    </div>
+
+
+    <div id="sortable_tmp" class="col connectedSortable">
+        <% TmpNavigation.forEach(item => { %>
+        <li>
+            <div class="navigate_item">
+                <span class="navigate_item_position">
+                    <%= item.Position %></span>
+                <b><span class="navigate_item_desc" style="margin-right:5vh;">
+                        <%= item.Description%></span></b>
+                <i class="fas fa-bars nav_options"></i>
+            </div>
+            <div class="sub_navigate_item">
+                <button class="btn_class">change</button>
+                <div><input class="link_navigate_item" value="<%= item.Link %>" readonly> <i class="fas fa-trash-alt remove_nav_item"></i></div>
+            </div>
+        </li>
+        <%})%>
+    </div>
+
+    <div class="col">
+        <button class="btn_class" id="add_new_nav_item">הוסיף חדש</button>
+    </div>
+
+</div>
+
+
+<div class="wrap_two_col" style="display:none;" data-wrap="branches">
+    <div class="col">
+        <table class="branches_table">
+            <tbody>
+                <% Branches.forEach(item => { %>
+                    <tr>
+                            <td style="width: 5vh;"><input value="<%= item.Position %>" readonly/></td>
+                            <td style="width: 20vh;"><input value="<%= item.BranchName%>" readonly/></td>
+                            <td><input value="<%= item.Address %>" readonly/></td>
+                            <td  style="width: 15vh;"><input value="<%= item.PhoneNumber %>" readonly/></td>
+                            <td style="width: 25vh;">
+                                <button class="btn_class edit_row">change</button>
+                                <i class="fas fa-arrow-down btn_arrow_down"></i>
+                                <i class="fas fa-arrow-up btn_arrow_up"></i>
+                            </td>
+                            <td style="width: 5vh;"><i class="fas fa-trash-alt remove_row_branch" style="color:red;cursor:pointer;"></i></td>
+                    </tr>
+                <%})%>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col">
+        <button class="btn_class" id="add_new_branch_row">הוסיף חדש</button>
+    </div>
+
+</div>

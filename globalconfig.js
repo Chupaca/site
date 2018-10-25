@@ -1,7 +1,13 @@
 'use strict'
 
 
-global.BUCKETNAME = "first-site-images-pandoor";
+global.BUCKETNAMES = {
+    "headers" : "pandoor_test_site_headers",
+    "sales" : "pandoor_test_site_sales",
+    "general" : "pandoor_test_site_generals",
+    "doors" : "pandoor_test_site_doors",
+    "architects" : "pandoor_test_site_architects"
+}
 
 
 Object.defineProperty(global, "Protocol", { value: "http", configurable: false, writable: false })

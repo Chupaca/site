@@ -1,7 +1,10 @@
 'use strict'
 
 const express = require('express');
-const adminPanel = require("./admin")
+const adminPanel = require("./admin");
+const navfooter = require("./navfooter");
+const uploadfiles = require("./uploadfiles");
+
 var multer = require('multer');
 const router = express.Router();
 
@@ -11,6 +14,7 @@ const storageMulter = multer.diskStorage({
         cb(null, Date.now() + "-" + file.originalname)
     }
 })
+
 var upload = multer(
     { storage: storageMulter },
     {
@@ -27,16 +31,18 @@ var upload = multer(
 router.get("/", adminPanel.GetAdminPanel);
 router.get("/login", adminPanel.Login);
 
-router.get("/navigationeditor", adminPanel.GetNavigationEditor)
-router.post("/setnewnavigation", adminPanel.SetNewNavigation)
 
-router.get("/allimages", adminPanel.GetAllImages);
+//========= navigation + footer ==================================
+router.get("/navigationeditor", navfooter.GetNavigationEditor);
+router.post("/setnewnavigation", navfooter.SetNewNavigation);
 
+router.get("/footereditor", navfooter.GetFooterEditor);
+router.post("/setnewfooter", navfooter.SetNewFooter);
 
-
-
-router.post('/uploadfiles', upload.any(), adminPanel.UploadNewImage);
-router.post('/uploadfiles/delete', adminPanel.DeleteFile)
+//============== upload files ======================
+router.get("/allimages", uploadfiles.GetAllImages);
+router.post('/uploadfiles', upload.any(), uploadfiles.UploadNewImage);
+router.post('/uploadfiles/delete', uploadfiles.DeleteFile)
 
 
 

@@ -99,20 +99,44 @@ h2{
     background-color: #ff4200; /* Green */
     border: none;
     color: white;
-    padding: 15px 32px;
+    padding: 10px 3%;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-    position: absolute;
     font-weight: 600;
 }
 .btn_class:hover{
+    box-shadow: none;
+    background-color:#ffffff;
+    color: #ff4200;
+    transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+.btn_class.active{
+    box-shadow: none;
+    background-color:#ffffff;
+    color: #ff4200;
+}
+
+.btn_arrow_up, .btn_arrow_down{
+    background-color: #a4a2f5;
+    color: white;
+    padding: 3% 5%;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.btn_arrow_up:hover, .btn_arrow_down:hover{
     box-shadow: none;
     background-color:#ffffff;
     color: #ff4200;
@@ -185,6 +209,8 @@ h2{
     border: 1px solid #ccc;
     float: right;
     width: 21%;
+    text-align: center;
+    background: #eae6e6;
 }
 
 .gallery_image:hover {
@@ -192,9 +218,9 @@ h2{
 }
 
 .gallery_image img {
-    width: 100%;
     height: 20vh;
     cursor: pointer;
+    max-width: 100%;
 }
 
 .gallery_image .desc {
@@ -202,6 +228,7 @@ h2{
     padding: 3px;
     text-align: right;
     min-height: 5vh;
+    background: #f7d5a3;
 }
 .gallery_image .desc span{
     max-width: 85%;
@@ -216,10 +243,8 @@ h2{
     margin: 5px 5px;
     cursor: pointer;
 }
-#gallery_wrap .upload_btn{
-    left:1vh;
-    position: fixed;
-    top: 0;
+.upload_btn{
+    float: left;  
 }
 
 .preview_modal {
@@ -477,7 +502,7 @@ h2{
     padding: 3px 1vh;
 }
 .wrap_three_col .col{
-    width: 40%;
+    width: 42%;
     min-height: 54vh;
     margin-left: 8vh;
     background: #f9c6c6;
@@ -489,12 +514,13 @@ h2{
     background: #bef1b8;
 }
 .wrap_three_col_head .col_head{
-    width: 40%;
+    width: 42%;
     padding-right: 5vh;
 }
 .wrap_three_col .col:last-child{
-    width: 15%;
+    width: 12%;
     background: none;
+    margin-left: 0;
 }
 .wrap_three_col_head .col_head:last-child{
     width: 15%;
@@ -502,6 +528,35 @@ h2{
 .wrap_three_col .col li{
     background: #ccc;
 }
+/*=================== */
+.wrap_two_col{
+    position: relative;
+    display: inline-flex;
+    width: 96%;
+    height: auto;
+    margin: 2vh;
+    padding: 1vh;
+}
+.wrap_two_col .col{
+    min-height: 54vh;
+    margin-left: 8vh;
+    max-height: 55vh;
+    overflow-y: auto;
+    padding: 0 2px;
+}
+.wrap_two_col .col:first-child{
+    width: 88%;
+    background: #bef1b8;
+}
+
+.wrap_two_col .col:last-child{
+    width: 12%;
+    background: none;
+    margin-left: 0;
+}
+
+
+
 .navigate_item{
     width: 100%;
     background: #ffffff;
@@ -552,5 +607,14 @@ h2{
     color: #f30a0a;
     margin-right: 1vh;
     cursor: pointer;
+}
+
+.branches_table{
+    width: 100%;
+}
+.branches_table input{
+    width: 92%;
+    padding: 1vh;
+    font-size: 2vh;
 }
 

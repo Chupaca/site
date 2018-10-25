@@ -36,9 +36,9 @@
     
         <div class="nav" style="">
             <ul>
-             <% for(let i=0; i<Navigation.length;i++){%>
-                <li class="navLink"><a href="<%= Navigation[i].Link %>"><%= Navigation[i].Description %></a></li>
-                <% if((Navigation.length / 2).toFixed(0) == (i+1)){ %>
+             <% for(let i=0; i<Navigation.NavStructure.length;i++){%>
+                <li class="navLink"><a href="<%= Navigation.NavStructure[i].Link %>"><%= Navigation.NavStructure[i].Description %></a></li>
+                <% if((Navigation.NavStructure.length / 2).toFixed(0) == (i+1)){ %>
                     </ul><ul>
             <%}}%>
                

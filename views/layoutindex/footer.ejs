@@ -1,10 +1,10 @@
 <div class="container">
     <ul class="footer-nav">
-        <li><a href="/">עמוד הבית</a></li>
-        <li><a href="/catalog">קולקציית פנדור</a></li>
-        <li><a href="/privacy">הצהרת פרטיות</a></li>
-        <li><a href="/contact">צרו קשר</a></li>
+             <% for(let i=0; i<Footer.NavStructure.length;i++){%>
+                <li><a href="<%= Footer.NavStructure[i].Link %>"><%= Footer.NavStructure[i].Description %></a></li>
+            <%}%>
     </ul>
+               
     <div class="phoneto-mobile">שירות לקוחות<br />
         <a href="tel:*5058" class="light_style" style="color:#ffffff;"><i class="fa fa-phone-square" style="margin:0 5px;"></i>5058
             *</a>
@@ -19,43 +19,13 @@
     </ul>
     <a class="footerBtn" href="/branches">לרשימת הסניפים</a>
     <ul class="site-map">
-        <li>
-            <h3>אולם התצוגה ראשל”צ</h3>
-            כתובת: רח' אצ"ל 20<br />
-            אזור התעשייה החדש,<br />
-            טלפון: 03-9555051
-        </li>
-        <li>
-            <h3>אולם התצוגה ראשל”צ</h3>
-            כתובת: רח' אצ"ל 20<br />
-            אזור התעשייה החדש,<br />
-            טלפון: 03-9555051
-        </li>
-        <li>
-            <h3>אולם התצוגה ראשל”צ</h3>
-            כתובת: רח' אצ"ל 20<br />
-            אזור התעשייה החדש,<br />
-            טלפון: 03-9555051
-        </li>
-        <li>
-            <h3>אולם התצוגה ראשל”צ</h3>
-            כתובת: רח' אצ"ל 20<br />
-            אזור התעשייה החדש,<br />
-            טלפון: 03-9555051
-        </li>
-        <li>
-            <h3>אולם התצוגה ראשל”צ</h3>
-            כתובת: רח' אצ"ל 20<br />
-            אזור התעשייה החדש,<br />
-            טלפון: 03-9555051
-        </li>
-        <li>
-            <h3>אולם התצוגה ראשל”צ</h3>
-            כתובת: רח' אצ"ל 20<br />
-            אזור התעשייה החדש,<br />
-            טלפון: 03-9555051
-        </li>
-       
+        <% for(let i=0; i< Footer.Branches.length;i++){%>
+            <li>
+                <h3><%= Footer.Branches[i].BranchName %></h3>
+                <span><%= Footer.Branches[i].Address %></span><br>
+                <span><%= Footer.Branches[i].PhoneNumber %></span>
+            </li>
+        <%}%>
     </ul>
 </div>
 <div class="footer-bottom-strip">

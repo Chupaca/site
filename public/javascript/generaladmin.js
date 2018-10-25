@@ -2,7 +2,8 @@
 
 
 function setup() {
-    $("#navigation_edit").unbind().click(NavigationEdit)
+    $("#navigation_edit").unbind().click(NavigationEdit);
+    $("#footer_edit").unbind().click(FooterEdit);
     $("#images_gallery").unbind().click(getAllGallery);
 }
 

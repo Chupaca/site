@@ -123,3 +123,125 @@ function sortNavItemsAfterChang() {
         $(item).find(".navigate_item_position").text(0)
     })
 }
+
+
+function FooterEdit() {
+    changeStatusItemsNav($(this).closest(".nav_item"))
+    $.get("/admin/footereditor")
+        .then(footerEditor => {
+            $(".container").html(footerEditor);
+            setupFooterEditor()
+
+        })
+}
+
+function setupFooterEditor() {
+    bindButtonsEvents();
+
+    $(".switch_wraps").unbind().click(function () {
+        $(".switch_wraps").toggleClass("active")
+        $(".wrap_three_col, .wrap_two_col").toggle();
+    })
+
+    $("#sortable, #sortable_tmp").sortable({
+        connectWith: ".connectedSortable",
+        stop: () => { sortNavItemsAfterChang() }
+    }).disableSelection();
+
+    $("#add_new_nav_item").unbind().click(addNewItem)
+    $("#add_new_branch_row").unbind().click(addNewBranch);
+    $("#publish_new_footer").unbind().click(publishNewFooter);
+    $(".remove_row_branch").unbind().click(removeRowBranch);
+    $(".edit_row").unbind().click(editBranchRow);
+    $(".btn_arrow_down, .btn_arrow_up").unbind().click(changeRowUpAndDown);
+
+}
+
+function addNewBranch() {
+    $(".branches_table tbody").append(`
+    <tr>
+        <td style="width: 5vh;"><input value="${$(".branches_table tbody tr").length + 1}"  readonly/></td>
+        <td style="width: 20vh;"><input value="" placeholder="שם סניף"/></td>
+        <td><input value="" placeholder="כתובת"/></td>
+        <td style="width: 15vh;"><input value="" placeholder="טל:" /></td>
+        <td style="width: 25vh;">
+            <button class="btn_class edit_row">change</button>
+            <i class="fas fa-arrow-down btn_arrow_down"></i>
+            <i class="fas fa-arrow-up btn_arrow_up"></i>
+        </td>
+        <td style="width: 5vh;"><i class="fas fa-trash-alt remove_row_branch" style="color:red;cursor:pointer;"></i></td>
+    </tr>
+    `)
+    $(".remove_row_branch").unbind().click(removeRowBranch);
+    $(".edit_row").unbind().click(editBranchRow);
+    $(".btn_arrow_down").unbind().click(changeRowUpAndDown);
+    $(".btn_arrow_down, .btn_arrow_up").unbind().click(changeRowUpAndDown);
+}
+
+function changeRowUpAndDown() {
+    var row = $(this).closest("tr");
+    if ($(this).is(".btn_arrow_up")) {
+        row.insertBefore(row.prev());
+    } else {
+        row.insertAfter(row.next());
+    }
+    $(".branches_table tr").each((i, item) => {
+        $(item).find("input").first().val(i + 1)
+    })
+}
+
+
+function removeRowBranch() {
+    $(this).closest("tr").remove();
+}
+
+function editBranchRow() {
+    $(this).closest("tr").find("input").not(":first").removeAttr("readonly");
+}
+
+function publishNewFooter() {
+    let newNav = [], tmp_nav = [], branches = [];
+    $("#sortable li").each((i, item) => {
+        newNav.push(
+            {
+                Position: Number($(item).find(".navigate_item_position").text()),
+                Description: $(item).find(".navigate_item_desc").text(),
+                Link: $(item).find(".link_navigate_item").val()
+            }
+        )
+    })
+
+    $("#sortable_tmp li").each((i, item) => {
+        tmp_nav.push(
+            {
+                Position: Number($(item).find(".navigate_item_position").text()),
+                Description: $(item).find(".navigate_item_desc").text(),
+                Link: $(item).find(".link_navigate_item").val()
+            }
+        )
+    })
+    $(".branches_table tr").each((i, item) => {
+        branches.push(
+            {
+                Position: Number($(item).find("td:eq(0) input").val()),
+                BranchName: $(item).find("td:eq(1) input").val(),
+                Address: $(item).find("td:eq(2) input").val(),
+                PhoneNumber: $(item).find("td:eq(3) input").val()
+            }
+        )
+    })
+    ConformModal("אתה בטוח רוצה לשנות ?", () => {
+        $.ajax({
+            url: "/admin/setnewfooter",
+            data: JSON.stringify({ NewNav: newNav, TmpNav: tmp_nav, Branches: branches }),
+            type: "POST",
+            contentType: "application/json",
+            success: function (data) {
+                Flash("נשמר בהצלחה!", "success")
+            },
+            error: function () {
+                Flash("התרחשה שגיאה", "error")
+            }
+        })
+    })
+}

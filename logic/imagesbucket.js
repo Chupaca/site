@@ -11,13 +11,13 @@ const storage = Storage({
 });
 
 
-const UploadNewImage = image => {
+const UploadNewImage = (image, bucket) => {
     var pathToFile = "uploads/" + image.filename
     return storage
-        .bucket(global.BUCKETNAME)
+        .bucket(global.BUCKETNAMES[bucket])
         .upload(pathToFile)
         .then((result) => {
-            return makePublic(image.filename, result)
+            return makePublic(image.filename, bucket)
         })
         .catch(err => {
             console.error('ERROR: upload new file' + pathToFile, err);
@@ -26,16 +26,16 @@ const UploadNewImage = image => {
 }
 
 
-function makePublic(filename, insertedFile) {
+function makePublic(filename, bucket) {
     return storage
-        .bucket(global.BUCKETNAME)
+        .bucket(global.BUCKETNAMES[bucket])
         .file(filename)
         .makePublic()
         .then(() => {
             return RemoveTempleFileByName(filename)
         })
         .then(() => {
-            return insertedFile[0].metadata;
+            return true;
         })
         .catch(err => {
             console.error('ERROR: update permissions to file - ' + filename, err);
@@ -56,9 +56,9 @@ function RemoveTempleFileByName(fileName) {
     });
 }
 
-const DeleteFile = filename => {
+const DeleteFile = (filename, bucket) => {
     return storage
-        .bucket(global.BUCKETNAME)
+        .bucket(global.BUCKETNAMES[bucket])
         .file(filename)
         .delete()
         .then(() => {
@@ -71,9 +71,9 @@ const DeleteFile = filename => {
 
 }
 
-const GetAllImages = (bucketName) => {
+const GetAllImages = bucketName => {
     return storage
-        .bucket(global.BUCKETNAME)
+        .bucket(global.BUCKETNAMES[bucketName])
         .getFiles()
         .then(results => {
             const files = results[0]
