@@ -18,6 +18,7 @@ const GetNavigationItems = () => {
 }
 
 const SetNewNavigation = (newNavSettings, tmpNav) => {
+    const kind = 'Navigation';
     const id = new Date().valueOf();
     const key = datastore.key([kind, id]);
     const condition = {
