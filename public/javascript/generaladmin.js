@@ -13,7 +13,7 @@ function changeStatusItemsNav(item) {
 
 function getAllGallery() {
     changeStatusItemsNav($(this).closest(".nav_item"))
-    $.get("/admin/allimages")
+    $.get({url: "/admin/allimages", cache: false})
         .then(gallery => {
             $(".container").html(gallery);
             SetupUploadFunctions()
