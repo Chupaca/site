@@ -116,13 +116,14 @@ h2
 #nav_panel
 {
     overflow: hidden;
+    -webkit-overflow-scrolling:touch;
     background:#ff4200;
     transition: 0.4s;
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 3000;
-    height: 10vh;
+    max-height: 10vh;
 }
 #nav_wrap{
     position: relative;
@@ -202,11 +203,12 @@ h2
 }
 
 #nav_side{
-    position: relative;
+    position: absolute;
     width: 6%;
     height: inherit;
     text-align: left;
     float: left;
+    height: 10vh;
 }
 
 #nav-btn {
@@ -254,12 +256,14 @@ h2
     border-right: 4px solid rgb(255, 66, 0);
     border-bottom: 4px solid rgb(255, 66, 0);
     direction:rtl;
-    position:fixed;
+    position: fixed;
     top:10vh;
     left:0;
     box-sizing:border-box;
     display:none;
     color:#343434;
+    z-index: 10000;
+
 }
 .nav a{
     color:#343434;
@@ -702,6 +706,31 @@ a.phoneto span
     box-sizing: border-box;
 }
 
+.message_carousel{
+    position: relative;
+    background: #ff4200;
+    width: 70%;
+    text-align: center;
+    margin: auto;
+    height: auto;
+    max-height: 15vh;
+    min-height: 7vh;
+    color: #ffffff;
+    font-size: 2vh;
+    padding: 3vh 1vh 0vh;
+    overflow: hidden;
+}
+
+.message_carousel div{
+    position: relative;
+    top: -25vh;
+    padding: 0 2vh;
+}
+
+.message_carousel div:first-child{
+   top:0;
+}
+
 .contentTxt {
     position: relative;
     z-index: 300;
@@ -849,7 +878,7 @@ a.galleryCategory:hover
     font-size: 3vh;
 }
 .tbContainer.bottom_side{
-    max-width:90%;
+    max-width:none;
 }
 .send_btn{
     width: 20%;
@@ -1053,17 +1082,19 @@ a.btn-model {
     font-size: 16px;
     box-sizing: border-box;
 }
-@media all and (max-width: 600px) {
-    .container{
-        width: 81%;
-    }
+@media all and (max-width: 500px) {
     #nav_panel{
         padding: 0 !important;
         top: 0 !important;
+        height: 10vh;
     }
+    .container{
+        width: 90%;
+    }
+    
 
     #logo_side {
-        width: 53%;
+        width: 49%;
     }
 
     #logo_imgs #bigger_logo{
@@ -1200,6 +1231,13 @@ a.btn-model {
     .to_form_section{
         display: block;
     }
+    .message_carousel{
+        width: 90%;
+    }
+    .message_carousel div{
+        position: absolute;
+        margin-top: 3%;
+    }
 
 }
 
@@ -1207,7 +1245,6 @@ a.btn-model {
     #nav_panel{
         padding-bottom: 2vh !important;
         top: 0 !important;
-        height: 12vh;
     }
 
     #logo_side {
@@ -2505,13 +2542,13 @@ font-size: 6vh;
     }
 }
 
-@media (min-width: 320px) and (max-width: 480px) {
+@media (min-width: 320px) and (max-width: 500px) {
    
     .mySlides, #cur_wrap{
-        height: 45vh;
+        height: 42vh;
     }
     .overlay_slides_wrap{
-        height: 45vh;
+        height: 42vh;
     }
     .door_info_container{
         max-width: 369px;

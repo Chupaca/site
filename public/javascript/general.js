@@ -56,7 +56,7 @@ function carousel(myIndex) {
 }
 
 function carousel_addons(slidein, myIndex) {
-    if(device){
+    if (device) {
         if (slidein) {
             $(".door_img").animate({ opacity: 1, right: "10%" }, 1000)
             $(".door_info_container").animate({ opacity: 1, right: "40%" }, 1000)
@@ -69,7 +69,7 @@ function carousel_addons(slidein, myIndex) {
             $(".overlay_slides_wrap").animate({ opacity: 0 }, 800)
             setTimeout(function () { carousel(myIndex) }, 1000);
         }
-    }else{
+    } else {
         if (slidein) {
             $(".door_img").animate({ opacity: 1, right: "15%" }, 1000)
             $(".door_info_container").animate({ opacity: 1, right: "40%" }, 1000)
@@ -118,11 +118,11 @@ function minimizeLogo(position) {
 function scrollPageToFirstElement(e, element) {
     var target_el = $(this);
     var max_top = -100;
-    if(element){
+    if (element) {
         target_el = element;
         max_top = 250
     }
-    
+
     $('html, body').animate({ scrollTop: $('#' + $(target_el).attr("data-scrollto")).position().top + max_top }, 600, "easeOutBack");
 }
 
@@ -145,7 +145,9 @@ function Setup() {
     $(".infoContactBox.branch_name, .on_map_btn").unbind().click(changeBranchPreview);
     $("#priceofferbtn").unbind().click(popupPriceOffer);
     $(".part_preview").unbind().click(changeChoicePart)
-    $(".select_part_door").unbind().change(selectChoiceDoorMobile)
+    $(".select_part_door").unbind().change(selectChoiceDoorMobile);
+    setTimeout(function () {  messageCarousel() }, 2500);
+   
 }
 
 $(document).ready(function () {
@@ -306,7 +308,7 @@ function changeBranchPreview() {
     }
     $(this).addClass("active")
     $(".branches_descriptions").eq(index).addClass("active");
-    if(device){
+    if (device) {
         scrollPageToFirstElement(null, this)
     }
 }
@@ -355,5 +357,23 @@ function selectChoiceDoorMobile() {
             }, 300)
         })
     }, 0)
+}
 
+
+function messageCarousel() {
+    let nextSlide = $(".message_carousel div.active").next().hasClass("message_slide")? $(".message_carousel div.active").next() : $(".message_carousel div").first()
+    $(".message_carousel div.active").animate({
+        "margin-left" : "-=350vh"
+    }, 800, "easeInOutBack",
+        function () {
+            $(this).removeClass("active").css({"margin-left" : "0", "top" : "-25vh", "display":"none"});
+            $(nextSlide).addClass("active").css({"display":"block"}).animate({
+                "top": 0
+            }, 800, "easeInOutBack", function() {
+                setTimeout(function(){
+                    messageCarousel();
+                }, 2500)
+            });
+
+        })
 }

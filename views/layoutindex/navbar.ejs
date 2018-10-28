@@ -33,38 +33,39 @@
                 <div class="bar3"></div>
             </div>
         </div>
-    
-        <div class="nav" style="">
-            <ul>
-             <% for(let i=0; i<Navigation.NavStructure.length;i++){%>
-                <li class="navLink"><a href="<%= Navigation.NavStructure[i].Link %>"><%= Navigation.NavStructure[i].Description %></a></li>
-                <% if((Navigation.NavStructure.length / 2).toFixed(0) == (i+1)){ %>
-                    </ul><ul>
-            <%}}%>
-               
-            </ul>
-            <ul id="logo_pandoor_bav_desktop">
-                <img alt="" src="images/only_door.png" style="width: 10vh;" />
-            </ul>
-            <ul class="long" style="text-align: center;">
-                <li>
-                    <a href="tel:*5058" style=""><i class="fa fa-phone-square" style="margin:0 5px;"></i>5058 *</a>&nbsp;|&nbsp;
-                    <a class="mailto" href="mailto:office@pandoor.co.il" style="font-size:3vh;">office<i class="fas fa-at"></i>pandoor.co.il</a>&nbsp;|&nbsp;
-                    <a href="https://www.facebook.com/pandoors/" target="_blank"><i class="fab fa-facebook-square"
-                            style="font-size:3vh;"></i></a>
-                    <a href="https://www.instagram.com/pandoor_doors/" target="_blank"><i class="fab fa-instagram"
-                            style="font-size:3vh;"></i></a>
-                    <a href="https://www.youtube.com/user/pandoor100" target="_blank"><i class="fab fa-youtube" style="font-size:3vh;"></i></a>
-                </li>
-            </ul>
-            <a class="mobileNavDesignerInfo" href="/architectscontact">
-                <span class="click">אדריכל / מעצב?<br /> <b>לחץ כאן</b></span>
-                <i class="fas fa-ruler-combined fa-rotate-180"></i>
-            </a>
-
-            <i class="fa fa-times xNav" style="font-size:4vh;"></i>
-
-        </div> 
+        
 
     </div>
 </nav>
+
+<div class="nav">
+    <ul>
+     <% for(let i=0; i<Navigation.NavStructure.length;i++){%>
+        <li class="navLink"><a href="<%= Navigation.NavStructure[i].Link %>"><%= Navigation.NavStructure[i].Description %></a></li>
+        <% if((Navigation.NavStructure.length / 2).toFixed(0) == (i+1)){ %>
+            </ul><ul>
+    <%}}%>
+       
+    </ul>
+    <ul id="logo_pandoor_bav_desktop">
+        <img alt="" src="images/only_door.png" style="width: 10vh;" />
+    </ul>
+    <ul class="long" style="text-align: center;">
+        <li>
+            <a href="tel:*5058" style=""><i class="fa fa-phone-square" style="margin:0 5px;"></i>5058 *</a>&nbsp;|&nbsp;
+            <a class="mailto" href="mailto:office@pandoor.co.il" style="font-size:3vh;">office<i class="fas fa-at"></i>pandoor.co.il</a>&nbsp;|&nbsp;
+            <a href="https://www.facebook.com/pandoors/" target="_blank"><i class="fab fa-facebook-square"
+                    style="font-size:3vh;"></i></a>
+            <a href="https://www.instagram.com/pandoor_doors/" target="_blank"><i class="fab fa-instagram"
+                    style="font-size:3vh;"></i></a>
+            <a href="https://www.youtube.com/user/pandoor100" target="_blank"><i class="fab fa-youtube" style="font-size:3vh;"></i></a>
+        </li>
+    </ul>
+    <a class="mobileNavDesignerInfo" href="/architectscontact">
+        <span class="click">אדריכל / מעצב?<br /> <b>לחץ כאן</b></span>
+        <i class="fas fa-ruler-combined fa-rotate-180"></i>
+    </a>
+
+    <i class="fa fa-times xNav" style="font-size:4vh;"></i>
+
+</div> 
