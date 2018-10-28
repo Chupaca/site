@@ -200,6 +200,12 @@ h2{
     color: #ffffff;
     transition: background 0.4s ease-in-out, margin-right 0.3s ease-in-out;
 }
+
+#nav_bar_wrap .nav_item#pages:hover+.pages_list{
+    margin-right: 0;
+    transition: margin-right 0.3s ease-in-out;
+}
+
 #gallery_wrap{
     position: relative;
     padding: 1vh;
@@ -208,7 +214,7 @@ h2{
     margin: 16px;
     border: 1px solid #ccc;
     float: right;
-    width: 21%;
+    width: 30%;
     text-align: center;
     background: #eae6e6;
 }
@@ -509,6 +515,7 @@ h2{
     max-height: 55vh;
     overflow-y: auto;
     padding: 0 2px;
+    position: relative;
 }
 .wrap_three_col .col:first-child{
     background: #bef1b8;
@@ -572,7 +579,7 @@ h2{
 .navigate_item:hover{
     background: #ff4200;
     color: #ffffff;
-    transition: background 0.4s ease-in-out, margin-right 0.3s ease-in-out;
+    transition: background 0.4s ease-in-out, color 0.3s ease-in-out;
 }
 .navigate_item i{
     cursor: all-scroll;
@@ -609,12 +616,66 @@ h2{
     cursor: pointer;
 }
 
-.branches_table{
+.branches_table, .meta_data_table{
     width: 100%;
 }
-.branches_table input{
+.branches_table input, .branches_table select,
+.meta_data_table input, .meta_data_table select{
     width: 92%;
     padding: 1vh;
     font-size: 2vh;
+    border: 0;
 }
 
+.pages_list{
+    list-style: none;
+    position: relative; 
+    margin-right: -25em;
+}
+.pages_list li{
+    padding: 1vh 2vh;
+    background: #749cf3;
+    border: 1px solid #ff4200;
+    width: 60%;
+    border-radius: 10px 0 0 0;
+    color: #ffffff;
+    margin-bottom: 3px;
+}
+
+.pages_list li:hover{
+    cursor: pointer;
+    background: #ffffff;
+    color: #749cf3;
+    transition: background 0.4s ease-in-out, color 0.3s ease-in-out margin-right 0.3s ease-in-out;
+}
+
+.text_area_page_editor{
+    width: 100%;
+    resize: none;
+    padding: 1vh;
+    font-size: 3vh;
+    height: 40vh;
+}
+.modal-content.for_gallery_preview{
+    width: 70%;
+    height: 80vh;
+}
+#modal_preview_gallery_wrap{
+    height: 70vh;
+    position: absolute;
+    overflow: auto;
+    padding: 2vh;
+}
+#modal_preview_gallery_wrap .image_one.active{
+    opacity: 0.3;
+}
+#modal_preview_gallery_wrap .image_one.active+.desc{
+    background: rgb(114, 112, 230);
+}
+.wrap_images_ {
+    position: absolute;
+    padding: 7vh;
+}
+.wrap_images_>.gallery_image {
+    width: 80%;
+}

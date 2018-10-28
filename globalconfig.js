@@ -4,7 +4,7 @@
 global.BUCKETNAMES = {
     "headers" : "pandoor_test_site_headers",
     "sales" : "pandoor_test_site_sales",
-    "general" : "pandoor_test_site_generals",
+    "generals" : "pandoor_test_site_generals",
     "doors" : "pandoor_test_site_doors",
     "architects" : "pandoor_test_site_architects"
 }

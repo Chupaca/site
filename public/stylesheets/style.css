@@ -755,6 +755,7 @@ a.phoneto span
     float: left;
     width: calc(100% - 400px);
     line-height: 30px;
+    text-align: right;
 }
 .contentImages {
     display: inline-block;

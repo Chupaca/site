@@ -4,6 +4,7 @@ const express = require('express');
 const adminPanel = require("./admin");
 const navfooter = require("./navfooter");
 const uploadfiles = require("./uploadfiles");
+const pageeditor = require("./pageeditor");
 
 var multer = require('multer');
 const router = express.Router();
@@ -43,6 +44,9 @@ router.post("/setnewfooter", navfooter.SetNewFooter);
 router.get("/allimages", uploadfiles.GetAllImages);
 router.post('/uploadfiles', upload.any(), uploadfiles.UploadNewImage);
 router.post('/uploadfiles/delete', uploadfiles.DeleteFile)
+
+//============== page edit ===========================
+router.get("/pagetoedit", pageeditor.GetPageForEdit)
 
 
 

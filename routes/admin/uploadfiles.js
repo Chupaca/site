@@ -6,7 +6,7 @@ const imagesLogic = require("../../logic/imagesbucket.js");
 
 exports.GetAllImages = (req, res) => {
     let { bucket } = req.query;
-    imagesLogic.GetAllImages(bucket || "general")
+    imagesLogic.GetAllImages(bucket || "generals")
         .then(images => {
             res.render("adminpanel/imagespreview", { title: "גלריה תמונות", images, Partial : bucket })
         })
