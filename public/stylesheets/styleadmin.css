@@ -609,20 +609,26 @@ h2{
 }
 
 .sub_navigate_item .btn_class{
-    padding: 9px 32px;
+    padding: 1vh 1.5vh;
+}
+.sub_navigate_item .fa-edit{
+    color: #ffffff;
+    font-size: 2vh;
 }
 
-.sub_navigate_item i{
+.sub_navigate_item .remove_nav_item{
     color: #f30a0a;
     margin-right: 1vh;
     cursor: pointer;
 }
 
-.branches_table, .meta_data_table{
+
+.branches_table, .meta_data_table, .default_table{
     width: 100%;
 }
 .branches_table input, .branches_table select,
-.meta_data_table input, .meta_data_table select{
+.meta_data_table input, .meta_data_table select,
+.default_table input, .default_table select{
     width: 92%;
     padding: 1vh;
     font-size: 2vh;
@@ -689,4 +695,57 @@ h2{
     background: #ffffff;
     padding: 3vh;
     height: auto;
+}
+.accordion_container{
+    overflow: auto;
+    height: 68vh;
+}
+.accordion_row {
+    background-color: #323234;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 6px;
+    width: 100%;
+    border: none;
+    text-align: right;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+.accordion_row input{
+    width: 35%;
+    padding: 1vh;
+    font-size: 20px;
+    background: #323234;
+    color: #ffffff;
+    cursor: pointer;
+}
+.accordion_row .edit_row, .accordion_row .remove_acc_row{
+    color: #ffffff;
+    float: left;
+    font-size: 30px;
+    cursor: pointer;
+    margin: 0 2vh;
+}
+
+.accordion_row:hover {
+    background: #ff4200;
+    transition: background ease-in-out 0.5s;
+}
+.active_row_acc{
+    background: #ff4200;
+    color: #ffffff;
+}
+
+.accordion_inside_panel {
+    padding: 2% 2%;
+    display: none;
+    background-color: white;
+    overflow: hidden;
+    font-size: 1.5em;
+    background: #dcd9d9;
+}
+
+.sub_navigate_item .btn_class:hover .fa-edit{
+    color: #ff4200;
 }

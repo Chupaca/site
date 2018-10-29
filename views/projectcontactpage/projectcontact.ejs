@@ -3,32 +3,18 @@
 
 <div class="contentMainImgContainer">
     <img class="contentMainImg" alt="" src="images/mainsimg/archiDesInfoMainImgqq.jpg" style="filter: brightness(50%);" />
-    <h3> קבלן יקר,</h3>
-    <div class="contentTxt">אנחנו בפנדור דאגנו להקל ולייעל את כל מערך של עבודה מול אדריכלים <br />מהיום בכל נושא ניתן
-        לפנות למייל
-        <a style="color:#ff4200;" href="mailto:architect@pandoor.co.il"><b>projects@pandoor.co.il</b></a> ולקבל סיוע
-        מיידי ויעיל.<br />
-        כמו כן אנחנו זמינים לרשותכם בטלפון:
-        <a style="color:#ff4200;" href="tel:03-9555018"><b>03-9555018</b></a>
-    </div>
+    <h3><%- Page.Header.Title %></h3>
+    <div class="contentTxt"><%- Page.Header.SubTitleHtml %></div>
     <span class="downBtn" data-scrollto="wrap_container"><i class="far fa-caret-square-down"></i></span>
 </div>
 
 <section id="wrap_container" class="wrap_container">
 <div class="container">
-<div class="contentTextContainer">דלתות פנים קולקציית לינופינו הנן דלתות מגורעות (פלץ) אשר עשויות מ- 2 לוחות
-            פורמייקה מסוג HPL, ללא MDF. ציפוי הפורמייקה בעל טקסטורה בולטת. הקנט מתואם מ- 3 עבריו - הקדמי, האחורי ודופן
-            הצילינדר. תחתית הדלת מכילה קנט פולימרי עבה, בעובי של עד 7 ס"מ, המסייע לעמידות נגד מים. מילוי הדלת הוא
-            פלקסבורד. לכל דלת 2 צירי PIPE כפולים בעלי יכולת התכווננות. הדלת מצוידת במנעול מגנטי.
-
-            משקוף הדלת פולימרי מסוג WPC. משקוף זה הנו עמיד למים ולמזיקים, מצופה פורמייקה בגוון זהה לזה של הדלת, ובעל
-            אטם סופג תוצרת SCHLEGEL גרמניה. המשקוף מחורץ מ- 2 צדיו. על החריצים שלו ניתן להטמיע הלבשות. האחרונות הנן WPC
-            פולימריות מדגם "אקסקלוסיב": חזית בעלת מידת רוחב של 10 ס"מ, צד הצירים ברוחב של כ- 7 ס"מ ובגוון זהה לזה של
-            המשקוף.
-
-            להזמנה זו ניתן להוסיף חלונות מסוגים שונים וכן עיטורי פסי מתכת בעלי עיצובים שונים.</div>
+<div class="contentTextContainer"><%- Page.Content.ContentHtml %></div>
         <div class="contentImages">
-            <img alt="" src="images/contentDemoPic.jpg" />
+        <% if(Page.Content.ContentImages && Page.Content.ContentImages.length ) {  Page.Content.ContentImages.forEach(item => { %>
+         <img alt="<%= item.ImageId %>" src="<%= item.LinkToBucket %>" />
+        <%})}%>
         </div>
 </div>
 </section>

@@ -37,7 +37,7 @@ function addNewItem() {
                 <i class="fas fa-bars nav_options"></i>
             </div>
             <div class="sub_navigate_item">
-                <button class="btn_class">change</button>
+                <button class="btn_class">&nbsp;<i class="fas fa-edit" ></i>&nbsp;</button>
                 <div><input class="link_navigate_item" value="${link}" readonly>  <i class="fas fa-trash-alt remove_nav_item"></i></div>
             </div></li>`;
 

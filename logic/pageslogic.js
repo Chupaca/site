@@ -23,7 +23,8 @@ const SetPage = (newPage, page) => {
     const condition = {
         key: datastore.key([page, uuid()]),
         excludeFromIndexes: [
-            "Data.Content.ContentHtml"
+            "Data.Content.ContentHtml",
+            "Data.Accordion[].AccordionDescription"
         ],
         data: {
             DateCreate: new Date().valueOf(),
