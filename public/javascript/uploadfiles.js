@@ -5,6 +5,7 @@ const MAX_SIZE = 500000;
 var bucket = "general"
 
 function SetupUploadFunctions() {
+    changeStatusItemsNav($("#images_gallery"));
     $(".radio_btn_buckets").unbind().click(getFilesBucket)
     $(".upload_btn").unbind().click(() => {
         $("#images_to_upload").empty();
@@ -204,3 +205,8 @@ function sendToServer(file, filename, callback) {
         Flash("התרחשה שגיאה!", "error");
     });
 }
+
+
+$(document).ready(()=>{
+    SetupUploadFunctions()
+})

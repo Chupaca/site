@@ -4,11 +4,18 @@ const promise = require("bluebird")
 const moment = require('moment');
 const imagesLogic = require("../../logic/imagesbucket.js");
 
+exports.GetGalleryEditor = (req, res) => {
+    imagesLogic.GetAllImages("generals")
+        .then(images => {
+            res.render("adminpanel/galleryeditor", { title: "גלריה תמונות", images })
+        })
+}
+
 exports.GetAllImages = (req, res) => {
     let { bucket } = req.query;
     imagesLogic.GetAllImages(bucket || "generals")
         .then(images => {
-            res.render("adminpanel/imagespreview", { title: "גלריה תמונות", images, Partial : bucket })
+            res.render("adminpanel/imagespreview", { images })
         })
 }
 

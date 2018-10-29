@@ -1,12 +1,14 @@
+<% layout('adminpanel/index') -%>
+
 <h2 class="title_wrap">
-אודותינו
+    אודותינו
 </h2>
 
 
 <div>
     <button class="btn_class switch_wraps active" data-wrap="metadata">עריכת מטה</button>
-    <button class="btn_class switch_wraps" data-wrap="header">עריכת רקע</button>
-    <button class="btn_class switch_wraps" data-wrap="content" >עריכת תוכן</button>
+    <button class="btn_class switch_wraps" data-wrap="header">עריכת כותרת</button>
+    <button class="btn_class switch_wraps" data-wrap="content">עריכת תוכן</button>
     <button class="btn_class" id="publish_changes" style="float:left">לפרסם</button>
     <button class="btn_class" id="preview_new" style="float:left">להצגה</button>
 </div>
@@ -16,20 +18,21 @@
     <div class="col">
         <table class="meta_data_table">
             <tbody>
-            <tr>
+                <% if(Data && Data.MetaData){ Data.MetaData.forEach(item => { %>
+                <tr>
                     <td style="width: 20vh;">
-                     <select class="type_peta_select" disabled>
-                        <option selected>Description</option>
-                        <option>Keywords</option>
-                     </select>
+                        <select class="type_meta_select" disabled>
+                            <option value="description" <%= (item.MetaType=='description' ?'selected':'') %>>Description</option>
+                            <option value="keywords" <%= (item.MetaType=='keywords' ?'selected':'') %>>Keywords</option>
+                        </select>
                     </td>
-                    <td><input value="aswedfqwf" readonly/></td>
+                    <td><input value="<%= item.MetaDescription %>" readonly /></td>
                     <td style="width: 25vh;">
                         <button class="btn_class edit_meta_row">change</button>
                     </td>
                     <td style="width: 5vh;"><i class="fas fa-trash-alt remove_row_meta" style="color:red;cursor:pointer;"></i></td>
-            </tr>
-      
+                </tr>
+                <%})}%>
             </tbody>
         </table>
     </div>
@@ -39,32 +42,79 @@
     </div>
 </div>
 
-<div class="wrap_three_col" style="display:none;" data-wrap="header">
+<div class="wrap_three_col wrap_header_page" style="display:none;" data-wrap="header">
     <div class="col" style="background:#ffffff;text-align: center;">
         <h2>תמונה</h2>
-        <button class="btn_class open_headers_gallery" data-bucket="headers">תמונת רקע</button>
-        <div class="wrap_images_"  data-wrap_images="headers"></div>
+        <button class="btn_class open_gallery" data-bucket="headers">תמונת כותרת</button>
+        <div class="wrap_images_" data-wrap_images="headers">
+            <% if(Data && Data.Header && Data.Header.ImageId) { let image = Data.Header; %>
+            <div class="gallery_image" data-imageid="<%= image.ImageId %>">
+                <img class="image_one" data-imageid="<%= image.ImageId %>" src="<%= image.LinkToBucket %>" alt="<%= image.ImageId.slice(14) %>">
+                <div class="desc">
+                    <span>
+                        <%= image.ImageId.slice(14) %>
+                    </span>
+                    <i class="fas fa-trash-alt remove_file" data-imageid="<%= image.ImageId %>"></i>
+                </div>
+            </div>
+            <%}%>
+        </div>
     </div>
-    <div class="col" style="background:none;text-align: center;">
-        <h2>תוכן רקע</h2>
-        <textarea class="text_area_page_editor"></textarea>
+    <div class="col" style="background:none;text-align: center;position: relative;">
+        <h2>כותרת ראשית</h2>
+        <input type="text" class="title_header" value="<%= (Data.Header?Data.Header.Title:'') %>" style="padding: 1vh;width: 100%;" />
+        <h2>כותרת תחתית</h2>
+        <textarea class="text_area_page_editor sub_title_header" style="display:none;"></textarea>
+        <div class="original_html_text" style="display:block;">
+            <%= (Data.Header?Data.Header.SubTitleHtml : '') %>
+        </div>
+        <div>
+            <button class="btn_class remove_text">נקוי</button>
+        </div>
     </div>
     <div class="col">
-        <!-- <button class="btn_class" id="add_new_meta">הוסיף חדש</button> -->
+        <button class="btn_class text_formated">הוסיף תוכן</button>
     </div>
 </div>
 
-<div class="wrap_three_col" style="display:none;" data-wrap="content">
-    <div class="col" style="background:#ffffff;text-align: center;">
+<div class="wrap_three_col wrap_content_page" style="display:none;" data-wrap="content">
+    <div class="col" style="background:#ffffff;text-align: center;position: relative;">
         <h2>תמונה</h2>
-        <button class="btn_class open_headers_gallery" data-bucket="generals">תמונת</button>
-        <div class="wrap_images_" data-wrap_images="generals"></div>
+        <button class="btn_class open_gallery" data-bucket="generals">תמונת</button>
+        <div class="wrap_images_" data-wrap_images="generals">
+            <% if(Data && Data.Content && Data.Content.ContentImages) { Data.Content.ContentImages.forEach(item => { %> 
+            <div class="gallery_image" data-imageid="<%= item.ImageId %>">
+                <img class="image_one" data-imageid="<%= item.ImageId %>" src="<%= item.LinkToBucket %>" alt="<%= item.ImageId.slice(14) %>">
+                <div class="desc">
+                    <div class="desc">
+                        <span>
+                            <%= item.ImageId.slice(14) %>
+                        </span>
+                        <i class="fas fa-trash-alt remove_file" data-imageid="<%= item.ImageId %>"></i>
+                    </div>
+                </div>
+            </div>
+            <% })}%>
+        </div>
     </div>
     <div class="col" style="background:none;text-align: center;">
         <h2>תוכן </h2>
-        <textarea class="text_area_page_editor"></textarea>
+        <textarea class="text_area_page_editor content_text" style="display:none;"></textarea>
+        <div class="original_html_text" style="display:block;">
+            <%= (Data.Content && Data.Content.ContentHtml?Data.Content.ContentHtml : '') %>
+        </div>
+        <div>
+            <button class="btn_class remove_text">נקוי</button>
+        </div>
     </div>
     <div class="col">
-        <!-- <button class="btn_class" id="add_new_meta">הוסיף חדש</button> -->
+        <button class="btn_class text_formated">הוסיף תוכן</button>
     </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="/javascript/flash.js"></script>
+<script src="/javascript/generaladmin.js"></script>
+<script src="/javascript/pageeditor/aboutus.js"></script>
+<script src="/javascript/pageeditor/general.js"></script>

@@ -7,9 +7,9 @@ const navLogic = require("../../logic/navigationandfooter.js");
 
 
 exports.Login = (req, res) => {
-    res.render("adminpanel/index", {})
+    res.render("adminpanel/startpage", {title: "דף הבית"})
 }
 
 exports.GetAdminPanel = (req, res) => {
-    res.render("adminpanel/index", {})
+    res.render("adminpanel/startpage", {title: "דף הבית"})
 }

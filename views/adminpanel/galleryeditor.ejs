@@ -1,0 +1,50 @@
+<% layout('adminpanel/index') -%>
+
+<h2 class="title_wrap">
+<%- title %>
+</h2>
+<div>
+<button class="btn_class radio_btn_buckets active" data-bucket="generals">תמונות כלליות</button>
+<button class="btn_class radio_btn_buckets" data-bucket="headers">תמונות כותרת</button>
+<button class="btn_class radio_btn_buckets" data-bucket="doors">תמונות דלתות</button>
+<button class="btn_class radio_btn_buckets" data-bucket="sales">תמונות מבצעים</button>
+<button class="btn_class radio_btn_buckets" data-bucket="architects">תמונות אדריכלים</button>
+<button class="btn_class upload_btn">upload file <i class="fas fa-cloud-upload-alt"></i></button>
+</div>
+<div id="gallery_wrap">
+    <% images.forEach((image, i) => { %>
+    <div class="gallery_image" data-imageid="<%= image.id %>">
+        <img class="image_one" data-index="<%= i %>" src="https://storage.googleapis.com/<%= image.metadata.bucket %>/<%= image.id %>" alt="">
+        <div class="desc">
+                <span><%= image.id.slice(14) %></span>
+            <i class="fas fa-trash-alt remove_file" data-imageid="<%= image.id %>"></i>
+        </div>
+    </div>
+    <%})%>
+</div>
+
+
+<div id="upload_modal" class="modal">
+    <span class="close_modal">&times;</span>
+    <div class="modal-content">
+        <div class="head_modal">upload files</div>
+        <div id="images_to_upload"></div>
+        <i class="fas fa-cloud-upload-alt"></i>
+        <input type="file" id="upload_image_input" />
+    </div>
+</div>
+
+<div id="project_preview_modal" class="preview_modal">
+    <span class="close">&times;</span>
+    <span class="next">&gt;</span>
+    <span class="prev">&lt;</span>
+    <img class="modal-content-images" id="preview_image">
+    <span id="count_images"></span>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="/javascript/flash.js"></script>
+<script src="/javascript/generaladmin.js"></script>
+<script src="/javascript/uploadfiles.js"></script>

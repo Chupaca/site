@@ -41,12 +41,15 @@ router.get("/footereditor", navfooter.GetFooterEditor);
 router.post("/setnewfooter", navfooter.SetNewFooter);
 
 //============== upload files ======================
+router.get("/galleryeditor", uploadfiles.GetGalleryEditor);
 router.get("/allimages", uploadfiles.GetAllImages);
 router.post('/uploadfiles', upload.any(), uploadfiles.UploadNewImage);
 router.post('/uploadfiles/delete', uploadfiles.DeleteFile)
 
 //============== page edit ===========================
-router.get("/pagetoedit", pageeditor.GetPageForEdit)
+router.get("/pagetoedit", pageeditor.GetPageForEdit);
+router.post("/setpage", pageeditor.SetPage);
+
 
 
 
