@@ -66,7 +66,7 @@
         <h2>כותרת תחתית</h2>
         <textarea class="text_area_page_editor sub_title_header" style="display:none;"></textarea>
         <div class="original_html_text" style="display:block;">
-            <%= (Data.Header?Data.Header.SubTitleHtml : '') %>
+            <%- (Data.Header?Data.Header.SubTitleHtml : '') %>
         </div>
         <div>
             <button class="btn_class remove_text">נקוי</button>
@@ -101,7 +101,7 @@
         <h2>תוכן </h2>
         <textarea class="text_area_page_editor content_text" style="display:none;"></textarea>
         <div class="original_html_text" style="display:block;">
-            <%= (Data.Content && Data.Content.ContentHtml?Data.Content.ContentHtml : '') %>
+            <%- (Data.Content && Data.Content.ContentHtml?Data.Content.ContentHtml : '') %>
         </div>
         <div>
             <button class="btn_class remove_text">נקוי</button>
