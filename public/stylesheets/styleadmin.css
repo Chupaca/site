@@ -683,7 +683,8 @@ h2{
 }
 .wrap_images_ {
     position: absolute;
-    padding: 7vh;
+    width: inherit;
+    margin-top: 25px;
 }
 .wrap_images_>.gallery_image {
     width: 80%;

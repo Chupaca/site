@@ -37,9 +37,14 @@ exports.GetProjectContactPage = (req, res) => {
 };
 
 exports.GetArchitectsContactPage = (req, res) => {
-    globalSettingsLogic.GetGlobalSettings()
-        .then(result => {
-            res.render('architectscontactpage/architectscontact', { Desktop: (req.device.type == 'desktop' ? true : false), Navigation: result.Navigation, Footer: result.Footer, Page: [] });
+    promise.all([globalSettingsLogic.GetGlobalSettings(), pageslogic.GetPage("architectscontact")])
+        .then(([generals, page]) => {
+            res.render('architectscontactpage/architectscontact', {
+                Desktop: (req.device.type == 'desktop' ? true : false),
+                Navigation: generals.Navigation,
+                Footer: generals.Footer,
+                Page: page
+            });
         })
 };
 
