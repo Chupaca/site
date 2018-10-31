@@ -529,6 +529,7 @@ a.phoneto span
 .content_sales {
     display: flex;
     direction: ltr;
+    padding: 2vh 10vh;
 }
 
 .content_sales .left_one {
@@ -1105,8 +1106,8 @@ a.btn-model {
         width: 80%;
     }
     #minimize_logo{
-        padding: 0vh 1vh;
-        width: 55%;
+        padding: 0;
+        width: 85%;
     }
     #centarl_nav{
         display: none;
@@ -1181,6 +1182,7 @@ a.btn-model {
     }
     .content_sales{
         display: inline-block;
+        padding:0;
     }
     .content_sales .right_one{
         overflow: hidden;

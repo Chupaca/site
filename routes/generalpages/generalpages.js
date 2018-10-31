@@ -1,6 +1,6 @@
 'use strict'
 
-const promise = require("bluebird")
+const promise = require("bluebird");
 const moment = require('moment');
 const globalSettingsLogic = require("../../logic/globalsettings");
 const pageslogic = require("../../logic/pageslogic.js");
@@ -11,6 +11,39 @@ exports.GetStartPage = (req, res) => {
             res.render('startpage/startpage', { Desktop: (req.device.type == 'desktop' ? true : false), Navigation: result.Navigation, Footer: result.Footer, Page: [] });
         })
 };
+
+exports.GetAboutUsPage = (req, res) => {
+    promise.all([globalSettingsLogic.GetGlobalSettings(), pageslogic.GetPage("aboutus")])
+        .then(([generals, page]) => {
+            res.render('aboutuspage/aboutus', {
+                Desktop: (req.device.type == 'desktop' ? true : false),
+                Navigation: generals.Navigation,
+                Footer: generals.Footer,
+                Page: page
+            });
+        })
+};
+
+exports.GetProjectContactPage = (req, res) => {
+    promise.all([globalSettingsLogic.GetGlobalSettings(), pageslogic.GetPage("projectcontact")])
+        .then(([generals, page]) => {
+            res.render('projectcontactpage/projectcontact', {
+                Desktop: (req.device.type == 'desktop' ? true : false),
+                Navigation: generals.Navigation,
+                Footer: generals.Footer,
+                Page: page
+            });
+        })
+};
+
+exports.GetArchitectsContactPage = (req, res) => {
+    globalSettingsLogic.GetGlobalSettings()
+        .then(result => {
+            res.render('architectscontactpage/architectscontact', { Desktop: (req.device.type == 'desktop' ? true : false), Navigation: result.Navigation, Footer: result.Footer, Page: [] });
+        })
+};
+
+
 
 exports.GetContactPage = (req, res) => {
     globalSettingsLogic.GetGlobalSettings()
@@ -33,27 +66,10 @@ exports.GetCatalogPage = (req, res) => {
         })
 }
 
-exports.GetAboutUsPage = (req, res) => {
-    promise.all([globalSettingsLogic.GetGlobalSettings(), pageslogic.GetPage("aboutus")])
-        .then(([generals, page]) => {
-            res.render('aboutuspage/aboutus', { 
-                Desktop: (req.device.type == 'desktop' ? true : false), 
-                Navigation: generals.Navigation, 
-                Footer: generals.Footer, 
-                Page: page });
-        })
-}
 exports.GetGalleryPage = (req, res) => {
     globalSettingsLogic.GetGlobalSettings()
         .then(result => {
             res.render('gallerypage/gallery', { Desktop: (req.device.type == 'desktop' ? true : false), Navigation: result.Navigation, Footer: result.Footer, Page: [] });
-        })
-}
-
-exports.GetArchitectsContactPage = (req, res) => {
-    globalSettingsLogic.GetGlobalSettings()
-        .then(result => {
-            res.render('architectscontactpage/architectscontact', { Desktop: (req.device.type == 'desktop' ? true : false), Navigation: result.Navigation, Footer: result.Footer, Page: [] });
         })
 }
 
@@ -123,19 +139,5 @@ exports.GetBlogsListPage = (req, res) => {
     globalSettingsLogic.GetGlobalSettings()
         .then(result => {
             res.render('blogslistpage/blogslist', { Desktop: (req.device.type == 'desktop' ? true : false), Navigation: result.Navigation, Footer: result.Footer, Page: [] });
-        })
-}
-
-exports.GetProjectContactPage = (req, res) => {
-    promise.all([globalSettingsLogic.GetGlobalSettings(), pageslogic.GetPage("projectcontact")])
-        .then(([generals, page]) => {
-            globalSettingsLogic.GetGlobalSettings()
-                .then(result => {
-                    res.render('projectcontactpage/projectcontact', { 
-                        Desktop: (req.device.type == 'desktop' ? true : false), 
-                        Navigation: result.Navigation, 
-                        Footer: result.Footer, 
-                        Page: page });
-                })
         })
 }
