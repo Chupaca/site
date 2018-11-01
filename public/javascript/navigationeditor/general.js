@@ -1,16 +1,30 @@
 'use strict'
 
 function setupNavEditor() {
-    changeStatusItemsNav($("#navigation_edit"))
-    bindButtonsEvents()
+    changeStatusItemsNav($("#navigation_edit"));
+
+    $(".switch_wraps").unbind().click(function () {
+        $(".switch_wraps").removeClass("active")
+        $(".wrap_three_col, .wrap_two_col").hide(5);
+        $(this).addClass("active")
+        $(".wrap_three_col[data-wrap='" + $(this).attr("data-wrap") + "'], .wrap_two_col[data-wrap='" + $(this).attr("data-wrap") + "']").toggle()
+    })
+
+    bindButtonsEvents();
+
 
     $("#sortable, #sortable_tmp").sortable({
         connectWith: ".connectedSortable",
         stop: () => { sortNavItemsAfterChang() }
     }).disableSelection();
 
-    $("#add_new_nav_item").unbind().click(addNewItem)
-    $("#publish_new").unbind().click(publishNewNav)
+    $("#add_new_nav_item").unbind().click(addNewItem);
+
+    $("#save_new").unbind().click(saveNewNav);
+
+    $("#publish_new").unbind().click(publishNav);
+
+    $(".list_table tr").unbind().click(markRow)
 }
 
 function addNewItem() {
@@ -47,10 +61,10 @@ function addNewItem() {
     })
 }
 
-function publishNewNav() {
-    let newNav = [];
+function saveNewNav() {
+    let data = { NavStructure: [], TmpNavigation: [] };
     $("#sortable li").each((i, item) => {
-        newNav.push(
+        data.NavStructure.push(
             {
                 Position: Number($(item).find(".navigate_item_position").text()),
                 Description: $(item).find(".navigate_item_desc").text(),
@@ -60,7 +74,7 @@ function publishNewNav() {
     })
     let tmp_nav = [];
     $("#sortable_tmp li").each((i, item) => {
-        tmp_nav.push(
+        data.TmpNavigation.push(
             {
                 Position: Number($(item).find(".navigate_item_position").text()),
                 Description: $(item).find(".navigate_item_desc").text(),
@@ -72,7 +86,7 @@ function publishNewNav() {
     ConformModal("אתה בטוח רוצה לשנות נווה?", () => {
         $.ajax({
             url: "/admin/setnewnavigation",
-            data: JSON.stringify({ NewNav: newNav, TmpNav: tmp_nav }),
+            data: JSON.stringify({ Data: data }),
             type: "POST",
             contentType: "application/json",
             success: function (data) {
@@ -116,6 +130,41 @@ function sortNavItemsAfterChang() {
     })
 }
 
+function markRow() {
+    $(".list_table tr td").css({ "background": "#ffffff" });
+    $(this).addClass("active");
+    if ($(this).index() != 0) {
+        $(this).find("td").css({ "background": "#ccc" });
+    }
+}
+
+function previewVersion() {
+    const navId = $(this).attr("data-id");
+    $.get("/admin/navigationeditor/" + navId)
+        .then(nav => {
+            $(".preview_version").html(nav)
+        })
+}
+
+function publishNav() {
+    let id = $(".list_table tr.active").attr("data-id");
+    if (id) {
+        ConformModal("אתה בטוח רוצה לשנות נווה?", () => {
+            $.post("/admin/navigationeditor/setactive/" + id)
+                .then(res => {
+                    Flash("נשמר בהצלחה!", "success");
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 800)
+                })
+                .fail(err => {
+                    Flash("התרחשה שגיאה", "error")
+                })
+        })
+    } else {
+        Flash("נא לבחור גרסה!", "warning")
+    }
+}
 
 $(document).ready(() => {
     setupNavEditor();

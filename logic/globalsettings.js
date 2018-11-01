@@ -2,14 +2,15 @@
 
 
 const promise = require("bluebird");
-const navigation = require("./navigationandfooter")
+const navigation = require("../data/navigation");
+const footer = require("../data/footer");
 
 
 
 const GetGlobalSettings = () => {
     return promise.all([
-        navigation.GetNavigationItems(),
-        navigation.GetFooterItems()
+        navigation.GetNavigationItemsForProd(),
+        footer.GetNavigationItemsForProd()
     ])
         .then(([navigation, footer]) => {
             return { Navigation: navigation, Footer: footer }

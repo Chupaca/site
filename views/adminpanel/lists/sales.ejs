@@ -1,0 +1,35 @@
+<% layout('adminpanel/index') -%>
+
+<h2 class="title_wrap">
+    רשימת מבצעים
+</h2>
+
+
+<div>
+    <button class="btn_class" id="publish_changes" style="float:left">לפרסם</button>
+    <button class="btn_class" id="preview_new" style="float:left">להצגה</button>
+</div>
+
+
+<div class="wrap_two_col" style="display:inline-flex;" data-wrap="list">
+    <div class="col">
+        <table class="default_table">
+            <tbody>
+                <% if(List && List.length){ List.forEach(item => { %>
+                <tr>
+                    <td style="width: 20vh;"><%= item.DateC %></td>
+                    <td></td>
+                    <td style="width: 25vh;">
+                        <button class="btn_class edit_meta_row">&nbsp;<i class="fas fa-edit"></i>&nbsp;</button>
+                    </td>
+                    <td style="width: 5vh;"><i class="fas fa-trash-alt remove_row_meta" style="color:red;cursor:pointer;"></i></td>
+                </tr>
+                <%})}%>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col">
+        <button class="btn_class" id="add_new_meta">הוסיף חדש</button>
+    </div>
+</div>

@@ -95,10 +95,10 @@ h2{
 }
 
 .btn_class{
-    background-color: #ff4200; /* Green */
+    background-color: #ff4200; 
     border: none;
     color: white;
-    padding: 10px 3%;
+    padding: 10px 2vh;
     text-align: center;
     text-decoration: none;
     font-size: 16px;
@@ -119,6 +119,14 @@ h2{
     box-shadow: none;
     background-color:#ffffff;
     color: #ff4200;
+}
+
+.btn_green{
+    background-color: #0bbe23; 
+}
+
+.btn_blue{
+    background-color: #5350e6; 
 }
 
 .btn_arrow_up, .btn_arrow_down{
@@ -749,4 +757,19 @@ h2{
 
 .sub_navigate_item .btn_class:hover .fa-edit{
     color: #ff4200;
+}
+
+.list_table{
+    padding: 2vh;
+}
+
+.list_table tr{
+    cursor: pointer;
+}
+.list_table tr:hover td{
+    background: #ccc;
+}
+.list_table tr td{
+    background: #ffffff;
+    padding: 1vh 3vh;
 }

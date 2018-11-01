@@ -10,7 +10,7 @@ exports.GetPageForEdit = (req, res) => {
     const { page } = req.query;
     pageslogic.GetPage(page)
         .then(result => {
-            res.render("adminpanel/pages/" + page, {Data : result})
+            res.render("adminpanel/pages/" + page, {Data : result, PageId:"" })
         })
 }
 
@@ -19,6 +19,23 @@ exports.SetPage = (req, res) => {
     const { DataPage } = req.body;
     if(page && DataPage){
         pageslogic.SetPage(DataPage, page)
+            .then(result => {
+                if(result){
+                    res.sendStatus(200)
+                }else{
+                    res.sendStatus(500)
+                }
+            })
+    }else{
+        res.sendStatus(403)
+    }
+}
+
+exports.SetPageToList = (req, res) => {
+    const { page } = req.query;
+    const { DataPage } = req.body;
+    if(page && DataPage){
+        pageslogic.SetPageToList(DataPage, page)
             .then(result => {
                 if(result){
                     res.sendStatus(200)

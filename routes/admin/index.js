@@ -3,8 +3,9 @@
 const express = require('express');
 const adminPanel = require("./admin");
 const navfooter = require("./navfooter");
-const uploadfiles = require("./uploadfiles");
-const pageeditor = require("./pageeditor");
+const uploadFiles = require("./uploadfiles");
+const pageEdit = require("./pageeditor");
+const listsEditor = require("./listseditor");
 
 var multer = require('multer');
 const router = express.Router();
@@ -35,20 +36,30 @@ router.get("/login", adminPanel.Login);
 
 //========= navigation + footer ==================================
 router.get("/navigationeditor", navfooter.GetNavigationEditor);
+router.get("/navigationeditor/:id", navfooter.GetNavigationById);
 router.post("/setnewnavigation", navfooter.SetNewNavigation);
+router.post("/navigationeditor/setactive/:id", navfooter.SetActive);
+
 
 router.get("/footereditor", navfooter.GetFooterEditor);
+router.get("/footereditor/id", navfooter.GetFooterItemsById);
 router.post("/setnewfooter", navfooter.SetNewFooter);
+router.post("/footereditor/setactive/:id", navfooter.SetActiveFooter);
 
 //============== upload files ======================
-router.get("/galleryeditor", uploadfiles.GetGalleryEditor);
-router.get("/allimages", uploadfiles.GetAllImages);
-router.post('/uploadfiles', upload.any(), uploadfiles.UploadNewImage);
-router.post('/uploadfiles/delete', uploadfiles.DeleteFile)
+router.get("/galleryeditor", uploadFiles.GetGalleryEditor);
+router.get("/allimages", uploadFiles.GetAllImages);
+router.post('/uploadfiles', upload.any(), uploadFiles.UploadNewImage);
+router.post('/uploadfiles/delete', uploadFiles.DeleteFile)
 
 //============== page edit ===========================
-router.get("/pagetoedit", pageeditor.GetPageForEdit);
-router.post("/setpage", pageeditor.SetPage);
+router.get("/pagetoedit", pageEdit.GetPageForEdit);
+router.post("/setpage", pageEdit.SetPage);
+router.post("/setpagetolist", pageEdit.SetPageToList);
+
+
+//=========== list edit ==================================
+router.get("/listeditor/:list", listsEditor.GetListEditor)
 
 
 

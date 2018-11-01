@@ -6,21 +6,13 @@
 </h2>
 
 <div>
-        <button class="btn_class" id="publish_new" style="float:left">לפרסם</button>
-        <button class="btn_class" id="preview_new" style="float:left">להצגה</button>
+    <button class="btn_class switch_wraps active" data-wrap="active_vertion" >גרסה פעילה</button>
+    <button class="btn_class switch_wraps" data-wrap="versions">רשימת גרסות</button>
 </div>
-<div class="wrap_three_col_head">
-    <div class="col_head">
-        <h4>active</h4>
-    </div>
-    <div class="col_head">
-        <h4>not active</h4>
-    </div>
-    <div class="col_head"></div>
-</div>
-<div class="wrap_three_col">
+
+<div class="wrap_three_col" style="display:inline-flex;" data-wrap="active_vertion">
     <div id="sortable" class="col connectedSortable">
-        <% Nav.forEach(item => { %>
+        <% if(Prod && Prod.NavStructure){ Prod.NavStructure.forEach(item => { %>
         <li>
             <div class="navigate_item">
                 <span class="navigate_item_position">
@@ -34,12 +26,12 @@
                 <div><input class="link_navigate_item" value="<%= item.Link %>" readonly> <i class="fas fa-trash-alt remove_nav_item"></i></div>
             </div>
         </li>
-        <%})%>
+        <%})}%>
     </div>
 
 
     <div id="sortable_tmp" class="col connectedSortable">
-        <% TmpNavigation.forEach(item => { %>
+        <% if(Prod && Prod.NavStructure){ Prod.TmpNavigation.forEach(item => { %>
         <li>
             <div class="navigate_item">
                 <span class="navigate_item_position">
@@ -53,15 +45,44 @@
                 <div><input class="link_navigate_item" value="<%= item.Link %>" readonly> <i class="fas fa-trash-alt remove_nav_item"></i></div>
             </div>
         </li>
-        <%})%>
+        <%})}%>
     </div>
 
     <div class="col">
         <button class="btn_class" id="add_new_nav_item">הוסיף חדש</button><br>
+        <button class="btn_class btn_green" id="save_new" >לשמור</button>
     </div>
 
 </div>
 
+
+<div class="wrap_three_col" style="display:none;" data-wrap="versions">
+    <div class="col">
+        <table class="default_table list_table">
+            <tbody>
+            <% if(Prod && Prod.DateCreate){%>
+                <tr data-id="<%= Prod.Id %>">
+                    <td style="width: 25vh;"><%= moment(Prod.DateCreate).format("DD/MM/YYYY : HH:mm:ss") %></td>
+                    <td style="width: 20vh;"><%= Prod.UserName %></td>
+                    <td style="color:red;">active</td>
+                </tr>
+            <%}%>
+                <% if(Versions && Versions.length){ Versions.forEach(item => { %>
+                <tr data-id="<%= item.Id %>">
+                    <td style="width: 25vh;"><%= moment(item.DateCreate).format("DD/MM/YYYY : HH:mm:ss") %></td>
+                    <td style="width: 20vh;"><%= item.UserName %></td>
+                    <td style="color:red;"></td>
+                </tr>
+                <%})}%>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col">
+        <button class="btn_class" id="preview_page" >הצגה</button>
+        <button class="btn_class btn_blue" id="publish_new" >לפרסם</button>
+    </div>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

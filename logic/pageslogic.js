@@ -8,8 +8,7 @@ const uuid = require('uuid/v4');
 
 
 const GetPage = page => {
-    const kind = page;
-    return datastore.createQuery(kind).order('DateCreate', { descending: true }).limit(1).run()
+    return datastore.createQuery(page).order('DateCreate', { descending: true }).limit(1).run()
         .then(res => {
             return res[0][0].Data;
         })
@@ -21,7 +20,7 @@ const GetPage = page => {
 
 const SetPage = (newPage, page) => {
     const condition = {
-        key: datastore.key([page, uuid()]),
+        key: datastore.key([page + "-tmp", uuid()]),
         excludeFromIndexes: [
             "Data.Content.ContentHtml",
             "Data.Accordion[].AccordionDescription"
@@ -41,8 +40,36 @@ const SetPage = (newPage, page) => {
         });
 }
 
+const SetPageToList = (newPage, page) => {
+    const condition = {
+        key: datastore.key([page + "-tmp", uuid()]),
+        excludeFromIndexes: [
+            "Data.Content.ContentHtml"
+        ],
+        data: {
+            DateCreate: new Date().valueOf(),
+            Active:false,
+            Data: newPage
+        }
+    };
+
+    return datastore.save(condition)
+        .then(() => {
+            return true;
+        })
+        .catch(err => {
+            return false;
+        });
+};
+
+const SetToProduction = (id, page) => {
+return true;
+}
+
 
 module.exports = {
     SetPage,
-    GetPage
+    GetPage,
+    SetPageToList,
+    SetToProduction
 }

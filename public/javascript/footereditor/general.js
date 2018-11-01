@@ -5,8 +5,10 @@ function setupFooterEditor() {
     bindButtonsEvents();
 
     $(".switch_wraps").unbind().click(function () {
-        $(".switch_wraps").toggleClass("active")
-        $(".wrap_three_col, .wrap_two_col").toggle();
+        $(".switch_wraps").removeClass("active")
+        $(".wrap_three_col, .wrap_two_col").hide(5);
+        $(this).addClass("active")
+        $(".wrap_three_col[data-wrap='" + $(this).attr("data-wrap") + "'], .wrap_two_col[data-wrap='" + $(this).attr("data-wrap") + "']").toggle()
     })
 
     $("#sortable, #sortable_tmp").sortable({
@@ -16,10 +18,15 @@ function setupFooterEditor() {
 
     $("#add_new_nav_item").unbind().click(addNewItem)
     $("#add_new_branch_row").unbind().click(addNewBranch);
-    $("#publish_new_footer").unbind().click(publishNewFooter);
+    
     $(".remove_row_branch").unbind().click(removeRowBranch);
     $(".edit_row").unbind().click(editBranchRow);
     $(".btn_arrow_down, .btn_arrow_up").unbind().click(changeRowUpAndDown);
+
+    $("#save_new").unbind().click(saveNewFooter);
+    $(".list_table tr").unbind().click(markRow);
+
+    $("#publish_new").unbind().click(publishFooter);
 
 }
 
@@ -130,10 +137,14 @@ function editBranchRow() {
     $(this).closest("tr").find("input").not(":first").removeAttr("readonly");
 }
 
-function publishNewFooter() {
-    let newNav = [], tmp_nav = [], branches = [];
+function saveNewFooter() {
+    let data = {
+        NavStructure: [],
+        TmpNavigation: [],
+        Branches: [],
+    };
     $("#sortable li").each((i, item) => {
-        newNav.push(
+        data.NavStructure.push(
             {
                 Position: Number($(item).find(".navigate_item_position").text()),
                 Description: $(item).find(".navigate_item_desc").text(),
@@ -143,7 +154,7 @@ function publishNewFooter() {
     })
 
     $("#sortable_tmp li").each((i, item) => {
-        tmp_nav.push(
+        data.TmpNavigation.push(
             {
                 Position: Number($(item).find(".navigate_item_position").text()),
                 Description: $(item).find(".navigate_item_desc").text(),
@@ -152,7 +163,7 @@ function publishNewFooter() {
         )
     })
     $(".branches_table tr").each((i, item) => {
-        branches.push(
+        data.Branches.push(
             {
                 Position: Number($(item).find("td:eq(0) input").val()),
                 BranchName: $(item).find("td:eq(1) input").val(),
@@ -164,7 +175,7 @@ function publishNewFooter() {
     ConformModal("אתה בטוח רוצה לשנות ?", () => {
         $.ajax({
             url: "/admin/setnewfooter",
-            data: JSON.stringify({ NewNav: newNav, TmpNav: tmp_nav, Branches: branches }),
+            data: JSON.stringify({ Data : data }),
             type: "POST",
             contentType: "application/json",
             success: function (data) {
@@ -177,6 +188,41 @@ function publishNewFooter() {
     })
 }
 
+function markRow() {
+    $(".list_table tr td").css({ "background": "#ffffff" });
+    $(this).addClass("active");
+    if ($(this).index() != 0) {
+        $(this).find("td").css({ "background": "#ccc" });
+    }
+}
+
+function publishFooter() {
+    let id = $(".list_table tr.active").attr("data-id");
+    if (id) {
+        ConformModal("אתה בטוח רוצה לשנות נווה?", () => {
+            $.post("/admin/footereditor/setactive/" + id)
+                .then(res => {
+                    Flash("נשמר בהצלחה!", "success");
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 800)
+                })
+                .fail(err => {
+                    Flash("התרחשה שגיאה", "error")
+                })
+        })
+    } else {
+        Flash("נא לבחור גרסה!", "warning")
+    }
+}
+
+function previewVersion() {
+    const navId = $(this).attr("data-id");
+    $.get("/admin/footereditor/" + navId)
+        .then(nav => {
+            $(".preview_version").html(nav)
+        })
+}
 
 $(document).ready(() => {
     setupFooterEditor()

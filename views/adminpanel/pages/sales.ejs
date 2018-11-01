@@ -1,15 +1,25 @@
 <% layout('adminpanel/index') -%>
 
+<div style="display:inline-flex;">
 <h2 class="title_wrap">
-    קבלנים
+    מבצע
 </h2>
 
+<h4 style="font-size: 3vh;
+margin-right: 10vh;
+padding-top: 2vh;">
+<%= (Data && Data.Header?Data.Header.Title:'מבצע חדשה') %>
+</h4>
+
+<input type="hidden" value="<%= PageId %>">
+
+</div>
 
 <div>
     <button class="btn_class switch_wraps active" data-wrap="metadata">עריכת מטה</button>
     <button class="btn_class switch_wraps" data-wrap="header">עריכת כותרת</button>
     <button class="btn_class switch_wraps" data-wrap="content">עריכת תוכן</button>
-    <button class="btn_class switch_wraps" data-wrap="accardion">עריכת שאלות נפוצות</button>
+    <button class="btn_class switch_wraps" data-wrap="preview_in_list">עריכת תצוגה מקדימה</button>
     <button class="btn_class" id="publish_changes" style="float:left">לפרסם</button>
     <button class="btn_class" id="preview_new" style="float:left">להצגה</button>
 </div>
@@ -23,13 +33,13 @@
                 <tr>
                     <td style="width: 20vh;">
                         <select class="type_meta_select" disabled>
-                            <option value="description" <%=(item.MetaType=='description' ?'selected':'') %>>Description</option>
-                            <option value="keywords" <%=(item.MetaType=='keywords' ?'selected':'') %>>Keywords</option>
+                            <option value="description" <%= (item.MetaType=='description' ?'selected':'') %>>Description</option>
+                            <option value="keywords" <%= (item.MetaType=='keywords' ?'selected':'') %>>Keywords</option>
                         </select>
                     </td>
                     <td><input value="<%= item.MetaDescription %>" readonly /></td>
                     <td style="width: 25vh;">
-                        <button class="btn_class edit_meta_row">&nbsp;<i class="fas fa-edit"></i>&nbsp;</button>
+                        <button class="btn_class edit_meta_row">&nbsp;<i class="fas fa-edit" ></i>&nbsp;</button>
                     </td>
                     <td style="width: 5vh;"><i class="fas fa-trash-alt remove_row_meta" style="color:red;cursor:pointer;"></i></td>
                 </tr>
@@ -83,7 +93,7 @@
         <h2>תמונה</h2>
         <button class="btn_class open_gallery" data-bucket="generals">תמונת</button>
         <div class="wrap_images_" data-wrap_images="generals">
-            <% if(Data && Data.Content && Data.Content.ContentImages) { Data.Content.ContentImages.forEach(item => { %>
+            <% if(Data && Data.Content && Data.Content.ContentImages) { Data.Content.ContentImages.forEach(item => { %> 
             <div class="gallery_image" data-imageid="<%= item.ImageId %>">
                 <img class="image_one" data-imageid="<%= item.ImageId %>" src="<%= item.LinkToBucket %>" alt="<%= item.ImageId.slice(14) %>">
                 <div class="desc">
@@ -110,33 +120,39 @@
     </div>
     <div class="col">
         <button class="btn_class text_formated">הוסיף תוכן</button>
-        <button class="btn_class text_formated">הוסיף תוכן</button>
     </div>
 </div>
 
-
-<div class="wrap_two_col" style="display:none;" data-wrap="accardion">
-    <div class="col">
-        <div class="accordion_container">
-            <h2>שאלות נפוצות</h2>
-            <% if(Data.Accordion && Data.Accordion.length){ Data.Accordion.forEach(item => { %> 
-            <button class="accordion_row">
-                <input value="<%- item.AccordionTitle %>" readonly/>
-                <i class="fas fa-trash-alt remove_acc_row"></i>
-                <i class="fas fa-edit edit_row"></i>
-            </button>
-            <div class="accordion_inside_panel">
-                    <textarea class="text_area_page_editor" style="height: 10vh;display:none;" ></textarea>
-                    <div class="original_html_text" style="display:block;">
-                           <%- item.AccordionDescription %>
-                    </div>
+<div class="wrap_three_col wrap_header_page" style="display:none;" data-wrap="preview_in_list">
+    <div class="col" style="background:#ffffff;text-align: center;">
+        <h2>תמונה</h2>
+        <button class="btn_class open_gallery" data-bucket="generals">תמונת כותרת</button>
+        <div class="wrap_images_" data-wrap_images="generals">
+            <% if(Data && Data.PreveiwInList && Data.PreveiwInList.ImageId) { let image = Data.PreveiwInList; %>
+            <div class="gallery_image" data-imageid="<%= image.ImageId %>">
+                <img class="image_one" data-imageid="<%= image.ImageId %>" src="<%= image.LinkToBucket %>" alt="<%= image.ImageId.slice(14) %>">
+                <div class="desc">
+                    <span>
+                        <%= image.ImageId.slice(14) %>
+                    </span>
+                    <i class="fas fa-trash-alt remove_file" data-imageid="<%= image.ImageId %>"></i>
+                </div>
             </div>
-            <%})}%>
+            <%}%>
         </div>
     </div>
-
+    <div class="col" style="background:none;text-align: center;position: relative;">
+        <h2>כותרת </h2>
+        <textarea class="text_area_page_editor" style="display:none;"></textarea>
+        <div class="original_html_text" style="display:block;">
+            <%- (Data.PreveiwInList?Data.PreveiwInList.Title : '') %>
+        </div>
+        <div>
+            <button class="btn_class remove_text">נקוי</button>
+        </div>
+    </div>
     <div class="col">
-        <button class="btn_class" id="add_row_accardion">הוסיף חדש</button>
+        <button class="btn_class text_formated">הוסיף תוכן</button>
     </div>
 </div>
 
@@ -144,5 +160,5 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="/javascript/flash.js"></script>
 <script src="/javascript/generaladmin.js"></script>
-<script src="/javascript/pageeditor/projectcontact.js"></script>
+<script src="/javascript/pageeditor/sales.js"></script>
 <script src="/javascript/pageeditor/general.js"></script>

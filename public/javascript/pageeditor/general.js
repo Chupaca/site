@@ -3,7 +3,7 @@
 function setupPageEditors() {
     changeStatusItemsNav($("#pages"));
     $(".pages_list").css({ "margin-right": "0" });
-
+    $(".pages_list [data-page='" + window.location.href.split("page=")[1] + "'] li").css({"background": "#ffffff", "color" : "#749cf3"})
 
     $("#add_new_meta").unbind().click(addNewMeta)
     $(".remove_row_meta").unbind().click(removeMetaRow);
