@@ -3,73 +3,44 @@
 
 
 const promise = require("bluebird");
-const datastore = require("../data/connection").Datastore;
-const uuid = require('uuid/v4');
+const pagesRepo = require("../data/pages");
 
+const GetPageForAdmin = page => promise.all([pagesRepo.GetPage(page), pagesRepo.GetPage(page + "-tmp")]);
 
-const GetPage = page => {
-    return datastore.createQuery(page).order('DateCreate', { descending: true }).limit(1).run()
-        .then(res => {
-            return res[0][0].Data;
+const GetPageById = (id, page) => pagesRepo.GetPageById(id, page);
+
+const SetNewPage = (data, page) => pagesRepo.SetNewPage(data, page);
+
+const SetActive = (id, page) => pagesRepo.SetActive(id, page);
+
+const SetActiveList = (data, page) => {
+    var pages;
+    return promise.all(data.map(item => pagesRepo.GetPageById(item.Id, page + "-tmp")))
+        .then(pagesDB => {
+            pages = pagesDB;
+            if (pages && pages.length == 3) {
+                pages.forEach(item => {
+                    item.Position = data.find(pos => pos.Id == item.Id).Position
+                })
+                return pagesRepo.DropAllCollation(page)
+            } else {
+                return false;
+            }
         })
-        .catch(err => {
-            return err
+        .then(resultDel => {
+            if(resultDel){
+                return promise.all(pages.map(item => pagesRepo.InsertToProd(item, page)))
+            }else{
+                return false;
+            }
         })
-}
-
-
-const SetPage = (newPage, page) => {
-    const condition = {
-        key: datastore.key([page + "-tmp", uuid()]),
-        excludeFromIndexes: [
-            "Data.Content.ContentHtml",
-            "Data.Accordion[].AccordionDescription"
-        ],
-        data: {
-            DateCreate: new Date().valueOf(),
-            Data: newPage
-        }
-    };
-
-    return datastore.save(condition)
-        .then(() => {
-            return true;
-        })
-        .catch(err => {
-            return false;
-        });
-}
-
-const SetPageToList = (newPage, page) => {
-    const condition = {
-        key: datastore.key([page + "-tmp", uuid()]),
-        excludeFromIndexes: [
-            "Data.Content.ContentHtml"
-        ],
-        data: {
-            DateCreate: new Date().valueOf(),
-            Active:false,
-            Data: newPage
-        }
-    };
-
-    return datastore.save(condition)
-        .then(() => {
-            return true;
-        })
-        .catch(err => {
-            return false;
-        });
-};
-
-const SetToProduction = (id, page) => {
-return true;
 }
 
 
 module.exports = {
-    SetPage,
-    GetPage,
-    SetPageToList,
-    SetToProduction
+    GetPageForAdmin,
+    GetPageById,
+    SetNewPage,
+    SetActive,
+    SetActiveList
 }

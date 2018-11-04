@@ -1,7 +1,7 @@
 'use strict'
 
 
-function publishNew() {
+function saveNewPage() {
     let aboutUs = { MetaData: [] };
     $(".meta_data_table tr").each((i, item) => {
         aboutUs.MetaData.push(
@@ -32,8 +32,8 @@ function publishNew() {
 
     ConformModal("אתה בטוח רוצה לשנות נווה?", () => {
         $.ajax({
-            url: "/admin/setpage?page=aboutus",
-            data: JSON.stringify({ DataPage: aboutUs }),
+            url: "/admin/setnewpage",
+            data: JSON.stringify({ DataPage: aboutUs, Page: "aboutus" }),
             type: "POST",
             contentType: "application/json",
             success: function () {
@@ -44,4 +44,24 @@ function publishNew() {
             }
         })
     })
+}
+
+function publishPage() {
+    let id = $(".list_table tr.active").attr("data-id");
+    if (id) {
+        ConformModal("אתה בטוח רוצה לשנות נווה?", () => {
+            $.post("/admin/pagetoedit/setactive/" + id + "/aboutus")
+                .then(res => {
+                    Flash("נשמר בהצלחה!", "success");
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 800)
+                })
+                .fail(err => {
+                    Flash("התרחשה שגיאה", "error")
+                })
+        })
+    } else {
+        Flash("נא לבחור גרסה!", "warning")
+    }
 }

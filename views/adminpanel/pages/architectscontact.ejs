@@ -10,8 +10,9 @@
     <button class="btn_class switch_wraps" data-wrap="header">עריכת כותרת</button>
     <button class="btn_class switch_wraps" data-wrap="content">עריכת תוכן</button>
     <button class="btn_class switch_wraps" data-wrap="accardion">עריכת שאלות נפוצות</button>
-    <button class="btn_class" id="publish_changes" style="float:left">לפרסם</button>
-    <button class="btn_class" id="preview_new" style="float:left">להצגה</button>
+    <button class="btn_class switch_wraps" data-wrap="versions">רשימת גרסות</button>
+
+    <button class="btn_class btn_green" id="save_new" style="float:left;" >לשמור</button>
 </div>
 
 
@@ -19,7 +20,7 @@
     <div class="col">
         <table class="meta_data_table">
             <tbody>
-                <% if(Data && Data.MetaData){ Data.MetaData.forEach(item => { %>
+                <% if(Prod && Prod.Data && Prod.Data.MetaData){ Prod.Data.MetaData.forEach(item => { %>
                 <tr>
                     <td style="width: 20vh;">
                         <select class="type_meta_select" disabled>
@@ -48,7 +49,7 @@
         <h2>תמונה</h2>
         <button class="btn_class open_gallery" data-bucket="headers">תמונת כותרת</button>
         <div class="wrap_images_" data-wrap_images="headers">
-            <% if(Data && Data.Header && Data.Header.ImageId) { let image = Data.Header; %>
+            <% if(Prod && Prod.Data && Prod.Data.Header && Prod.Data.Header.ImageId) { let image = Prod.Data.Header; %>
             <div class="gallery_image" data-imageid="<%= image.ImageId %>">
                 <img class="image_one" data-imageid="<%= image.ImageId %>" src="<%= image.LinkToBucket %>" alt="<%= image.ImageId.slice(14) %>">
                 <div class="desc">
@@ -63,11 +64,11 @@
     </div>
     <div class="col" style="background:none;text-align: center;position: relative;">
         <h2>כותרת ראשית</h2>
-        <input type="text" class="title_header" value="<%= (Data.Header?Data.Header.Title:'') %>" style="padding: 1vh;width: 100%;" />
+        <input type="text" class="title_header" value="<%= (Prod && Prod.Data.Header?Prod.Data.Header.Title:'') %>" style="padding: 1vh;width: 100%;" />
         <h2>כותרת תחתית</h2>
         <textarea class="text_area_page_editor sub_title_header" style="display:none;"></textarea>
         <div class="original_html_text" style="display:block;">
-            <%- (Data.Header?Data.Header.SubTitleHtml : '') %>
+            <%- (Prod && Prod.Data.Header?Prod.Data.Header.SubTitleHtml : '') %>
         </div>
         <div>
             <button class="btn_class remove_text">נקוי</button>
@@ -83,7 +84,7 @@
         <h2>תמונה</h2>
         <button class="btn_class open_gallery" data-bucket="generals">תמונת</button>
         <div class="wrap_images_" data-wrap_images="generals">
-            <% if(Data && Data.Content && Data.Content.ContentImages) { Data.Content.ContentImages.forEach(item => { %>
+            <% if(Prod && Prod.Data && Prod.Data.Content && Prod.Data.Content.ContentImages) { Prod.Data.Content.ContentImages.forEach(item => { %>
             <div class="gallery_image" data-imageid="<%= item.ImageId %>">
                 <img class="image_one" data-imageid="<%= item.ImageId %>" src="<%= item.LinkToBucket %>" alt="<%= item.ImageId.slice(14) %>">
                 <div class="desc">
@@ -102,7 +103,7 @@
         <h2>תוכן </h2>
         <textarea class="text_area_page_editor content_text" style="display:none;"></textarea>
         <div class="original_html_text" style="display:block;">
-            <%- (Data.Content && Data.Content.ContentHtml?Data.Content.ContentHtml : '') %>
+            <%- (Prod && Prod.Data.Content && Prod.Data.Content.ContentHtml?Prod.Data.Content.ContentHtml : '') %>
         </div>
         <div>
             <button class="btn_class remove_text">נקוי</button>
@@ -118,7 +119,7 @@
     <div class="col">
         <div class="accordion_container">
             <h2>שאלות נפוצות</h2>
-            <% if(Data.Accordion && Data.Accordion.length){ Data.Accordion.forEach(item => { %> 
+            <% if(Prod && Prod.Data.Accordion && Prod.Data.Accordion.length){ Prod.Data.Accordion.forEach(item => { %> 
             <button class="accordion_row">
                 <input value="<%- item.AccordionTitle %>" readonly/>
                 <i class="fas fa-trash-alt remove_acc_row"></i>
@@ -138,7 +139,34 @@
         <button class="btn_class" id="add_row_accardion">הוסיף חדש</button>
         <button class="btn_class text_formated">הוסיף תוכן</button>
     </div>
+</div>
 
+<div class="wrap_three_col" style="display:none;" data-wrap="versions">
+    <div class="col">
+        <table class="default_table list_table">
+            <tbody>
+            <% if(Prod && Prod.DateCreate){%>
+                <tr data-id="<%= Prod.Id %>">
+                    <td style="width: 25vh;"><%= moment(Prod.DateCreate).format("DD/MM/YYYY : HH:mm:ss") %></td>
+                    <td style="width: 20vh;"><%= Prod.UserName %></td>
+                    <td style="color:red;">active</td>
+                </tr>
+            <%}%>
+                <% if(Versions && Versions.length){ Versions.forEach(item => { %>
+                <tr data-id="<%= item.Id %>">
+                    <td style="width: 25vh;"><%= moment(item.DateCreate).format("DD/MM/YYYY : HH:mm:ss") %></td>
+                    <td style="width: 20vh;"><%= item.UserName %></td>
+                    <td style="color:red;"></td>
+                </tr>
+                <%})}%>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col">
+        <button class="btn_class" id="preview_new" >הצגה</button>
+        <button class="btn_class btn_blue" id="publish_page" >לפרסם</button>
+    </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>

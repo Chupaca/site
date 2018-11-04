@@ -16,6 +16,12 @@ function setupPageEditors() {
         $(this).addClass("active")
         $(".wrap_three_col[data-wrap='" + $(this).attr("data-wrap") + "'], .wrap_two_col[data-wrap='" + $(this).attr("data-wrap") + "']").toggle()
     })
+
+    $("#sortable, #sortable_tmp").sortable({
+        connectWith: ".connectedSortable",
+        stop: () => { sortNavItemsAfterChang() }
+    }).disableSelection();
+
     $(".open_gallery").unbind().click(function () {
         var bucket = $(this).attr("data-bucket")
         OpenPreviewGallery(bucket, (imageIds) => {
@@ -39,9 +45,25 @@ function setupPageEditors() {
     });
     TextEvents();
 
-    $("#publish_changes").unbind().click(publishNew)
     accordionEvents();
     $("#add_row_accardion").unbind().click(addRowAccordion)
+
+    $("#save_new").unbind().click(saveNewPage);
+
+    $("#publish_page").unbind().click(publishPage);
+
+    $(".list_table tr").unbind().click(markRow);
+
+    sortNavItemsAfterChang()
+}
+
+function sortNavItemsAfterChang() {
+    $("#sortable li").each((i, item) => {
+        $(item).find(".navigate_item_position").text(i + 1)
+    })
+    $("#sortable_tmp li").each((i, item) => {
+        $(item).find(".navigate_item_position").text(0)
+    })
 }
 
 function removeImage() {
@@ -151,6 +173,12 @@ function addRowAccordion() {
     TextEvents()
     accordionEvents(true);
    
+}
+
+function markRow() {
+    $(".list_table tr td").css({ "background": "#ffffff" });
+    $(this).addClass("active");
+    $(this).find("td").css({ "background": "#ccc" });
 }
 
 $(document).ready(() => {

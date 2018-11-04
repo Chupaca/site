@@ -1,7 +1,7 @@
 'use strict'
 
 
-function publishNew() {
+function saveNewPage() {
     let projectContact = { MetaData: [], Accordion:[] };
     $(".meta_data_table tr").each((i, item) => {
         projectContact.MetaData.push(
@@ -39,8 +39,8 @@ function publishNew() {
 
     ConformModal("אתה בטוח רוצה לשנות נווה?", () => {
         $.ajax({
-            url: "/admin/setpage?page=projectcontact",
-            data: JSON.stringify({ DataPage: projectContact }),
+            url: "/admin/setnewpage",
+            data: JSON.stringify({ DataPage: projectContact, Page:"projectcontact" }),
             type: "POST",
             contentType: "application/json",
             success: function () {
@@ -51,4 +51,24 @@ function publishNew() {
             }
         })
     })
+}
+
+function publishPage() {
+    let id = $(".list_table tr.active").attr("data-id");
+    if (id) {
+        ConformModal("אתה בטוח רוצה לשנות נווה?", () => {
+            $.post("/admin/pagetoedit/setactive/" + id + "/projectcontact")
+                .then(res => {
+                    Flash("נשמר בהצלחה!", "success");
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 800)
+                })
+                .fail(err => {
+                    Flash("התרחשה שגיאה", "error")
+                })
+        })
+    } else {
+        Flash("נא לבחור גרסה!", "warning")
+    }
 }

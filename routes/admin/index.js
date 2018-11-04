@@ -54,8 +54,12 @@ router.post('/uploadfiles/delete', uploadFiles.DeleteFile)
 
 //============== page edit ===========================
 router.get("/pagetoedit", pageEdit.GetPageForEdit);
-router.post("/setpage", pageEdit.SetPage);
-router.post("/setpagetolist", pageEdit.SetPageToList);
+router.get("/pagetoedit/:id", pageEdit.GetPageById);
+router.post("/setnewpage", pageEdit.SetNewPage);
+router.post("/pagetoedit/setactive/list", pageEdit.SetActiveList);
+router.post("/pagetoedit/setactive/:id/:page", pageEdit.SetActive);
+
+
 
 
 //=========== list edit ==================================

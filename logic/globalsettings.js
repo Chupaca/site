@@ -4,19 +4,46 @@
 const promise = require("bluebird");
 const navigation = require("../data/navigation");
 const footer = require("../data/footer");
+const pages = require("../data/pages");
 
 
-
-const GetGlobalSettings = () => {
+const GetGlobalSettings = page => {
     return promise.all([
         navigation.GetNavigationItemsForProd(),
-        footer.GetNavigationItemsForProd()
+        footer.GetNavigationItemsForProd(),
+        pages.GetPageProd(page)
     ])
-        .then(([navigation, footer]) => {
-            return { Navigation: navigation, Footer: footer }
+        .then(([navigation, footer, page]) => {
+            return { Navigation: navigation, Footer: footer, Page: page }
+        })
+}
+
+const GetGlobalSettingsForStartPage = () => {
+    return promise.all([
+        navigation.GetNavigationItemsForProd(),
+        footer.GetNavigationItemsForProd(),
+        pages.GetSales('sales'),
+
+    ])
+        .then(([navigation, footer, sales]) => {
+            return { Navigation: navigation, Footer: footer, Sales: sales[0] }
+        })
+}
+
+const GetGlobalSettingsAndPageByIndex = (page, index) => {
+    return promise.all([
+        navigation.GetNavigationItemsForProd(),
+        footer.GetNavigationItemsForProd(),
+        pages.GetPageByKindAndIndex(page, index),
+
+    ])
+        .then(([navigation, footer, sales]) => {
+            return { Navigation: navigation, Footer: footer, Sales: sales[0] }
         })
 }
 
 module.exports = {
-    GetGlobalSettings
+    GetGlobalSettings,
+    GetGlobalSettingsForStartPage,
+    GetGlobalSettingsAndPageByIndex
 }

@@ -1,7 +1,7 @@
 'use strict'
 
 
-function publishNew() {
+function saveNewPage() {
     let sale = { MetaData: [] };
     $(".meta_data_table tr").each((i, item) => {
         sale.MetaData.push(
@@ -30,10 +30,16 @@ function publishNew() {
         ContentHtml: $(".wrap_content_page .original_html_text").html()
     }
 
+    sale.Preview = {
+        ImageId: $(".wrap_preview_page .wrap_images_ .gallery_image").attr("data-imageid"),
+        LinkToBucket: $(".wrap_preview_page .wrap_images_ .gallery_image .image_one").attr("src"),
+        SubTitleHtml: $(".wrap_preview_page .original_html_text").html()
+    }
+
     ConformModal("אתה בטוח רוצה לשנות נווה?", () => {
         $.ajax({
-            url: "/admin/setpagetolist?page=sales",
-            data: JSON.stringify({ DataPage: sale }),
+            url: "/admin/setnewpage",
+            data: JSON.stringify({ DataPage: sale, Page:"sales" }),
             type: "POST",
             contentType: "application/json",
             success: function () {
@@ -44,4 +50,45 @@ function publishNew() {
             }
         })
     })
+}
+
+function publishPage() {
+    let data = []
+    $("#sortable li").each((i, item) => {
+        data.push(
+            {
+                Position: Number($(item).find(".navigate_item_position").text()),
+                Id : $(item).attr("data-id")
+            }
+        )
+    })
+   
+    if (data.length == 0 || data.length == 3) {
+        ConformModal("אתה בטוח רוצה לשנות ?", () => {
+            $.ajax({
+                url: "/admin/pagetoedit/setactive/list",
+                data: JSON.stringify({ Data: data, Page:"sales" }),
+                type: "POST",
+                contentType: "application/json",
+                success: function () {
+                    Flash("נשמר בהצלחה!", "success")
+                },
+                error: function () {
+                    Flash("התרחשה שגיאה", "error")
+                }
+            })
+            $.post("/admin/pagetoedit/setactive/list/sales" , {})
+                .then(res => {
+                    Flash("נשמר בהצלחה!", "success");
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 800)
+                })
+                .fail(err => {
+                    Flash("התרחשה שגיאה", "error")
+                })
+        })
+    } else {
+        Flash("נא לבחור גרסה!", "warning")
+    }
 }
