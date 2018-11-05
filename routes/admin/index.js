@@ -37,14 +37,16 @@ router.get("/login", adminPanel.Login);
 //========= navigation + footer ==================================
 router.get("/navigationeditor", navfooter.GetNavigationEditor);
 router.get("/navigationeditor/:id", navfooter.GetNavigationById);
-router.post("/setnewnavigation", navfooter.SetNewNavigation);
+router.post("/navigationeditor/setnewnavigation", navfooter.SetNewNavigation);
 router.post("/navigationeditor/setactive/:id", navfooter.SetActive);
+router.get("/navigationeditor/previewnavigation/:bucket/:id", navfooter.PreviewNavigation);
 
 
 router.get("/footereditor", navfooter.GetFooterEditor);
 router.get("/footereditor/id", navfooter.GetFooterItemsById);
-router.post("/setnewfooter", navfooter.SetNewFooter);
+router.post("/footereditor/setnewfooter", navfooter.SetNewFooter);
 router.post("/footereditor/setactive/:id", navfooter.SetActiveFooter);
+router.get("/footereditor/previewfooter/:bucket/:id", navfooter.PreviewFooter);
 
 //============== upload files ======================
 router.get("/galleryeditor", uploadFiles.GetGalleryEditor);

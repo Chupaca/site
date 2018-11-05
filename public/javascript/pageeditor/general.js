@@ -26,7 +26,7 @@ function setupPageEditors() {
 
     $("#sortable, #sortable_tmp").sortable({
         connectWith: ".connectedSortable",
-        stop: () => { sortNavItemsAfterChang() }
+        stop: () => { sortNavItemsAfterChange() }
     }).disableSelection();
 
     $(".open_gallery").unbind().click(function () {
@@ -56,13 +56,13 @@ function setupPageEditors() {
     $("#save_new").unbind().click(saveNewPage);
     $("#publish_page").unbind().click(publishPage);
     $(".list_table tr").unbind().click(markRow);
-    sortNavItemsAfterChang();
+    sortNavItemsAfterChange();
     $(".page_item").unbind().click(markVersionPage);
     $("#preview_page").unbind().click(PreviewPage);
     $(".remove_page").unbind().click(removePage)
 }
 
-function sortNavItemsAfterChang() {
+function sortNavItemsAfterChange() {
     $("#sortable li").each((i, item) => {
         $(item).find(".page_item_position").text(i + 1)
     })

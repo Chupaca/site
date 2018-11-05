@@ -52,6 +52,18 @@ exports.SetActive = (req, res) => {
     }
 }
 
+exports.PreviewNavigation = (req, res) => {
+    const { bucket, id } = req.params;
+    navLogic.PreviewNavigation(bucket, id)
+        .then(previewPage => {
+            res.render(`aboutuspage/aboutus`, {
+                Desktop: (req.device.type == 'desktop' ? true : false),
+                Navigation: previewPage.Navigation,
+                Footer: previewPage.Footer,
+                Page: previewPage.Page.Data
+            });
+        })
+}
 
 //================ footer =======================
 
@@ -101,4 +113,17 @@ exports.SetActiveFooter = (req, res) => {
     } else {
         res.sendStatus(403)
     }
+}
+
+exports.PreviewFooter = (req, res) => {
+    const { bucket, id } = req.params;
+    navLogic.PreviewFooter(bucket, id)
+        .then(previewPage => {
+            res.render(`aboutuspage/aboutus`, {
+                Desktop: (req.device.type == 'desktop' ? true : false),
+                Navigation: previewPage.Navigation,
+                Footer: previewPage.Footer,
+                Page: previewPage.Page.Data
+            });
+        })
 }

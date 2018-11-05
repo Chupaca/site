@@ -1,6 +1,7 @@
 <% layout('layoutindex/mainpage') -%>
 
 <div class="contentMainImgContainer">
+<% if(Page) {%>
     <img class="contentMainImg" alt="" src="<%= Page.Header.LinkToBucket %>" />
     <h3><%- Page.Header.Title %></h3>
     <div class="contentTxt"><%- Page.Header.SubTitleHtml %></div>
@@ -29,6 +30,7 @@
     </div>
   
 </section>
+<%}%>
 
 <% if(!Desktop){%>
     <section id="bottom_side_form" class="wrap_container">

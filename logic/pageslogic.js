@@ -7,42 +7,42 @@ const pagesRepo = require("../data/pages");
 const navigation = require("../data/navigation")
 const footer = require("../data/footer")
 
-const GetPageForAdmin = page => promise.all([pagesRepo.GetPage(page), pagesRepo.GetPage(page + "-tmp")]);
+const GetPageForAdmin = bucket => promise.all([pagesRepo.GetPage(bucket), pagesRepo.GetPage(bucket + "-tmp")]);
 
-const GetPageById = (id, page) => pagesRepo.GetPageById(id, page);
+const GetPageById = (id, bucket) => pagesRepo.GetPageById(id, bucket);
 
-const SetNewPage = (data, page) => pagesRepo.SetNewPage(data, page);
+const SetNewPage = (data, bucket) => pagesRepo.SetNewPage(data, bucket);
 
-const SetActive = (id, page) => pagesRepo.SetActive(id, page);
+const SetActive = (id, bucket) => pagesRepo.SetActive(id, bucket);
 
-const SetActiveList = (data, page) => {
+const SetActiveList = (data, bucket) => {
     var pages;
-    return promise.all(data.map(item => pagesRepo.GetPageById(item.Id, page + "-tmp")))
+    return promise.all(data.map(item => pagesRepo.GetPageById(item.Id, bucket + "-tmp")))
         .then(pagesDB => {
             pages = pagesDB;
             if (pages && pages.length == 3) {
                 pages.forEach(item => {
                     item.Position = data.find(pos => pos.Id == item.Id).Position
                 })
-                return pagesRepo.DropAllCollation(page)
+                return pagesRepo.DropAllCollation(bucket)
             } else {
                 return false;
             }
         })
         .then(resultDel => {
             if (resultDel) {
-                return promise.all(pages.map(item => pagesRepo.InsertToProd(item, page)))
+                return promise.all(pages.map(item => pagesRepo.InsertToProd(item, bucket)))
             } else {
                 return false;
             }
         })
 }
 
-const DeletePage = (id, page) => {
-    return pagesRepo.GetPageById(id, page.replace("-tmp", ''))
+const DeletePage = (id, bucket) => {
+    return pagesRepo.GetPageById(id, bucket.replace("-tmp", ''))
         .then(pageItem => {
             if (!pageItem) {
-                return  pagesRepo.DeletePage(id, page)
+                return  pagesRepo.DeletePage(id, bucket)
             } else {
                 return false
             }

@@ -5,29 +5,76 @@ function setupFooterEditor() {
     bindButtonsEvents();
 
     $(".switch_wraps").unbind().click(function () {
-        $(".switch_wraps").removeClass("active")
-        $(".wrap_three_col, .wrap_two_col").hide(5);
-        $(this).addClass("active")
-        $(".wrap_three_col[data-wrap='" + $(this).attr("data-wrap") + "'], .wrap_two_col[data-wrap='" + $(this).attr("data-wrap") + "']").toggle()
+        if (!$(this).hasClass("active")) {
+            $(".switch_wraps").removeClass("active")
+            $(".wrap_three_col, .wrap_two_col").hide(5);
+            $(this).addClass("active")
+            $(".wrap_three_col[data-wrap='" + $(this).attr("data-wrap") + "'], .wrap_two_col[data-wrap='" + $(this).attr("data-wrap") + "']").toggle()
+        }
+        if ($(this).attr("data-wrap") == "versions") {
+            $("#save_new").prop("disabled", true)
+        } else {
+            $("#save_new").prop("disabled", false)
+        }
     })
 
     $("#sortable, #sortable_tmp").sortable({
         connectWith: ".connectedSortable",
-        stop: () => { sortNavItemsAfterChang() }
+        stop: () => { sortNavItemsAfterChange() }
+    }).disableSelection();
+
+    $("#sortable.version, #sortable_tmp.version").sortable({
+        connectWith: ".connectedSortable",
+        stop: () => { sortVersionsItemsAfterChange() }
     }).disableSelection();
 
     $("#add_new_nav_item").unbind().click(addNewItem)
     $("#add_new_branch_row").unbind().click(addNewBranch);
-    
     $(".remove_row_branch").unbind().click(removeRowBranch);
     $(".edit_row").unbind().click(editBranchRow);
     $(".btn_arrow_down, .btn_arrow_up").unbind().click(changeRowUpAndDown);
-
     $("#save_new").unbind().click(saveNewFooter);
-    $(".list_table tr").unbind().click(markRow);
+    $("#publish_nav").unbind().click(publishFooter);
+    $(".page_item").unbind().click(markVersionPage);
+    $(".remove_page").unbind().click(removeVersion);
+    $("#preview_nav").unbind().click(previewFooter)
+}
 
-    $("#publish_new").unbind().click(publishFooter);
+function previewFooter(){
+    let getPageId = $(".page_item.active").parent().attr("data-id");
+    let getPageBucket = $(".page_item.active").parent().attr("data-bucket");
+    window.open(`/admin/footereditor/previewfooter/${getPageBucket}/${getPageId}`)
+}
 
+function removeVersion() {
+    let pageId = $(this).attr("data-id");
+    let page = $(this).attr("data-page");
+    let parent = $(this).closest(".connectedSortable");
+    if (pageId) {
+        ConformModal("אתה בטוח רוצה למחוק דף ?", () => {
+            $.post("/admin/deletepage/" , {Page:page, Id:pageId})
+                .then(result => {
+                        $(parent).find("li[data-id='" + pageId + "']").remove()
+                        Flash("נמחק בהצלחה!", "success");
+                })
+                .catch(err => {
+                    Flash("אי אפשר למחוק דף אם הוה בתצוגה!", "error")
+                })
+        })
+    } else {
+        Flash("התרחשה שגיאה", "error")
+    }
+}
+
+function markVersionPage(){
+    if ($(this).hasClass("active")) {
+        $(this).removeClass("active");
+        $("#preview_nav").prop("disabled", true)
+    }else{
+        $(".page_item").removeClass("active");
+        $(this).addClass("active");
+        $("#preview_nav").prop("disabled", false)
+    }
 }
 
 function addNewItem() {
@@ -115,12 +162,21 @@ function changeRowUpAndDown() {
     })
 }
 
-function sortNavItemsAfterChang() {
+function sortNavItemsAfterChange() {
     $("#sortable li").each((i, item) => {
         $(item).find(".navigate_item_position").text(i + 1)
     })
     $("#sortable_tmp li").each((i, item) => {
         $(item).find(".navigate_item_position").text(0)
+    })
+}
+
+function sortVersionsItemsAfterChange() {
+    $("#sortable.version li").each((i, item) => {
+        $(item).find(".page_item_position").text(i + 1)
+    })
+    $("#sortable_tmp.version li").each((i, item) => {
+        $(item).find(".page_item_position").text(0)
     })
 }
 
@@ -174,12 +230,14 @@ function saveNewFooter() {
     })
     ConformModal("אתה בטוח רוצה לשנות ?", () => {
         $.ajax({
-            url: "/admin/setnewfooter",
-            data: JSON.stringify({ Data : data }),
+            url: "/admin/footereditor/setnewfooter",
+            data: JSON.stringify({ Data: data }),
             type: "POST",
             contentType: "application/json",
             success: function (data) {
-                Flash("נשמר בהצלחה!", "success")
+                setTimeout(() => {
+                    window.location.reload();
+                }, 300)
             },
             error: function () {
                 Flash("התרחשה שגיאה", "error")
@@ -188,40 +246,32 @@ function saveNewFooter() {
     })
 }
 
-function markRow() {
-    $(".list_table tr td").css({ "background": "#ffffff" });
-    $(this).addClass("active");
-    if ($(this).index() != 0) {
-        $(this).find("td").css({ "background": "#ccc" });
-    }
-}
-
 function publishFooter() {
-    let id = $(".list_table tr.active").attr("data-id");
-    if (id) {
-        ConformModal("אתה בטוח רוצה לשנות נווה?", () => {
-            $.post("/admin/footereditor/setactive/" + id)
-                .then(res => {
-                    Flash("נשמר בהצלחה!", "success");
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 800)
-                })
-                .fail(err => {
-                    Flash("התרחשה שגיאה", "error")
-                })
+    let data = [];
+    $("#sortable.version li").each((i, item) => {
+        data.push(
+            {
+                Position: Number($(item).find(".page_item_position").text()),
+                Id: $(item).attr("data-id")
+            }
+        )
+    })
+    if (data && data.length == 1) {
+        ConformModal("אתה בטוח רוצה לשנות ?", () => {
+            $.post("/admin/footereditor/setactive/" + data[0].Id)
+            .then(res => {
+                Flash("נשמר בהצלחה!", "success");
+                setTimeout(() => {
+                    window.location.reload();
+                }, 300)
+            })
+            .fail(err => {
+                Flash("התרחשה שגיאה", "error")
+            })
         })
     } else {
-        Flash("נא לבחור גרסה!", "warning")
+        Flash("אי אפשר לשמור ללא דף ולא יותר מ-1", "warning")
     }
-}
-
-function previewVersion() {
-    const navId = $(this).attr("data-id");
-    $.get("/admin/footereditor/" + navId)
-        .then(nav => {
-            $(".preview_version").html(nav)
-        })
 }
 
 $(document).ready(() => {

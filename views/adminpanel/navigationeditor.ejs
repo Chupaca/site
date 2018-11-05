@@ -6,11 +6,13 @@
 </h2>
 
 <div>
-    <button class="btn_class switch_wraps active" data-wrap="active_vertion" >גרסה פעילה</button>
-    <button class="btn_class switch_wraps" data-wrap="versions">רשימת גרסות</button>
+    <button class="btn_class switch_wraps" data-wrap="active_vertion" >גרסה פעילה</button>
+    <button class="btn_class switch_wraps active" data-wrap="versions">רשימת גרסות</button>
+
+    <button class="btn_class btn_green" id="save_new" style="float:left;" disabled>לשמור</button>
 </div>
 
-<div class="wrap_three_col" style="display:inline-flex;" data-wrap="active_vertion">
+<div class="wrap_three_col" style="display:none;" data-wrap="active_vertion">
     <div id="sortable" class="col connectedSortable">
         <% if(Prod && Prod.NavStructure){ Prod.NavStructure.forEach(item => { %>
         <li>
@@ -50,38 +52,48 @@
 
     <div class="col">
         <button class="btn_class" id="add_new_nav_item">הוסיף חדש</button><br>
-        <button class="btn_class btn_green" id="save_new" >לשמור</button>
     </div>
 
 </div>
 
 
-<div class="wrap_three_col" style="display:none;" data-wrap="versions">
-    <div class="col">
-        <table class="default_table list_table">
-            <tbody>
-            <% if(Prod && Prod.DateCreate){%>
-                <tr data-id="<%= Prod.Id %>">
-                    <td style="width: 25vh;"><%= moment(Prod.DateCreate).format("DD/MM/YYYY : HH:mm:ss") %></td>
-                    <td style="width: 20vh;"><%= Prod.UserName %></td>
-                    <td style="color:red;">active</td>
-                </tr>
-            <%}%>
-                <% if(Versions && Versions.length){ Versions.forEach(item => { %>
-                <tr data-id="<%= item.Id %>">
-                    <td style="width: 25vh;"><%= moment(item.DateCreate).format("DD/MM/YYYY : HH:mm:ss") %></td>
-                    <td style="width: 20vh;"><%= item.UserName %></td>
-                    <td style="color:red;"></td>
-                </tr>
-                <%})}%>
-            </tbody>
-        </table>
+<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions">
+    <div id="sortable" class="col connectedSortable version">
+    <% if(Prod){  %>
+    <li data-id="<%= Prod.Id %>" data-bucket="Navigation">
+        <div class="page_item">
+            <span class="page_item_position"><b><%= Prod.Position || 1 %></b></span>
+            <b style="margin:0 2vh;">&#124;</b>
+            <span class=""><%= moment(Prod.DateCreate).format("DD/MM/YYYY : HH:mm:ss") %></span>
+            <b style="margin:0 2vh;">&#124;</b>
+           
+            <i class="fas fa-bars nav_options"></i>
+        </div>
+    </li>
+    <%}%>
+    </div>
+
+
+    <div id="sortable_tmp" class="col connectedSortable version">
+        <% if(Versions && Versions.length){ Versions.forEach(item => { %>
+        <li data-id="<%= item.Id %>" data-bucket="Navigation-tmp">
+            <div class="page_item">
+                <span class="page_item_position"><b>0</b></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span class=""><%= moment(item.DateCreate).format("DD/MM/YYYY HH:mm") %></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <i class="fas fa-bars nav_options"></i>
+                <i class="fas fa-trash-alt remove_page" data-page="Navigation-tmp" style="margin:0 3vh;cursor:pointer;"  data-id="<%= item.Id %>"></i>
+            </div>
+        </li>
+        <%})}%>
     </div>
 
     <div class="col">
-        <button class="btn_class" id="preview_page" >הצגה</button>
-        <button class="btn_class btn_blue" id="publish_new" >לפרסם</button>
+        <button class="btn_class" id="preview_nav" disabled>הצגה</button>
+        <button class="btn_class btn_blue" id="publish_nav">לפרסם</button>
     </div>
+
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
