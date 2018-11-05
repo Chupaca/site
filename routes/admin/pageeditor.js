@@ -56,9 +56,6 @@ exports.SetActive = (req, res) => {
     }
 }
 
-
-
-
 exports.SetActiveList = (req, res) => {
     const { Data, Page } = req.body;
     if (Page && Data) {
@@ -73,4 +70,33 @@ exports.SetActiveList = (req, res) => {
     } else {
         res.sendStatus(403)
     }
+}
+
+exports.DeletePage = (req, res) => {
+    const { Id, Page } = req.body;
+    if (Page && Id) {
+        pageslogic.DeletePage(Id, Page)
+            .then(result => {
+                if (result) {
+                    res.sendStatus(200)
+                } else {
+                    res.sendStatus(501)
+                }
+            })
+    } else {
+        res.sendStatus(403)
+    }
+}
+
+exports.PreviewPage = (req, res) => {
+    const {page, bucket, id} = req.params;
+    pageslogic.PreviewPage(bucket, id)
+        .then(previewPage => {
+            res.render(`${page}page/${page}`, { 
+                Desktop: (req.device.type == 'desktop' ? true : false),
+                Navigation: previewPage.Navigation,
+                Footer: previewPage.Footer,
+                Page: previewPage.Page.Data
+            });
+        })
 }

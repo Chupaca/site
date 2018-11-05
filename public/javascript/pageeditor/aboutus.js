@@ -30,38 +30,26 @@ function saveNewPage() {
         ContentHtml: $(".wrap_content_page .original_html_text").html()
     }
 
-    ConformModal("אתה בטוח רוצה לשנות נווה?", () => {
-        $.ajax({
-            url: "/admin/setnewpage",
-            data: JSON.stringify({ DataPage: aboutUs, Page: "aboutus" }),
-            type: "POST",
-            contentType: "application/json",
-            success: function () {
-                Flash("נשמר בהצלחה!", "success")
-            },
-            error: function () {
-                Flash("התרחשה שגיאה", "error")
-            }
-        })
+    ConformModal("אתה בטוח רוצה לשנות ?", () => {
+        SaveNewPageToServer(aboutUs, "aboutus");
     })
 }
 
 function publishPage() {
-    let id = $(".list_table tr.active").attr("data-id");
-    if (id) {
-        ConformModal("אתה בטוח רוצה לשנות נווה?", () => {
-            $.post("/admin/pagetoedit/setactive/" + id + "/aboutus")
-                .then(res => {
-                    Flash("נשמר בהצלחה!", "success");
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 800)
-                })
-                .fail(err => {
-                    Flash("התרחשה שגיאה", "error")
-                })
+    let data = [];
+    $("#sortable li").each((i, item) => {
+        data.push(
+            {
+                Position: Number($(item).find(".page_item_position").text()),
+                Id: $(item).attr("data-id")
+            }
+        )
+    })
+    if (data && data.length == 1) {
+        ConformModal("אתה בטוח רוצה לשנות ?", () => {
+            SetActiveSinglePage(data[0].Id, "aboutus")
         })
     } else {
-        Flash("נא לבחור גרסה!", "warning")
+        Flash("אי אפשר לשמור ללא דף ולא יותר מ-1", "warning")
     }
 }

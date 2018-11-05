@@ -2,7 +2,7 @@
 
 
 function saveNewPage() {
-    let architectsContact = { MetaData: [], Accordion:[] };
+    let architectsContact = { MetaData: [], Accordion: [] };
     $(".meta_data_table tr").each((i, item) => {
         architectsContact.MetaData.push(
             {
@@ -29,47 +29,35 @@ function saveNewPage() {
         }),
         ContentHtml: $(".wrap_content_page .original_html_text").html()
     }
-    architectsContact.Accordion = Array.from($(".accordion_row")).map(item =>{
+    architectsContact.Accordion = Array.from($(".accordion_row")).map(item => {
         return {
-            AccordionTitle : $(item).find("input").val(),
-            AccordionDescription : $(item).next().find(".original_html_text").html()
+            AccordionTitle: $(item).find("input").val(),
+            AccordionDescription: $(item).next().find(".original_html_text").html()
         }
     })
 
 
     ConformModal("אתה בטוח רוצה לשנות נווה?", () => {
-        $.ajax({
-            url: "/admin/setnewpage",
-            data: JSON.stringify({ DataPage: architectsContact, Page:"architectscontact" }),
-            type: "POST",
-            contentType: "application/json",
-            success: function () {
-                Flash("נשמר בהצלחה!", "success")
-            },
-            error: function () {
-                Flash("התרחשה שגיאה", "error")
-            }
-        })
+        SaveNewPageToServer(architectsContact, "architectscontact");
     })
 }
 
 
 function publishPage() {
-    let id = $(".list_table tr.active").attr("data-id");
-    if (id) {
+    let data = [];
+    $("#sortable li").each((i, item) => {
+        data.push(
+            {
+                Position: Number($(item).find(".page_item_position").text()),
+                Id: $(item).attr("data-id")
+            }
+        )
+    })
+    if (data && data.length == 1) {
         ConformModal("אתה בטוח רוצה לשנות נווה?", () => {
-            $.post("/admin/pagetoedit/setactive/" + id + "/architectscontact")
-                .then(res => {
-                    Flash("נשמר בהצלחה!", "success");
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 800)
-                })
-                .fail(err => {
-                    Flash("התרחשה שגיאה", "error")
-                })
+            SetActiveSinglePage(data[0].Id, "architectscontact")
         })
     } else {
-        Flash("נא לבחור גרסה!", "warning")
+        Flash("אי אפשר לשמור ללא דף ולא יותר מ-1", "warning")
     }
 }

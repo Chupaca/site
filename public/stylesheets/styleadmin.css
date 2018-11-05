@@ -120,6 +120,12 @@ h2{
     background-color:#ffffff;
     color: #ff4200;
 }
+.btn_class:disabled{
+    box-shadow: none;
+    background-color:rgb(199, 194, 194);
+    color: #ff4200;
+    cursor:context-menu;
+}
 
 .btn_green{
     background-color: #0bbe23; 
@@ -574,7 +580,7 @@ h2{
 
 
 
-.navigate_item{
+.navigate_item, .page_item{
     width: 100%;
     background: #ffffff;
     border: 2px solid #8f9cf3;
@@ -586,15 +592,28 @@ h2{
     list-style: none;
     text-decoration: none;
 }
-.navigate_item:hover{
+.navigate_item:hover, .page_item:hover{
     background: #ff4200;
     color: #ffffff;
     transition: background 0.4s ease-in-out, color 0.3s ease-in-out;
 }
-.navigate_item i{
+.navigate_item i, .page_item i{
     cursor: all-scroll;
     float: left;
 }
+.page_item:hover{
+    cursor: pointer;
+}
+
+.page_item:hover i{
+    color:#ffffff;
+}
+
+.page_item.active{
+    background: #ff4200;
+    color: #ffffff;
+}
+
 .sub_navigate_item{
     display: none;
     width: 100%;

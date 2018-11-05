@@ -4,6 +4,8 @@
 
 const promise = require("bluebird");
 const pagesRepo = require("../data/pages");
+const navigation = require("../data/navigation")
+const footer = require("../data/footer")
 
 const GetPageForAdmin = page => promise.all([pagesRepo.GetPage(page), pagesRepo.GetPage(page + "-tmp")]);
 
@@ -28,19 +30,43 @@ const SetActiveList = (data, page) => {
             }
         })
         .then(resultDel => {
-            if(resultDel){
+            if (resultDel) {
                 return promise.all(pages.map(item => pagesRepo.InsertToProd(item, page)))
-            }else{
+            } else {
                 return false;
             }
         })
 }
 
+const DeletePage = (id, page) => {
+    return pagesRepo.GetPageById(id, page.replace("-tmp", ''))
+        .then(pageItem => {
+            if (!pageItem) {
+                return  pagesRepo.DeletePage(id, page)
+            } else {
+                return false
+            }
+        })
+}
+
+const PreviewPage = (bucket, id) => {
+    return promise.all([
+        navigation.GetNavigationItemsForProd(),
+        footer.GetNavigationItemsForProd(),
+        pagesRepo.GetPageById(id, bucket)
+
+    ])
+    .then(([navigation, footer, page]) => {
+        return { Navigation: navigation, Footer: footer, Page: page }
+    })
+}
 
 module.exports = {
     GetPageForAdmin,
     GetPageById,
     SetNewPage,
     SetActive,
-    SetActiveList
+    SetActiveList,
+    DeletePage,
+    PreviewPage
 }

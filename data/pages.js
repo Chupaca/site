@@ -6,9 +6,9 @@ const momentTz = require("moment-timezone")
 const dataStore = require("./connection").Datastore;
 const uuid = require('uuid/v4');
 
-exports.GetPageProd = page => {
-    if (page) {
-        return dataStore.createQuery(page).run()
+exports.GetPageProd = bucket => {
+    if (bucket) {
+        return dataStore.createQuery(bucket).run()
             .then(res => {
                 return res[0][0];
             })
@@ -20,9 +20,9 @@ exports.GetPageProd = page => {
     }
 }
 
-exports.GetPageByKindAndIndex = (page, index) => {
-    if (page && index) {
-        return dataStore.createQuery(page).filter('Index', '=', index).run()
+exports.GetPageByKindAndIndex = (bucket, index) => {
+    if (bucket && index) {
+        return dataStore.createQuery(bucket).filter('Index', '=', index).run()
             .then(res => {
                 return res[0][0];
             })
@@ -35,8 +35,8 @@ exports.GetPageByKindAndIndex = (page, index) => {
 }
 
 exports.GetPage = getPage;
-function getPage(page) {
-    return dataStore.createQuery(page).order('DateCreate', { descending: true }).run()
+function getPage(bucket) {
+    return dataStore.createQuery(bucket).order('DateCreate', { descending: true }).run()
         .then(res => {
             return res[0];
         })
@@ -47,8 +47,8 @@ function getPage(page) {
 
 exports.GetPageById = getPageById;
 
-function getPageById(id, kind) {
-    return dataStore.createQuery(kind).filter('Id', '=', id).run()
+function getPageById(id, bucket) {
+    return dataStore.createQuery(bucket).filter('Id', '=', id).run()
         .then(res => {
             return res[0][0]
         })
@@ -57,12 +57,12 @@ function getPageById(id, kind) {
         })
 }
 
-exports.SetActive = (id, page) => {
-    return promise.join(getPage(page), getPageById(id, page + "-tmp"),
+exports.SetActive = (id, bucket) => {
+    return promise.join(getPage(bucket), getPageById(id, bucket + "-tmp"),
         (activeNav, navTmp) => {
             return promise.all([
-                dataStore.insert(schemaPage(navTmp, page)),
-                dataStore.delete(dataStore.key([page, activeNav[0][dataStore.KEY].name]))
+                dataStore.insert(schemaPage(navTmp, bucket)),
+                dataStore.delete(dataStore.key([bucket, activeNav[0][dataStore.KEY].name]))
             ])
         })
         .then(() => {
@@ -74,8 +74,8 @@ exports.SetActive = (id, page) => {
 }
 
 
-exports.SetNewPage = (data, page) => {
-    return dataStore.save(schemaPage(data, page + "-tmp"))
+exports.SetNewPage = (data, bucket) => {
+    return dataStore.save(schemaPage(data, bucket + "-tmp"))
         .then(() => {
             return true;
         })
@@ -84,18 +84,18 @@ exports.SetNewPage = (data, page) => {
         });
 }
 
-exports.InsertToProd = (data, page) => {
-    return dataStore.insert(schemaPage(data, page))
-    .then(() => {
-        return true;
-    })
-    .catch((err) => {
-        return false;
-    });
+exports.InsertToProd = (data, bucket) => {
+    return dataStore.insert(schemaPage(data, bucket))
+        .then(() => {
+            return true;
+        })
+        .catch((err) => {
+            return false;
+        });
 }
 
-exports.DropAllCollation = page => {
-    return dataStore.createQuery(page).select('__key__').run()
+exports.DropAllCollation = bucket => {
+    return dataStore.createQuery(bucket).select('__key__').run()
         .then(entities => {
             const keys = entities[0].map((entity) => {
                 return entity[dataStore.KEY];
@@ -110,9 +110,9 @@ exports.DropAllCollation = page => {
         })
 }
 
-function schemaPage(data, page) {
+function schemaPage(data, bucket) {
     const id = uuid();
-    const key = dataStore.key([page, id]);
+    const key = dataStore.key([bucket, id]);
     const condition = {
         key: key,
         excludeFromIndexes: [
@@ -125,8 +125,8 @@ function schemaPage(data, page) {
             Data: data.Data || data,
             UserName: data.UserName || 'admin',
             Id: data.Id || uuid(),
-            Position : data.Position || 0,
-            Index : data.Index || data.Position || 0
+            Position: data.Position || 0,
+            Index: data.Index || data.Position || 0
         }
     };
     return condition;
@@ -134,3 +134,13 @@ function schemaPage(data, page) {
 
 
 exports.GetSales = () => dataStore.createQuery("sales").run()
+
+exports.DeletePage = (id, bucket) => {
+    return getPageById(id, bucket)
+        .then(item => {
+            return dataStore.delete(dataStore.key([bucket, item[dataStore.KEY].name]))
+        })
+        .catch(err => {
+            return false
+        })
+}

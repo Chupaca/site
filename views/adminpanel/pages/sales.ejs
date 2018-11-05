@@ -2,24 +2,24 @@
 
 <div style="display:inline-flex;">
     <h2 class="title_wrap">
-        מבצע
+        מבצעים
     </h2>
 
 </div>
 
 <div>
-    <button class="btn_class switch_wraps active" data-wrap="metadata">עריכת מטה</button>
+    <button class="btn_class switch_wraps" data-wrap="metadata">עריכת מטה</button>
     <button class="btn_class switch_wraps" data-wrap="header">עריכת כותרת</button>
     <button class="btn_class switch_wraps" data-wrap="content">עריכת תוכן</button>
     <button class="btn_class switch_wraps" data-wrap="preview_in_list">עריכת תצוגה מקדימה</button>
-    <button class="btn_class switch_wraps" data-wrap="versions">רשימה</button>
+    <button class="btn_class switch_wraps active" data-wrap="versions">רשימה</button>
 
 
-    <button class="btn_class btn_green" id="save_new" style="float:left;">לשמור</button>
+    <button class="btn_class btn_green" id="save_new" style="float:left;" disabled>לשמור</button>
 </div>
 
 
-<div class="wrap_two_col" style="display:inline-flex;" data-wrap="metadata">
+<div class="wrap_two_col" style="display:none;" data-wrap="metadata">
     <div class="col">
         <table class="meta_data_table">
             <tbody>
@@ -123,7 +123,7 @@
         <h2>תמונה</h2>
         <button class="btn_class open_gallery" data-bucket="generals">תמונת כותרת</button>
         <div class="wrap_images_" data-wrap_images="generals">
-            <% if(Prod && Prod.Data && Prod.Data.PreveiwInList && Prod.Data.PreveiwInList.ImageId) { let image = Prod.Data.PreveiwInList; %>
+            <% if(Prod && Prod.Data && Prod.Data.Preview) { let image = Prod.Data.Preview; %>
             <div class="gallery_image" data-imageid="<%= image.ImageId %>">
                 <img class="image_one" data-imageid="<%= image.ImageId %>" src="<%= image.LinkToBucket %>" alt="<%= image.ImageId.slice(14) %>">
                 <div class="desc">
@@ -140,7 +140,7 @@
         <h2>כותרת </h2>
         <textarea class="text_area_page_editor" style="display:none;"></textarea>
         <div class="original_html_text" style="display:block;">
-            <%- (Prod && Prod.Data.PreveiwInList?Prod.Data.PreveiwInList.Title : '') %>
+            <%- (Prod && Prod.Data.Preview ?Prod.Data.Preview.SubTitleHtml : '') %>
         </div>
         <div>
             <button class="btn_class remove_text">נקוי</button>
@@ -152,16 +152,16 @@
 </div>
 
 
-<div class="wrap_three_col" style="display:none;" data-wrap="versions">
+<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions">
     <div id="sortable" class="col connectedSortable">
-        <% if(Prods && Prods.length){ Prods.forEach(item => { %>
-        <li data-id="<%= item.Id %>">
-            <div class="navigate_item">
-                <span class="navigate_item_position"><b><%= item.Position %></b></span>
+        <% if(Prods && Prods.length){ Prods.sort((a, b) => a.Position -b.Position).forEach(item => { %>
+        <li data-id="<%= item.Id %>" data-bucket="sales">
+            <div class="page_item">
+                <span class="page_item_position"><b><%= item.Position %></b></span>
                 <b style="margin:0 2vh;">&#124;</b>
                 <span class=""><%= moment(item.DateCreate).format("DD/MM/YYYY HH:mm") %></span>
                 <b style="margin:0 2vh;">&#124;</b>
-                <b><span class="navigate_item_desc" style="margin-right:5vh;"><%= item.Data.Header.Title %></span></b>
+                <b><span class="page_item_desc" style="margin-right:5vh;"><%= item.Data.Header.Title %></span></b>
                 <i class="fas fa-bars nav_options"></i>
             </div>
         </li>
@@ -171,21 +171,22 @@
 
     <div id="sortable_tmp" class="col connectedSortable">
         <% if(Versions && Versions.length){ Versions.forEach(item => { %>
-        <li data-id="<%= item.Id %>">
-            <div class="navigate_item">
-                <span class="navigate_item_position"><b>0</b></span>
+        <li data-id="<%= item.Id %>" data-bucket="sales-tmp">
+            <div class="page_item">
+                <span class="page_item_position"><b>0</b></span>
                 <b style="margin:0 2vh;">&#124;</b>
                 <span class=""><%= moment(item.DateCreate).format("DD/MM/YYYY HH:mm") %></span>
                 <b style="margin:0 2vh;">&#124;</b>
-                <b><span class="navigate_item_desc" style="margin-right:5vh;"><%= item.Data.Header.Title %></span></b>
+                <b><span class="page_item_desc" style="margin-right:5vh;"><%= item.Data.Header.Title %></span></b>
                 <i class="fas fa-bars nav_options"></i>
+                <i class="fas fa-trash-alt remove_page" data-page="sales-tmp" style="margin:0 3vh;cursor:pointer;"  data-id="<%= item.Id %>"></i>
             </div>
         </li>
         <%})}%>
     </div>
 
     <div class="col">
-        <button class="btn_class" id="preview_new">הצגה</button>
+        <button class="btn_class" id="preview_page" disabled>הצגה</button>
         <button class="btn_class btn_blue" id="publish_page">לפרסם</button>
     </div>
 

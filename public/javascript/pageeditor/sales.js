@@ -37,18 +37,7 @@ function saveNewPage() {
     }
 
     ConformModal("אתה בטוח רוצה לשנות נווה?", () => {
-        $.ajax({
-            url: "/admin/setnewpage",
-            data: JSON.stringify({ DataPage: sale, Page:"sales" }),
-            type: "POST",
-            contentType: "application/json",
-            success: function () {
-                Flash("נשמר בהצלחה!", "success")
-            },
-            error: function () {
-                Flash("התרחשה שגיאה", "error")
-            }
-        })
+        SaveNewPageToServer(sale, 'sales')
     })
 }
 
@@ -57,36 +46,15 @@ function publishPage() {
     $("#sortable li").each((i, item) => {
         data.push(
             {
-                Position: Number($(item).find(".navigate_item_position").text()),
-                Id : $(item).attr("data-id")
+                Position: Number($(item).find(".page_item_position").text()),
+                Id: $(item).attr("data-id")
             }
         )
     })
-   
+
     if (data.length == 0 || data.length == 3) {
         ConformModal("אתה בטוח רוצה לשנות ?", () => {
-            $.ajax({
-                url: "/admin/pagetoedit/setactive/list",
-                data: JSON.stringify({ Data: data, Page:"sales" }),
-                type: "POST",
-                contentType: "application/json",
-                success: function () {
-                    Flash("נשמר בהצלחה!", "success")
-                },
-                error: function () {
-                    Flash("התרחשה שגיאה", "error")
-                }
-            })
-            $.post("/admin/pagetoedit/setactive/list/sales" , {})
-                .then(res => {
-                    Flash("נשמר בהצלחה!", "success");
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 800)
-                })
-                .fail(err => {
-                    Flash("התרחשה שגיאה", "error")
-                })
+            SetActiveMultiPages(data, bucket)
         })
     } else {
         Flash("נא לבחור גרסה!", "warning")

@@ -58,7 +58,8 @@ router.get("/pagetoedit/:id", pageEdit.GetPageById);
 router.post("/setnewpage", pageEdit.SetNewPage);
 router.post("/pagetoedit/setactive/list", pageEdit.SetActiveList);
 router.post("/pagetoedit/setactive/:id/:page", pageEdit.SetActive);
-
+router.post("/deletepage", pageEdit.DeletePage)
+router.get("/previewpage/:page/:bucket/:id", pageEdit.PreviewPage)
 
 
 

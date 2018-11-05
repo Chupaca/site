@@ -3,7 +3,7 @@
 function setupPageEditors() {
     changeStatusItemsNav($("#pages"));
     $(".pages_list").css({ "margin-right": "0" });
-    $(".pages_list [data-page='" + window.location.href.split("page=")[1] + "'] li").css({"background": "#ffffff", "color" : "#749cf3"})
+    $(".pages_list [data-page='" + window.location.href.split("page=")[1] + "'] li").css({ "background": "#ffffff", "color": "#749cf3" })
 
     $("#add_new_meta").unbind().click(addNewMeta)
     $(".remove_row_meta").unbind().click(removeMetaRow);
@@ -11,10 +11,17 @@ function setupPageEditors() {
     $(".remove_file").unbind().click(removeImage);
 
     $(".switch_wraps").unbind().click(function () {
-        $(".switch_wraps").removeClass("active")
-        $(".wrap_three_col, .wrap_two_col").hide(5);
-        $(this).addClass("active")
-        $(".wrap_three_col[data-wrap='" + $(this).attr("data-wrap") + "'], .wrap_two_col[data-wrap='" + $(this).attr("data-wrap") + "']").toggle()
+        if (!$(this).hasClass("active")) {
+            $(".switch_wraps").removeClass("active")
+            $(".wrap_three_col, .wrap_two_col").hide(5);
+            $(this).addClass("active")
+            $(".wrap_three_col[data-wrap='" + $(this).attr("data-wrap") + "'], .wrap_two_col[data-wrap='" + $(this).attr("data-wrap") + "']").toggle()
+        }
+        if($(this).attr("data-wrap") == "versions"){
+            $("#save_new").prop("disabled", true)
+        }else{
+            $("#save_new").prop("disabled", false)
+        }
     })
 
     $("#sortable, #sortable_tmp").sortable({
@@ -44,25 +51,23 @@ function setupPageEditors() {
         })
     });
     TextEvents();
-
     accordionEvents();
     $("#add_row_accardion").unbind().click(addRowAccordion)
-
     $("#save_new").unbind().click(saveNewPage);
-
     $("#publish_page").unbind().click(publishPage);
-
     $(".list_table tr").unbind().click(markRow);
-
-    sortNavItemsAfterChang()
+    sortNavItemsAfterChang();
+    $(".page_item").unbind().click(markVersionPage);
+    $("#preview_page").unbind().click(PreviewPage);
+    $(".remove_page").unbind().click(removePage)
 }
 
 function sortNavItemsAfterChang() {
     $("#sortable li").each((i, item) => {
-        $(item).find(".navigate_item_position").text(i + 1)
+        $(item).find(".page_item_position").text(i + 1)
     })
     $("#sortable_tmp li").each((i, item) => {
-        $(item).find(".navigate_item_position").text(0)
+        $(item).find(".page_item_position").text(0)
     })
 }
 
@@ -103,7 +108,7 @@ function editMetaRow() {
     $(this).closest("tr").find("select").removeAttr("disabled");
 }
 
-function TextEvents(){
+function TextEvents() {
     $(".text_formated").unbind().click(function () {
         var newWin = window.open('https://wordtohtml.net/', '', 'width=900,height=700');
         newWin.document.close();
@@ -121,7 +126,7 @@ function TextEvents(){
 }
 
 function accordionEvents(partial) {
-    if(!partial){
+    if (!partial) {
         $(".accordion_row").unbind().click(function () {
             if ($(this).hasClass("active_row_acc")) {
                 $(this).next().slideUp(350)
@@ -133,12 +138,12 @@ function accordionEvents(partial) {
             $(this).toggleClass("active_row_acc");
         });
     }
-    
+
     $(".accordion_row .edit_row").unbind().click(function (e) {
         e.preventDefault();
-        $(this).parent().find("input").removeAttr("readonly").css({"background":"#ffffff", "color":"#000000"});
+        $(this).parent().find("input").removeAttr("readonly").css({ "background": "#ffffff", "color": "#000000" });
         $(this).closest(".accordion_row").next().slideDown();
-        $(this).parent().unbind().click((e)=> {e.preventDefault(); e.stopPropagation();});
+        $(this).parent().unbind().click((e) => { e.preventDefault(); e.stopPropagation(); });
         let parent = $(this).closest(".accordion_row");
         $(parent).next().find(".text_area_page_editor").text("").toggle();
         $(parent).next().find(".original_html_text").empty().toggle();
@@ -172,7 +177,7 @@ function addRowAccordion() {
     `);
     TextEvents()
     accordionEvents(true);
-   
+
 }
 
 function markRow() {
@@ -180,6 +185,94 @@ function markRow() {
     $(this).addClass("active");
     $(this).find("td").css({ "background": "#ccc" });
 }
+
+function markVersionPage(){
+    if ($(this).hasClass("active")) {
+        $(this).removeClass("active");
+        $("#preview_page").prop("disabled", true)
+    }else{
+        $(".page_item").removeClass("active");
+        $(this).addClass("active");
+        $("#preview_page").prop("disabled", false)
+    }
+}
+
+function PreviewPage(){
+    let getPageId = $(".page_item.active").parent().attr("data-id");
+    let getPageBucket = $(".page_item.active").parent().attr("data-bucket");
+    window.open(`/admin/previewpage/${getPageBucket.replace("-tmp", "")}/${getPageBucket}/${getPageId}`)
+}
+
+function removePage() {
+    let pageId = $(this).attr("data-id");
+    let page = $(this).attr("data-page");
+    let parent = $(this).closest(".connectedSortable");
+    if (pageId) {
+        ConformModal("אתה בטוח רוצה למחוק דף ?", () => {
+            $.post("/admin/deletepage/" , {Page:page, Id:pageId})
+                .then(result => {
+                        $(parent).find("li[data-id='" + pageId + "']").remove()
+                        Flash("נמחק בהצלחה!", "success");
+                })
+                .catch(err => {
+                    Flash("אי אפשר למחוק דף אם הוה בתצוגה!", "error")
+                })
+        })
+    } else {
+        Flash("התרחשה שגיאה", "error")
+    }
+}
+
+function SaveNewPageToServer(dataPage, bucket){
+    $.ajax({
+        url: "/admin/setnewpage",
+        data: JSON.stringify({ DataPage: dataPage, Page: bucket }),
+        type: "POST",
+        contentType: "application/json",
+        success: function () {
+            Flash("נשמר בהצלחה!", "success");
+            setTimeout(() => {
+                window.location.reload();
+            }, 300)
+        },
+        error: function () {
+            Flash("התרחשה שגיאה", "error")
+        }
+    })
+}
+
+function SetActiveSinglePage(id, bucket){
+    $.post(`/admin/pagetoedit/setactive/${id}/${bucket}`)
+    .then(res => {
+        Flash("נשמר בהצלחה!", "success");
+        setTimeout(() => {
+            window.location.reload();
+        }, 800)
+    })
+    .fail(err => {
+        Flash("התרחשה שגיאה", "error")
+    })
+}
+
+function SetActiveMultiPages(data, bucket){
+    $.ajax({
+        url: "/admin/pagetoedit/setactive/list",
+        data: JSON.stringify({ Data: data, Page: bucket }),
+        type: "POST",
+        contentType: "application/json",
+        success: function () {
+            setTimeout(() => {
+                window.location.reload();
+            }, 300)
+            Flash("נשמר בהצלחה!", "success")
+        },
+        error: function () {
+            Flash("התרחשה שגיאה", "error")
+        }
+    })
+}
+
+
 
 $(document).ready(() => {
     setupPageEditors()

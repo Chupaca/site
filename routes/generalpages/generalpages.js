@@ -61,7 +61,7 @@ exports.GetSalesPage = (req, res) => {
                 Desktop: (req.device.type == 'desktop' ? true : false),
                 Navigation: generals.Navigation,
                 Footer: generals.Footer,
-                Page: generals.Page
+                Page: generals.Page.Data
             });
         })
 }

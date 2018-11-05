@@ -37,8 +37,8 @@ const GetGlobalSettingsAndPageByIndex = (page, index) => {
         pages.GetPageByKindAndIndex(page, index),
 
     ])
-        .then(([navigation, footer, sales]) => {
-            return { Navigation: navigation, Footer: footer, Sales: sales[0] }
+        .then(([navigation, footer, page]) => {
+            return { Navigation: navigation, Footer: footer, Page: page }
         })
 }
 
