@@ -1,21 +1,28 @@
 <% layout('layoutindex/mainpage') -%>
 
 <div class="contentMainImgContainer">
-    <img class="contentMainImg" alt="" src="images/mainsimg/contactMainImgqq.jpg" />
-    <h3>שירות לקוחות</h3>
-    <div class="contentTxt">אַדְרִיכָלוּת או אַרְכִיטֶקְטוּרָה מוגדרת באופן מסורתי כאמנות הבנייה. השאירו לנו הודעה
-        ונחזור אליכם בהקדם!</div>
+    <img class="contentMainImg" alt="תמונת רקע" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" />
+    <h1 tabindex="0"><%- Page.Header.Title %></h1>
+    <div class="contentTxt" tabindex="0"><%- Page.Header.SubTitleHtml %></div>
     <% if(Desktop){ %>
     <div class="tbContainer">
-        <input type="text" class="tb" placeholder="שם מלא:" />
-        <input type="text" class="tb" placeholder="טלפון:" />
-        <input type="text" class="tb" placeholder="אימייל:" />
-        <input type="text" class="tb" placeholder="כתובת:" />
-        <input type="text" class="tb" placeholder="תוכן:" />
-        <input type="button" class="tb send_btn" value="שליחה" />
+        <form class="clientcomment_form" action="/service" method="post" >
+                    <div>
+                        <input name="Name" type="text" class="tb form_input" placeholder="שם מלא:" required minlength="2"/>
+                        <input name="PhoneNumber" type="text" class="tb form_input" placeholder="טלפון:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                    </div>
+                    <div>
+                        <input name="Email" type="email" class="tb form_input" placeholder="אימייל:"  required/>
+                        <input name="City" type="text" class="tb form_input" placeholder="עיר:" required minlength="2" /> 
+                    </div>
+                    <div style="display:inline-flex;">
+                        <textarea name="Content" class="tb form_input" placeholder="תוכן:" style="height: 11vh;width: 62vh;resize:none;" required minlength="5" /></textarea>
+                        <input type="submit" class="tb send_btn" value="שליחה" style="height: 50%;margin-top: 8vh;" />
+                    </div>
+                </form>
     </div>
     <%}%>
-    <span data-scrollto="bottom_side_form" class="event_scroll_to_el to_form_section" >להזמנת שירות</span>
+    <span data-scrollto="bottom_side_form" class="event_scroll_to_el to_form_section" >השארת פרטים</span>
 
     <span class="downBtn" data-scrollto="wrap_container"><i class="far fa-caret-square-down"></i></span>
 </div>
@@ -24,209 +31,107 @@
     <div class="container">
         <div class="infoContactBox">
             <i class="far fa-clock" style="font-size: 60px;"></i>
-            <span>
+            <span tabindex="0">
                 <b>שעות פעילות</b><br />
-                א'-ה' 08:00-16:00
+                א'-ה' <%= Page.Open + " - " + Page.Close %>
             </span>
         </div>
         <div class="infoContactBox">
             <i class="far fa-envelope" style="font-size: 60px;"></i>
-            <span>
+            <span tabindex="0">
                 <b>אימייל</b><br />
-                <a href="mailto:sp@pandoor.co.il">sp@pandoor.co.il</a>
+                <a href="mailto:<%= Page.Email %>"><%= Page.Email %></a>
             </span>
         </div>
         <div class="infoContactBox">
             <i class="fas fa-mobile-alt" style="font-size: 60px;"></i>
-            <span>
+            <span tabindex="0">
                 <b>טלפון</b><br />
-                <a href="tel:03-9555034">03-9555034</a>
+                <a href="tel:<%= Page.PhoneNumber %>"><%= Page.PhoneNumber %></a>
             </span>
         </div>
         <div class="infoContactBox">
             <i class="fas fa-fax" style="font-size: 60px;"></i>
-            <span>
+            <span tabindex="0">
                 <b>פקס</b><br />
-                03-9555050
+                <%= Page.Fax %>
             </span>
         </div>
         <a href="/video">
             <div class="infoContactBox hover">
                 <i class="fas fa-film" style="font-size: 60px;"></i>
-                <span><b>פנדור T.V</b></span>
+                <span tabindex="0"><b>סרטוני הדרכה של דלתות פנדור</b></span>
             </div>
         </a>
         <div class="infoContactBox hover event_scroll_to_el" data-scrollto="installers">
             <i class="far fa-address-card" style="font-size: 60px;"></i>
-            <span><b>טיפול חירום</b></span>
+            <span tabindex="0"><b>טיפול חירום</b></span>
         </div>
     </div>
 </section>
+
+<% if(Page && Page.Accordion) {%>
 <section class="wrap_container">
     <div class="faq">
-        <div class="container">
-            <h2>שאלות נפוצות</h2>
-            <button class="accordion_row">Section 1</button>
-            <div class="accordion_inside_panel">
-                <p>
-                    Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
-                    ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
-                    amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
-                    odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
-                </p>
-            </div>
-            <button class="accordion_row">Section 2</button>
-            <div class="accordion_inside_panel">
-                <p>
-                    Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
-                    purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
-                    velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
-                    suscipit faucibus urna.
-                </p>
-            </div>
-            <button class="accordion_row">Section 3</button>
-            <div class="accordion_inside_panel">
-                <p>
-                    Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.
-                    Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero
-                    ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis
-                    lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.
-                </p>
-                <ul>
-                    <li>List item one</li>
-                    <li>List item two</li>
-                    <li>List item three</li>
-                </ul>
-            </div>
-            <button class="accordion_row">Section 4</button>
-            <div class="accordion_inside_panel">
-                <p>
-                    Cras dictum. Pellentesque habitant morbi tristique senectus et netus
-                    et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
-                    faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
-                    mauris vel est.
-                </p>
-                <p>
-                    Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
-                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
-                    inceptos himenaeos.
-                </p>
-            </div>
+        <div class="container" style="text-align: right;">
+            <h2 tabindex="0">שאלות נפוצות</h2>
+             <% Page.Accordion.forEach(item => {%>
+                <button class="accordion_row"><%- item.AccordionTitle %></button>
+                <div class="accordion_inside_panel"><p tabindex="0"><%- item.AccordionDescription %></p></div>
+            <%})%>
         </div>
     </div>
 </section>
+<%}%>
 
-
+<% if(Installers) { %>
+<style>
+    #installers{
+            background: url(<%= process.env.LINKTOBUCKETS + 'default/default_background_installers.jpg' %>) no-repeat center center;
+    }
+    @media (max-width: 900px){
+            #installers {
+                background: #282828;
+        }
+    }
+</style>
 <div class="contactImgBg" id="installers">
     <div class="container ta_center">
         <div class="ttl">
-            <img src="images/247Icon.png" /><br />
-            <b>טיפול חירום בפריצות דלתות</b>
+            <img alt="247Icon" src="/images/247Icon.png" /><br />
+            <b tabindex="0">טיפול חירום בפריצות דלתות</b>
         </div>
         <ul>
+            <% Installers.forEach(installer => { %>
             <li>
-                <a href="tel:050-3212923">
-                    <div>
-                        <b>אריק מור</b>
-                        <span>050-3212923</span>
+                <a href="tel:<%= installer.Data.PhoneNumber %>">
+                    <div tabindex="0">
+                        <b tabindex="0"><%= installer.Data.Name %></b>
+                        <span tabindex="0"><%= installer.Data.PhoneNumber %></span>
+                        <span style="font-weight: 700;color: #ff4200;" tabindex="0"><%= installer.Data.LocationHe %></span>
                     </div>
                 </a>
-                (באיזור הדרום בלבד)
+               
             </li>
-            <li>
-                <a href="tel:050-3212923">
-                    <div>
-                        <b>אריק מור</b>
-                        <span>050-3212923</span>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="tel:050-3212923">
-                    <div>
-                        <b>אריק מור</b>
-                        <span>050-3212923</span>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="tel:050-3212923">
-                    <div>
-                        <b>אריק מור</b>
-                        <span>050-3212923</span>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="tel:050-3212923">
-                    <div>
-                        <b>אריק מור</b>
-                        <span>050-3212923</span>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="tel:050-3212923">
-                    <div>
-                        <b>אריק מור</b>
-                        <span>050-3212923</span>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="tel:050-3212923">
-                    <div>
-                        <b>אריק מור</b>
-                        <span>050-3212923</span>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="tel:050-3212923">
-                    <div>
-                        <b>אריק מור</b>
-                        <span>050-3212923</span>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="tel:050-3212923">
-                    <div>
-                        <b>אריק מור</b>
-                        <span>050-3212923</span>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="tel:050-3212923">
-                    <div>
-                        <b>אריק מור</b>
-                        <span>050-3212923</span>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="tel:050-3212923">
-                    <div>
-                        <b>אריק מור</b>
-                        <span>050-3212923</span>
-                    </div>
-                </a>
-            </li>
+             <% }) %>
         </ul>
     </div>
 </div>
+ <%}%>
+
 <% if(!Desktop){%>
 <section id="bottom_side_form" class="wrap_container">
     <div class="container">
-        <h2>להזמנת שירות</h2>
+        <h2>השארת פרטים</h2>
         <div class="tbContainer bottom_side">
-            <input type="text" class="tb" placeholder="שם מלא:" />
-            <input type="text" class="tb" placeholder="טלפון:" />
-            <input type="text" class="tb" placeholder="אימייל:" />
-            <input type="text" class="tb" placeholder="כתובת:" />
-            <input type="text" class="tb" placeholder="תוכן:" />
-            <input type="button" class="tb send_btn" value="שליחה" />
+            <form class="clientcomment_form" action="/service" method="post" >
+                <input type="text" class="tb form_input" name="Name" placeholder="שם מלא:" />
+                <input type="text" class="tb form_input" name="PhoneNumber" placeholder="טלפון:" />
+                <input type="text" class="tb form_input" name="Email" placeholder="אימייל:" />
+                <input type="text" class="tb form_input" name="City" placeholder="כתובת:" />
+                <input type="text" class="tb form_input" name="Content" placeholder="תוכן:" />
+                <input type="submit" class="tb send_btn" value="שליחה" />
+            </form>
         </div>
     </div>
 </section>

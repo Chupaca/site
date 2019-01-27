@@ -1,0 +1,74 @@
+<% layout('adminpanel/index') -%>
+
+
+<h2 class="title_wrap">
+   מתקינים
+</h2>
+
+<div>
+    <button class="btn_class switch_wraps" data-wrap="active_version" >מתקין</button>
+    <button class="btn_class switch_wraps active" data-wrap="versions">רשימת מתקינים</button>
+</div>
+
+<div class="wrap_two_col" style="display:none;" data-wrap="active_version">
+    <div class="col" style="width:30%;">
+        <input type="text" id="installer_name" placeholder="שם מתקין"/><br>
+        <input type="text" id="installer_phone" placeholder="טל:"/><br>
+        <select class="select_item" id="location">
+            <option>בחר</option>
+            <option value="all">כל האיזורים</option>
+            <option value="north">צפון</option>
+            <option value="center">מרכז</option>
+            <option value="shfila">שפלה</option>
+            <option value="south">דרום</option>
+            <option value="jerusalem">ירושלים</option>
+            <option value="sharon">שרון</option>
+        </select>
+    </div>
+    <div class="col" style="width:30%;">
+        <button class="btn_class btn_green" id="save_new" style="float:left;" disabled>לשמור</button>
+    </div>
+    <div class="col" style="width:30%;"></div>
+</div>
+
+
+<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions">
+    <div id="sortable" class="col connectedSortable">
+     <h2 class="version_title">פעיל</h2>
+        <% if(Prods && Prods.length){ Prods.sort((a, b) => a.Position -b.Position).forEach(item => { %>
+        <li data-id="<%= item.Id %>" data-bucket="installers">
+            <div class="page_item">
+                <span class="page_item_position"><b><%= item.Position %></b></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span ><%= item.Data.Name %></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span class="title_news_versions"><%= item.Data.PhoneNumber %></span>
+                <i class="fas fa-bars nav_options"></i>
+            </div>
+        </li>
+        <%})}%>
+    </div>
+
+
+    <div id="sortable_tmp" class="col connectedSortable version">
+    <h2 class="version_title">לא פעיל</h2>
+        <% if(Versions && Versions.length){ Versions.forEach(item => { if(!Prods.find(prod => prod.Id == item.Id)){  %>
+        <li data-id="<%= item.Id %>" data-bucket="installers-tmp">
+            <div class="page_item">
+                <span class="page_item_position"><b>0</b></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span ><%= item.Data.Name %></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span class="title_news_versions"><%= item.Data.PhoneNumber %></span>
+                <i class="fas fa-bars nav_options"></i>
+                <i class="fas fa-trash-alt remove_page" data-page="installers-tmp" style="margin:0 3vh;cursor:pointer;"  data-id="<%= item.Id %>"></i>
+            </div>
+        </li>
+        <%}})}%>
+    </div>
+
+    <div class="col">
+        <button class="btn_class btn_blue" id="publish_page">לפרסם</button>
+    </div>
+
+</div>

@@ -1,11 +1,12 @@
 <div class="container">
     <ul class="footer-nav">
-             <% for(let i=0; i<Footer.NavStructure.length;i++){%>
-                <li><a href="<%= Footer.NavStructure[i].Link %>"><%= Footer.NavStructure[i].Description %></a></li>
-            <%}%>
+        <% Footer.forEach(itemFoo => { %>
+        <li><a href="/<%= itemFoo.Data.Link %>" tabindex="0">
+                <%= itemFoo.Data.Title %></a></li>
+        <%})%>
     </ul>
-               
-    <div class="phoneto-mobile">שירות לקוחות<br />
+
+    <div class="phoneto-mobile">התקשרו עכשיו<br />
         <a href="tel:*5058" class="light_style" style="color:#ffffff;"><i class="fa fa-phone-square" style="margin:0 5px;"></i>5058
             *</a>
         <br>
@@ -19,81 +20,37 @@
     </ul>
     <a class="footerBtn" href="/branches">לרשימת הסניפים</a>
     <ul class="site-map">
-        <% for(let i=0; i< Footer.Branches.length;i++){%>
-            <li>
-                <h3><%= Footer.Branches[i].BranchName %></h3>
-                <span><%= Footer.Branches[i].Address %></span><br>
-                <span><%= Footer.Branches[i].PhoneNumber %></span>
-            </li>
-        <%}%>
+        <% if(Branches){ Branches.forEach((itemBr, i) => { %>
+        <li tabindex="0">
+            <a href="/branches/<%= i %>">
+                <h3>
+                    <%= itemBr.Data.BranchName %>
+                </h3>
+            </a>
+            <span>
+                <%= itemBr.Data.Address %></span><br>
+            <span>
+                <%= itemBr.Data.City %></span><br>
+            <span>
+                <%= itemBr.Data.PhoneNumber %></span>
+        </li>
+        <%})}%>
     </ul>
 </div>
 <div class="footer-bottom-strip">
     <div class="container">
-        <span class="pandor-rights">כל הזכויות שמורות לדלתות פנדור ©</span>
+        <span class="pandoor_rights" tabindex="0">כל הזכויות שמורות לדלתות פנדור ©</span>
+        <img class="pandoor_left" src="<%= process.env.LINKTOBUCKETS +  'default/default_footer_madeinisrael.png' %>" alt="מיוצר בישראל"/>
+        <img class="pandoor_left" src="<%= process.env.LINKTOBUCKETS +  'default/default_footer_emonatzibur.png' %>" alt="אמון הציבור"/>
     </div>
 </div>
 
-<div id="side_sticker">
-    <div class="side_sticker_slide">
-        <div class="iconBg">
-            <a href="/architectscontact"><i class="fas fa-ruler-combined fa-rotate-180"></i></a>
-        </div>
-        <div class="iconBg sticker_description">
-            <span>אדריכל / מעצב?<br /></span>
-        </div>
-    </div>
-    <div class="side_sticker_slide">
-        <div class="iconBg">
-            <a href="https://www.facebook.com/pandoors/" target="_blank">
-                <i class="far fa-heart"></i>
-            </a>
-        </div>
-        <div class="iconBg sticker_description">
-            <a href="#"><i class="fab fa-facebook-square" style="font-size:5vh;color:#ffffff;"></i></a>
-        </div>
-    </div>
+<!-- <a href="javascript:" id="return-to-top" tabindex="-1"><i></i></a> -->
 
-    <div class="side_sticker_slide">
-        <div class="iconBg" id="priceofferbtn">
-            <a href="#">
-                <i class="fa fa-phone-square"></i>
-            </a>
-
-        </div>
-        <div class="iconBg sticker_description">
-            <span>מעוניינים לקבל הצעת מחיר ?</span>
-        </div>
-    </div>
-    <div class="side_sticker_slide">
-        <div class="iconBg">
-            <a href="#">
-                <i class="fas fa-wheelchair"></i>
-            </a>
-
-        </div>
-        <div class="iconBg sticker_description"></div>
-    </div>
-
-
-
-    <div id="closed_sticker_flag" class="<%= !Desktop?'visib':'' %>">
-        <div class="small_icons_slider"><i class="fas fa-ruler-combined fa-rotate-180"></i></div><br>
-        <div class="small_icons_slider"><i class="far fa-heart"></i></div><br>
-        <div class="small_icons_slider"><i class="fas fa-phone-square"></i></div><br>
-        <div class="small_icons_slider"><i class="fas fa-wheelchair"></i></div>
-    </div>
-</div>
-
-<div id="priceoffer_popup">
-        <div class="popup_priceoffer_modal_content">
-            <div id="ContactFormContainer" style="">
-                <h4>לקביעת פגישה:</h4>
-                <input class="tabTb" type="text" placeholder="שם מלא">
-                <input class="tabTb" type="text" placeholder="אי-מייל">
-                <input class="tabTb" type="text" placeholder="טלפון">
-                <input class="tabButton" type="button" value="שליחה">
-            </div>
-        </div>
-    </div>
-<a href="javascript:" id="return-to-top"><i></i></a>
+<% if(PixelsAndNav && PixelsAndNav.Pixels && PixelsAndNav.Pixels.length){%>
+<% PixelsAndNav.Pixels.forEach(item => { %>
+<script>
+<%= '//' + item.Description %>
+<% - item.Code %>
+</script>
+<%})}%>

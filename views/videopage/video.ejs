@@ -1,69 +1,38 @@
 <% layout('layoutindex/mainpage') -%>
 
 <div class="contentMainImgContainer">
-    <img class="contentMainImg" alt="" src="images/mainsimg/contentMainImgqq.jpg" />
-    <h3>פנדור T.V</h3>
-    <div class="contentTxt"></div>
+    <img class="contentMainImg" alt="תמונת רקע" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" />
+    <h1 tabindex="0"><%- Page.Header.Title %></h1>
+    <% if(Desktop){%>
+    <div class="contentTxt" tabindex="0"><%- Page.Header.SubTitleHtml %></div>
+    <%}%>
     <span class="downBtn" data-scrollto="wrap_container"><i class="far fa-caret-square-down"></i></span>
 </div>
 
 <section id="wrap_container" class="wrap_container">
-<div class="container">
+<div class="container" style="min-height: 82vh;">
     <div class="video_wrap">
-        <h2>פנדור T.V</h2>
-
-        <div class="video_box">
-            <div class="video_gallery">
-                <!-- <img src="http://img.youtube.com/vi/embed/tgbNymZ7vqY/maxresdefault.jpg">   // only one frame for preview -->
-                <iframe width="420" height="345" src="https://www.youtube.com/embed/tgbNymZ7vqY?controls=1" frameborder="0" allowfullscreen="1"></iframe>
-                <div class="desc">Add a description of the image here</div>
+        <h2 tabindex="0">סרטוני "עשה זאת בעצמך" של דלתות פנדור</h2>
+        <% if(!Desktop){%>
+            <div class="contentTextContainer"  tabindex="0"><%- Page.Header.SubTitleHtml %></div>
+        <%}%>
+       <% if(Page.VideoList) { let count = 1; Page.VideoList.sort((a, b) => b.Position - a.Position).forEach((item, i) => { if(i != 0 && i%6 == 0) count++ ; %> 
+            <div class="video_box" data-index="<%= count %>" style="display:<%= (i > 5?'none':'') %>">
+                <div class="video_gallery" tabindex="0">
+                    <iframe width="420" height="345" src="https://www.youtube.com/embed/<%= item.Link %>?controls=1" frameborder="0" allowfullscreen="1"></iframe>
+                    <div class="desc"><%= item.Description %></div>
+                </div>
             </div>
-        </div>
-
-
-        <div class="video_box">
-            <div class="video_gallery">
-                <iframe width="420" height="345" src="https://www.youtube.com/embed/tgbNymZ7vqY?controls=1" frameborder="0"></iframe>
-                <div class="desc">Add a description of the image here</div>
-            </div>
-        </div>
-
-        <div class="video_box">
-            <div class="video_gallery">
-                <iframe width="420" height="345" src="https://www.youtube.com/embed/tgbNymZ7vqY" frameborder="0"></iframe>
-                <div class="desc">Add a description of the image here</div>
-            </div>
-        </div>
-
-        <div class="video_box">
-            <div class="video_gallery">
-                <iframe width="420" height="345" src="https://www.youtube.com/embed/tgbNymZ7vqY" frameborder="0"></iframe>
-                <div class="desc">Add a description of the image here</div>
-            </div>
-        </div>
-
-        <div class="video_box">
-            <div class="video_gallery">
-                <iframe width="420" height="345" src="https://www.youtube.com/embed/tgbNymZ7vqY" frameborder="0"></iframe>
-                <div class="desc">Add a description of the image here</div>
-            </div>
-        </div>
-
-        <div class="video_box">
-            <div class="video_gallery">
-                <iframe width="420" height="345" src="https://www.youtube.com/embed/tgbNymZ7vqY" frameborder="0"></iframe>
-                <div class="desc">Add a description of the image here</div>
-            </div>
-        </div>
+        <%})}%>
 
     </div>
     <div class="num_pages_wrap">
-        <div class="num_page_btn">1</div>
-        <div class="num_page_btn">2</div>
-        <div class="num_page_btn">3</div>
-        <div class="num_page_btn">4</div>
-        <div class="num_page_btn">...</div>
-        <div class="num_page_btn">&gt;</div>
-    </div>
+        <div class="num_prev_page_btn" tabindex="0" onclick="PrevSimplePage('video_box', 'block')" style="display:none;">&lt;</div>
+            <div class="num_page_btn active" tabindex="0" onclick="SimpleChangePage(this, 1, 'video_box', 'block')" >1</div>
+            <% count= 2; for(let i= 0; i<Page.VideoList.length-6;i +=6 ){ %>
+            <div class="num_page_btn" tabindex="0" onclick="SimpleChangePage(this, <%= count %>, 'video_box' , 'block')"><%= count %></div>
+            <% count++; }%>
+            <div class="num_next_page_btn" tabindex="0" onclick="NextSimplePage('video_box', 'block')">&gt;</div>
+         </div>
     </div>
 </section>

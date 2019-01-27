@@ -1,0 +1,24 @@
+<% layout('layoutindex/mainpage') -%>
+
+<div class="contentMainImgContainer">
+     <img class="contentMainImg" alt="תמונת רקע" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" />
+     <h1 tabindex="0"><%- Page.Header.Title %></h1>
+    <div class="contentTxt" tabindex="0"><%- Page.Header.SubTitleHtml %></div>
+    <span class="downBtn" data-scrollto="wrap_container"><i class="far fa-caret-square-down"></i></span>
+</div>
+
+<section id="wrap_container" class="wrap_container">
+    <div class="container">
+        <div class="contentTextContainer" tabindex="0"><%- Page.Content.ContentHtml %></div>
+        <div class="contentImages">
+            <% if(Page.Content.ContentImages && Page.Content.ContentImages.length ) {  Page.Content.ContentImages.forEach(item => { %>
+                   <img tabindex="0" alt="<%= item.ImageId %>" src="<%= process.env.LINKTOBUCKETS + item.LinkToBucket + item.ImageId %>" style="width:100%;" onclick="openWithSimpleImageModal(this)"/>
+             <%})}%>
+        </div>
+   
+    <div style="margin-top: 5em;">
+            <a href="/blogs"><input type="button" class="btn_all_pages" value="לכל המאמרים"></a>
+    </div>
+
+     </div>
+</section>

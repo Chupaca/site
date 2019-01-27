@@ -1,0 +1,77 @@
+<% layout('adminpanel/index') -%>
+
+<h2 class="title_wrap">
+    מייל נכנס
+</h2>
+<style>
+    .accordion_row{
+        padding-top:1vh;
+        padding-bottom:1vh;
+    }
+    .accordion_row span{
+        display:inline-table;
+        padding:1vh;
+        width:20vh;
+        vertical-align: middle;
+    }
+    .accordion_inside_panel{
+        padding:1vh
+    }
+    .flashing_sos{
+    animation-name: flashing;
+	animation-duration: 1s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+    }
+    @keyframes flashing {  
+        0% { background: #ffffff;}
+        100% { background: #ff4200 }
+    }
+    
+</style>
+<% let typeOfMails = {
+    'architectblank' : "טופס אדריכל",
+    'project':'קבלן',
+    'architect':'אדריכל'
+}%>
+<%let bucketsMails = {
+    'architectblank' : "architectblankapplicant-tmp",
+    'project':'projectapplicant-tmp',
+    'architect':'architectapplicant-tmp'
+}%>
+
+<div class="wrap_two_col" style="display:inline-flex;" >
+    <div class="col" style="width:95%;">
+        <div class="accordion_container">
+            <% if(IncomingRequests) { IncomingRequests.forEach(item => { %>
+                <button class="accordion_row" data-id="<%= item.Id %>" data-bucket="<%= (bucketsMails[item.Data.TypeRequest]) %>" data-active="<%- item.Data.Active %>">
+                    <span class="<%= (item.Data.Active?'flashing_sos':'') %>" style="width:2vh;"></span>
+                    <span><%= (typeOfMails[item.Data.TypeRequest] || 'אחר') %></span>
+                    <span><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
+                    <span><%= item.Data.Name %></span>
+                    <span><%= item.Data.PhoneNumber %></span>
+                    <span><%= item.Data.Email %></span>
+                    <span><%= item.Data.City %></span>
+                    <i class="fas fa-trash-alt remove_acc_row"></i>
+                </button>
+                <% if(item.Data.TypeRequest == 'architectblank'){%>
+                 <div class="accordion_inside_panel">
+                    <ul>
+                        <li><%= item.Data.Name %></li>
+                        <li><%= item.Data.PhoneNumber %></li>
+                        <li><%= item.Data.Email %></li>
+                        <li><%= item.Data.City %></li>
+                        <li><a href="<%= process.env.LINKTOBUCKETS + 'architectsblankavatars/' + item.Data.LinkImage %>" target="blank">לינק תמונה</a></li>
+                        <li><%= item.Data.Request %></li>
+                    </ul>
+                    </div>
+                <%}else{%>
+                    <div class="accordion_inside_panel">
+                        <div class="original_html_text" style="display:block;"><%= item.Data.Request %></div>
+                    </div>
+                <%}%>
+            <% })} %>
+        </div>
+    </div>
+    <div class="col" style="width:5%;"></div>
+</div>

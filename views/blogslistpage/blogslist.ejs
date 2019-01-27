@@ -1,106 +1,46 @@
 <% layout('layoutindex/mainpage') -%>
 
 <div class="contentMainImgContainer">
-    <img class="contentMainImg" alt="" src="images/mainsimg/contentMainImgqq.jpg" />
-    <h3>מעמרים</h3>
-    <div class="contentTxt"></div>
+    <img class="contentMainImg" alt="תמונת רקע" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" />
+    <h1 tabindex="0"><%- Page.Header.Title %></h1>
+    <div class="contentTxt" tabindex="0"><%- Page.Header.SubTitleHtml %></div>
     <span class="downBtn" data-scrollto="wrap_container"><i class="far fa-caret-square-down"></i></span>
 </div>
 
 <section id="wrap_container" class="wrap_container">
     <div class="container">
-    <h2 class="section_title">מעמרים</h2>
-    <div class="block_wrap">
-        <div class="block_box">
-            <a href="/blog">
-                <img src="images/demo-pic-home-sale-long.jpg" />
-                <div class="block_description">
-                    <div class="block_date">15.02</div>
-                    <div class="block_title">
-                        <h5>בלה בלה בלה</h5>
-                        <span>נות המקסימים. הילדות בעננים, והמתקין נתן שירות</span>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="block_box">
-            <a href="/blog">
-                <img src="images/demo-pic-home-sale-long.jpg" />
-                <div class="block_description">
-                    <div class="block_date">15.02</div>
-                    <div class="block_title">
-                        <h5>בלה בלה בלה</h5>
-                        <span>נות המקסימים. הילדות בעננים, והמתקין נתן שירות</span>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-
-    <div class="block_wrap">
-        <div class="block_box">
-            <a href="/blog">
-                <img src="images/demo-pic-home-sale-long.jpg" />
-                <div class="block_description">
-                    <div class="block_date">15.02</div>
-                    <div class="block_title">
-                        <h5>בלה בלה בלה</h5>
-                        <span>נות המקסימים. הילדות בעננים, והמתקין נתן שירות</span>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="block_box">
-            <a href="/blog">
-                <img src="images/demo-pic-home-sale-long.jpg" />
-                <div class="block_description">
-                    <div class="block_date">15.02</div>
-                    <div class="block_title">
-                        <h5>בלה בלה בלה</h5>
-                        <span>נות המקסימים. הילדות בעננים, והמתקין נתן שירות</span>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-
-    <div class="block_wrap">
-        <div class="block_box">
-            <a href="/blog">
-                <img src="images/demo-pic-home-sale-long.jpg" />
-                <div class="block_description">
-                    <div class="block_date">15.02</div>
-                    <div class="block_title">
-                        <h5>בלה בלה בלה</h5>
-                        <span>נות המקסימים. הילדות בעננים, והמתקין נתן שירות</span>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="block_box">
-            <a href="/blog">
-                <img src="images/demo-pic-home-sale-long.jpg" />
-                <div class="block_description">
-                    <div class="block_date">15.02</div>
-                    <div class="block_title">
-                        <h5>בלה בלה בלה</h5>
-                        <span>נות המקסימים. הילדות בעננים, והמתקין נתן שירות</span>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
+    <h2 class="section_title" tabindex="0">מאמרים</h2>
+    <% for(let i=0;i<Blogs.length;i++){%>
+            <% if(i == 0 || i == 2 || i == 4){ %>
+                <div class="blog_wrap">
+            <%}%>
     
-    <div class="num_pages_wrap">
-        <div class="num_page_btn">1</div>
-        <div class="num_page_btn">2</div>
-        <div class="num_page_btn">3</div>
-        <div class="num_page_btn">4</div>
-        <div class="num_page_btn">...</div>
-        <div class="num_page_btn">&gt;</div>
+                        <div class="blog_box">
+                        <a href="/blog/<%= Blogs[i].Position %>">
+                            <img tabindex="0" alt="<%= Blogs[i].Data.Preview.ImageId %>" src="<%= process.env.LINKTOBUCKETS + Blogs[i].Data.Preview.LinkToBucket + Blogs[i].Data.Preview.ImageId %>" />
+                            <div class="blog_description">
+                                <div class="blog_date" tabindex="0"><%= moment(Blogs[i].Data.Preview.Date, 'DD/MM/YYYY').format("MM.YYYY") %></div>
+                                <div class="blog_title">
+                                    <span tabindex="0"><%= Blogs[i].Data.Preview.SubTitleHtml %></span>
+                                </div>
+                            </div>
+                        </a>
+                        </div>
+       <% if(i == 1 || i == 3 || i == 5){ %>
+            </div>
+            </br></br></br>
+      <%}%>
+    <%}%>
+
+    
+   <!-- <div tabindex="0" class="num_pages_wrap">
+        <div tabindex="0" class="num_page_btn">1</div>
+        <div tabindex="0" class="num_page_btn">2</div>
+        <div tabindex="0" class="num_page_btn">3</div>
+        <div tabindex="0" class="num_page_btn">4</div>
+        <div tabindex="0" class="num_page_btn">...</div>
+        <div tabindex="0" class="num_page_btn">&gt;</div>
+        -->
     </div>
     </div>
 </section>

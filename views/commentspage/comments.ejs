@@ -1,99 +1,79 @@
 <% layout('layoutindex/mainpage') -%>
 
 <div class="contentMainImgContainer">
-        <img class="contentMainImg" alt="" src="images/mainsimg/contactMainImgqq.jpg" />
-        <h3>לקוחות מספרים</h3>
-        <div class="contentTxt">תשיר למו משהו</div>
+         <img class="contentMainImg" alt="תמונת רקע" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" />
+         <h1 tabindex="0"><%- Page.Header.Title %></h1>
+         <div class="contentTxt" tabindex="0"><%- Page.Header.SubTitleHtml %></div>
         <% if(Desktop){ %>
         <div class="tbContainer">
-            <input type="text" class="tb" placeholder="שם מלא:" />
-            <input type="text" class="tb" placeholder="טלפון:" />
-            <input type="text" class="tb" placeholder="אימייל:" />
-            <input type="text" class="tb" placeholder="כתובת:" />
-            <input type="text" class="tb" placeholder="תוכן:" />
-            <input type="button" class="tb send_btn" value="שליחה" />
+          <form class="clientcomment_form" action="/clientcomment" method="post" >
+            <div>
+                 <input name="Name" type="text" class="tb form_input" placeholder="שם מלא:" required minlength="2"/>
+                 <input name="PhoneNumber" type="text" class="tb form_input" placeholder="טלפון:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+            </div>
+             <div>
+                <input name="Email" type="email" class="tb form_input" placeholder="אימייל:"  required/>
+                <input name="City" type="text" class="tb form_input" placeholder="עיר:" required minlength="2" /> 
+            </div>
+            <div style="display:inline-flex;">
+                <textarea name="Content" class="tb form_input" placeholder="תוכן:" style="height: 11vh;width: 62vh;resize:none;" required minlength="5" /></textarea>
+                <input type="submit" class="tb send_btn" value="שליחה" style="height: 50%;margin-top: 8vh;" />
+            </div>
+            </form>
         </div>
         <%}%>
-        <span data-scrollto="bottom_side_form" class="event_scroll_to_el to_form_section" >תשיר למו משהו</span>
+        <span data-scrollto="bottom_side_form" class="event_scroll_to_el to_form_section" >כתבו לנו</span>
     
         <span class="downBtn" data-scrollto="wrap_container"><i class="far fa-caret-square-down"></i></span>
     </div>
 
 <section id="wrap_container" class="wrap_container">
     <div class="container">
-        <h2>לקוחות מספרים</h2>
+        <h2 tabindex="0">לקוחות מספרים</h2>
         <div style="margin-bottom: 5vh;">
             <table id="architects_tb">
                 <tbody>
-                    <tr>
+                 <% let countCom = 1; Comments.sort((a, b) => a.Position - b.Position).forEach((comment, i) => { if(i != 0 && i%4 == 0) countCom++ ; %> 
+                    <tr class="comment_client_row" data-index="<%= countCom %>" style="display:<%= (i > 3?'none':'') %>">
                         <td class="architect_logo">
-                            <img class="" src="images/Recommendations-demo-pic.jpg" />
+                            <img class="" alt="תמונת לקוח" src="<%= process.env.LINKTOBUCKETS + comment.Data.ProfileImage %>" />
                         </td>
-                        <td class="architect_name"><span class="client-name">בראד פיט, פתח תקווה</span></q></td>
-                        <td class="architect_description">
-                            <q>תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב.
-                                תודה
-                                רבה.</q>
+                        <td class="comments_name">
+                            <b><span class="client-name" tabindex="0"><%= comment.Data.Name + " , " + comment.Data.City %></span></b>
+                        </td>
+                        <td class="comments_row">
+                            <q><span tabindex="0"><%= comment.Data.Comment %></span></q>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="architect_logo">
-                            <img class="" src="images/Recommendations-demo-pic.jpg" />
-                        </td>
-                        <td class="architect_name"><span class="client-name">בראד פיט, פתח תקווה</span></q></td>
-                        <td class="architect_description">
-                            <q>תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב.
-                                תודה
-                                רבה.</q>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="architect_logo">
-                            <img class="" src="images/Recommendations-demo-pic.jpg" />
-                        </td>
-                        <td class="architect_name"><span class="client-name">בראד פיט, פתח תקווה</span></q></td>
-                        <td class="architect_description">
-                            <q>תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב.
-                                תודה
-                                רבה.</q>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="architect_logo">
-                            <img class="" src="images/Recommendations-demo-pic.jpg" />
-                        </td>
-                        <td class="architect_name"><span class="client-name">בראד פיט, פתח תקווה</span></q></td>
-                        <td class="architect_description">
-                            <q>תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב.
-                                תודה
-                                רבה.</q>
-                        </td>
-                    </tr>
+                   <%})%>
                 </tbody>
             </table>
         </div>
-        <div class="num_pages_wrap">
-            <div class="num_page_btn">1</div>
-            <div class="num_page_btn">2</div>
-            <div class="num_page_btn">3</div>
-            <div class="num_page_btn">4</div>
-            <div class="num_page_btn">...</div>
-            <div class="num_page_btn">&gt;</div>
-        </div>
+          <div class="num_pages_wrap">
+        <div class="num_prev_page_btn" tabindex="0" onclick="PrevSimplePage('comment_client_row', 'table-row')" style="display:none;">&lt;</div>
+            <div class="num_page_btn active" tabindex="0" onclick="SimpleChangePage(this, 1, 'comment_client_row', 'table-row')" >1</div>
+            <% countCom= 2; for(let i= 0; i< Comments.length-4;i +=4 ){ %>
+            <div class="num_page_btn" tabindex="0" onclick="SimpleChangePage(this, <%= countCom %>, 'comment_client_row', 'table-row')"><%= countCom %></div>
+            <% countCom++; }%>
+            <div class="num_next_page_btn" tabindex="0" onclick="NextSimplePage('comment_client_row', 'table-row')">&gt;</div>
+         </div>
+    </div>
     </div>
 </section>
 
 <% if(!Desktop){%>
     <section id="bottom_side_form" class="wrap_container">
         <div class="container">
-            <h2>להזמנת שירות</h2>
+            <h2>כתבו לנו תגובה</h2>
             <div class="tbContainer bottom_side">
-                <input type="text" class="tb" placeholder="שם מלא:" />
-                <input type="text" class="tb" placeholder="טלפון:" />
-                <input type="text" class="tb" placeholder="אימייל:" />
-                <input type="text" class="tb" placeholder="כתובת:" />
-                <input type="text" class="tb" placeholder="תוכן:" />
-                <input type="button" class="tb send_btn" value="שליחה" />
+             <form class="clientcomment_form" action="/clientcomment" method="post" >
+                <input name="Name" type="text" class="tb form_input" placeholder="שם מלא:" required minlength="2"/>
+                <input name="PhoneNumber"type="text" class="tb form_input" placeholder="טלפון:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                <input name="Email"type="email" class="tb form_input" placeholder="אימייל:"  required/>
+                <input name="City"type="text" class="tb form_input" placeholder="עיר:" required minlength="2" /> 
+                <textarea name="Content" class="tb form_input" placeholder="תוכן:" style="font-size: 2vh;height: 11vh;width: 36vh;resize:none;" required minlength="5" /></textarea>
+                <input type="submit" class="tb send_btn" value="שליחה" />
+            </form>
             </div>
         </div>
     </section>

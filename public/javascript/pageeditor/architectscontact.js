@@ -2,33 +2,11 @@
 
 
 function saveNewPage() {
-    let architectsContact = { MetaData: [], Accordion: [] };
-    $(".meta_data_table tr").each((i, item) => {
-        architectsContact.MetaData.push(
-            {
-                MetaType: $(item).find(".type_meta_select option:selected").val(),
-                MetaDescription: $(item).find("td:eq(1) input").val(),
-            }
-        )
-    })
+    let architectsContact = { Accordion: [] };
+    architectsContact.MetaData = GetMetaData();
+    architectsContact.Header = GetHeaderData();
+    architectsContact.Content = GetSimpleContent()
 
-    architectsContact.Header = {
-        ImageId: $(".wrap_header_page .wrap_images_ .gallery_image").attr("data-imageid"),
-        LinkToBucket: $(".wrap_header_page .wrap_images_ .gallery_image .image_one").attr("src"),
-        Title: $(".wrap_header_page .title_header").val(),
-        SubTitleHtml: $(".wrap_header_page .original_html_text").html()
-    }
-
-    architectsContact.Content = {
-        ContentImages: Array.from($(".wrap_content_page .wrap_images_ .image_one")).map(item => {
-            return {
-                ImageId: $(item).attr("data-imageid"),
-                LinkToBucket: $(item).attr("src")
-            }
-
-        }),
-        ContentHtml: $(".wrap_content_page .original_html_text").html()
-    }
     architectsContact.Accordion = Array.from($(".accordion_row")).map(item => {
         return {
             AccordionTitle: $(item).find("input").val(),
@@ -36,10 +14,14 @@ function saveNewPage() {
         }
     })
 
-
-    ConformModal("אתה בטוח רוצה לשנות נווה?", () => {
-        SaveNewPageToServer(architectsContact, "architectscontact");
-    })
+    if (architectsContact.MetaData && architectsContact.Header && architectsContact.Content) {
+        ConformModal("האם אתה רוצה לשמור גרסה חדשה?", () => {
+            SaveNewPageToServer(architectsContact, "architectscontact");
+        })
+    } else {
+        Flash('לא כל השדות מלאים!', 'warning');
+        return;
+    }
 }
 
 
@@ -54,10 +36,25 @@ function publishPage() {
         )
     })
     if (data && data.length == 1) {
-        ConformModal("אתה בטוח רוצה לשנות נווה?", () => {
+        ConformModal("האם אתה רוצה לפרסם גרסה ?", () => {
             SetActiveSinglePage(data[0].Id, "architectscontact")
         })
     } else {
         Flash("אי אפשר לשמור ללא דף ולא יותר מ-1", "warning")
     }
+}
+
+function SetFieldsTemplate(template) {
+    SetEmptyBlocks()
+    $(".meta_data_table tbody").html(BuildMetaRow(template.MetaData));
+    $(".remove_row_meta").unbind().click(removeMetaRow);
+    GetImagePreviewFormattingTemplate([template.Header.ImageId], [template.Header.LinkToBucket], "headers");
+    $(".wrap_header_page .title_header").val(template.Header.Title);
+    $(".remove_text").trigger("click")
+    $(".wrap_header_page .original_html_text").html(template.Header.SubTitleHtml);
+    GetImagePreviewFormattingTemplate(template.Content.ContentImages.map(item => item.ImageId), template.Content.ContentImages.map(item => item.LinkToBucket), "generals");
+    $(".wrap_content_page .original_html_text").html(template.Content.ContentHtml);
+    $(".switch_wraps[data-wrap='metadata']").trigger("click");
+    $(".accordion_container").html(BuildAccordion(template.Accordion))
+    accordionEvents(false)
 }

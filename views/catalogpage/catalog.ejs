@@ -1,90 +1,33 @@
 <% layout('layoutindex/mainpage') -%>
 
 <%if(!Desktop){%>
-<div class="contentMainImgContainer">
-    <img class="contentMainImg" alt="" src="images/mainsimg/contentMainImgqq.jpg">
-    <h3>קולקצית פנדור </h3>
-    <div class="contentTxt">שילוב של ידע וניסיון רב שנים, שימוש בחומרים מהשורה הראשונה ובאמצעים האיכותיים והמתקדמים
-        ביותר, תורמים להיותה יצרנית דלתות הפנים הגדולה בישראל.
-        פנדור מצטיינת ב: מוניטין, איכות מוצרים גבוהה, עיצוב מרהיב ושירות לקוחות אמין ובלתי מתפשר לאורך כל שנות
-        קיומה.
-        חזון החברה מציב את דלתות הפנים כחלק אינטגרלי מעיצוב הבית כולו. מדובר בשינוי בצורה בה אנו תופשים דלתות פנים;
-        מאלמנט פונקציונאלי בלבד, לאחד המרכיבים החשובים והייחודים בעיצוב פנים הבית.
-    </div>
+<div class="contentMainImgContainer" style="background: #000000 url(<%= process.env.LINKTOBUCKETS + 'default/default_background_collactoins.mobile.jpg' %>) no-repeat center;">
+    <h1 tabindex="0"><%- Page.Header.Title %></h1>
+    <div class="contentTxt" tabindex="0"><%- Page.Header.SubTitleHtml %></div>
 </div>
 <%}%>
 
-<div class="catalog" style="">
+ <% if(Desktop){ %>
+<div class="global_catalog_wrap" style="background: url(<%- (process.env.LINKTOBUCKETS + 'default/default_background_collactoins.jpg') %>) no-repeat;">
+<%} else {%>
+    <div class="contactImgBg" style="background:#eeeeee;">
+<%}%>
     <div class="container">
         <% if(Desktop){ %>
-        <h1>קולקצית פנדור</h1>
-        <div class="catTxt">שילוב של ידע וניסיון רב שנים, שימוש בחומרים מהשורה הראשונה ובאמצעים האיכותיים והמתקדמים
-            ביותר, תורמים להיותה יצרנית דלתות הפנים הגדולה בישראל.
-            פנדור מצטיינת ב: מוניטין, איכות מוצרים גבוהה, עיצוב מרהיב ושירות לקוחות אמין ובלתי מתפשר לאורך כל שנות
-            קיומה.
-            חזון החברה מציב את דלתות הפנים כחלק אינטגרלי מעיצוב הבית כולו. מדובר בשינוי בצורה בה אנו תופשים דלתות פנים;
-            מאלמנט פונקציונאלי בלבד, לאחד המרכיבים החשובים והייחודים בעיצוב פנים הבית.
-        </div>
+        <h1 tabindex="0"><%- Page.Header.Title %></h1>
+        <div class="catTxt" tabindex="0"><%- Page.Header.SubTitleHtml %></div>
         <%}%>
+        <% Page.DoorPages.forEach(item =>{ %> 
         <div class="doorsBox">
-            <a href="/door" class="catalog_link_door">
-                <img alt="" src="images/catDoorDemo.png" class="image_door" />
-                <img class="catalog_frame_door" alt="" src="images/ff.png" />
-                <div class="description_door_catalog">
-                    נדור מצטיינת ב: מוניטין, bls מוצרים גבוהה, עיצוב מרהיב
-                </div>
+            <a href="/door/<%= item.IndexPage %>" class="catalog_link_door">
+                <img tabindex="0" alt="דור קולקציה" src="<%= process.env.LINKTOBUCKETS + item.FrontModelImage %>" class="image_door" />
+                <% if(Desktop){ %>
+                <img tabindex="0" class="catalog_frame_door" alt="הלבשה" src="<%= process.env.LINKTOBUCKETS + item.FrameModel %>" />
+                <%}%>
+                <div class="description_door_catalog" tabindex="0"><%= item.Description %></div>
             </a>
-            <a class="btn-model" href="/door">bla</a>
+            <a class="btn-model" href="/door/<%= item.IndexPage %>" tabindex="0" ><%= item.CollectionName %></a>
         </div>
-        <div class="doorsBox">
-            <a href="#" class="catalog_link_door">
-                <img alt="" src="images/catDoorDemo.png" class="image_door" />
-            </a>
-            <img class="catalog_frame_door" alt="" src="images/ff.png" />
-            <div class="description_door_catalog">
-                נדור מצטיינת ב: מוניטין, bls מוצרים גבוהה, עיצוב מרהיב
-            </div>
-            <a class="btn-model" href="#">bla</a>
-        </div>
-        <div class="doorsBox">
-            <a href="#" class="catalog_link_door">
-                <img alt="" src="images/catDoorDemo.png" class="image_door" />
-            </a>
-            <img class="catalog_frame_door" alt="" src="images/ff.png" />
-            <div class="description_door_catalog">
-                נדור מצטיינת ב: מוניטין, bls מוצרים גבוהה, עיצוב מרהיב
-            </div>
-            <a class="btn-model" href="#">bla</a>
-        </div>
-        <div class="doorsBox">
-            <a href="#" class="catalog_link_door">
-                <img alt="" src="images/catDoorDemo.png" class="image_door" />
-            </a>
-            <img class="catalog_frame_door" alt="" src="images/ff.png" />
-            <div class="description_door_catalog">
-                נדור מצטיינת ב: מוניטין, bls מוצרים גבוהה, עיצוב מרהיב
-            </div>
-            <a class="btn-model" href="#">bla</a>
-        </div>
-        <div class="doorsBox">
-            <a href="#" class="catalog_link_door">
-                <img alt="" src="images/catDoorDemo.png" class="image_door" />
-            </a>
-            <img class="catalog_frame_door" alt="" src="images/ff.png" />
-            <div class="description_door_catalog">
-                נדור מצטיינת ב: מוניטין, bls מוצרים גבוהה, עיצוב מרהיב
-            </div>
-            <a class="btn-model" href="#">bla</a>
-        </div>
-        <!-- <div class="doorsBox">
-            <a href="#" class="catalog_link_door">
-                <img alt="" src="images/catDoorDemo.png" class="image_door" />
-            </a>
-            <img class="catalog_frame_door" alt="" src="images/ff.png" />
-            <div class="description_door_catalog">
-                נדור מצטיינת ב: מוניטין, bls מוצרים גבוהה, עיצוב מרהיב
-            </div>
-            <a class="btn-model" href="#">bla</a>
-        </div> -->
+        <%})%>
     </div>
 </div>

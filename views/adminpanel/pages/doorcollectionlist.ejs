@@ -1,0 +1,91 @@
+<% layout('adminpanel/index') -%>
+
+
+<h2 class="title_wrap">
+    קולקציות דלתות
+</h2>
+
+<div>
+    <button class="btn_class switch_wraps" data-wrap="models_collection"> שם ודגמים</button>
+    <button class="btn_class switch_wraps" data-wrap="doors_collection">דוגמות דלתות</button>
+    <button class="btn_class switch_wraps active" data-wrap="versions">רשימת קולקציות</button>
+    <button class="btn_class btn_green" id="save_new" style="float:left;" disabled>לשמור</button>
+</div>
+
+<div class="wrap_two_col" style="display:none;" data-wrap="models_collection">
+    <div class="col" style="max-height: 63vh;">
+        <input type="text" id="CollectionName" placeholder="שם קולקציה" />
+        <input type="hidden" id="CollectionId" value />
+        <table class="models_table" style="width: 100%;">
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="col">
+        <button class="btn_class" id="add_new_model">הוסיף חדש</button><br>
+        <button class="btn_class text_formated">הוסיף תוכן</button>
+    </div>
+</div>
+
+<div class="wrap_two_col" style="display:none;" data-wrap="doors_collection">
+    <div class="col" style="max-height: 63vh;">
+        <table class="doors_table" style="width: 100%;">
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="col">
+        <button class="btn_class" id="add_new_door">הוסיף חדש</button><br>
+    </div>
+</div>
+
+<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions">
+    <div id="sortable" class="col connectedSortable">
+     <h2 class="version_title">פעיל</h2>
+        <% if(Prods && Prods.length){ Prods.sort((a, b) => a.Position -b.Position).forEach(item => { %>
+        <li data-id="<%= item.Id %>" data-bucket="doorcollectionlist">
+            <div class="page_item">
+                <span class="page_item_position"><b>
+                        <%= item.Position %></b></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span>
+                    <%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %>
+                </span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span class="title_news_versions">
+                    <%= item.Data.CollectionName %>
+                </span>
+                <i class="fas fa-bars nav_options"></i>
+            </div>
+        </li>
+        <%})}%>
+    </div>
+
+
+    <div id="sortable_tmp" class="col connectedSortable version">
+    <h2 class="version_title">לא פעיל</h2>
+        <% if(Versions && Versions.length){ Versions.forEach(item => { if(!Prods.find(prod => prod.Id == item.Id)){  %>
+        <li data-id="<%= item.Id %>" data-bucket="doorcollectionlist-tmp">
+            <div class="page_item">
+                <span class="page_item_position"><b>0</b></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span>
+                    <%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %>
+                </span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span class="title_news_versions">
+                         <%= item.Data.CollectionName %>
+                </span>
+                <i class="fas fa-bars nav_options"></i>
+                <i class="fas fa-trash-alt remove_page" data-page="doorcollectionlist-tmp" style="margin:0 3vh;cursor:pointer;"
+                    data-id="<%= item.Id %>"></i>
+            </div>
+        </li>
+        <%}})}%>
+    </div>
+
+    <div class="col">
+        <button class="btn_class" id="edit_collection" disabled>עריכה</button><br>
+        <button class="btn_class btn_blue" id="publish_page">לפרסם</button>
+        <input type="hidden" id="architects_list" value="<%= JSON.stringify( Versions.map(item => { return ({Id : item.Id, Name: item.Data.Name})}) ) %>">
+    </div>
+
+</div>

@@ -1,0 +1,161 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    overflow-y: hidden;
+    padding-top: 0.6vh; 
+  
+}
+#general_wrap{
+    position: relative;
+}
+#background_image{
+    width: 85%;
+    margin: 0 7.5%;
+}
+#form_wrap{
+    width: 21%;
+    position: absolute;
+    border-radius: 7px;
+    text-align: center;
+    direction: rtl;
+    left: 26.2vh;
+    height: 43vh;
+    top: 14%;
+    background: url(/images/contact_frame.png) 53% 43%/95% 100% no-repeat content-box;
+}
+#form_wrap form{
+    position: absolute;
+    height: 50%;
+    padding-top: 31%;
+    text-align: center;
+}
+#form_title{
+    color: #ffffff;
+    font-size: 2.6vh;
+    font-weight: 100;
+}
+#form_wrap input[type=text]{
+    height: 4vh;
+    margin: 1vh;
+    width: 52%;
+    border-radius: 20px;
+    outline: 0;
+    padding-right: 2vh;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    box-shadow: inset 0px 0px 8px 0px;
+}
+#form_wrap input[type=submit]{
+    width: 40%;
+    padding: 1vh;
+    background: #d6652d;
+    border: 0;
+    color: #fff;
+    font-size: 2.2vh;
+    cursor: pointer;
+}
+#wrap_slider_doors{
+    position: absolute;
+    top: 16%;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 35%;
+    height: 100%;
+    min-height: 58vh;
+    max-height: 58vh;
+    left: 33%;
+    overflow: hidden;
+}
+#sales_door_wrap {
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    display: ruby;
+    cursor:e-resize;
+}
+#sales_door_wrap img{
+    width: 34%;
+    margin: 2vh 3vh;
+    height: 96%;
+}
+.phone_wrap{
+    width: 7%;
+    height: 6%;
+    position: absolute;
+    bottom: 35%;
+    left: 20%;
+    text-decoration: none;
+    background: url(/images/button_phone.png) 53% 43%/95% 100% no-repeat content-box;
+}
+
+@media all and (max-width: 500px) {
+    #general_wrap{
+        height: 100vh;
+        overflow-y: auto;
+        position: relative;
+    }
+    #wrap_slider_doors{
+        position: absolute;
+        overflow: hidden;
+        display: flex;
+        width: 95%;
+        height: 100%;
+        min-height: 42vh;
+        max-height: 42vh;
+        left: 1%;
+        top: 29%;
+    }
+    #sales_door_wrap {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+    #sales_door_wrap img{
+        width: 34%;
+        margin: 2vh 3vh;
+        height: 91%;
+    }
+    .mobile_top img:first-child{
+        height: 84vh;
+        margin: 0;
+        width: 100%;
+    }
+    .mobile_footer img:first-child{
+        height: 52vh;
+        margin: 0;
+        width: 100%;
+    }
+    #form_wrap{
+        width: 96%;
+        position: initial;
+        margin: 0vh 2% 0 2%;
+    }
+    #form_wrap form {
+        position: relative;
+        padding-top: 18%;
+        text-align: center;
+    }
+    #form_wrap input[type=submit] {
+        margin-top: 6vh;
+        position: absolute;
+        margin-right: -40%;
+        width: 20%;
+        padding: 1vh;
+        background: #d6652d;
+        border: 0;
+        color: #fff;
+        font-size: 2.2vh;
+        cursor: pointer;
+    }
+    .phone_wrap{
+        width: 42%;
+        height: 9%;
+        position: absolute;
+        bottom: 18%;
+        text-decoration: none;
+        left: 30%;
+    }
+}

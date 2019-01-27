@@ -1,12 +1,12 @@
 <% layout('layoutindex/mainpage') -%>
 
 <div class="contentMainImgContainer">
-    <img class="contentMainImg" alt="" src="images/mainsimg/contentMainImgqq.jpg" />
-    <h3>דירות בתל אביב</h3>
-    <div class="contentTxt">
-        <h5>מעצב/ת :</h5><span>גלעד אביב</span><br>
-        <h5>פרטים :</h5><span>0525555555</span><br>
-        <span>blabla@gmail.com</span><br>
+   <img class="contentMainImg" alt="תמונת רקע" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" />
+    <h1 tabindex="0"><%= Page.Header.Title %></h1>
+    <div class="contentTxt" tabindex="0">
+        <h5>מעצב/ת :</h5><span><%= Page.ArchitectName%></span><br>
+        <h5>פרטים :</h5><span><%= Page.ArchitectPhonenumber%></span><br>
+        <span><%= Page.ArchitectEmail %></span><br>
     </div>
     <span class="downBtn" data-scrollto="wrap_container"><i class="far fa-caret-square-down"></i></span>
 </div>
@@ -14,48 +14,31 @@
 
 <section id="wrap_container" class="wrap_container">
     <div class="container">
-        <div>
-            <p>
-                דירת נופש מדהימה בסגנון מודרני בעיצובו של גלעד יצחקי ובכיכובן, איך לא, דלתות פנדור יוניק! "דירת 3 חדרים
-                בת 85 מ״ר בצפון הישן של תל אביב. הלקוח תושב חוץ אשר הדירה משמשת לו ולמשפחתו כדירת נופש בביקורים התכופים
-                שלהם בארץ ומושכרת לתיירים בהעדרם. השיפוץ היה שיפוץ חלקי והתמקד בעיקר בהשבחת הדירה והתאמתה לצרכי הלקוח
-                קרי קונספט דירת נופש דירת נופש! הסגנון המודרני והמינימלסטי השתלב בצורה הרמונית עם הקווים הקלאסים של
-                הבית. חדרי השינה נצבעו בפלטת צבעים ים תיכונית יחד עם מסגרות גופי התאורה והשתלבו נהדר עם רצפת החלילה
-                הקיימת שעברה חידוש וליטוש. בחדר האורחים הצר והמוארך נכנסה עוד מקלחת וכיור רחצה נוספים הפתוחים לחלל
-                ומוגדרים בו על ידי הנמכת התקרה. את מרפסת השמש הנפתחת אל הסלון והמטבח הרחבתי על חשבון שטח לא מנוצל של
-                פינת האוכל וחיפיתי בגרניט פורצלן דמוי דק להשגת מראה חם ומזמין. הדלתות מסדרת יוניק של פנדור הוסיפו שלמות
-                למראה המודרני והנקי של הדירה." צילום: נדב פקט. עיצוב פנים: גלעד יצחקי.
-            </p>
-        </div>
+        <div tabindex="0"><%- Page.Content.ContentHtml %></div>
         <br>
-        
-        <div class="project_gallery_row">
-            <div class="project_gallery_column">
-                <img src="/images/galleryImg/thumbW.jpg" data-index="0" style="width:100%">
-                <img src="/images/galleryImg/thumbV.jpg" data-index="1" style="width:100%">
-                <img src="/images/galleryImg/thumbW.jpg" data-index="2" style="width:100%">
-            </div>
-            <div class="project_gallery_column">
-                <img src="/images/galleryImg/thumbV.jpg" data-index="3" style="width:100%">
-                <img src="/images/galleryImg/thumbW.jpg" data-index="4" style="width:100%">
-                <img src="/images/galleryImg/thumbW.jpg" data-index="5" style="width:100%">
-            </div>
-            <div class="project_gallery_column">
-                <img src="/images/galleryImg/thumbW.jpg" data-index="6" style="width:100%">
-                <img src="/images/galleryImg/thumbW.jpg" data-index="7" style="width:100%">
-                <img src="/images/galleryImg/thumbV.jpg" data-index="8" style="width:100%">
-            </div>
+        <div class='project_gallery_row'>
+          <% if(Page.Content.ContentImages && Page.Content.ContentImages.length ) {  Page.Content.ContentImages.forEach((item, i) => { %>
+           <% if(i == 0 || i == 3 || i == 6){ %>
+                <div class="project_gallery_column">
+           <%}%>
+                <img alt="<%= item.ImageId %>" tabindex="0" src="<%= process.env.LINKTOBUCKETS + item.LinkToBucket + item.ImageId %>" data-index="<%= i %>" style="width:100%">
+             <% if(i == 2 || i == 5 || i == 8){ %>
+                </div>
+           <%}else if(i == Page.Content.ContentImages.length-1){ %> 
+           </div>
+           <%}%>
+            <%})}%>
         </div>
         <div>
-                <a href="/architect"><input type="button" class="btn_all_pages" value="לכל פרויקטים של אדריכל" /></a>
+            <a href="/architect/<%= Page.ArchitectId %>"><input type="button" class="btn_all_pages" value="לכל הפרויקטים של האדריכל" /></a>
         </div>
     </div>
 
       <div id="project_preview_modal" class="preview_modal">
         <span class="">&times;</span>
-        <span class="close">&times;</span>
-        <span class="next">&lt;</span>
-        <span class="prev">&gt;</span>
+        <span class="close" tabindex="0">&times;</span>
+        <span class="next" tabindex="0">&lt;</span>
+        <span class="prev" tabindex="0">&gt;</span>
         <img class="modal-content" id="preview_image">
         <span id="count_images"></span>
       </div>

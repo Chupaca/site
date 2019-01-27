@@ -1,32 +1,38 @@
 <% layout('layoutindex/mainpage') -%>
 
-
+<%if(Desktop){%>
 <div class="contentMainImgContainer">
-    <img class="contentMainImg" alt="" src="<%= Page.Header.LinkToBucket %>" style="filter: brightness(50%);" />
-    <h3><%- Page.Header.Title %></h3>
-    <div class="contentTxt"><%- Page.Header.SubTitleHtml %></div>
+    <img class="contentMainImg" alt="תמונת רקע" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" style="filter: brightness(50%);" />
+    <h1 tabindex="0"><%- Page.Header.Title %></h1>
+    <div class="contentTxt" tabindex="0"><%- Page.Header.SubTitleHtml %></div>
     <span class="downBtn" data-scrollto="wrap_container"><i class="far fa-caret-square-down"></i></span>
 </div>
+<%}else{%>
+<div class="contentMainImgContainer" style="background: #000000 url(<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>) top right;">
+    <h1 tabindex="0"><%- Page.Header.Title %></h1>
+    <div class="contentTxt" tabindex="0"><%- Page.Header.SubTitleHtml %></div>
+</div>
+<%}%>
 
 <section id="wrap_container" class="wrap_container">
 <div class="container">
-<div class="contentTextContainer"><%- Page.Content.ContentHtml %></div>
+<div class="contentTextContainer" tabindex="0"><%- Page.Content.ContentHtml %></div>
         <div class="contentImages">
         <% if(Page.Content.ContentImages && Page.Content.ContentImages.length ) {  Page.Content.ContentImages.forEach(item => { %>
-         <img alt="<%= item.ImageId %>" src="<%= item.LinkToBucket %>" />
+        <img alt="<%= item.ImageId %>" tabindex="0" src="<%= process.env.LINKTOBUCKETS + item.LinkToBucket + item.ImageId %>" />
         <%})}%>
         </div>
 </div>
 </section>
 
-<% if(Page.Accordion) {%>
+<% if(Page.Accordion && Page.Accordion.length) {%>
 <section class="wrap_container">
     <div class="" style="width:100%;">
         <div class="container">
-            <h2>שאלות נפוצות</h2>
+            <h2 tabindex="0">שאלות נפוצות</h2>
             <% Page.Accordion.forEach(item => {%>
             <button class="accordion_row"><%- item.AccordionTitle %></button>
-            <div class="accordion_inside_panel"><p><%- item.AccordionDescription %></p></div>
+            <div class="accordion_inside_panel"><p tabindex="0"><%- item.AccordionDescription %></p></div>
             <%})%>
         </div>
     </div>
@@ -37,13 +43,32 @@
 <section class="wrap_container">
     <div class="container">
         <div class="tbContainer bottom_side">
-            <h2>מעוניינ/ת בפרטים נוספים?<b> מלא/י את הטופס:</b></h2>
-            <input type="text" class="tb" placeholder="שם מלא:" />
-            <input type="text" class="tb" placeholder="טלפון:" />
-            <input type="text" class="tb" placeholder="אימייל:" />
-            <input type="text" class="tb" placeholder="כתובת:" />
-            <input type="text" class="tb" placeholder="תוכן:" />
-            <input type="button" class="tb send_btn" value="שליחה" />
+            <h2 tabindex="0">מעוניינ/ת בפרטים נוספים?<b> מלא/י את הטופס:</b></h2>
+            <% if(Desktop) {%>
+                <form class="clientcomment_form" action="/project" method="post" >
+                    <div>
+                        <input name="Name" type="text" class="tb form_input" placeholder="שם מלא:" required minlength="2"/>
+                        <input name="PhoneNumber" type="text" class="tb form_input" placeholder="טלפון:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                    </div>
+                    <div>
+                        <input name="Email" type="email" class="tb form_input" placeholder="אימייל:"  required/>
+                        <input name="City" type="text" class="tb form_input" placeholder="עיר:" required minlength="2" /> 
+                    </div>
+                    <div style="display:inline-flex;">
+                        <textarea name="Content" class="tb form_input" placeholder="תוכן:" style="height: 11vh;width: 62vh;resize:none;" required minlength="5" /></textarea>
+                        <input type="submit" class="tb send_btn" value="שליחה" style="height: 50%;margin-top: 8vh;" />
+                    </div>
+                </form>
+            <%} else {%>
+                <form class="clientcomment_form" action="/project" method="post" >
+                    <input name="Name" type="text" class="tb form_input" placeholder="שם מלא:" required minlength="2"/>
+                    <input name="PhoneNumber"type="text" class="tb form_input" placeholder="טלפון:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                    <input name="Email"type="email" class="tb form_input" placeholder="אימייל:"  required/>
+                    <input name="City"type="text" class="tb form_input" placeholder="עיר:" required minlength="2" /> 
+                    <textarea name="Content" class="tb form_input" placeholder="תוכן:" style="font-size: 2vh;height: 11vh;width: 36vh;resize:none;" required minlength="5" /></textarea>
+                    <input type="submit" class="tb send_btn" value="שליחה" />
+                </form>
+            <%}%>
         </div>
     </div>
 </section>

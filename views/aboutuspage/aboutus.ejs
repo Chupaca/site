@@ -1,20 +1,20 @@
 <% layout('layoutindex/mainpage') -%>
 
 <div class="contentMainImgContainer">
-    <img class="contentMainImg" alt="" src="<%= Page.Header.LinkToBucket %>" />
-    <h3><%- Page.Header.Title %></h3>
-    <div class="contentTxt"><%- Page.Header.SubTitleHtml %></div>
+    <img class="contentMainImg" alt="תמונת רקע" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" />
+    <h1  tabindex="0"><%- Page.Header.Title %></h1>
+    <div class="contentTxt"  tabindex="0"><%- Page.Header.SubTitleHtml %></div>
     <span class="downBtn" data-scrollto="wrap_container"><i class="far fa-caret-square-down"></i></span>
 </div>
 
 <section id="wrap_container" class="wrap_container">
     <div class="container">
-        <div class="contentTextContainer">
+        <div class="contentTextContainer"  tabindex="0">
             <%- Page.Content.ContentHtml %>
         </div>
         <div class="contentImages">
         <% if(Page.Content.ContentImages && Page.Content.ContentImages.length ) {  Page.Content.ContentImages.forEach(item => { %>
-            <img alt="<%= item.ImageId %>" src="<%= item.LinkToBucket %>" />
+            <img alt="<%= item.ImageId %>"  tabindex="0" src="<%= process.env.LINKTOBUCKETS + item.LinkToBucket + item.ImageId %>" />
         <%})}%>
         </div>
     </div>

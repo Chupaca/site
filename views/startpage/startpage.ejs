@@ -1,128 +1,141 @@
 <% layout('layoutindex/mainpage') -%>
 
-<section style="background: #f6f6f6;padding: 0;">
-    <% include ./carusel %>
-</section>
-<section class="wrap_container" style="padding:2%;">
-<div class="message_carousel">
-    <div class="message_slide active">סניפי פנדור עו לסליידר תמונות מתחלפות אני רוצה לעשות בדים כסדרם ב-30/10 יום הבחירות</div>
-    <div class="message_slide">מתחת לסליידר תמונות מתחלפות אני רוצה לעשות שורה כתומה כזו עם כותרת בצד ימין</div>
-</div>
+<section style="background: #000000;padding: 0;" >
+    <% include ./carousel %>
 </section>
 
-<section class="wrap_container">
+
+<% if(News && News.length) {%>
+<section class="wrap_container" style="padding:2%;">
+ <div class="container">
+    <h2 tabindex="0">חדשות פנדור</h2>
+    <div class="message_carousel">
+        <% for(let i=0;i<News.length;i++){ %>
+        <div tabindex="0" class="message_slide <%= (i==0?'active':'') %>" style="direction:rtl;">
+            <%= News[i].Data.NewsText %>
+        </div>
+        <%}%>
+    </div>
+    </div>
+</section>
+<%}%>
+
+<% if(Sales && Sales.length) {%>
+<section class="wrap_container" id="sales_anchor">
     <div class="container">
         <% include ./salesonmain %>
     </div>
 </section>
+<%}%>
 
-<section class="wrap_container">
-    <div class="container">
-        <h2>מומלצי החודש בפנדור</h2>
-        <a href="/door" class="month-recommended-box">
-            <img class="home-sale-long" alt="" src="images/door_demo-pic.jpg" />
-            <div class="info">
-                <span>פנדור יוניק קלאסיק</span>
-                  
-            </div>
-        </a>
-        <a href="/door" class="month-recommended-box">
-            <img class="home-sale-long" alt="" src="images/door_demo-pic.jpg" />
-            <div class="info"><span>פנדור יוניק קלאסיק</span>
-                  
-            </div>
-        </a>
-        <a href="/door" class="month-recommended-box">
-            <img class="home-sale-long" alt="" src="images/door_demo-pic.jpg" />
-            <div class="info"><span>פנדור יוניק קלאסיק</span>
-                  
-            </div>
-        </a>
-        <a href="/door" class="month-recommended-box">
-            <img class="home-sale-long" alt="" src="images/door_demo-pic.jpg" />
-            <div class="info"><span>פנדור יוניק קלאסיק</span>
-                  
-            </div>
-        </a>
-    </div>
+
+<section class="wrap_container" style="padding:2%;">
+ <div class="container">
+    <h2 tabindex="0">דלתות פנדור דלתות פנים - סימן שלא התפשרתם!</h2>
+    <p class="section_text" tabindex="0">
+        בחרתם בדלתות פנדור? לא התפשרתם! חברת פנדור זוכה כבר 26 פעמים ברציפות בתואר "יצרנית דלתות הפנים הטובות והדקורטיביות ביותר בישראל" בסקרי מכון גיאוקרטוגרפיה בעבור "המבחן של המדינה". החברה מספקת דלתות ללמעלה מ-35,000 יחידות דיור בשנה (כלומר, למעלה מ-200,000 דלתות), ללקוחות פרטיים ולפרויקטים קבלניים מהמובילים בשוק הנדל”ן.
+דלתות הפנים של פנדור מיוצרות בסטנדרטים גבוהים, בפס ייצור ייחודי השומר על תווי תקן של איכות וגימור מן ההתחלה. אופן הייצור הממוחשב שלנו שהחל כבר ב-1996, פרץ את גבולות הסטנדרט, ואיפשר התאמה אישית של הסחורה לטעם העיצובי ולצרכים הטכניים של כל לקוח ולקוח. 
+כלל דגמי דלתות הפנים שלנו מצטיינים באיכות גבוהה של ייצור וגימור, עיצוב ייחודי עם מגוון אפשרויות לעיצוב, ואיכות המוכיחה את עצמה בכל פעם מחדש.
+תוכלו למצוא אצלנו:
+    </p>
+    <ul class="section_text_list">
+        <li tabindex="0">דלתות פנים בהתאמה אישית</li>
+        <li tabindex="0">קולקציה עשירה במגוון עיצובים מיוחדים</li>
+        <li tabindex="0">תו תקן של איכות וגימור</li>
+    </ul>
+    <p class="section_text" tabindex="0">
+        <span class="inside_title">אנו מזמינים אתכם להציץ <a style="color: #ff4200;" href="/catalog">בקולקציה החדשה</a> שלנו באתר או<a style="color: #ff4200;" href="/branches"> באולמות התצוגה   ברחבי הארץ </a></span>
+    </p>
+ </div>
 </section>
 
+
+
+
+<% if(RecommendedList && RecommendedList.length) {%>
 <section class="wrap_container">
     <div class="container">
-        <h2>לקוחות מספרים</h2>
-        <div id="HomeScrollingImagesBlockContainer" class="recommendations-slider" style="position: relative;overflow: hidden;height: 46vh;">
+        <h2  tabindex="0">דגמים מומלצים בפנדור</h2>
+        <p class="section_text"  tabindex="0">דלתות פנים של דלתות פנדור מעוצבות בסגנון שאי אפשר להתעלם ממנו. אלו יצירות שהומצאו ויוצרו באהבה ובתשומת לב אישית לפרטים הקטנים ביותר מחומרי גלם איכותיים ועד רמת גימור גבוהה ומוקפדת.</p>
+        <div class="month-recommended-wrap">
+                <% RecommendedList.forEach(item => { %> 
+                <a href="/door/<%= item.Data.Link %>" class="month-recommended-box">
+                    <img class="home-sale-long" alt="<%= item.Data.Title +  ' תמונה '%>" src="<%= (process.env.LINKTOBUCKETS + item.Data.ProfileImage) %>" />
+                    <div class="info">
+                        <span tabindex="0"><%= item.Data.Title %></span>
+                    </div>
+                </a>
+                <%})%>
+        </div>
+    </div>
+</section>
+<%}%>
+
+<% if(Comments && Comments.length) {%>
+<section class="wrap_container">
+    <div class="container">
+        <h2 tabindex="0">לקוחות מספרים</h2>
+        <div id="HomeScrollingImagesBlockContainer" class="recommendations-slider">
             <div class="scrollingImagesWrapper active" style="width:100%;float:right;position: absolute;">
-                <a class="scrollingImageContainer recommendations-box" href="#">
-                    <img src="images/Recommendations-demo-pic.jpg" />
-                    <span class="client-name">בראד פיט, פתח תקווה</span>
-                    <q><span class="comment_wrap">תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב. תודה
-                        רבה.
-                       </span></q>
-                </a>
-                <a class="scrollingImageContainer recommendations-box" href="#">
-                    <img src="images/Recommendations-demo-pic.jpg" />
-                    <span class="client-name">בראד פיט, פתח תקווה</span>
-                    <q><span class="comment_wrap">תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב. תודה
-                        רבה.
-                        </span></q>
-                </a>
+                <span class="scrollingImageContainer recommendations-box" >
+                    <img tabindex="0" alt="תמונת לקוח" src="<%- process.env.LINKTOBUCKETS + Comments[0].Data.ProfileImage %>" />
+                    <span tabindex="0" class="client-name"><%= Comments[0].Data.Name + " , " + Comments[0].Data.City %></span>
+                    <q><span tabindex="0" class="comment_wrap" style="text-indent: 1.5em;"><%= Comments[0].Data.Comment %></span></q>
+                </span>
+                <span class="scrollingImageContainer recommendations-box" >
+                    <img tabindex="0" alt="תמונת לקוח" src="<%- process.env.LINKTOBUCKETS + Comments[1].Data.ProfileImage %>" />
+                    <span tabindex="0" class="client-name"><%= Comments[1].Data.Name + " , " + Comments[1].Data.City %></span>
+                    <q><span tabindex="0" class="comment_wrap" style="text-indent: 1.5em;"><%= Comments[1].Data.Comment %></span></q>
+                </span>
             </div>
+
             <div class="scrollingImagesWrapper" style="width:100%;float:right;position: absolute;left:1200px;">
-                <a class="scrollingImageContainer recommendations-box" href="#">
-                    <img src="images/Recommendations-demo-pic2.jpg" />
-                    <span class="client-name">בראד פיט, פתח תקווה</span>
-                    <q><span class="comment_wrap">תודה על השירות האדיב, ודה רבה. </span></q>
-                </a>
-                <a class="scrollingImageContainer recommendations-box" href="#">
-                    <img src="images/Recommendations-demo-pic2.jpg" />
-                    <span class="client-name">בראד פיט, פתח תקווה</span>
-                    <q><span class="comment_wrap">תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב. תודה
-                        רבה.
-                        תודה על השירות האדיב, על הוילונות המקסימים. הילדות בעננים, והמתקין נתן שירות מכל הלב. תודה
-                        רבה.
-                        </span></q>
-                </a>
+                <span class="scrollingImageContainer recommendations-box" >
+                    <img tabindex="0" alt="תמונת לקוח" src="<%- process.env.LINKTOBUCKETS + Comments[2].Data.ProfileImage %>" />
+                    <span tabindex="0" class="client-name"><%= Comments[2].Data.Name + " , " + Comments[2].Data.City %></span>
+                    <q><span tabindex="0" class="comment_wrap" style="text-indent: 1.5em;"><%= Comments[2].Data.Comment %></span></q>
+                </span>
+                <span class="scrollingImageContainer recommendations-box" >
+                    <img tabindex="0" alt="תמונת לקוח" src="<%- process.env.LINKTOBUCKETS + Comments[3].Data.ProfileImage %>" />
+                    <span tabindex="0" class="client-name"><%= Comments[3].Data.Name + " , " + Comments[3].Data.City %></span>
+                    <q><span tabindex="0" class="comment_wrap" style="text-indent: 1.5em;"><%= Comments[3].Data.Comment %></span></q>
+                </span>
             </div>
         </div>
-        
         <div>
-            <a href="/comments"><input type="button" class="btn_all_pages" value="לכל ההמלצות"></a>
+            <a href="/comments" ><input tabindex="0" type="button" class="btn_all_pages" value="לכל ההמלצות"></a>
         </div>
     </div>
 </section>
+<%}%>
 
+<% if(Blogs && Blogs.length) {%>
 <section class="wrap_container">
-<div class="container">
-    <h2 class="section_title">מעמרים</h2>
-    <div class="block_wrap">
-        <div class="block_box">
-            <a href="/blog">
-                <img src="images/demo-pic-home-sale-long.jpg" />
-                <div class="block_description">
-                    <div class="block_date">15.02</div>
-                    <div class="block_title">
-                        <h5>בלה בלה בלה</h5>
-                        <span>נות המקסימים. הילדות בעננים, והמתקין נתן שירות</span>
+    <div class="container">
+        <h2 class="section_title" tabindex="0">מאמרים</h2>
+        <p class="section_text" tabindex="0">בחירת דלתות פנים אינה עניין של מה בכך. השוק מוצף במגוון של דלתות מסוגים ואיכויות שונות, מה שלעיתים מקשה עלינו את הבחירה.   
+היות ודלתות פנדור מתמחה אך ורק בדלתות פנים כבר 30 שנה, צברנו ניסיון, מומחיות וידע ברמות הגבוהות ביותר. 
+במאמרים הבאים תוכלו להעמיק את הידע וההבנה שלכם כלקוחות בעולם הדלתות, מה שיקל עליכם לבצע רכישה חכמה, אשר תשרת אתכם שנים קדימה.
+</p>
+ <br>
+        <div class="blog_wrap">
+            <% Blogs.forEach(itemBlog => { %>
+            <div class="blog_box">
+                <a href="/blog/<%= itemBlog.Position %>"  tabindex="0">
+                    <img  tabindex="0" alt="תמונת מאמר" src="<%= process.env.LINKTOBUCKETS + itemBlog.Data.Preview.LinkToBucket + itemBlog.Data.Preview.ImageId%>" />
+                    <div class="blog_description">
+                        <div class="blog_date" tabindex="0"><%= moment(itemBlog.Data.Preview.Date, 'DD/MM/YYYY').format("MM.YYYY") %></div>
+                        <div class="blog_title" >
+                            <span tabindex="0"><%- itemBlog.Data.Preview.SubTitleHtml %></span>
+                        </div>
                     </div>
-                </div>
-            </a>
+                </a>
+            </div>
+            <%})%>
         </div>
-
-        <div class="block_box">
-            <a href="/blog">
-                <img src="images/demo-pic-home-sale-long.jpg" />
-                <div class="block_description">
-                    <div class="block_date">15.02</div>
-                    <div class="block_title">
-                        <h5>בלה בלה בלה</h5>
-                        <span>נות המקסימים. הילדות בעננים, והמתקין נתן שירות</span>
-                    </div>
-                </div>
-            </a>
+        <div class="btn_all_pages_wrap">
+            <a href="/blogs"><input tabindex="0" type="button" class="btn_all_pages" value="לכל המאמרים"></a>
         </div>
-    </div>
-    <div>
-    <a href="/blogs"><input type="button" class="btn_all_pages" value="לכל מעמרים"></a>
-</div>
     </div>
 </section>
+<%}%>

@@ -2,16 +2,14 @@
 
 var permittedTypes = ["jpeg", "jpg", "bmp", "png", "png24"];
 const MAX_SIZE = 500000;
-var bucket = "general"
+var bucket = "general";
+var architect = "";
+var model_door = "";
 
 function SetupUploadFunctions() {
     changeStatusItemsNav($("#images_gallery"));
     $(".radio_btn_buckets").unbind().click(getFilesBucket)
-    $(".upload_btn").unbind().click(() => {
-        $("#images_to_upload").empty();
-        bucket = $(".radio_btn_buckets.active").attr("data-bucket");
-        $("#upload_modal").css({ "display": "block", "z-index": 3000 });
-    })
+    $(".upload_btn").unbind().click(UploadFiles)
     $(".close_modal").unbind().click(function () {
         $(this).closest(".modal").css({ "display": "none", "z-index": -1 })
     })
@@ -19,6 +17,18 @@ function SetupUploadFunctions() {
     $('#upload_image_input').unbind().on('change', onChangeFileToUpload);
     dropUploadFiles();
     $(".remove_file").unbind().click(RemoveFile)
+}
+
+function UploadFiles() {
+    $("#images_to_upload").empty();
+    bucket = $(".radio_btn_buckets.active").attr("data-bucket") || $(this).attr("data-bucket") ;
+    if(bucket == 'architects'){
+        architect = $(this).attr("data-architectid");
+    }
+    if(bucket == 'doorscollection'){
+        model_door = $(this).attr("data-modelid") || '';
+    }
+    $("#upload_modal").css({ "display": "block", "z-index": 3000 });
 }
 
 function getFilesBucket(){
@@ -57,8 +67,9 @@ function previewImageModal() {
 
 function RemoveFile() {
     let imageName = $(this).attr("data-imageid");
+    let bucketFile = $(this).attr("data-bucket");
     ConformModal("האם אתה רוצה למחוק קובץ?", () => {
-        $.post("/admin//uploadfiles/delete", { ImageName: imageName, Bucket:bucket })
+        $.post("/admin/uploadfiles/delete", { ImageName: imageName, Bucket:bucketFile })
             .then(result => {
                 if (result) {
                     Flash("נמחק בהצלחה!", 'success');
@@ -159,6 +170,12 @@ function uuid() {
 
 function sendToServer(file, filename, callback) {
     let sendUrl = "/admin/uploadfiles?bucket=" + bucket;
+    if(architect){
+        sendUrl = "/admin/uploadfiles?bucket=" + bucket + "&architect=" + architect;
+    }
+    if(model_door){
+        sendUrl = "/admin/uploadfiles?bucket=" + bucket + "&architect=" + model_door;
+    }
     let title = ["", '', 'documents', ""];
     let formdata = new FormData();
     formdata.append(title, file);

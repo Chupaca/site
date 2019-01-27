@@ -1,30 +1,162 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="he">
 <head>
-    <title>דלתות פנדור – חברת הדלתות מספר 1 בישראל</title>
+    <% let title = Page.MetaData && Page.MetaData.find(item => item.MetaType == 'title')?Page.MetaData.find(item => item.MetaType == 'title').MetaDescription : Page.Header? Page.Header.Title:Page.Data.Header.Title %>
+    <title><%= title %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <% if(Page && Page.MetaData){ Page.MetaData.forEach(item => { %> 
-        <meta name="<%= item.MetaType %>" content="<%= item.MetaDescription %>" >
-    <%})}%>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-        crossorigin="anonymous">
+    <% if(Page && Page.MetaData){ Page.MetaData.forEach(item => {  if(item.MetaType != 'title'){%> 
+        <% if(item.MetaType.split(":").length>1) {%>
+             <meta property="<%= item.MetaType %>" content="<%= item.MetaDescription %>" >
+        <%}else{%>
+            <meta name="<%= item.MetaType %>" content="<%= item.MetaDescription %>" >
+        <%}%>
+    <%}})}%>
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="<%= Url %>" />
+    <meta property="og:image" content="<%= process.env.LINKTOBUCKETS +  'default/default_header_microdata_image.jpg' %>" />
+    <link rel="canonical" href="<%= Url %>" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-WV73VK5');
+    </script>
+    <!-- End Google Tag Manager -->
+    <!-- Start of Zoom Analytics Code -->
+    <script type="text/javascript">
+        var _zaVer=4,_zaq=_zaq||[]; 
+        (function() {
+        var w=window,d=document;w.__za_api=function(a){_zaq.push(a);if(typeof __ZA!='undefined'&&typeof __ZA.sendActions!='undefined')__ZA.sendActions(a);};
+        var e=d.createElement('script');e.type='text/javascript';e.async=true;e.src=('https:'==d.location.protocol?'https://d2xerlamkztbb1.cloudfront.net/':'http://wcdn.zoomanalytics.co/')+'19761274-a298/3/widget.js';
+        var ssc=d.getElementsByTagName('script')[0];ssc.parentNode.insertBefore(e,ssc);
+        })();
+    </script>
+    <!-- End of Zoom Analytics Code -->
 </head>
 
-<body>
-    <header>
+<body tabindex="-1">
+    <header tabindex="-1">
         <% include ../layoutindex/navbar %>
     </header>
-    <div style="height: 10vh;"></div>
+    <article tabindex="-1">
+        <div id="side_sticker">
+            <div class="side_sticker_slide">
+                <div class="iconBg">
+                    <a onclick='openAccessibilityOptions()' >
+                        <i class="fas fa-wheelchair"></i>
+                    </a>
+
+                </div>
+                <div class="iconBg sticker_description accessibility">
+                    <h3>תפריט נגישות</h3>
+                    <div class="accessibility_wrap">
+                        <div class="accessibility_menu">
+                            <a class="part_for_change font_change" name="plus"><b>א</b><br><span>הגדל גופן</span></a>
+                            <a class="part_for_change font_change" name="minus"><b>א</b><br><span>הקטן גופן</span></a>
+                            <a class="part_for_change active" id="accessibility_reset"><b>X</b><br><span>איפוס נגישות</span></a>
+                            <a class="part_for_change row_size contrast_change" name="dark"><i class="fas fa-circle"></i>ניגודיות כהה</a>
+                            <a class="part_for_change row_size contrast_change" name="bright"><i class="far fa-circle"></i>ניגודיות בהירה</a>
+                            <a class="part_for_change row_size contrast_change" name="gray"><i class="fas fa-adjust"></i>שחור לבן</a>
+                            <a class="part_for_change row_size" id="accessibility_links"><i class="fas fa-link"></i>הדגשת קישורים</a>
+                            <a class="part_for_change row_size" id="accessibility_header"><i class="fas fa-heading"></i>הדגשת כותרות</a>
+                            <a class="part_for_change row_size" id="accessibility_statement" onclick="window.open('/accessibilitystatement')"><i class="fas fa-exclamation"></i>הצהרת נגישות</a>
+                            <a class="part_for_change row_size" id="close_accessibility_menu" onclick="closeAccessibilityOptions()" style="text-align: center;"><i style="float: none;" class="fas fa-times"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="side_sticker_slide">
+                <div class="iconBg">
+                    <a href="/architectscontact"><i class="fas fa-ruler-combined fa-rotate-180"></i></a>
+                </div>
+                <div class="iconBg sticker_description">
+                    <span><b>אדריכל / מעצב?</b></span>
+                </div>
+            </div>
+            <div class="side_sticker_slide">
+                <div class="iconBg">
+                    <a href="https://www.facebook.com/pandoors/" target="_blank">
+                        <i class="far fa-thumbs-up"></i>
+                    </a>
+                </div>
+                <div class="iconBg sticker_description">
+                    <a href="#"><i class="fab fa-facebook-square" style="font-size:5vh;color:#ffffff;"></i></a>
+                </div>
+            </div>
+
+            <div class="side_sticker_slide">
+                <div class="iconBg" id="priceofferbtn">
+                    <a href="#">
+                        <i class="fa fa-phone-square"></i>
+                    </a>
+
+                </div>
+                <div class="iconBg sticker_description">
+                    <span><b>מעוניינים לקבל הצעת מחיר?</b></span>
+                </div>
+            </div>
+            <div id="closed_sticker_flag" class="<%= !Desktop?'visib':'' %>">
+                <div class="small_icons_slider"><i class="fas fa-ruler-combined fa-rotate-180"></i></div><br>
+                <div class="small_icons_slider"><i class="far fa-thumbs-up"></i></div><br>
+                <div class="small_icons_slider"><i class="fas fa-phone-square"></i></div><br>
+                <div class="small_icons_slider"><i class="fas fa-wheelchair"></i></div>
+            </div>
+        </div>
+
+        <div id="priceoffer_popup" >
+            <div class="popup_priceoffer_modal_content">
+                <form class="clientcomment_form" action="/priceoffer" method="post">
+                    <div id="ContactFormContainer" style="">
+                        <h4>לקביעת פגישה:</h4>
+                        <input class="tabTb form_input" name="Name" type="text" placeholder="שם מלא">
+                        <input class="tabTb form_input" name="PhoneNumber" type="text" placeholder="טלפון">
+                        <input class="tabTb form_input" name="Email" type="text" placeholder="אי-מייל">
+                        <input class="tabTb form_input" name="City" type="text" placeholder="עיר">
+                        <input class="tabButton" type="submit" value="שליחה" data-modal="true">
+                    </div>
+                </form>
+            </div>
+        </div>
+</article>
+    <div id="lining_nav" tabindex="-1"></div>
     <%- body  %>
 
     <footer>
         <% include ../layoutindex/footer %>
     </footer>
+    <div id="simple_image_preview_modal" class="preview_modal">
+        <span class="">&times;</span>
+        <span class="close" onclick="$('#simple_image_preview_modal').hide(30)">&times;</span>
+        <img class="modal-content" id="preview_image_modal_tag">
+    </div>
     <section>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
         <script src="/javascript/general.js"></script>
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WV73VK5"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+        <!-- Facebook Pixel Code -->
+        <script>
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '546851972092514');
+            fbq('track', 'PageView');
+        </script>
+        <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=546851972092514&ev=PageView&noscript=1"/>
+        </noscript>
+        <!-- End Facebook Pixel Code -->
     </section>
 </body>
 

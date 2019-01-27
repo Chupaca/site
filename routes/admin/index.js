@@ -1,24 +1,27 @@
 'use strict'
 
 const express = require('express');
-const adminPanel = require("./admin");
-const navfooter = require("./navfooter");
 const uploadFiles = require("./uploadfiles");
 const pageEdit = require("./pageeditor");
-const listsEditor = require("./listseditor");
-
-var multer = require('multer');
+const multer = require('multer');
 const router = express.Router();
+const oauth2 = require('./authenticate');
+const Storage = require('@google-cloud/storage');
+const storage = Storage();
 
-const storageMulter = multer.diskStorage({
-    destination: 'uploads/',
+const storageMulter = multer.memoryStorage({
     filename: function (req, file, cb) {
-        cb(null, Date.now() + "-" + file.originalname)
+        cb(null, Date.now() + "-" + file.originalname.replace(/\s/g, "_"))
     }
 })
 
 var upload = multer(
-    { storage: storageMulter },
+    {
+        storage: storageMulter,
+        limits: {
+            fileSize: 100 * 1024
+        }
+    },
     {
         fileFilter: function (req, file, callback) {
             if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
@@ -29,24 +32,11 @@ var upload = multer(
     }
 );
 
+router.use(oauth2.AddTemplateVariables);
 
-router.get("/", adminPanel.GetAdminPanel);
-router.get("/login", adminPanel.Login);
+router.get("/", (req, res) => { res.redirect("/admin/pagetoedit?page=startpage") });
 
-
-//========= navigation + footer ==================================
-router.get("/navigationeditor", navfooter.GetNavigationEditor);
-router.get("/navigationeditor/:id", navfooter.GetNavigationById);
-router.post("/navigationeditor/setnewnavigation", navfooter.SetNewNavigation);
-router.post("/navigationeditor/setactive/:id", navfooter.SetActive);
-router.get("/navigationeditor/previewnavigation/:bucket/:id", navfooter.PreviewNavigation);
-
-
-router.get("/footereditor", navfooter.GetFooterEditor);
-router.get("/footereditor/id", navfooter.GetFooterItemsById);
-router.post("/footereditor/setnewfooter", navfooter.SetNewFooter);
-router.post("/footereditor/setactive/:id", navfooter.SetActiveFooter);
-router.get("/footereditor/previewfooter/:bucket/:id", navfooter.PreviewFooter);
+router.get("/logout", oauth2.Logout)
 
 //============== upload files ======================
 router.get("/galleryeditor", uploadFiles.GetGalleryEditor);
@@ -54,24 +44,40 @@ router.get("/allimages", uploadFiles.GetAllImages);
 router.post('/uploadfiles', upload.any(), uploadFiles.UploadNewImage);
 router.post('/uploadfiles/delete', uploadFiles.DeleteFile)
 
+
+
+router.get('/incomingrequests', pageEdit.IncomingRequests);
+router.post('/incomingrequest/notactive/:id/:bucket', pageEdit.SetNotActiveIncomingRequestById);
+
+
+router.get("/notifications", pageEdit.GetNotifications)
 //============== page edit ===========================
 router.get("/pagetoedit", pageEdit.GetPageForEdit);
-router.get("/pagetoedit/:id", pageEdit.GetPageById);
+
 router.post("/setnewpage", pageEdit.SetNewPage);
 router.post("/pagetoedit/setactive/list", pageEdit.SetActiveList);
 router.post("/pagetoedit/setactive/:id/:page", pageEdit.SetActive);
 router.post("/deletepage", pageEdit.DeletePage)
 router.get("/previewpage/:page/:bucket/:id", pageEdit.PreviewPage)
+router.get("/previewstartpage/:bucket/:id", pageEdit.PreviewStartPage);
+router.post("/pagetoedit/setdeactivate/block/:block", pageEdit.DeactivateBlock)
 
+router.get("/pagetemplate/:bucket/:id", pageEdit.GetPageByBucketAndId);
+router.get("/pagetoedit/:id", pageEdit.GetPageById);
 
+router.get("/architectslist", pageEdit.GetArchitectsList);
+router.get("/architect/:id", pageEdit.GetArchitectById);
+router.post("/architect/:id", pageEdit.UpdateArchitectById);
+router.get("/architect/:id/projects", pageEdit.GetProjectsByArchitectId);
 
-//=========== list edit ==================================
-router.get("/listeditor/:list", listsEditor.GetListEditor)
+router.get("/collectionslist", pageEdit.GetCollectionsList);
+router.get("/collection/:id", pageEdit.GetCollectionById)
+router.post("/collection/:id", pageEdit.UpdateCollectionById);
 
+router.get("/doorspageslist", pageEdit.GetDoorsPagesList)
 
+router.post("/saveredirects", pageEdit.SetRedirects)
 
-
-
-
+router.post("/setnewcatalogpage", pageEdit.SetNewCatalogPage);
 
 module.exports = router;

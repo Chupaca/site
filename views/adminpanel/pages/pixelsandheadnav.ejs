@@ -1,0 +1,86 @@
+<% layout('adminpanel/index') -%>
+
+<h2 class="title_wrap">
+   עריכת נווה עליון
+</h2>
+
+<div>
+    <button class="btn_class switch_wraps" data-wrap="nav_list" >ניווט חדש</button>
+    <button class="btn_class switch_wraps" data-wrap="pixels">פיקסלים</button>
+    <button class="btn_class switch_wraps active" data-wrap="versions">רשימת גרסות</button>
+    <button class="btn_class btn_green" id="save_new" style="float:left;" disabled>לשמור</button>
+</div>
+
+
+
+<div class="wrap_two_col" style="display:none;" data-wrap="nav_list">
+    <div class="col" style="width:30%;">
+       <table class="nav_table" style="width:100%;"><tbody></tbody></table>
+    </div>
+    <div class="col" style="width:30%;">
+        <input type="text" id="nav_title" placeholder="כותרת"/><br>
+        <input dir="ltr" type="text" id="nav_link" placeholder="link only english"/><b>&nbsp;/&nbsp;pandoor.co.il</b>
+    </div>
+    <div class="col" style="width:12%;">
+        <button class="btn_class btn_green" id="add_new" >להוסיף</button>
+    </div>
+</div>
+
+<div class="wrap_three_col" style="display:none;" data-wrap="pixels">
+    <div class="col" style="background:#bef1b8;text-align: center;position: relative;">
+        <div class="" >
+            <table class="pixels_table" style="width:100%;"><tbody></tbody></table>
+        </div>
+    </div>
+    <div class="col" style="background:none;text-align: center;position:relative;">
+        <h2>סוג פיקסל</h2>
+        <input type="text" id="title_pixel" value=""  />
+        <h2>קוד פיקסל</h2>
+        <textarea style="width: 100%;height: 70%;resize: none;direction: ltr;padding: 3vh;" id="pixels_wrap" ></textarea>
+    </div>
+    <div class="col" style="width:15%;">
+       <button class="btn_class btn_purple" id="check_valid_pixels">בדיקת פיקסלים</button><br>
+       <button class="btn_class btn_green" id="add_pixel">להוסיף</button>
+    </div>
+</div>
+
+
+<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions">
+    <div id="sortable" class="col connectedSortable">
+     <h2 class="version_title">פעיל</h2>
+        <% if(Prod){ let item = Prod; %>
+        <li data-id="<%= item.Id %>" data-bucket="pixelsandheadnav">
+            <div class="page_item">
+                <span class="page_item_position"><b><%= item.Position %></b></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <i class="fas fa-bars nav_options"></i>
+            </div>
+        </li>
+        <%}%>
+    </div>
+
+
+    <div id="sortable_tmp" class="col connectedSortable">
+    <h2 class="version_title">לא פעיל</h2>
+        <% if(Versions && Versions.length){ Versions.forEach(item => { if(!Prod || item.Id != Prod.Id){ %>
+        <li data-id="<%= item.Id %>" data-bucket="pixelsandheadnav-tmp">
+            <div class="page_item">
+                <span class="page_item_position"><b>0</b></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <i class="fas fa-bars nav_options"></i>
+                <i class="fas fa-trash-alt remove_page" data-page="pixelsandheadnav-tmp" style="margin:0 3vh;cursor:pointer;"  data-id="<%= item.Id %>"></i>
+            </div>
+        </li>
+        <%}})}%>
+    </div>
+
+    <div class="col" style="width:10%;">
+        <button class="btn_class btn_purple" id="template_page" style="float:none;" disabled>דוגמא</button><br>
+       
+        <button class="btn_class btn_blue" id="publish_page">לפרסם</button>
+    </div>
+</div>

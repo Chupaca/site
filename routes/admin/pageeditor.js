@@ -10,7 +10,7 @@ exports.GetPageForEdit = (req, res) => {
     const { page } = req.query;
     pageslogic.GetPageForAdmin(page)
         .then(([prod, tmp]) => {
-            res.render("adminpanel/pages/" + page, { Prod: prod[0], Prods:prod, Versions: tmp, moment })
+            res.render("adminpanel/pages/" + page, { Prod: prod[0], Prods: prod, Versions: tmp, moment, controller: page })
         })
 }
 
@@ -19,7 +19,7 @@ exports.GetPageById = (req, res) => {
     if (id && page) {
         pageslogic.GetPageById(id, page)
             .then(([prod, tmp]) => {
-                res.render("adminpanel/pages/" + page, { Prod: prod[0] })
+                res.render("adminpanel/pages/" + page, { Prod: prod[0], controller: page })
             })
     }
 }
@@ -89,14 +89,250 @@ exports.DeletePage = (req, res) => {
 }
 
 exports.PreviewPage = (req, res) => {
-    const {page, bucket, id} = req.params;
-    pageslogic.PreviewPage(bucket, id)
-        .then(previewPage => {
-            res.render(`${page}page/${page}`, { 
+    const { page, bucket, id } = req.params;
+    if (page && bucket && id) {
+        pageslogic.PreviewPage(bucket, id)
+            .then(previewPage => {
+                let pageview = `${page}page/${page}`;
+                if (page.includes("blogs")) {
+                    pageview = 'blogslistpage/blogslist'
+                }
+                res.render(pageview, {
+                    Desktop: (req.device.type == 'desktop' ? true : false),
+                    moment,Url:"admin",
+                    Navigation: previewPage.Navigation,
+                    Footer: previewPage.Footer,
+                    Branches: previewPage.Branches,
+                    Installers: previewPage.Installers,
+                    Comments: previewPage.Comments,
+                    Blogs: previewPage.Blogs,
+                    Page: previewPage.Page.Data,
+                    PixelsAndNav: []
+                });
+            })
+    } else {
+        res.sendStatus(403)
+    }
+}
+
+exports.GetArchitectsList = (req, res) => {
+    pageslogic.GetAllArchitects()
+        .then(result => {
+            res.send(result[0])
+        })
+}
+
+exports.GetArchitectById = (req, res) => {
+    const { id } = req.params;
+    if (id) {
+        pageslogic.GetPageById(id, "architectslist-tmp")
+            .then(result => {
+                res.send(result)
+                return
+            })
+            .catch(err => {
+                res.sendStatus(404)
+            })
+    } else {
+        res.sendStatus(403)
+    }
+}
+
+exports.UpdateArchitectById = (req, res) => {
+    const { id } = req.params;
+    let { Data } = req.body;
+    if (id && Data) {
+        pageslogic.UpdateArchitectById(id, Data)
+            .then(() => {
+                res.sendStatus(200)
+                return
+            })
+            .catch(err => {
+                res.sendStatus(404)
+            })
+    } else {
+        res.sendStatus(403)
+    }
+}
+
+exports.PreviewStartPage = (req, res) => {
+    const { bucket, id } = req.params;
+    pageslogic.PreviewStartPage(bucket, id)
+        .then(generals => {
+            res.render('startpage/startpage', {
                 Desktop: (req.device.type == 'desktop' ? true : false),
-                Navigation: previewPage.Navigation,
-                Footer: previewPage.Footer,
-                Page: previewPage.Page.Data
+                moment, Url:"admin",
+                Navigation: generals.Navigation,
+                Footer: generals.Footer,
+                Sales: generals.Sales,
+                News: generals.News,
+                Blogs: generals.Blogs,
+                Branches: generals.Branches,
+                Comments: generals.Comments,
+                RecommendedList: generals.RecommendedList,
+                Carousel: generals.Carousel.Data,
+                PixelsAndNav: [],
+                Page: []
             });
         })
+}
+
+exports.GetPageByBucketAndId = (req, res) => {
+    const { bucket, id } = req.params;
+    if (bucket && id) {
+        pageslogic.GetPageById(id, bucket)
+            .then(page => {
+                if (page) {
+                    res.send(page.Data)
+                } else {
+                    res.sendStatus(404)
+                }
+                return;
+            })
+            .catch(err => {
+                res.sendStatus(404)
+            })
+    } else {
+        res.sendStatus(403)
+    }
+}
+
+exports.GetProjectsByArchitectId = (req, res) => {
+    const { id } = req.params;
+    if (id) {
+        pageslogic.GetProjectsByArchitectId(id)
+            .then(results => {
+                res.send(results[0])
+            })
+    } else {
+        res.sendStatus(403)
+    }
+}
+
+exports.SetRedirects = (req, res) => {
+    const { Redirects } = req.body;
+    if (Redirects && Redirects.Links.length) {
+        pageslogic.SetRedirects(Redirects)
+            .then(results => {
+                if (results) {
+                    res.sendStatus(200)
+                } else {
+                    res.sendStatus(500)
+                }
+            })
+    } else {
+        res.sendStatus(403)
+    }
+}
+
+exports.DeactivateBlock = (req, res) => {
+    const { block } = req.params;
+    if (block) {
+        pageslogic.DeactivateBlock(block)
+            .then(results => {
+                if (results) {
+                    res.sendStatus(200)
+                } else {
+                    res.sendStatus(500)
+                }
+            })
+    } else {
+        res.sendStatus(403)
+    }
+}
+
+exports.IncomingRequests = (req, res) => {
+    pageslogic.GetIncomingRequests()
+        .then(incomingRequests => {
+            res.render("adminpanel/incomingrequests", { IncomingRequests: incomingRequests, moment, controller: "incomingRequests" })
+        })
+}
+
+exports.SetNotActiveIncomingRequestById = (req, res) => {
+    let { id, bucket } = req.params;
+    if (id && bucket) {
+        pageslogic.SetNotActiveIncomingRequestById(id, bucket)
+            .then(() => {
+                res.sendStatus(200)
+            })
+            .catch(err => {
+                res.sendStatus(500)
+            })
+    } else {
+        res.sendStatus(403)
+    }
+}
+
+exports.GetNotifications = (req, res) => {
+    pageslogic.GetNotifications()
+        .then(notifications => {
+            res.send(notifications)
+        })
+        .catch(err => {
+            res.sendStatus(500)
+        })
+}
+
+exports.GetCollectionById = (req, res) => {
+    const { id } = req.params;
+    if (id) {
+        pageslogic.GetPageById(id, "doorcollectionlist-tmp")
+            .then(result => {
+                res.send(result)
+                return
+            })
+            .catch(err => {
+                res.sendStatus(404)
+            })
+    } else {
+        res.sendStatus(403)
+    }
+}
+
+exports.UpdateCollectionById = (req, res) => {
+    const { id } = req.params;
+    let { Data } = req.body;
+    if (id && Data) {
+        pageslogic.UpdateCollectionById(id, Data)
+            .then(() => {
+                res.sendStatus(200)
+                return
+            })
+            .catch(err => {
+                res.sendStatus(404)
+            })
+    } else {
+        res.sendStatus(403)
+    }
+}
+
+
+exports.GetCollectionsList = (req, res) => {
+    pageslogic.GetCollectionsList()
+        .then(result => {
+            res.send(result[0])
+        })
+}
+
+exports.GetDoorsPagesList = (req, res) => {
+    pageslogic.GetDoorsPagesList()
+    .then(result => {
+        res.send(result[0])
+    })
+}
+
+exports.SetNewCatalogPage = (req, res) => {
+    const { DataPage, Page } = req.body;
+    if (Page && DataPage) {
+        pageslogic.SetNewCatalogPage(DataPage, Page)
+            .then(result => {
+                if (result) {
+                    res.sendStatus(200)
+                } else {
+                    res.sendStatus(500)
+                }
+            })
+    } else {
+        res.sendStatus(403)
+    }
 }

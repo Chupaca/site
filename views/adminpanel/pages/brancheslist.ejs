@@ -1,0 +1,81 @@
+<% layout('adminpanel/index') -%>
+
+
+<h2 class="title_wrap">
+   רשימת סניפים
+</h2>
+
+<div>
+    <button class="btn_class switch_wraps" data-wrap="active_version" > סניף חדש</button>
+    <button class="btn_class switch_wraps active" data-wrap="versions">רשימת סניפים</button>
+</div>
+
+<div class="wrap_two_col" style="display:none;" data-wrap="active_version">
+    <div class="col" style="width:30%;">
+        <input type="text" id="branch_branchname" placeholder="שם סניף"/><br>
+        <input type="text" id="branch_phonenumber" placeholder="טל:"/><br>
+        <input type="text" id="branch_fax" placeholder="פקס:"/><br>
+        <input type="text" id="branch_email" placeholder="אימייל:"/><br>
+        <input type="text" id="branch_city" placeholder="עיר:"/><br>
+        <input type="text" id="branch_address" placeholder="כתובת:"/><br>
+        <lable>יומי חול :</lable><br>
+        <input type="text" id="branch_open" style="width:35%;" placeholder="פתיחה:"/>
+        <input type="text" id="branch_close" style="width:35%;" placeholder="סגירה:"/><br>
+        <lable>יומי שישי :</lable><br>
+        <input type="text" id="branch_openfr" style="width:35%;" placeholder="פתיחה:"/>
+        <input type="text" id="branch_closefr" style="width:35%;" placeholder="סגירה:"/><br>
+        <input type="text" id="branch_link" style="width:95%;" placeholder="לינק לתלת ממד:"/><br>
+    </div>
+
+    <div class="col" style="width:30%;">
+        <button class="btn_class btn_green" id="save_new" style="float:left;" disabled>לשמור</button>
+    </div>
+
+    <div class="col" style="width:30%;">
+        
+    </div>
+
+</div>
+
+
+<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions">
+    <div id="sortable" class="col connectedSortable">
+     <h2 class="version_title">פעיל</h2>
+        <% if(Prods && Prods.length){ Prods.sort((a, b) => a.Position -b.Position).forEach(item => { %>
+        <li data-id="<%= item.Id %>" data-bucket="brancheslist">
+            <div class="page_item">
+                <span class="page_item_position"><b><%= item.Position %></b></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span ><%= item.Data.BranchName %></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span class="title_news_versions"><%= item.Data.City + " , " +  item.Data.Address %></span>
+                <i class="fas fa-bars nav_options"></i>
+            </div>
+        </li>
+        <%})}%>
+    </div>
+
+
+    <div id="sortable_tmp" class="col connectedSortable version">
+    <h2 class="version_title">לא פעיל</h2>
+        <% if(Versions && Versions.length){ Versions.forEach(item => { if(!Prods.find(prod => prod.Id == item.Id)){  %>
+        <li data-id="<%= item.Id %>" data-bucket="brancheslist-tmp">
+            <div class="page_item">
+                <span class="page_item_position"><b>0</b></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span ><%= item.Data.BranchName %></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span class="title_news_versions"><%= item.Data.City + " , " +  item.Data.Address %></span>
+                <i class="fas fa-bars nav_options"></i>
+                <i class="fas fa-trash-alt remove_page" data-page="brancheslist-tmp" style="margin:0 3vh;cursor:pointer;"  data-id="<%= item.Id %>"></i>
+            </div>
+        </li>
+        <%}})}%>
+    </div>
+
+    <div class="col">
+        <button class="btn_class btn_purple" id="template_page" style="float:none;" disabled>דוגמא</button><br>
+        <button class="btn_class btn_blue" id="publish_page">לפרסם</button>
+    </div>
+
+</div>

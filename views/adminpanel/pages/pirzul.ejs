@@ -1,0 +1,64 @@
+<% layout('adminpanel/index') -%>
+
+
+<h2 class="title_wrap">
+    קולקציות פירזול
+</h2>
+
+<div>
+    <button class="btn_class switch_wraps" data-wrap="pirzul_collection">דוגמות פרזול</button>
+    <button class="btn_class switch_wraps active" data-wrap="versions">רשימת קולקציות</button>
+    <button class="btn_class btn_green" id="save_new" style="float:left;" disabled>לשמור</button>
+</div>
+
+
+<div class="wrap_two_col" style="display:none;" data-wrap="pirzul_collection">
+    <div class="col" style="max-height: 63vh;">
+        <table class="doors_table" style="width: 100%;">
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="col">
+        <button class="btn_class" id="add_new_pirzul">הוסיף חדש</button><br>
+    </div>
+</div>
+
+
+<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions">
+    <div id="sortable" class="col connectedSortable">
+     <h2 class="version_title">פעיל</h2>
+        <% if(Prod){ let item = Prod; %>
+        <li data-id="<%= item.Id %>" data-bucket="pirzul">
+            <div class="page_item">
+                <span class="page_item_position"><b><%= item.Position %></b></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <i class="fas fa-bars nav_options"></i>
+            </div>
+        </li>
+        <%}%>
+    </div>
+
+
+    <div id="sortable_tmp" class="col connectedSortable">
+    <h2 class="version_title">לא פעיל</h2>
+        <% if(Versions && Versions.length){ Versions.forEach(item => { if(!Prod || item.Id != Prod.Id){ %>
+        <li data-id="<%= item.Id %>" data-bucket="pirzul-tmp">
+            <div class="page_item">
+                <span class="page_item_position"><b>0</b></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <i class="fas fa-bars nav_options"></i>
+                <i class="fas fa-trash-alt remove_page" data-page="pirzul-tmp" style="margin:0 3vh;cursor:pointer;"  data-id="<%= item.Id %>"></i>
+            </div>
+        </li>
+        <%}})}%>
+    </div>
+
+    <div class="col" style="width:10%;">
+        <button class="btn_class btn_purple" id="template_page" style="float:none;" disabled>דוגמא</button><br>
+        <button class="btn_class btn_blue" id="publish_page">לפרסם</button>
+    </div>
+</div>

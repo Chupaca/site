@@ -1,0 +1,105 @@
+<% layout('adminpanel/index') -%>
+
+<h2 class="title_wrap">
+    סרטונים
+</h2>
+<div>
+    <button class="btn_class switch_wraps" data-wrap="metadata">עריכת מטה</button>
+    <button class="btn_class switch_wraps" data-wrap="header">עריכת כותרת</button>
+    <button class="btn_class switch_wraps" data-wrap="videolist">רשימת סרטונים</button>
+    <button class="btn_class switch_wraps active" data-wrap="versions">רשימת גרסות</button>
+    <button class="btn_class btn_green" id="save_new" style="float:left;" disabled>לשמור</button>
+</div>
+
+
+<!--  meta  -->
+<div class="wrap_two_col" style="display:none;" data-wrap="metadata">
+    <div class="col">
+        <table class="meta_data_table">
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="col">
+        <button class="btn_class" id="add_new_meta">הוסיף חדש</button>
+    </div>
+</div>
+
+<!--   header -->
+<div class="wrap_three_col wrap_header_page" style="display:none;" data-wrap="header">
+    <div class="col" style="background:#ffffff;text-align: center;">
+        <h2>תמונה</h2>
+        <div class="wrap_images_" data-wrap_images="headers"></div>
+    </div>
+
+    <div class="col" style="background:none;text-align: center;position: relative;">
+        <h2>כותרת ראשית</h2>
+        <input type="text" class="title_header" value=""  />
+        <h2>כותרת תחתית</h2>
+        <textarea class="text_area_page_editor sub_title_header" style="display:block;"></textarea>
+        <div class="original_html_text" style="display:none;"></div>
+        <div>
+            <button class="btn_class remove_text">נקוי</button>
+        </div>
+    </div>
+    <div class="col">
+         <button class="btn_class upload_btn" data-bucket="headers" style="float:none;" > הוספת קובץ <i class="fas fa-cloud-upload-alt"></i></button><br>
+         <button class="btn_class open_gallery" data-bucket="headers">תמונת כותרת</button><br>
+          <button class="btn_class text_formated">הוסיף תוכן</button>
+    </div>
+</div>
+
+<div class="wrap_two_col" style="display:none;" data-wrap="videolist">
+    <div class="col">
+        <table class="video_table" style="width:100%;">
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div class="col">
+        <button class="btn_class" id="add_new_video">הוסיף חדש</button>
+    </div>
+</div>
+
+
+<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions">
+    <div id="sortable" class="col connectedSortable">
+     <h2 class="version_title">פעיל</h2>
+        <% if(Prod && Prod.Data.Header){ let item = Prod; %>
+        <li data-id="<%= item.Id %>" data-bucket="video">
+            <div class="page_item">
+                <span class="page_item_position"><b><%= item.Position %></b></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <b><span class="page_item_desc" ><%= item.Data.Header.Title %></span></b>
+                <i class="fas fa-bars nav_options"></i>
+            </div>
+        </li>
+        <%}%>
+    </div>
+
+
+    <div id="sortable_tmp" class="col connectedSortable">
+    <h2 class="version_title">לא פעיל</h2>
+        <% if(Versions && Versions.length){ Versions.forEach(item => { if(!Prod || item.Id != Prod.Id){ %>
+        <li data-id="<%= item.Id %>" data-bucket="video-tmp">
+            <div class="page_item">
+                <span class="page_item_position"><b>0</b></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <b><span class="page_item_desc" ><%= item.Data.Header.Title %></span></b>
+                <i class="fas fa-bars nav_options"></i>
+                <i class="fas fa-trash-alt remove_page" data-page="video-tmp" style="margin:0 3vh;cursor:pointer;"  data-id="<%= item.Id %>"></i>
+            </div>
+        </li>
+        <%}})}%>
+    </div>
+
+     <div class="col" style="width:10%;">
+        <button class="btn_class btn_purple" id="template_page" style="float:none;" disabled>דוגמא</button><br>
+        <button class="btn_class" id="preview_page" disabled>הצגה</button><br>
+        <button class="btn_class btn_blue" id="publish_page">לפרסם</button>
+    </div>
+
+</div>

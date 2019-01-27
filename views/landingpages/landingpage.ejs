@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="he">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3" />
+    <meta name="description" content="<%= MetaDescription %>">
+    <meta property="og:title" content="<%= title %>" />
+    <meta property="og:description" content="<%= MetaDescription %>">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="<%= Url %>" />
+    <meta property="og:image" content="<%= process.env.LINKTOBUCKETS +  'default/default_header_microdata_image.jpg' %>" />
+    <link rel="canonical" href="<%= Url %>" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/stylelanding.css" />
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-WV73VK5');
+    </script>
+    <!-- End Google Tag Manager -->
+</head>
+
+<body>
+<% if(Desktop){%>
+    <div id="general_wrap">
+        <img id="background_image" src="<%= ImagePath + 'backg_general.jpg' %>" alt="תמונת רקע">
+         <div id="wrap_slider_doors">
+        <div id="sales_door_wrap" style="">
+        <% DoorLinks.forEach(link => { if(link) {%>
+            <img  src='<%= ImagePath + link %>' alt="<%= link %>">
+        <%}})%>
+        </div>
+        </div>
+        <div id="form_wrap">
+            <form id="form" class="clientcomment_form" action="/priceoffer" method="post">
+                <input name="Name" type="text" class="tb form_input" placeholder="שם מלא:" required minlength="2" />
+                <input name="PhoneNumber" type="text" class="tb form_input" placeholder="טלפון:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                <input name="City" type="text" class="tb form_input" placeholder="עיר:" required minlength="2" />
+                <input name="FromPage" type="hidden" class="tb form_input" value="<%= FromPage %>" />
+                <input type="submit" class="tb send_btn" value="שליחה"  />
+            </form>
+        </div>
+        <a href="tel:*5058" class="phone_wrap"></a>
+    </div>
+<%}else{%>
+<div id="general_wrap">
+    <div class="mobile_top">
+        <img src="<%= ImagePath + 'backg_top_mobile.jpg' %>" alt="תמונת רקע">
+        <div id="wrap_slider_doors">
+        <div id="sales_door_wrap" style="">
+        <% DoorLinks.forEach(link => { if(link) {%>
+            <img  src='<%= ImagePath + link %>' alt="<%= link %>">
+        <%}})%>
+        </div>
+        </div>
+    </div>
+    <div style="height: 38%;">
+        <div id="form_wrap" style="background: url(<%= ImagePath + 'backg_form_mobile.jpg'%>) no-repeat top /145% 86%">
+                <form id="form" class="clientcomment_form" action="/priceoffer" method="post">
+                    <input name="Name" type="text" class="tb form_input" placeholder="שם מלא:" required minlength="2" />
+                    <input name="PhoneNumber" type="text" class="tb form_input" placeholder="טלפון:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                    <input name="City" type="text" class="tb form_input" placeholder="עיר:" required minlength="2" />
+                    <input name="FromPage" type="hidden" class="tb form_input" value="<%= FromPage %>" />
+                    <input type="submit" class="tb send_btn" value="שליחה"  />
+                </form>
+        </div>
+    </div>
+    <a href="tel:*5058" class="phone_wrap"></a>
+    <div class="mobile_footer">
+        <img src="<%= ImagePath + 'backg_footer_mobile.jpg' %>" alt="תמונת רקע">
+    </div>
+</div>
+<%}%>
+
+<script>
+    function ieVersion(uaString) {
+            uaString = uaString || navigator.userAgent;
+            var match = /\b(MSIE |Trident.*?rv:|Edge\/)(\d+)/.exec(uaString);
+            if (match) return parseInt(match[2])
+    }
+
+    function slideLeft(){
+            var wrap = document.getElementById('sales_door_wrap');
+             document.getElementById('sales_door_wrap').addEventListener("mousewheel", scrollHorizontally, false);
+             document.getElementById('sales_door_wrap').addEventListener("DOMMouseScroll", scrollHorizontally, false);
+            if(ieVersion()){
+                wrap = document.getElementById('wrap_slider_doors');
+                 document.getElementById('wrap_slider_doors').addEventListener("onmousewheel", scrollHorizontally, false);
+                // document.getElementById('wrap_slider_doors').attachEvent("onmousewheel", scrollHorizontally);
+            }
+            var scrollWay = 1;
+            var scrollInterval = setInterval( function(i) {
+                if(wrap.scrollLeft == (wrap.scrollWidth - wrap.clientWidth) && scrollWay > 0){
+                    scrollWay = -1
+                }else if(!wrap.scrollLeft && scrollWay < 0){
+                     scrollWay = 1
+                }
+                wrap.scrollLeft = wrap.scrollLeft + scrollWay;
+            },18)
+            
+   }
+
+    function scrollHorizontally(e) {
+        e = window.event || e;
+        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+        document.getElementById('sales_door_wrap').scrollLeft -= (delta*40); // Multiplied by 40
+        e.preventDefault();
+    }
+   
+   window.onload  = function(){
+        if(window.location.href.indexOf('sent=true') > -1 ){
+            alert("תודה לפנייתך, סוכן מכירות יחזור אלך בהמשך! ")
+            window.history.pushState('<%= title %>', '<%= title %>', window.location.href.split('?')[0])
+        }
+        if(window.location.href.indexOf('sent=false') > -1){
+             alert("התרחשה שגיאה")
+             window.history.pushState('<%= title %>', '<%= title %>', window.location.href.split('?')[0])
+        }
+        if(window.location.href.indexOf('error=fields') > -1){
+            alert("לא כל השדות מלאים!")
+            window.history.pushState('<%= title %>', '<%= title %>', window.location.href.split('?')[0])
+        }
+       
+        window.requestAnimationFrame(slideLeft);
+    }
+
+</script>
+<section>
+     <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WV73VK5"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+</section>
+</body>
+
+</html>

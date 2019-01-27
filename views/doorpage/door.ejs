@@ -1,6 +1,7 @@
-<% layout('layoutindex/mainpage') -%>
+<% const withOutPirzul = ['הזזה'] %>
+<% const withSlideSideDoors = ['הזזה']%>
 
-<% if(Desktop){%>
+<% layout('layoutindex/mainpage') -%>
 
 <!--[if lt IE 10]> 
       <style>
@@ -13,99 +14,286 @@
             }
         </style>
 <![endif]-->
+ <% if(Desktop){%>
+<div class="contentMainImgContainer general_door_collection_wrap" style="background: #000000 url(<%- (process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId) %>) no-repeat center;">
+  
+   <div class="collection_header_wrap" >
+   <div>
+      <h1 tabindex="0"><%- Page.Header.Title %></h1>
+      <div tabindex="0"><%- Page.Header.SubTitleHtml %></div>
+      <div><a href="/catalog"><input type="button" class="btn_all_pages" value="לכל הקולקציה"></a></div>
+   </div>
+    <div style="padding-right: 1vh;">
+     <% let item = Collection.Models[0]; %>
+      <img class="general_door_collection" style="" data-modelid="<%= item.ModelId %>" alt="<%= item.ModelName %>" src="<%= process.env.LINKTOBUCKETS + item.PrimaryImage %>"  />
+    </div>
+<%if(Gallery && Gallery.length){%>
+    <div class="link_to_projects_wrap" tabindex="0">
+       בואו לראות איך דגם זה נראה בבית אמיתי
 
-<div class="catalog door_preview_wrap">
+       <span class="downBtn" style="margin: 3vh 27% 1vh;" data-scrollto="wrap_container_projects"><i class="far fa-caret-square-down"></i></span>
+    </div>
+<%}%>
+    </div>
+  
+    <span class="downBtn" data-scrollto="wrap_container_door"><i class="far fa-caret-square-down"></i></span>
+</div>
+<%} else {%>
+
+<div class="contentMainImgContainer" style="background: #000000 url(<%= process.env.LINKTOBUCKETS + 'default/default_background_collactoins.mobile.jpg' %>) no-repeat center;">
+    <h1 tabindex="0"><%- Page.Header.Title %></h1>
+    <div class="contentTxt" style="font-size: 2.6vh;" tabindex="0"><%- Page.Header.SubTitleHtml %></div>
+    <a href="/catalog"><span class="to_form_section" >לכל הקולקציה</span></a>
+</div>
+
+<%}%>
+
+
+
+<% if(Desktop){%>
+<section >
+<div class="catalog door_preview_wrap" id="wrap_container_door" style="background:#ffffff;color:#000000;height: 112vh;">
+   <div class="container">
+   <h2 tabindex="0">דגמי הקולקציה</h2>
+   </div>
     <div class="flex_container">
-        <div class="flex_container_box ie_class">
+        <div class="flex_container_box ie_class" style="width: 40%;">
+        <h4 style="" class="door_description_bottom"></h4>
             <div class="door_wrap">
-                <img class="image_door" alt="" src="images/doors/unik_exlusive_broun/blank1.jpg" class="" />
-                <img alt="" src="images/doors/unik_exlusive_broun/ff.png" class="" />
-                <img alt="" src="images/doors/unik_exlusive_broun/fun.jpg" class="for_fun_after_door" style="width: 26vh;height: 53vh;z-index:-1;display:none;" />
+                <% Collection.Models.forEach((item, i) => {%>
+                    <%if(item.ModelId == CheckedModal){%>
+                    <% let frame = Collection.Doors.find(door => door.ModelId == item.ModelId && door.Type == 'frame') || {} %>
+                        <img class="image_door" style="" data-modelid="<%= item.ModelId %>" alt="<%= item.ModelName %>" src="<%= process.env.LINKTOBUCKETS + item.PrimaryImage %>"  />
+                        <img class="frame_image_door" data-modelid="<%= frame.DoorImageId || '' %>" alt="<%= frame.Description || '' %>" src="<%= process.env.LINKTOBUCKETS + frame.DoorImage %>"   />
+                    <%}else if(!CheckedModal && i === 0){%>
+                    <% let frame = Collection.Doors.find(door => door.ModelId == item.ModelId && door.Type == 'frame') || {}; %>
+                        <img class="image_door" style="" data-modelid="<%= item.ModelId %>" alt="<%= item.ModelName %>" src="<%= process.env.LINKTOBUCKETS + item.PrimaryImage %>"  />
+                        <img class="frame_image_door" data-modelid="<%= frame.DoorImageId || '' %>" alt="<%= frame.Description || '' %>" src="<%= process.env.LINKTOBUCKETS + frame.DoorImage %>"   />
+                    <%}%>
+                <%})%>
+               <div class="pirzul_wrap"></div>
             </div>
         </div>
         <div class="flex_container_box ie_class">
             <div class="choice_parts_door_list">
-                <ul class="">
-                    <li class="active">חלונות</li>
-                    <li>חריטות</li>
-                    <li>פתח לחתול\כלב</li>
+                <ul id="collection_choice">
+                    <% let checkedModelTitle; %>
+                    <% Collection.Models.forEach((model, i) => { %>
+                        <% if(model.ModelId == CheckedModal) {checkedModelTitle = model.ModelTitle; }  %>
+                        <% if(!CheckedModal && i == 0){%>
+                        <%   checkedModelTitle = model.ModelTitle; %>
+                        <%   CheckedModal = model.ModelId; %>
+                        <%}%>
+                        <% let frame = Collection.Doors.find(door => (model.ModelId == door.ModelId && door.Type == 'frame')) || {};%>
+                        <li tabindex="0" class="<%= (model.ModelId == CheckedModal?'active':'') %>" 
+                                    data-title="<%= model.ModelTitle %>" 
+                                    data-modelid="<%= model.ModelId %>" 
+                                    data-srcpreview="<%= process.env.LINKTOBUCKETS + model.PrimaryImage %>"
+                                    <% if(withSlideSideDoors.find(item => Collection.CollectionName.includes(item))) {%>
+                                        data-slide-side = true
+                                    <%}%>
+                                    data-frame="<%= process.env.LINKTOBUCKETS + frame.DoorImage %>"><%= model.ModelName %></li>
+                    <%})%>
+                    <% if(!withOutPirzul.find(item => Collection.CollectionName.includes(item))) {%>
+                     <li tabindex="0" class="pirzul">פרזול</li>
+                    <%}%>
                 </ul>
-                <div>
-                    <h2>חולונות</h2>
+                <div style="min-width: 80vh;">
                     <div class="choice_parts_preview_wrap">
-                        <div class="part_preview" data-large-door="images/doors/unik_exlusive_broun/window1.jpg">
-                            <img alt="" src="images/doors/unik_exlusive_broun/window1_mini.jpg" class="" />
-                            <span>חלון גדול</span>
-                        </div>
-                        <div class="part_preview" data-large-door="images/doors/unik_exlusive_broun/window_1530_1.jpg">
-                            <img alt="" src="images/doors/unik_exlusive_broun/window_1530_mini.jpg" class="" />
-                            <span>חלון קטן</span>
-                        </div>
-                        <div class="part_preview" data-large-door="images/doors/unik_exlusive_broun/window_rhombus_1.jpg">
-                            <img alt="" src="images/doors/unik_exlusive_broun/window_rhombus_1_mini.jpg" class="" />
-                            <span>חלון רומב</span>
-                        </div>
+                        <div class="section_text" style="width: 100%;font-size:2.3vh;"><%- checkedModelTitle %></div>
+                    </div>
+
+                 <div class="wrap_slider_doors">
+                 <div tabindex="0" class="ss_l"><i class="fas fa-angle-left"></i></div>
+                  <div tabindex="0" class="ss_r"><i class="fas fa-angle-right"></i></div>
+                   <div class="line_preview_doors">
+                     <div class="slide_doors right"></div>
+                        <% for(let i = 0;i < Collection.Doors.length;i++){ let door = Collection.Doors[i]; if(door.Type != "frame"){%> 
+                            <div class="wrap_image_door" style="display:<%= (door.ModelId != CheckedModal?'none':'') %>" 
+                                    data-modelid="<%= door.ModelId %>" 
+                                    data-description="<%= door.Description %>"
+                                     <% if(withSlideSideDoors.find(item => Collection.CollectionName.includes(item))) {%>
+                                        data-slide-side = true
+                                    <%}%>
+                                    data-srcpreview="<%= process.env.LINKTOBUCKETS + door.DoorImage %>">
+                                    <img data-modelid="<%= door.ModelId %>"  class="image_door_in_line" src="<%= process.env.LINKTOBUCKETS + door.DoorImage %>" style="width:57%;"  alt="<%= door.DoorImageId %>">
+                                    <% let modName = Collection.Models.find(item => item.ModelId == door.ModelId).ModelName %>
+                                    <br/><span><%= door.Description.replace(modName, "") %></span>
+                            </div>
+                        <%}}%>
+                        <% Pirzul.forEach(item => { %> 
+                            <div class="wrap_image_door" data-pirzul="true" style="display:none;"  data-srcpreview="<%= process.env.LINKTOBUCKETS + item.DoorImage %>">
+                                    <img class="image_door_in_line" src="<%= process.env.LINKTOBUCKETS + item.DoorImage %>" style="width:100%;"  alt="<%= item.DoorImageId %>">
+                                    <br/><span><%= item.Description %></span>
+                            </div>
+                        <%})%>
+                     <div class="slide_doors left"></div>  
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="flex_container_box ie_class">
-            <div class="headerImgTextR door_name_catalog_preview">
-                <div class="content">
-                    <h1><span>פנדור</span><br> יוניק <br>קלאסיק </h1>
-                    <div>
-                        <b>פנדור יוניק קלאסיק:</b> אַדְרִיכָלוּת או אַרְכִיטֶקְטוּרָה מוגדרת באופן מסורתי כאמנות
-                        הבנייה,
-                        כתחום
-                        העוסק בתכנון ועיצוב חללים.
-                    </div>
+                <div class="doors_icons_wrap">
+                    <img alt="bitahon_color.png" src="/images/doorsicons/bitahon_color.png" />
+                    <img alt="80_color.png"  src="/images/doorsicons/80_color.png" />
+                    <img alt="amidut_color.png" src="/images/doorsicons/amidut_color.png" />
+                    <img alt="bidud-mereashim_color.png"  src="/images/doorsicons/bidud-mereashim_color.png" />
+                    <img alt="meyutzar_color.png" src="/images/doorsicons/meyutzar_color.png" />
+                    <img alt="sherut_color.png" src="/images/doorsicons/sherut_color.png" />
+                </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+</section>
 <%} else { %>
-<div>
-    <div class="header_door_wrap">
-        <h2><span>פנדור</span> יוניק קלאסיק </h2>
-        <div>
-            <b>פנדור יוניק קלאסיק:</b> אַדְרִיכָלוּת או אַרְכִיטֶקְטוּרָה מוגדרת באופן מסורתי כאמנות
-            הבנייה,
-            כתחום
-            העוסק בתכנון ועיצוב חללים.
+<section class="wrap_container" style="padding:2%;">
+ <div class="container" style="height: 125vh;">
+   <h2>דגמי קולקציה</h2>
+        <div class="" style="display:flex;min-height: 44vh;">
+     
+              <div class="choice_parts_door_list">
+                    <ul id="collection_choice">
+                        <% let checkedModelTitle; %>
+                        <% Collection.Models.forEach((model, i) => { %>
+                            <% if(model.ModelId == CheckedModal) {checkedModelTitle = model.ModelTitle; }  %>
+                            <% if(!CheckedModal && i == 0){%>
+                            <%   checkedModelTitle = model.ModelTitle; %>
+                            <%   CheckedModal = model.ModelId; %>
+                            <%}%>
+                            <% let frame = Collection.Doors.find(door => (model.ModelId == door.ModelId && door.Type == 'frame')) || {};%>
+                            <li class="<%= (model.ModelId == CheckedModal?'active':'') %>" 
+                                        data-title="<%= model.ModelTitle %>" 
+                                        data-modelid="<%= model.ModelId %>" 
+                                        data-srcpreview="<%= process.env.LINKTOBUCKETS + model.PrimaryImage %>" 
+                                        data-frame="<%= process.env.LINKTOBUCKETS + frame.DoorImage %>"><%= model.ModelName %></li>
+                        <%})%>
+                         <% if(!withOutPirzul.find(item => Collection.CollectionName.includes(item))) {%>
+                            <li class="pirzul">פרזול</li>
+                        <%}%>
+                    </ul>
+                </div>   
+
+
+            <div class="mobile_image_door_wrap">
+                <% Collection.Models.forEach((item, i) => {%>
+                    <%if(item.ModelId == CheckedModal){%>
+                     <% let frame = Collection.Doors.find(door => door.ModelId == item.ModelId && door.Type == 'frame') || {} %>
+                        <img class="image_door" style="" data-modelid="<%= item.ModelId %>" alt="<%= item.ModelName %>" src="<%= process.env.LINKTOBUCKETS + item.PrimaryImage %>"  />
+                        <img class="frame_image_door" style="position: absolute;width: 20vh;height: 41vh;" data-modelid="<%= frame.ModelId || '' %>" alt="<%= frame.Description || '' %>" src="<%= process.env.LINKTOBUCKETS + frame.DoorImage %>"   />
+                    <%}else if(!CheckedModal && i === 0){%>
+                    <% let frame = Collection.Doors.find(door => door.ModelId == item.ModelId && door.Type == 'frame') || {}; %>
+                        <img class="image_door" style="" data-modelid="<%= item.ModelId %>" alt="<%= item.ModelName %>" src="<%= process.env.LINKTOBUCKETS + item.PrimaryImage %>"  />
+                        <img class="frame_image_door" style="position: absolute;width: 20vh;height: 41vh;" data-modelid="<%= frame.ModelId || '' %>" alt="<%= frame.Description || '' %>" src="<%= process.env.LINKTOBUCKETS + frame.DoorImage %>"   />
+                    <%}%>
+                <%})%>
+                 <div class="pirzul_wrap mobile"></div>
+            </div>
+   </div>
+   <div class="wrap_slider_doors">
+                   <div class="line_preview_doors">
+                     <div class="slide_doors right"></div>
+                        <% for(let i = 0;i < Collection.Doors.length;i++){ let door = Collection.Doors[i]; if(door.Type != "frame"){  %> 
+                            <div class="wrap_image_door" style="display:<%= (door.ModelId != CheckedModal?'none':'') %>" data-modelid="<%= door.ModelId %>" data-description="<%= door.Description %>"  data-srcpreview="<%= process.env.LINKTOBUCKETS + door.DoorImage %>">
+                                    <img data-modelid="<%= door.ModelId %>"  class="image_door_in_line" src="<%= process.env.LINKTOBUCKETS + door.DoorImage %>" style="width:57%;"  alt="<%= door.DoorImageId %>">
+                                    <% let modName = Collection.Models.find(item => item.ModelId == door.ModelId).ModelName %>
+                                    <br/><span class="mobile_door_desc"><%= door.Description.replace(modName, "") %></span>
+                            </div>
+                        <%}}%>
+                        <% Pirzul.forEach(item => { %> 
+                            <div class="wrap_image_door" data-pirzul="true" style="display:none;"  data-srcpreview="<%= process.env.LINKTOBUCKETS + item.DoorImage %>">
+                                    <img class="image_door_in_line" src="<%= process.env.LINKTOBUCKETS + item.DoorImage %>" style="width:100%;"  alt="<%= item.DoorImageId %>">
+                                    <br/><span><%= item.Description %></span>
+                            </div>
+                        <%})%>
+                     <div class="slide_doors left"></div>  
+                    </div>
+    </div>
+   <div>
+        <div class="choice_parts_preview_wrap">
+            <div class="section_text" style="font-size: 1.7vh;padding: 15px 22px 0 0;"><%- checkedModelTitle %></div>
         </div>
-        <a href="/catalog"><span class="to_form_section" >חזור לכל קולקציה</span></a>
     </div>
+     <div class="doors_icons_wrap">
+                    <img alt="bitahon_color.png" style="width: 30%;" src="/images/doorsicons/bitahon_color.png" />
+                    <img alt="80_color.png"  src="/images/doorsicons/80_color.png" />
+                    <img alt="amidut_color.png" src="/images/doorsicons/amidut_color.png" />
+                    <img alt="bidud-mereashim_color.png"  src="/images/doorsicons/bidud-mereashim_color.png" />
+                    <img alt="meyutzar_color.png" src="/images/doorsicons/meyutzar_color.png" />
+                    <img alt="sherut_color.png" src="/images/doorsicons/sherut_color.png" />
+                </div>
 </div>
-<div class="container" style="padding: 3vh 0;">
-    <div style="text-align: -webkit-center;">
-        <img class="image_door" alt="" src="images/doors/unik_exlusive_broun/blank1.jpg" class="" style="width:40%;" />
+</section>
+<%}%>
+
+<section class="wrap_container">
+    <div class="container">
+        <div class="tbContainer bottom_side">
+            <h2>מעוניינ/ת בפרטים נוספים?<b> מלא/י את הטופס:</b></h2>
+           <% if(Desktop) {%>
+                <form class="clientcomment_form" action="/priceoffer" method="post" >
+                    <div>
+                        <input name="Name" type="text" class="tb form_input" placeholder="שם מלא:" required minlength="2"/>
+                        <input name="PhoneNumber" type="text" class="tb form_input" placeholder="טלפון:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                        <input name="City" type="text" class="tb form_input" placeholder="עיר:" required minlength="2" />
+                        <input type="submit" class="tb send_btn" value="שליחה" style="height: 50%;margin-top: 8vh;" />
+                    </div>
+                   
+                </form>
+            <%} else {%>
+                <form class="clientcomment_form" action="/priceoffer" method="post" >
+                    <input name="Name" type="text" class="tb form_input" placeholder="שם מלא:" required minlength="2"/>
+                    <input name="PhoneNumber"type="text" class="tb form_input" placeholder="טלפון:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                    <input name="City"type="text" class="tb form_input" placeholder="עיר:" required minlength="2" /> 
+                    <input type="submit" class="tb send_btn" value="שליחה" />
+                </form>
+            <%}%>
+        </div>
     </div>
-    <div class="choice_parts_door_list">
-        <ul>
-            <li>חלונות
-                <select class="select_part_door">
-                    <option value="images/doors/unik_exlusive_broun/blank1.jpg">ללא חלון</option>
-                    <option value="images/doors/unik_exlusive_broun/window1.jpg">חלון גדול</option>
-                    <option value="images/doors/unik_exlusive_broun/window_1530_1.jpg">חלון קטן</option>
-                    <option value="images/doors/unik_exlusive_broun/window_rhombus_1.jpg">חלון רומב</option>
-                </select>
-            </li>
-            <li>חריטות
-                <select name="" id="">
-                    <option value="1">חלון גדול</option>
-                    <option value="1">חלון גדול</option>
-                    <option value="1">חלון גדול</option>
-                </select>
-            </li>
-            <li>פתח לחתול\כלב
-                <select name="" id="">
-                    <option value="1">חלון גדול</option>
-                    <option value="1">חלון גדול</option>
-                    <option value="1">חלון גדול</option>
-                </select>
-            </li>
-        </ul>
+</section>
+
+
+
+<%if(Gallery && Gallery.length){%>
+<section class="wrap_container" id="wrap_container_projects" style="padding:2%;">
+ <div class="container">
+  <h2 tabindex="0">פנדור אצלכם בבית - הדגמים שלנו, בבתים שלכם</h2>
+ <div class="content_sales">
+    <% let gallery1 = Gallery[0] %>
+    <% let gallery2 = Gallery[1] %>
+    <% let gallery3 = Gallery[2] %>
+    <div class="right_one">
+        <a href="/project/<%= gallery1.ProjectId %>">
+            <img alt="<%= gallery1.ImageId %>" src="<%= process.env.LINKTOBUCKETS + gallery1.LinkToBucket + gallery1.ImageId %>" />
+            <div class="info">
+                <div class="middle"><span tabindex="0">
+                        <%= decodeURIComponent(gallery1.Title) %></span></div>
+                <div class="sale-btn"></div>
+            </div>
+        </a>
+
     </div>
-</div>
+    <div class="left_one">
+        <div class="box_one">
+            <a href="/project/<%= gallery2.ProjectId %>">
+                <img alt="<%= gallery2.ImageId %>" src="<%= process.env.LINKTOBUCKETS + gallery2.LinkToBucket + gallery2.ImageId %>" />
+                <div class="info">
+                    <div class="middle"><span tabindex="0">
+                             <%= decodeURIComponent(gallery2.Title) %></span></div>
+                    <div class="sale-btn"></div>
+                </div>
+            </a>
+        </div>
+        <div class="box_one">
+            <a href="/project/<%= gallery3.ProjectId %>">
+                <img alt="<%= gallery3.ImageId %>" src="<%= process.env.LINKTOBUCKETS + gallery3.LinkToBucket + gallery3.ImageId %>" />
+                <div class="info">
+                    <div class="middle"><span tabindex="0">
+                             <%= decodeURIComponent(gallery3.Title) %></span></div>
+                    <div class="sale-btn"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+ </div>
+</section>
 <%}%>

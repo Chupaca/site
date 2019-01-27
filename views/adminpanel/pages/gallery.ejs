@@ -1,0 +1,169 @@
+<% layout('adminpanel/index') -%>
+
+<h2 class="title_wrap">
+    גלריה פרויקטים
+</h2>
+<div>
+    <button class="btn_class switch_wraps" data-wrap="metadata">עריכת מטה</button>
+    <button class="btn_class switch_wraps" data-wrap="header">עריכת כותרת</button>
+    <button class="btn_class switch_wraps" data-wrap="content">עריכת תוכן</button>
+    <button class="btn_class switch_wraps" data-wrap="projects">תצוגה פריקטים</button>
+    <button class="btn_class switch_wraps active" data-wrap="versions">רשימת גרסות</button>
+    <button class="btn_class btn_green" id="save_new" style="float:left;" disabled>לשמור</button>
+</div>
+
+<!--  meta  -->
+<div class="wrap_two_col" style="display:none;" data-wrap="metadata">
+    <div class="col">
+        <table class="meta_data_table">
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="col">
+        <button class="btn_class" id="add_new_meta">הוסיף חדש</button>
+    </div>
+</div>
+
+<!--   header -->
+<div class="wrap_three_col wrap_header_page" style="display:none;" data-wrap="header">
+    <div class="col" style="background:#ffffff;text-align: center;">
+        <h2>תמונה</h2>
+        <div class="wrap_images_" data-wrap_images="headers"></div>
+    </div>
+
+    <div class="col" style="background:none;text-align: center;position: relative;">
+        <h2>כותרת ראשית</h2>
+        <input type="text" class="title_header" value=""  />
+        <h2>כותרת תחתית</h2>
+        <textarea class="text_area_page_editor sub_title_header" style="display:block;"></textarea>
+        <div class="original_html_text" style="display:none;"></div>
+        <div>
+            <button class="btn_class remove_text">נקוי</button>
+        </div>
+    </div>
+    <div class="col">
+         <button class="btn_class upload_btn" data-bucket="headers" style="float:none;" > הוספת קובץ <i class="fas fa-cloud-upload-alt"></i></button><br>
+         <button class="btn_class open_gallery" data-bucket="headers">תמונת כותרת</button><br>
+         <button class="btn_class text_formated">הוסיף תוכן</button>
+    </div>
+</div>
+
+<!-- content -->
+<div class="wrap_three_col wrap_content_page" style="display:none;" data-wrap="content">
+    <div class="col" style="background:none;text-align: center;">
+        <h2>תוכן </h2>
+        <textarea class="text_area_page_editor content_text" style="display:block;"></textarea>
+        <div class="original_html_text" style="display:none;"></div>
+        <div>
+            <button class="btn_class remove_text">נקוי</button>
+        </div>
+    </div>
+    <div class="col">
+        <button class="btn_class text_formated">הוסיף תוכן</button>
+    </div>
+</div>
+
+<div class="wrap_two_col" style="display:none;" data-wrap="projects">
+    <div class="col"  style="background:#ffffff;text-align: center;width:75%;">
+       <div class="galleryContainer">
+        <h2>גלריית קרויקטים</h2>
+        <div class="col50pre">
+            <a class="thumbwidth100pre check_project" data-fancybox="gallery">
+                <img alt="" src="<%= process.env.LINKTOBUCKETS + 'default/default_gallery_empty_image.png' %>" />
+            </a>
+            <a class="thumbW check_project" data-fancybox="gallery">
+                <img alt="" src="<%= process.env.LINKTOBUCKETS + 'default/default_gallery_empty_image.png' %>" />
+            </a>
+            <a class="thumbW check_project" data-fancybox="gallery" >
+                <img alt="" src="<%= process.env.LINKTOBUCKETS + 'default/default_gallery_empty_image.png' %>" />
+            </a>
+            <a class="thumbW check_project" data-fancybox="gallery">
+                <img alt="" src="<%= process.env.LINKTOBUCKETS + 'default/default_gallery_empty_image.png' %>" />
+            </a>
+            <a class="thumbW check_project" data-fancybox="gallery" >
+                <img alt="" src="<%= process.env.LINKTOBUCKETS + 'default/default_gallery_empty_image.png' %>" />
+            </a>
+        </div>
+        <div class="col50pre">
+            <div class="col50pre">
+                <a class="thumbwidth100pre4 check_project" data-fancybox="gallery" >
+                    <img alt="" src="<%= process.env.LINKTOBUCKETS + 'default/default_gallery_empty_image.png' %>" />
+                </a>
+                <a class="thumbwidth100pre4 check_project" data-fancybox="gallery">
+                    <img alt="" src="<%= process.env.LINKTOBUCKETS + 'default/default_gallery_empty_image.png' %>" />
+                </a>
+            </div>
+            <div class="col50pre">
+                <a data-fancybox="gallery" class="check_project">
+                    <img alt="" src="<%= process.env.LINKTOBUCKETS + 'default/default_gallery_empty_image.png' %>" />
+                </a>
+                 <a data-fancybox="gallery" class="check_project">
+                    <img alt="" src="<%= process.env.LINKTOBUCKETS + 'default/default_gallery_empty_image.png' %>" />
+                </a>
+            </div>
+                 <a class="thumbB check_project" data-fancybox="gallery">
+                    <img alt="" src="<%= process.env.LINKTOBUCKETS + 'default/default_gallery_empty_image.png' %>" />
+                </a>
+           
+    </div>
+    </div>
+    </div>
+    <div class="col" style="width:18%;">
+        <select class="select_item" id="architects_select">
+                <option>בחר..</option>
+        </select>
+         <button class="btn_class open_gallery_projects" data-bucket="architectsicons" data-architectid="" disabled > תעינה פרויקטים אדריכל</button><br>
+    </div>
+    
+</div>
+
+<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions">
+    <div id="sortable" class="col connectedSortable">
+     <h2 class="version_title">פעיל</h2>
+        <% if(Prod){ let item = Prod; %>
+        <li data-id="<%= item.Id %>" data-bucket="gallery">
+            <div class="page_item">
+                <span class="page_item_position"><b><%= item.Position %></b></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <b><span class="page_item_desc" ><%= item.Data.Header.Title %></span></b>
+                <i class="fas fa-bars nav_options"></i>
+            </div>
+        </li>
+        <%}%>
+    </div>
+
+
+    <div id="sortable_tmp" class="col connectedSortable">
+    <h2 class="version_title">לא פעיל</h2>
+        <% if(Versions && Versions.length){ Versions.forEach(item => { if(!Prod || item.Id != Prod.Id){ %>
+        <li data-id="<%= item.Id %>" data-bucket="gallery-tmp">
+            <div class="page_item">
+                <span class="page_item_position"><b>0</b></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <b><span class="page_item_desc" ><%= item.Data.Header.Title %></span></b>
+                <i class="fas fa-bars nav_options"></i>
+                <i class="fas fa-trash-alt remove_page" data-page="gallery-tmp" style="margin:0 3vh;cursor:pointer;"  data-id="<%= item.Id %>"></i>
+            </div>
+        </li>
+        <%}})}%>
+    </div>
+
+    <div class="col" style="width:10%;">
+        <button class="btn_class btn_purple" id="template_page" style="float:none;" disabled>דוגמא</button><br>
+        <button class="btn_class" id="preview_page" disabled>הצגה</button><br>
+        <button class="btn_class btn_blue" id="publish_page">לפרסם</button>
+    </div>
+</div>
+
+<div id="preview_architect_projects" class="modal">
+        <div class="modal-content for_gallery_preview">
+            <h2>פרויקטים</h2>
+            <button class="btn_class" id="check_item_p" >בחר</button>
+            <button class="btn_class" id="close_modal_p" >סגור</button>
+            <div id="modal_projects_wrap" style="width:100%;"></div>
+        </div>
+</div>

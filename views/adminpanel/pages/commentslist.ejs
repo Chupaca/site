@@ -1,0 +1,77 @@
+<% layout('adminpanel/index') -%>
+
+
+<h2 class="title_wrap">
+   לקוחות מספרים
+</h2>
+
+<div>
+    <button class="btn_class switch_wraps" data-wrap="active_version">לקוח חדש</button>
+    <button class="btn_class switch_wraps active" data-wrap="versions">רשימת לקוחות</button>
+</div>
+
+<div class="wrap_three_col" style="display:none;" data-wrap="active_version">
+    <div class="col" style="width:30%;">
+        <input type="text" id="client_name" placeholder="שם לקוח" /><br>
+        <input type="text" placeholder="עיר" id="client_city" dir="rtl" /><br>
+        <input type="text" placeholder="אימייל" id="client_email" dir="rtl" /><br>
+        <input type="text" placeholder="פלפון" id="client_phonenumber" dir="rtl" /><br>
+        <textarea id="client_comment" placeholder="comment" style="resize:none;width: 100%;height:150px;padding:3vh;"></textarea>
+    </div>
+
+    <div class="col" style="width:30%;background:#ffffff;text-align: -webkit-center;">
+            <h2>תמונת לקוח</h2>
+             <div class="" style="text-align: -webkit-center;float: none;">
+                <img id="client_profileimage" style="height:auto;width:50%;" data-imgid="default_client_comments_icon.png" src="<%= process.env.LINKTOBUCKETS +  'default/default_client_comments_icon.png' %>" />
+            </div>
+    
+            <i class="fas fa-trash-alt remove_client_image" style="cursor:pointer;color:red;font-size: 30px;margin-top: 50%;"></i>
+    </div>
+    
+    <div class="col" style="width:12%;">
+        <button class="btn_class upload_btn" data-bucket="clients" style="float:none;"> הוספת קובץ <i class="fas fa-cloud-upload-alt"></i></button><br>
+        <button class="btn_class open_gallery_clients" data-bucket="clients">תמונת לקוח</button><br>
+        <button class="btn_class btn_green" id="save_new" disabled>לשמור</button>
+    </div>
+
+</div>
+
+<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions">
+    <div id="sortable" class="col connectedSortable">
+     <h2 class="version_title">פעיל</h2>
+        <% if(Prods && Prods.length){ Prods.sort((a, b) => a.Position -b.Position).forEach(item => { %>
+        <li data-id="<%= item.Id %>" data-bucket="commentslist">
+            <div class="page_item">
+                <span class="page_item_position"><b><%= item.Position %></b></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span class="title_news_versions"><%= item.Data.Name %></span>
+                <i class="fas fa-bars nav_options"></i>
+            </div>
+        </li>
+        <%})}%>
+    </div>
+
+
+    <div id="sortable_tmp" class="col connectedSortable version">
+    <h2 class="version_title">לא פעיל</h2>
+        <% if(Versions && Versions.length){ Versions.forEach(item => {  if(!Prods || !Prods.find(prod => prod.Id == item.Id)){ %>
+        <li data-id="<%= item.Id %>" data-bucket="commentslist-tmp">
+            <div class="page_item">
+                <span class="page_item_position"><b>0</b></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span class="title_news_versions"><%= item.Data.Name %></span>
+                <i class="fas fa-bars nav_options"></i>
+                <i class="fas fa-trash-alt remove_page" data-page="commentslist-tmp" style="margin:0 3vh;cursor:pointer;"  data-id="<%= item.Id %>"></i>
+            </div>
+        </li>
+        <%}})}%>
+    </div>
+    <div class="col">
+        <button class="btn_class btn_purple" id="template_page" style="float:none;" disabled>הצגה</button><br>
+        <button class="btn_class btn_blue" id="publish_page">לפרסם</button>
+    </div>
+</div>

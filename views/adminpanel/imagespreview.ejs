@@ -4,7 +4,7 @@
         <img class="image_one" data-imageid="<%= image.id %>" data-index="<%= i %>" src="https://storage.googleapis.com/<%= image.metadata.bucket %>/<%= image.id %>" alt="">
         <div class="desc">
                 <span><%= image.id.slice(14) %></span>
-            <i class="fas fa-trash-alt remove_file" data-imageid="<%= image.id %>"></i>
+            <i class="fas fa-trash-alt <%= AllowRemove?'':'remove_file'%>" onclick="<%= AllowRemove?'RemoveFile.call(this)':''%>"  data-imageid="<%= image.id %>" data-bucket="<%= bucketFile || '' %>"></i>
         </div>
     </div>
     <%})%>

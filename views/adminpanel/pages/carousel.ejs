@@ -1,0 +1,133 @@
+<% layout('adminpanel/index') -%>
+
+
+<h2 class="title_wrap">
+   קרוסלה
+</h2>
+
+<div>
+    <button class="btn_class switch_wraps" data-wrap="header">תמונות רקע</button>
+    <button class="btn_class switch_wraps" data-wrap="active_details_desktop"> כותרת דסקטופ</button>
+    <button class="btn_class switch_wraps" data-wrap="active_details_mobile"> כותרת מובייל</button>
+    <button class="btn_class switch_wraps active" data-wrap="versions">רשימת גרסות</button>
+     <button class="btn_class btn_green" id="save_new" disabled style="float:left;" >לשמור</button>
+</div>
+
+<!--   header -->
+<div class="wrap_three_col wrap_header_page" style="display:none;" data-wrap="header">
+    <div class="col images_wrap_cont" style="background:#ffffff;text-align: center;">
+        <h2> תמונה רקע</h2>
+        <button class="btn_class open_gallery_carousel" data-bucket="headers" data-wrap="desktop_theme">תמונות</button>
+        <div class="wrap_images_" data-wrap_images="desktop_theme"></div>
+    </div>
+
+    <div class="col images_wrap_cont" style="background:#ffffff;text-align: center;">
+        <h2>תמונת רקע מובייל</h2>
+        <button class="btn_class open_gallery_carousel" data-bucket="headers" data-wrap="mobile_theme">תמונות</button>
+        <div class="wrap_images_" data-wrap_images="mobile_theme"></div>
+    </div>
+
+    <div class="col">
+         <button class="btn_class upload_btn" data-bucket="headers" style="float:none;" > הוספת קובץ <i class="fas fa-cloud-upload-alt"></i></button>
+    </div>
+</div>
+
+
+<div class="wrap_three_col" style="display:none;" data-wrap="active_details_desktop">
+    <div class="col" style="width:30%;">
+        <h1>שקופית 1</h1>
+        <lable>כותרת ימנית</lable><br>
+        <input type="text" class="DesktopDetailsSlide1" name="Button" placeholder="כותרת כפתור" /><br>
+        <input type="text" class="DesktopDetailsSlide1" name="Link" style="direction: ltr;" placeholder="לינק" /><b>/pandoor.co.il</b><br>
+        <textarea placeholder="כותרת" class="DesktopDetailsSlide1" name="Title" style="resize:none;width: 100%;height:150px;padding:3vh;"></textarea>
+        <hr>
+        <lable>כותרת שמלית</lable><br>
+        <input type="text" class="DesktopDetailsSlide1" style="width:90%;" name="LeftTitle" placeholder="כותרת שמלית" /><br>
+        <br>
+        <h1>שקופית 2</h1>
+        <input type="text" class="DesktopDetailsSlide2" name="Button" placeholder="כותרת כפתור" /><br>
+        <input type="text" class="DesktopDetailsSlide2" name="Link" style="direction: ltr;" placeholder="לינק" /><b>/pandoor.co.il</b><br>
+        <textarea placeholder="כותרת" class="DesktopDetailsSlide2" name="Title" style="resize:none;width: 100%;height:150px;padding:3vh;"></textarea>
+        <hr>
+        <lable>כותרת שמלית</lable><br>
+        <input type="text" class="DesktopDetailsSlide2" style="width:90%;" name="LeftTitle" placeholder="כותרת שמלית" /><br>
+    
+    </div>
+
+     <div class="col images_wrap_cont" style="background:#ffffff;text-align: center;">
+        <h2>תמונות</h2>
+        <div class="wrap_images_ multi_images" data-wrap_images="desktop_door"></div>
+    </div>
+    
+    <div class="col" style="width:12%;">
+        <button class="btn_class upload_btn" data-bucket="doors" style="float:none;"> הוספת קובץ <i class="fas fa-cloud-upload-alt"></i></button><br>
+        <button class="btn_class open_gallery_carousel" data-bucket="doors" data-wrap="desktop_door">תמונת</button><br>
+        <button class="btn_class btn_blue copy_to_mobile" style="float:none;"> התק למובייל <i class="fas fa-copy"></i></button>
+    </div>
+</div>
+
+<div class="wrap_three_col" style="display:none;" data-wrap="active_details_mobile">
+       <div class="col" style="width:30%;">
+        <h1>שקופית 1</h1>
+        <lable>כותרת ימנית</lable><br>
+        <input type="text" class="MobileDetailsSlide1" name="Button" placeholder="כותרת כפתור" /><br>
+        <input type="text" class="MobileDetailsSlide1" name="Link" style="direction: ltr;" placeholder="לינק" /><b>/pandoor.co.il</b><br>
+        <textarea placeholder="כותרת" class="MobileDetailsSlide1" name="Title" style="resize:none;width: 100%;height:150px;padding:3vh;"></textarea>
+        <br>
+        <h1>שקופית 2</h1>
+        <input type="text" class="MobileDetailsSlide2" name="Button" placeholder="כותרת כפתור" /><br>
+        <input type="text" class="MobileDetailsSlide2" name="Link" style="direction: ltr;" placeholder="לינק" /><b>/pandoor.co.il</b><br>
+        <textarea placeholder="כותרת" class="MobileDetailsSlide2" name="Title" style="resize:none;width: 100%;height:150px;padding:3vh;"></textarea>
+    </div>
+
+     <div class="col images_wrap_cont" style="background:#ffffff;text-align: center;">
+        <h2>תמונות</h2>
+        <div class="wrap_images_ multi_images" data-wrap_images="mobile_door"></div>
+    </div>
+    
+    <div class="col" style="width:12%;">
+        <button class="btn_class upload_btn" data-bucket="doors" style="float:none;"> הוספת קובץ <i class="fas fa-cloud-upload-alt"></i></button><br>
+        <button class="btn_class open_gallery_carousel" data-bucket="doors" data-wrap="mobile_door">תמונת</button>
+    </div>
+</div>
+
+<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions">
+    <div id="sortable" class="col connectedSortable">
+     <h2 class="version_title">פעיל</h2>
+        <% if(Prod){ let item = Prod; %>
+        <li data-id="<%= item.Id %>" data-bucket="carousel">
+            <div class="page_item">
+                <span class="page_item_position"><b><%= item.Position %></b></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                
+                <i class="fas fa-bars nav_options"></i>
+            </div>
+        </li>
+        <%}%>
+    </div>
+
+
+    <div id="sortable_tmp" class="col connectedSortable version">
+    <h2 class="version_title">לא פעיל</h2>
+         <% if(Versions && Versions.length){ Versions.forEach(item => { if(!Prod || item.Id != Prod.Id){ %>
+        <li data-id="<%= item.Id %>" data-bucket="carousel-tmp">
+            <div class="page_item">
+                <span class="page_item_position"><b>0</b></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
+                <b style="margin:0 2vh;">&#124;</b>
+               
+                <i class="fas fa-bars nav_options"></i>
+                <i class="fas fa-trash-alt remove_page" data-page="carousel-tmp" style="margin:0 3vh;cursor:pointer;"  data-id="<%= item.Id %>"></i>
+            </div>
+        </li>
+        <%}})}%>
+    </div>
+    <div class="col">
+        <button class="btn_class btn_purple" id="template_page">דוגמא</button><br>
+        <button class="btn_class" id="preview_start_page">הצגה</button><br>
+        <button class="btn_class btn_blue" id="publish_page">לפרסם</button>
+    </div>
+</div>

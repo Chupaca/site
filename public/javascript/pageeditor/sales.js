@@ -2,43 +2,25 @@
 
 
 function saveNewPage() {
-    let sale = { MetaData: [] };
-    $(".meta_data_table tr").each((i, item) => {
-        sale.MetaData.push(
-            {
-                MetaType: $(item).find(".type_meta_select option:selected").val(),
-                MetaDescription: $(item).find("td:eq(1) input").val(),
-            }
-        )
-    })
-
-    sale.Header = {
-        ImageId: $(".wrap_header_page .wrap_images_ .gallery_image").attr("data-imageid"),
-        LinkToBucket: $(".wrap_header_page .wrap_images_ .gallery_image .image_one").attr("src"),
-        Title: $(".wrap_header_page .title_header").val(),
-        SubTitleHtml: $(".wrap_header_page .original_html_text").html()
-    }
-
-    sale.Content = {
-        ContentImages: Array.from($(".wrap_content_page .wrap_images_ .image_one")).map(item => {
-            return {
-                ImageId: $(item).attr("data-imageid"),
-                LinkToBucket: $(item).attr("src")
-            }
-
-        }),
-        ContentHtml: $(".wrap_content_page .original_html_text").html()
-    }
+    let sale = {};
+    sale.MetaData = GetMetaData();
+    sale.Header = GetHeaderData();
+    sale.Content = GetSimpleContent()
 
     sale.Preview = {
-        ImageId: $(".wrap_preview_page .wrap_images_ .gallery_image").attr("data-imageid"),
-        LinkToBucket: $(".wrap_preview_page .wrap_images_ .gallery_image .image_one").attr("src"),
+        ImageId: $(".wrap_preview_page .wrap_images_ .image_one").attr("data-imageid"),
+        LinkToBucket: "generals/",
         SubTitleHtml: $(".wrap_preview_page .original_html_text").html()
     }
 
-    ConformModal("אתה בטוח רוצה לשנות נווה?", () => {
-        SaveNewPageToServer(sale, 'sales')
-    })
+    if (sale.MetaData && sale.Header && sale.Content && sale.Preview.LinkToBucket && sale.Preview.SubTitleHtml) {
+        ConformModal("האם אתה רוצה לשמור גרסה חדשה?", () => {
+            SaveNewPageToServer(sale, 'sales')
+        })
+    } else {
+        Flash('לא כל השדות מלאים!', 'warning');
+        return;
+    }
 }
 
 function publishPage() {
@@ -53,10 +35,40 @@ function publishPage() {
     })
 
     if (data.length == 0 || data.length == 3) {
-        ConformModal("אתה בטוח רוצה לשנות ?", () => {
-            SetActiveMultiPages(data, bucket)
+        ConformModal("האם אתה רוצה לפרסם גרסה ?", () => {
+            SetActiveMultiPages(data, 'sales')
         })
     } else {
         Flash("נא לבחור גרסה!", "warning")
     }
+}
+
+$("#deactivate_block").unbind().click(()=>{
+    $.post(`/admin/pagetoedit/setdeactivate/block/sales`)
+        .then(res => {
+            Flash("נשמר בהצלחה!", "success");
+            setTimeout(() => {
+                window.location.reload();
+            }, 800)
+        })
+        .fail(err => {
+            Flash("התרחשה שגיאה", "error")
+        })
+})
+
+
+function SetFieldsTemplate(template) {
+    SetEmptyBlocks()
+    $(".meta_data_table tbody").html(BuildMetaRow(template.MetaData));
+    $(".remove_row_meta").unbind().click(removeMetaRow);
+    GetImagePreviewFormattingTemplate([template.Header.ImageId], [template.Header.LinkToBucket], "headers");
+    $(".wrap_header_page .title_header").val(template.Header.Title);
+    $(".remove_text").trigger("click")
+    $(".wrap_header_page .original_html_text").html(template.Header.SubTitleHtml);
+    GetImagePreviewFormattingTemplate(template.Content.ContentImages.map(item => item.ImageId), template.Content.ContentImages.map(item => item.LinkToBucket), "sales");
+    $(".wrap_content_page .original_html_text").html(template.Content.ContentHtml);
+    $(".wrap_preview_page .original_html_text").html(template.Preview.SubTitleHtml);
+    GetImagePreviewFormattingTemplate([template.Preview.ImageId], [template.Preview.LinkToBucket], "generals");
+    $(".switch_wraps[data-wrap='metadata']").trigger("click");
+
 }

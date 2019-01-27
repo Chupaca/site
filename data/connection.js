@@ -2,7 +2,7 @@
 
 
 const Datastore = require('@google-cloud/datastore');
-const projectId = 'node-js-firs-app';
+const projectId = 'pandoor-test-site';
 const datastore = new Datastore({
     projectId: projectId,
 });

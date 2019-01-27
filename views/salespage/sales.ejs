@@ -1,17 +1,19 @@
 <% layout('layoutindex/mainpage') -%>
 
 <div class="contentMainImgContainer">
-<% if(Page) {%>
-    <img class="contentMainImg" alt="" src="<%= Page.Header.LinkToBucket %>" />
-    <h3><%- Page.Header.Title %></h3>
-    <div class="contentTxt"><%- Page.Header.SubTitleHtml %></div>
+    <img class="contentMainImg" alt="תמונת רקע" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" />
+    <h1 tabindex="0"><%- Page.Header.Title %></h1>
+    <div class="contentTxt" tabindex="0"><%- Page.Header.SubTitleHtml %></div>
     <% if(Desktop){ %>
-    <div class="contentTxt">מעוניינים לקבל הצעת מחיר?</div>
+    <div style="padding-top:2vh;" class="contentTxt" tabindex="0">מעוניינים לקבל הצעת מחיר?</div>
     <div class="tbContainer">
-        <input type="text" class="tb" placeholder="שם מלא:" />
-        <input type="text" class="tb" placeholder="טלפון:" />
-        <input type="text" class="tb" placeholder="כתובת:" />
-        <input type="button" class="tb send_btn" value="שליחה" />
+    <form class="clientcomment_form" action="/priceoffer" method="post" >
+            <input type="text" class="tb form_input" name="Name" placeholder="שם מלא:" />
+            <input type="text" class="tb form_input" name="PhoneNumber" placeholder="טלפון:" />
+            <input type="text" class="tb form_input" name="Email" placeholder="אימייל:" />
+            <input type="text" class="tb form_input" name="City" placeholder="עיר:" />
+            <input type="submit" class="tb send_btn" value="שליחה"/>
+    </form>
     </div>
     <%}%>
     <span data-scrollto="bottom_side_form" class="event_scroll_to_el to_form_section">מעוניינים לקבל הצעת מחיר</span>
@@ -20,28 +22,37 @@
 
 <section id="wrap_container" class="wrap_container">
     <div class="container">
-     <h2>מבצע</h2>
-     <div class=""> <%- Page.Content.ContentHtml %></div>
-        <div style="text-align: center;">
-             <% if(Page.Content.ContentImages && Page.Content.ContentImages.length ) {  Page.Content.ContentImages.forEach(item => { %>
-                   <img alt="<%= item.ImageId %>" src="<%= item.LinkToBucket %>" style="width:100%;" />
+     <h2 tabindex="0">דלתות פנים במבצע - כל ההטבות וההנחות העדכניות</h2>
+     <div class="" tabindex="0"> <%- Page.Content.ContentHtml %></div>
+     <br>
+        <div style="text-align: center;" >
+             <% if(Page.Content.ContentImages && Page.Content.ContentImages.length ) {  Page.Content.ContentImages.forEach((item,i) => { %>
+                   <img tabindex="0" alt="<%= item.ImageId %>" src="<%= process.env.LINKTOBUCKETS + item.LinkToBucket + item.ImageId %>" data-index="<%= i %>" 
+                   onclick="openWithSimpleImageModal(this)" style="width:82%;" />
              <%})}%>
         </div>
+         <div class="btn_all_pages_wrap">
+            <a href="/#sales_anchor"><input type="button" class="btn_all_pages" value="לכל המבצעים"></a>
+        </div>
     </div>
-  
+    
 </section>
-<%}%>
 
 <% if(!Desktop){%>
     <section id="bottom_side_form" class="wrap_container">
         <div class="container">
-            <h2>להזמנת שירות</h2>
+            <h2>מעוניינים לקבל הצעת מחיר?</h2>
             <div class="tbContainer bottom_side">
-            <input type="text" class="tb" placeholder="שם מלא:" />
-            <input type="text" class="tb" placeholder="טלפון:" />
-            <input type="text" class="tb" placeholder="כתובת:" />
-                <input type="button" class="tb send_btn" value="שליחה" />
+           <form class="clientcomment_form" action="/priceoffer" method="post"  >
+                    <input type="text" class="tb form_input" name="Name" placeholder="שם מלא:" />
+                    <input type="text" class="tb form_input" name="PhoneNumber" placeholder="טלפון:" />
+                    <input type="text" class="tb form_input" name="Email" placeholder="אימייל:" />
+                    <input type="text" class="tb form_input" name="City" placeholder="עיר:" />
+                    <input type="submit" class="tb send_btn" value="שליחה"  />
+            </form>
             </div>
         </div>
     </section>
     <%}%>
+
+     

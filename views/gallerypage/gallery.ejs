@@ -1,83 +1,145 @@
 <% layout('layoutindex/mainpage') -%>
 
 <div class="contentMainImgContainer">
-    <img class="contentMainImg" alt="" src="images/mainsimg/galleryMainImgqq.jpg" />
-    <h3>גלריית דלתות פנדור</h3>
-    <div class="contentTxt">אַדְרִיכָלוּת או אַרְכִיטֶקְטוּרָה מוגדרת באופן מסורתי כאמנות הבנייה, כתחום העוסק בתכנון
-        ועיצוב חללים, והיא בטווח שבין אמנות לבין הנדסת בניין. העיסוק בחלל ומרחב עשוי לכלול את הסביבה הבנויה בכללה ברמת
-        המקרו, ועד לעיצוב פרטים ברמת המיקרו.
+    <img class="contentMainImg" alt="תמונת רקע" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" />
+     <h1 tabindex="0"><%- Page.Header.Title %></h1>
+     <div class="contentTxt" tabindex="0"><%- Page.Header.SubTitleHtml %></div>
+     <% if(Desktop){ %>
+    <div style="padding-top:2vh;" class="contentTxt" tabindex="0">מעוניינים לקבל הצעת מחיר?</div>
+    <div class="tbContainer">
+    <form class="clientcomment_form" action="/priceoffer" method="post" >
+            <input type="text" class="tb form_input" name="Name" placeholder="שם מלא:" />
+            <input type="text" class="tb form_input" name="PhoneNumber" placeholder="טלפון:" />
+            <input type="text" class="tb form_input" name="Email" placeholder="אימייל:" />
+            <input type="text" class="tb form_input" name="City" placeholder="עיר:" />
+            <input type="submit" class="tb send_btn" value="שליחה" />
+    </form>
     </div>
+    <%}%>
+     <span data-scrollto="bottom_side_form" class="event_scroll_to_el to_form_section">מעוניינים לקבל הצעת מחיר</span>
     <span class="downBtn" data-scrollto="wrap_container"><i class="far fa-caret-square-down"></i></span>
 </div>
 <section id="wrap_container" class="wrap_container">
+   <div class="container">
+           <h2 tabindex="0">גלריית פרויקטים</h2>
+           <!-- <div class="section_text"> <%- Page.Content.ContentHtml %></div> -->
     <div class="galleryContainer">
-    <h2>גלריית קרויקטים</h2>
+   
         <div class="col50pre">
-            <a class="thumbwidth100pre" data-fancybox="gallery" href="/project">
-                <img alt="" src="images/galleryImg/thumbB.jpg" />
-                <span class="imgInfo">
-                    <b>ליאת הדס</b> אדריכלות ועיצוב פנים
+            <% let project = Page.Content.ContentImages[0]; %>
+            <a class="thumbwidth100pre" data-fancybox="gallery" href="/project/<%= project.ProjectId %>">
+                <img alt="<%= project.ImageId %>" src="<%= process.env.LINKTOBUCKETS + project.LinkToBucket + project.ImageId %>" />
+                <span class="imgInfo" tabindex="0">
+                    <%= decodeURIComponent(project.Title) %><br><br>
+                    אדריכל: &nbsp;&nbsp;<%= decodeURIComponent(project.ArchitectName) %>&nbsp;
                 </span>
             </a>
-            <a class="thumbW" data-fancybox="gallery" href="/project">
-                <img alt="" src="images/galleryImg/thumbW.jpg" />
-                <span class="imgInfo">
-                    <b>ליאת הדס</b> אדריכלות ועיצוב פנים
+            <% project = Page.Content.ContentImages[1]; %>
+            <a class="thumbW" data-fancybox="gallery" href="/project/<%= project.ProjectId %>">
+                 <img alt="<%= project.ImageId %>" src="<%= process.env.LINKTOBUCKETS + project.LinkToBucket + project.ImageId %>" />
+                <span class="imgInfo" tabindex="0">
+                      <%= decodeURIComponent(project.Title) %><br><br>
+                    אדריכל: &nbsp;&nbsp;<%= decodeURIComponent(project.ArchitectName) %>&nbsp;
                 </span>
             </a>
-            <a class="thumbW" data-fancybox="gallery" href="/project">
-                <img alt="" src="images/galleryImg/thumbW.jpg" />
-                <span class="imgInfo">
-                    <b>ליאת הדס</b> אדריכלות ועיצוב פנים
+            <% project = Page.Content.ContentImages[2]; %>
+            <a class="thumbW" data-fancybox="gallery"  href="/project/<%= project.ProjectId %>">
+                <img alt="<%= project.ImageId %>" src="<%= process.env.LINKTOBUCKETS + project.LinkToBucket + project.ImageId %>" />
+                <span class="imgInfo" tabindex="0">
+                   <%= decodeURIComponent(project.Title) %><br><br>
+                    אדריכל: &nbsp;&nbsp;<%= decodeURIComponent(project.ArchitectName) %>&nbsp;
                 </span>
             </a>
-            <a class="thumbW" data-fancybox="gallery" href="/project">
-                <img alt="" src="images/galleryImg/thumbW.jpg" />
-                <span class="imgInfo">
-                    <b>ליאת הדס</b> אדריכלות ועיצוב פנים
+            <% project = Page.Content.ContentImages[3]; %>
+            <a class="thumbW" data-fancybox="gallery"  href="/project/<%= project.ProjectId %>">
+                <img alt="<%= project.ImageId %>" src="<%= process.env.LINKTOBUCKETS + project.LinkToBucket + project.ImageId %>" />
+                <span class="imgInfo" tabindex="0">
+                    <%= decodeURIComponent(project.Title) %><br><br>
+                    אדריכל: &nbsp;&nbsp;<%= decodeURIComponent(project.ArchitectName) %>&nbsp;
                 </span>
             </a>
-            <a class="thumbW" data-fancybox="gallery" href="images/galleryImg/thumbW.jpg"><img alt="" src="images/galleryImg/thumbW.jpg" />
-                <span class="imgInfo">
-                    <b>ליאת הדס</b> אדריכלות ועיצוב פנים
+            <% project = Page.Content.ContentImages[4]; %>
+            <a class="thumbW" data-fancybox="gallery"  href="/project/<%= project.ProjectId %>">
+                <img alt="<%= project.ImageId %>" src="<%= process.env.LINKTOBUCKETS + project.LinkToBucket + project.ImageId %>" />
+                <span class="imgInfo" tabindex="0">
+                     <%= decodeURIComponent(project.Title) %><br><br>
+                    אדריכל: &nbsp;&nbsp;<%= decodeURIComponent(project.ArchitectName) %>&nbsp;
                 </span>
             </a>
         </div>
         <div class="col50pre">
             <div class="col50pre">
-                <a class="thumbwidth100pre4" data-fancybox="gallery" href="images/galleryImg/thumbW.jpg"><img alt=""
-                        src="images/galleryImg/thumbW.jpg" />
-                    <span class="imgInfo">
-                        <b>ליאת הדס</b> אדריכלות ועיצוב פנים
+            <% project = Page.Content.ContentImages[5]; %>
+                <a class="thumbwidth100pre4" data-fancybox="gallery"  href="/project/<%= project.ProjectId %>">
+                   <img alt="<%= project.ImageId %>" src="<%= process.env.LINKTOBUCKETS + project.LinkToBucket + project.ImageId %>" />
+                    <span class="imgInfo" tabindex="0">
+                       <%= decodeURIComponent(project.Title) %><br><br>
+                    אדריכל: &nbsp;&nbsp;<%= decodeURIComponent(project.ArchitectName) %>&nbsp;
                     </span>
                 </a>
-                <a class="thumbwidth100pre4" data-fancybox="gallery" href="images/galleryImg/thumbW.jpg"><img alt=""
-                        src="images/galleryImg/thumbW.jpg" />
-                    <span class="imgInfo">
-                        <b>ליאת הדס</b> אדריכלות ועיצוב פנים
+                <% project = Page.Content.ContentImages[6]; %>
+                <a class="thumbwidth100pre4" data-fancybox="gallery"  href="/project/<%= project.ProjectId %>">
+                <img alt="<%= project.ImageId %>" src="<%= process.env.LINKTOBUCKETS + project.LinkToBucket + project.ImageId %>" />
+                    <span class="imgInfo" tabindex="0">
+                       <%= decodeURIComponent(project.Title) %><br><br>
+                    אדריכל: &nbsp;&nbsp;<%= decodeURIComponent(project.ArchitectName) %>&nbsp;
                     </span>
                 </a>
             </div>
             <div class="col50pre">
-                <a data-fancybox="gallery" href="images/galleryImg/thumbV.jpg"><img alt="" src="images/galleryImg/thumbV.jpg" />
-                    <span class="imgInfo">
-                        <b>ליאת הדס</b> אדריכלות ועיצוב פנים
+                <% project = Page.Content.ContentImages[7]; %>
+                <a data-fancybox="gallery"  href="/project/<%= project.ProjectId %>" >
+               <img alt="<%= project.ImageId %>" src="<%= process.env.LINKTOBUCKETS + project.LinkToBucket + project.ImageId %>" />
+                    <span class="imgInfo" tabindex="0">
+                         <%= decodeURIComponent(project.Title) %><br><br>
+                    אדריכל: &nbsp;&nbsp;<%= decodeURIComponent(project.ArchitectName) %>&nbsp;
+                    </span>
+                </a>
+                 <% project = Page.Content.ContentImages[8]; %>
+                <a data-fancybox="gallery"  href="/project/<%= project.ProjectId %>" >
+               <img alt="<%= project.ImageId %>" src="<%= process.env.LINKTOBUCKETS + project.LinkToBucket + project.ImageId %>" />
+                    <span class="imgInfo" tabindex="0">
+                         <%= decodeURIComponent(project.Title) %><br><br>
+                    אדריכל: &nbsp;&nbsp;<%= decodeURIComponent(project.ArchitectName) %>&nbsp;
                     </span>
                 </a>
             </div>
-            <a class="thumbB" data-fancybox="gallery" href="images/galleryImg/thumbB.jpg"><img alt="" src="images/galleryImg/thumbB.jpg" />
-                <span class="imgInfo">
-                    <b>ליאת הדס</b> אדריכלות ועיצוב פנים
+            <% project = Page.Content.ContentImages[9]; %>
+            <a class="thumbwidth100pre" data-fancybox="gallery"  href="/project/<%= project.ProjectId %>">
+            <img alt="<%= project.ImageId %>" src="<%= process.env.LINKTOBUCKETS + project.LinkToBucket + project.ImageId %>" />
+                <span class="imgInfo" tabindex="0">
+                    <%= decodeURIComponent(project.Title) %><br><br>
+                    אדריכל: &nbsp;&nbsp;<%= decodeURIComponent(project.ArchitectName) %>&nbsp;
                 </span>
             </a>
         </div>
+    <!--
         <div class="num_pages_wrap">
-        <div class="num_page_btn">1</div>
-        <div class="num_page_btn">2</div>
-        <div class="num_page_btn">3</div>
-        <div class="num_page_btn">4</div>
-        <div class="num_page_btn">...</div>
-        <div class="num_page_btn">&gt;</div>
+            <div class="num_page_btn">1</div>
+            <div class="num_page_btn">2</div>
+            <div class="num_page_btn">3</div>
+            <div class="num_page_btn">4</div>
+            <div class="num_page_btn">...</div>
+            <div class="num_page_btn">&gt;</div>
+        </div>
+        -->
     </div>
     </div>
 </section>
+
+<% if(!Desktop){%>
+    <section id="bottom_side_form" class="wrap_container">
+        <div class="container">
+            <h2>מעוניינים לקבל הצעת מחיר?</h2>
+            <div class="tbContainer bottom_side">
+           <form class="clientcomment_form" action="/priceoffer" method="post"  >
+                    <input type="text" class="tb form_input" name="Name" placeholder="שם מלא:" />
+                    <input type="text" class="tb form_input" name="PhoneNumber" placeholder="טלפון:" />
+                    <input type="text" class="tb form_input" name="Email" placeholder="אימייל:" />
+                    <input type="text" class="tb form_input" name="City" placeholder="עיר:" />
+                    <input type="submit" class="tb send_btn" value="שליחה" />
+            </form>
+            </div>
+        </div>
+    </section>
+    <%}%>

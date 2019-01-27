@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="he">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>הצטרפות לאינדקס אדריכלים</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+</head>
+
+<body>
+
+
+    <div class="contentMainImgContainer" style="height: 35vh;">
+        <img class="contentMainImg" style="<%= !Desktop?'position: absolute;width: 170%;min-width: 170%;':'' %>" alt="default_architects_blank_header.jpg" src="<%= process.env.LINKTOBUCKETS + 'default/default_architects_blank_header.jpg' %>" />
+        <h1>הצטרפות לאינדקס אדריכלים</h1>
+        <div class="contentTxt"></div>
+    </div>
+
+    <% if(!Success){%>
+    <section id="wrap_container" class="wrap_container">
+        <div class="container">
+            <div class="tbContainer bottom_side">
+                <h2><b> מלא/י את הטופס:</b></h2>
+                <% if(Desktop) {%>
+                <form class="clientcomment_form" action="/architectblank?token=<%= Token %>" method="post" enctype="multipart/form-data">
+                    <div>
+                        <input name="Name" type="text" class="tb form_input" placeholder="שם מלא:" required minlength="2" />
+                        <input name="PhoneNumber" type="text" class="tb form_input" placeholder="טלפון2:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                    </div>
+                    <div>
+                        <input name="PhoneNumber2" type="text" class="tb form_input" placeholder="טלפון:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                        <input name="Email" type="email" class="tb form_input" placeholder="אימייל:" required />
+                    </div>
+                    <div>
+                            <input name="City" type="text" style="padding: 0.7vh 1vh;font-size: 3vh;" class="tb form_input" placeholder="עיר:" required minlength="2" />
+                    </div>
+                    <div>
+                        <textarea name="Content" class="tb form_input" placeholder="ספרו קצת על עצמכם:" style="height: 11vh;width: 62vh;resize:none;"
+                            required minlength="5" /></textarea>
+                    </div>
+                    <div>
+                        <label for=""> תוסיפו תמונה/לוגו: </label>&nbsp;&nbsp;
+                        <input type="file" style="" name="Image" multiple><br/>
+                        <span style="font-size: 15px;margin-top: 17px;display: block;color: red;">* גודל התמונה\לוגו (700X700) ולא יותר מ 100kb</span>
+                    </div>
+                    <div style="">
+                        <input name="FromPage" type="hidden" class="tb form_input" value="ArchitectsBlank" />
+                        <input type="submit" class="tb send_btn" value="שליחה" style="height: 50%;margin-top: 8vh;" />
+                    </div>
+                </form>
+                <%} else {%>
+                <form class="clientcomment_form" action="/architect" method="post" enctype="multipart/form-data">
+                    <input name="Name" type="text" class="tb form_input" placeholder="שם מלא:" required minlength="2" />
+                    <input name="PhoneNumber" type="text" class="tb form_input" placeholder="טלפון:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                    <input name="PhoneNumber2" type="text" class="tb form_input" placeholder="טלפון2:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                    <input name="Email" type="email" class="tb form_input" placeholder="אימייל:" required />
+                    <input name="City" type="text" class="tb form_input" placeholder="עיר:" required minlength="2" />
+                    <textarea name="Content" class="tb form_input" placeholder="ספרו קצת על עצמכם:" style="font-size: 2vh;height: 11vh;width: 37vh;resize:none;" required minlength="5" /></textarea>
+                    <label for=""> תוסיפו תמונה/לוגו: </label>&nbsp;&nbsp;
+                    <input name="FromPage" type="hidden" class="tb form_input" value="ArchitectsBlank" />
+                    <input type="file" name="Image" class="" multiple><br/>
+                    <span style="font-size: 15px;margin-top: 17px;display: block;color: red;">* גודל התמונה\לוגו (700X700) ולא יותר מ 100kb</span>
+                    <input type="submit" class="tb send_btn" style="margin-top: 10%;" value="שליחה" />
+                </form>
+                <%}%>
+            </div>
+        </div>
+    </section>
+    <%} else{%>
+    <section id="wrap_container" class="wrap_container">
+        <div class="container">
+            <h2><b>תודה רבה! </b></h2>
+            <span>נציג שלנו יצור קשר איתכם בהקדם האיפשרי!</span>
+            <div style="background: #343434;padding: 3vh;margin-top: 3vh;">
+                    <img src="<%= process.env.LINKTOBUCKETS + 'default/admin_panel_header_logo.png' %>" onclick="window.open('/', '_blank')" style="width:50%;cursor: pointer;">
+            </div>
+        </div>
+    </section>
+    <script>
+        window.history.pushState('הצטרפות לאינדקס אדריכלים', 'הצטרפות לאינדקס אדריכלים', window.location.href.split('?')[0])
+    </script>
+    <%}%>
+
+
+</body>
+
+</html>

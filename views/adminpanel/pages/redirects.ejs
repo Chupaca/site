@@ -1,0 +1,26 @@
+<% layout('adminpanel/index') -%>
+
+<h2 class="title_wrap">redirect old links</h2>
+<div></div>
+
+<div class="wrap_two_col" style="display:inline-flex;" dir="ltr" data-wrap="external">
+    <div class="col" style="max-height: 60vh;">
+        <table class="old_links_table" style="width:100%;">
+            <tbody>
+            <% if(Prod && Prod.Data) { Prod.Data.Links.forEach(item => { %> 
+                 <tr class="old_links_row" style="width:100%;">
+                    <td style="width: 40%;"><b>pandoor.co.il/</b><input type="text" class="From" value="<%= item.From %>" placeholder="כתובת ישן" disabled></td>
+                    <td style="width: 40%;"><b>pandoor.co.il/</b><input type="text" class="To" value="<%= item.To %>" placeholder="כתובת חדש" disabled></td>
+                    <td style="width: 10%;text-align: center;"><i class="fas fa-trash-alt remove_row_old_links" style="color:red;cursor:pointer;"></i></td>
+                </tr>
+            <%})}%>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col">
+        <button class="btn_class" id="add_new_old_links">הוסיף חדש</button>
+        <button class="btn_class btn_green" id="save_new_redirects" >לשמור</button>
+    </div>
+</div>
+
