@@ -2,10 +2,13 @@
 
 
 function saveNewPage() {
+    let prefixLanguage = $("#language_select option:selected").val() != 'he' ? $("#language_select option:selected").val() + '_' : '';
+   
     let blog = {};
     blog.MetaData = GetMetaData();
     blog.Header = GetHeaderData();
     blog.Content = GetSimpleContent()
+    blog.Language = $("#language_select option:selected").val() || 0;
 
     blog.Preview = {
         ImageId: $(".wrap_preview_page .wrap_images_ .image_one").attr("data-imageid"),
@@ -13,19 +16,27 @@ function saveNewPage() {
         Date: $(".wrap_preview_page #datepicker").val(),
         SubTitleHtml: $(".wrap_preview_page .original_html_text").html()
     }
-    if (blog.MetaData && blog.Header && blog.Content && blog.Preview.LinkToBucket && blog.Preview.Date && blog.Preview.SubTitleHtml) {
+    blog.StaticsBlocks = {};
+    let flagStatics = GetStaticsFieldsBlocks(blog.StaticsBlocks);
+
+    if (blog.MetaData && blog.Header && blog.Content && blog.Preview.LinkToBucket && blog.Preview.Date && blog.Preview.SubTitleHtml && blog.Language && flagStatics) {
         ConformModal("האם אתה רוצה לשמור גרסה חדשה?", () => {
-            SaveNewPageToServer(blog, 'blogslist');
+            SaveNewPageToServer(blog, prefixLanguage + 'blogslist');
             return;
         })
     } else {
-        Flash('לא כל השדות מלאים!', 'warning');
+        if(!blog.Language){
+            Flash('נא לבחור שפה!', 'warning');
+        }else{
+            Flash('לא כל השדות מלאים!', 'warning');
+        }
         return;
     }
 }
 
 function publishPage() {
     let data = []
+    let prefixLanguage = $("#language_select_preview option:selected").val();
     $("#sortable li").each((i, item) => {
         data.push(
             {
@@ -37,7 +48,7 @@ function publishPage() {
 
     if (data.length > 1) {
         ConformModal("האם אתה רוצה לפרסם גרסה ?", () => {
-            SetActiveMultiPages(data, 'blogslist')
+            SetActiveMultiPages(data, prefixLanguage)
         })
     } else {
         Flash("נא לבחור גרסה!", "warning")
@@ -66,5 +77,25 @@ function SetFieldsTemplate(template) {
     $("#datepicker").val(template.Preview.Date);
     GetImagePreviewFormattingTemplate([template.Preview.ImageId], [template.Preview.LinkToBucket], "generals");
     $(".switch_wraps[data-wrap='metadata']").trigger("click");
-    
+    SetStaticsFieldsBlocks(template)
+}
+
+
+function sortAndPreviewSelectedItemsByLanguage() {
+    $.get(`/admin/versionsbylanguage/${$(this).val()}/${$(this).attr('data-type')}`)
+        .then(html => {
+            $("#vertion_wrap").html(html)
+            $("#template_page").unbind().click(getTemplatePage);
+            $("#publish_page").unbind().click(publishPage);
+            $("#sortable, #sortable_tmp").sortable({
+                connectWith: ".connectedSortable",
+                stop: () => { sortNavItemsAfterChange() }
+            }).disableSelection();
+            sortNavItemsAfterChange()
+            insertDataToRowItemVersion(["Header", "Title"])
+            mouseOverRowVersion()
+            HideBtnOptionsAfterChangeLanguage([ "deactivate_block"])
+            $(".remove_page").unbind().click(removePage)
+            $(".page_item").unbind().click(markVersionPage);
+        })
 }

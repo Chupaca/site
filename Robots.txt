@@ -1,0 +1,4 @@
+Sitemap : https://www.pandoor.co.il/sitemap.xml
+User-agent: *
+Allow: /
+Disallow: /admin/

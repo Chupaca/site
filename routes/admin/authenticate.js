@@ -3,10 +3,11 @@
 const bcrypt = require('bcrypt');
 const dataStore = require("../../data/connection").Datastore;
 
-function extractProfile(profile) {
+function extractProfile(profile, userType) {
   return {
     id: profile.id,
-    DisplayName: profile.displayName
+    DisplayName: profile.displayName,
+    UserType: userType
   };
 }
 
@@ -18,7 +19,7 @@ exports.AuthenticateUser = (accessToken, refreshToken, profile, cb) => {
     } else {
       bcrypt.compare(profile.id, result[0].id, function (err, res) {
         if (res) {
-          cb(null, extractProfile(profile))
+          cb(null, extractProfile(profile, result[0].UserType))
         } else {
           cb(null, false)
         }

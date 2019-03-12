@@ -2,9 +2,11 @@
 
 
 function saveNewPage() {
+    let prefixLanguage = $("#language_select option:selected").val() != 'he' ? $("#language_select option:selected").val() + '_' : '';
     let gallery = {};
     gallery.MetaData = GetMetaData();
     gallery.Header = GetHeaderData();
+    gallery.Language = $("#language_select option:selected").val() || 0;
 
     gallery.Content = {
         ContentImages: Array.from($(".check_project img")).map(item => {
@@ -20,19 +22,24 @@ function saveNewPage() {
         ContentHtml: $(".wrap_content_page .original_html_text").html()
     }
 
-    if (gallery.MetaData && gallery.Header && gallery.Content) {
+    if (gallery.MetaData && gallery.Header && gallery.Content && gallery.Language) {
         ConformModal("האם אתה רוצה לשמור גרסה חדשה?", () => {
-            SaveNewPageToServer(gallery, "gallery");
+            SaveNewPageToServer(gallery, prefixLanguage + "gallery");
             return;
         })
     } else {
-        Flash('לא כל השדות מלאים!', 'warning');
+        if(!gallery.Language){
+            Flash('נא לבחור שפה!', 'warning');
+        }else{
+            Flash('לא כל השדות מלאים!', 'warning');
+        }
         return;
     }
 }
 
 function publishPage() {
     let data = [];
+    let prefixLanguage = $("#language_select_preview option:selected").val();
     $("#sortable li").each((i, item) => {
         data.push(
             {
@@ -43,7 +50,7 @@ function publishPage() {
     })
     if (data && data.length == 1) {
         ConformModal("האם אתה רוצה לפרסם גרסה ?", () => {
-            SetActiveSinglePage(data[0].Id, "gallery");
+            SetActiveSinglePage(data[0].Id, prefixLanguage);
             return;
         })
     } else {
@@ -156,4 +163,23 @@ function SetFieldsTemplate(template) {
     $(".wrap_header_page .original_html_text").html(template.Header.SubTitleHtml);
     $(".wrap_content_page .original_html_text").html(template.Content.ContentHtml);
     $(".switch_wraps[data-wrap='metadata']").trigger("click");
+}
+
+
+function sortAndPreviewSelectedItemsByLanguage() {
+    $.get(`/admin/versionsbylanguage/${$(this).val()}/${$(this).attr('data-type')}`)
+        .then(html => {
+            $("#vertion_wrap").html(html)
+            $("#template_page").unbind().click(getTemplatePage);
+            $("#publish_page").unbind().click(publishPage);
+            $("#sortable, #sortable_tmp").sortable({
+                connectWith: ".connectedSortable",
+                stop: () => { sortNavItemsAfterChange() }
+            }).disableSelection();
+            sortNavItemsAfterChange()
+            insertDataToRowItemVersion(["Header", "Title"])
+            mouseOverRowVersion()
+            $(".remove_page").unbind().click(removePage)
+            $(".page_item").unbind().click(markVersionPage);
+        })
 }

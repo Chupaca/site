@@ -4,12 +4,12 @@ const promise = require("bluebird");
 const pages = require("../data/pages");
 
 
-const GetGlobalSettings = page => {
+const GetGlobalSettings = (page, lang="")  => {
     return promise.all([
-        pages.GetNavigationItemsForProd(),
-        pages.GetFooterItemsForProd(),
-        pages.GetBranchesItemsForProd(),
-        pages.GetPageProd("pixelsandheadnav"),
+        pages.GetNavigationItemsForProd(lang),
+        pages.GetFooterItemsForProd(lang),
+        pages.GetBranchesItemsForProd(lang),
+        pages.GetPageProd(lang + "pixelsandheadnav"),
         pages.GetPageProd(page)
     ])
         .then(([navigation, footer, branches, pixelsAndNav, page]) => {
@@ -17,19 +17,19 @@ const GetGlobalSettings = page => {
         })
 }
 
-const GetGlobalSettingsForStartPage = () => {
+const GetGlobalSettingsForStartPage = (lang="") => {
     return promise.all([
-        pages.GetNavigationItemsForProd(),
-        pages.GetFooterItemsForProd(),
-        pages.GetBranchesItemsForProd(),
-        pages.GetPageProd("pixelsandheadnav"),
-        pages.GetSales('sales'),
-        pages.GetNews(),
-        pages.GetBlogs(),
-        pages.GetComments(),
-        pages.RecommendedList(),
-        pages.GetPageProd("carousel"),
-        pages.GetPageProd("startpage")
+        pages.GetNavigationItemsForProd(lang),
+        pages.GetFooterItemsForProd(lang),
+        pages.GetBranchesItemsForProd(lang),
+        pages.GetPageProd(lang + "pixelsandheadnav"),
+        pages.GetSales(lang),
+        pages.GetNews(lang),
+        pages.GetBlogs(lang),
+        pages.GetComments(lang),
+        pages.RecommendedList(lang),
+        pages.GetPageProd(lang + "carousel"),
+        pages.GetPageProd( lang + "startpage")
 
     ])
         .then(([navigation, footer, branches, pixelsAndNav, sales, news, blogs, comments, recommendedlist, carousel, startPage]) => {
@@ -49,12 +49,12 @@ const GetGlobalSettingsForStartPage = () => {
         })
 }
 
-const GetGlobalSettingsAndPageByIndex = (page, index) => {
+const GetGlobalSettingsAndPageByIndex = (page, index, lang="") => {
     return promise.all([
-        pages.GetNavigationItemsForProd(),
-        pages.GetFooterItemsForProd(),
-        pages.GetBranchesItemsForProd(),
-        pages.GetPageProd("pixelsandheadnav"),
+        pages.GetNavigationItemsForProd(lang),
+        pages.GetFooterItemsForProd(lang),
+        pages.GetBranchesItemsForProd(lang),
+        pages.GetPageProd(lang + "pixelsandheadnav"),
         pages.GetPageByKindAndIndex(page, index),
 
     ])
@@ -63,12 +63,12 @@ const GetGlobalSettingsAndPageByIndex = (page, index) => {
         })
 }
 
-const GetGlobalSettingsList = (pageList, page, limit) => {
+const GetGlobalSettingsList = (pageList, page, limit, lang="") => {
     return promise.all([
-        pages.GetNavigationItemsForProd(),
-        pages.GetFooterItemsForProd(),
-        pages.GetBranchesItemsForProd(),
-        pages.GetPageProd("pixelsandheadnav"),
+        pages.GetNavigationItemsForProd(lang),
+        pages.GetFooterItemsForProd(lang),
+        pages.GetBranchesItemsForProd(lang),
+        pages.GetPageProd(lang + "pixelsandheadnav"),
         pages.GetPageListProd(pageList, limit),
         pages.GetPageProd(page)
     ])
@@ -77,27 +77,27 @@ const GetGlobalSettingsList = (pageList, page, limit) => {
         })
 }
 
-const GetGlobalSettingsContacts = () => {
+const GetGlobalSettingsContacts = (lang="") => {
     return promise.all([
-        pages.GetNavigationItemsForProd(),
-        pages.GetFooterItemsForProd(),
-        pages.GetBranchesItemsForProd(),
-        pages.GetPageProd("pixelsandheadnav"),
-        pages.GetPageListProd("installers", 20),
-        pages.GetPageProd("contact")
+        pages.GetNavigationItemsForProd(lang),
+        pages.GetFooterItemsForProd(lang),
+        pages.GetBranchesItemsForProd(lang),
+        pages.GetPageProd(lang + "pixelsandheadnav"),
+        pages.GetPageListProd(lang + "installers", 20),
+        pages.GetPageProd(lang + "contact")
     ])
         .then(([navigation, footer, branches, pixelsAndNav, installers, page]) => {
             return { Navigation: navigation[0], Footer: footer[0], Branches: branches[0], PixelsAndNav: pixelsAndNav, Installers: installers, Page: page }
         })
 }
 
-const GetGlobalSettingsArchitectPage = id => {
+const GetGlobalSettingsArchitectPage = (id, lang="") => {
     return promise.all([
-        pages.GetNavigationItemsForProd(),
-        pages.GetFooterItemsForProd(),
-        pages.GetBranchesItemsForProd(),
-        pages.GetPageProd("pixelsandheadnav"),
-        pages.GetPageById(id, "architectslist"),
+        pages.GetNavigationItemsForProd(lang),
+        pages.GetFooterItemsForProd(lang),
+        pages.GetBranchesItemsForProd(lang),
+        pages.GetPageProd(lang + "pixelsandheadnav"),
+        pages.GetPageById(id, lang + "architectslist"),
         pages.GetAllArchitectProjects(id)
     ])
         .then(([navigation, footer, branches, pixelsAndNav, architect, projects]) => {
@@ -105,12 +105,12 @@ const GetGlobalSettingsArchitectPage = id => {
         })
 }
 
-const GetGlobalSettingsAndPageById = (id, page) => {
+const GetGlobalSettingsAndPageById = (id, page, lang="") => {
     return promise.all([
-        pages.GetNavigationItemsForProd(),
-        pages.GetFooterItemsForProd(),
-        pages.GetBranchesItemsForProd(),
-        pages.GetPageProd("pixelsandheadnav"),
+        pages.GetNavigationItemsForProd(lang),
+        pages.GetFooterItemsForProd(lang),
+        pages.GetBranchesItemsForProd(lang),
+        pages.GetPageProd(lang + "pixelsandheadnav"),
         pages.GetPageById(id, page),
 
     ])
@@ -121,7 +121,24 @@ const GetGlobalSettingsAndPageById = (id, page) => {
 
 const GetPageById = (id, bucket) => pages.GetPageById(id, bucket);
 const GetPageProd = bucket => pages.GetPageProd(bucket);
+const GetCountOfBucket = bucket => pages.GetCountOfBucket(bucket);
 
+const GetPartialByPageAndLimit = (bucket, fromPosition, limit) => pages.GetPartialByPageAndLimit(bucket, fromPosition, limit)
+
+
+const GetGlobalSettingsListByPage = (pageList, page, fromPosition, limit, lang="") => {
+    return promise.all([
+        pages.GetNavigationItemsForProd(lang),
+        pages.GetFooterItemsForProd(lang),
+        pages.GetBranchesItemsForProd(lang),
+        pages.GetPageProd(lang + "pixelsandheadnav"),
+        pages.GetPartialByPageAndLimit(pageList, fromPosition, limit),
+        pages.GetPageProd(page)
+    ])
+        .then(([navigation, footer, branches, pixelsAndNav, pageList, page]) => {
+            return { Navigation: navigation[0], Footer: footer[0], Branches: branches[0], PixelsAndNav: pixelsAndNav, PageList: pageList, Page: page }
+        })
+}
 
 module.exports = {
     GetGlobalSettings,
@@ -132,5 +149,8 @@ module.exports = {
     GetGlobalSettingsArchitectPage,
     GetGlobalSettingsAndPageById,
     GetPageById,
-    GetPageProd
+    GetPageProd,
+    GetCountOfBucket,
+    GetPartialByPageAndLimit,
+    GetGlobalSettingsListByPage
 }

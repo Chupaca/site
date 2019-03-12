@@ -3,19 +3,22 @@ const NotPages = [
     "startpage", "newspandoor", "installers", "architectslist",
     "navigation", "footer", "brancheslist", "recommendedlist",
     "carousel", "commentslist", "blogslist", "redirects", "pixelsandheadnav",
-    "incoming_requests", "doorcollectionlist",'pirzul'
+    "incoming_requests", "doorcollectionlist",'pirzul', "incomingrequests", "galleryeditor",
+    "designersblogslist", "commonwords"
 ]
 
 function setup() {
     let page = window.location.href.split("page=")[1];
-    if (NotPages.includes(page) || !page) {
+    let pageShort = window.location.href.split("admin/")[1];
+    if (NotPages.includes(page) || NotPages.includes(pageShort)) {
+        page = page || pageShort;
         changeStatusItemsNav($("#" + page));
     } else {
         changeStatusItemsNav($("#pages"));
         $(".pages_list").css({ "margin-right": "0" });
         $(".pages_list [data-page='" + window.location.href.split("page=")[1] + "'] li").css({ "background": "#ffffff", "color": "#749cf3" })
         setTimeout(() => {
-            $('nav').animate({ scrollTop: $(".pages_list [data-page='" + window.location.href.split("page=")[1] + "'] li").position().top + 200 }, 600, "easeOutBack");
+            $('nav').animate({ scrollTop: $(".pages_list [data-page='" + window.location.href.split("page=")[1] + "'] li").position().top + 400 }, 600, "easeOutBack");
         }, 150)
     }
 
@@ -46,7 +49,7 @@ function setup() {
     $("#preview_page").unbind().click(PreviewPage);
     $(".remove_page").unbind().click(removePage);
     $("#template_page").unbind().click(getTemplatePage);
-
+    $("#language_select_preview").unbind().change(sortAndPreviewSelectedItemsByLanguage)
 }
 
 function getTemplatePage() {
@@ -196,9 +199,13 @@ function switchWraps() {
         $(".wrap_three_col[data-wrap='" + $(this).attr("data-wrap") + "'], .wrap_two_col[data-wrap='" + $(this).attr("data-wrap") + "']").toggle()
     }
     if ($(this).attr("data-wrap") == "versions") {
-        $("#save_new").prop("disabled", true)
+        $("#save_new, #language_select").prop("disabled", true)
+        $("#language_select_preview").prop("disabled", false).css({ "background": '#ff4200' })
+        $("#language_select").css({ "background": '#eee' })
     } else {
-        $("#save_new").prop("disabled", false)
+        $("#save_new, #language_select").prop("disabled", false)
+        $("#language_select_preview").prop("disabled", true).css({ "background": '#eee' })
+        $("#language_select").css({ "background": '#ff4200' })
     }
 }
 
@@ -284,7 +291,9 @@ function SaveNewPageToServer(dataPage, bucket) {
         success: function () {
             Flash("נשמר בהצלחה!", "success");
             setTimeout(() => {
-                window.location.reload();
+                $(".switch_wraps[data-wrap='versions']").trigger("click");
+                $("#language_select_preview option[value='" + bucket + "']").prop("selected", true).change()
+                SetEmptyBlocks(["#datepicker", "#CollectionName", "#CollectionId", ".static_blocks"], [".external_branches_table tbody", ".wrap_images_", ".doors_table tbody", ".models_table tbody"])
             }, 300)
         },
         error: function () {
@@ -298,7 +307,7 @@ function SetActiveSinglePage(id, bucket) {
         .then(res => {
             Flash("נשמר בהצלחה!", "success");
             setTimeout(() => {
-                window.location.reload();
+                $("#language_select_preview option[value='" + bucket + "']").prop("selected", true).change()
             }, 800)
         })
         .fail(err => {
@@ -314,7 +323,7 @@ function SetActiveMultiPages(data, bucket) {
         contentType: "application/json",
         success: function () {
             setTimeout(() => {
-                window.location.reload();
+                $("#language_select_preview option[value='" + bucket + "']").prop("selected", true).change()
             }, 300)
             Flash("נשמר בהצלחה!", "success")
         },
@@ -328,23 +337,44 @@ function getNotifications() {
     $.get("/admin/notifications")
         .then(notifications => {
             if (notifications.Comments != NaN && notifications.Comments != undefined) {
-                if(notifications.Comments){
-                    $(".icons_wrap [name=commentsCount]").text(notifications.Comments).css({ "background": "#ff4545",  "display": "block" });
-                }else{
+                if (notifications.Comments) {
+                    $(".icons_wrap [name=commentsCount]").text(notifications.Comments).css({ "background": "#ff4545", "display": "block" });
+                } else {
                     $(".icons_wrap [name=commentsCount]").text("").css({ "display": "none" });
                 }
 
             }
             if (notifications.Mail != NaN && notifications.Mail != undefined) {
-                if(notifications.Mail){
+                if (notifications.Mail) {
                     $(".icons_wrap [name=mailCount]").text(notifications.Mail).css({ "background": "#ff4545", "display": "block" });
-                }else {
+                } else {
                     $(".icons_wrap [name=mailCount]").text("").css({ "display": "none" });
                 }
             }
         })
 
 }
+
+function mouseOverRowVersion() {
+    $(".title_news_versions").unbind().mouseover(function () {
+        $(this).css({ "white-space": "unset" })
+    })
+        .mouseleave(function () {
+            $(this).css({ "white-space": "nowrap" })
+        });
+}
+
+function insertDataToRowItemVersion(pathToText, separate) {
+    $(".item_data_in_row").each((i, item) => {
+        let data = JSON.parse($(item).attr("data-itemdata"))
+        if(separate){
+            $(item).text($(item).text() + separate + pathToText.reduce((obj, key) => (obj && obj[key] !== 'undefined') ? obj[key] : undefined, data));
+        }else{
+            $(item).text(pathToText.reduce((obj, key) => (obj && obj[key] !== 'undefined') ? obj[key] : undefined, data));
+        }
+    })
+}
+
 
 $(document).ready(() => {
     getNotifications();

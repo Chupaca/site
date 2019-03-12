@@ -1,11 +1,13 @@
 'use strict'
 
 function saveNewPage() {
+    let prefixLanguage = $("#language_select option:selected").val() != 'he' ? $("#language_select option:selected").val() + '_' : '';
     try {
         let collection = {
             CollectionName: $("#CollectionName").val().trim(),
             Models: [],
-            Doors: []
+            Doors: [],
+            Language: $("#language_select option:selected").val() || 0
         }
         Array.from($(".model_row")).forEach(model => {
             collection.Models.push({
@@ -25,14 +27,22 @@ function saveNewPage() {
                 DoorImageId: $(door).find(".sub_model_door_wrap").attr("data-imgid").trim()
             })
         })
-        if (!$("#CollectionId").val().trim()) {
+
+        if (!$("#CollectionId").val().trim() && collection.Language) {
             ConformModal("האם אתה רוצה לשמור קולקציה חדשה?", () => {
-                SaveNewPageToServer(collection, "doorcollectionlist");
+                SaveNewPageToServer(collection, prefixLanguage + "doorcollectionlist");
+            })
+        } else if (collection.Language) {
+            ConformModal("האם אתה רוצה לשמור אדריכל ?", () => {
+                updateCollection(collection, $("#CollectionId").val().trim(), prefixLanguage + "doorcollectionlist")
             })
         } else {
-            ConformModal("האם אתה רוצה לשמור אדריכל ?", () => {
-                updateCollection(collection, $("#CollectionId").val().trim())
-            })
+            if (!collection.Language) {
+                Flash('נא לבחור שפה!', 'warning');
+            } else {
+                Flash('לא כל השדות מלאים!', 'warning');
+            }
+            return;
         }
     } catch (err) {
         Flash("לא כל השדות מלאים!", "error");
@@ -41,16 +51,18 @@ function saveNewPage() {
 }
 
 
-function updateCollection(data, id) {
+function updateCollection(data, id, bucket) {
     $.ajax({
-        url: "/admin/collection/" + id,
+        url: "/admin/collection/" + id + "/" + bucket,
         data: JSON.stringify({ Data: data }),
         type: "POST",
         contentType: "application/json",
         success: function () {
             Flash("נשמר בהצלחה!", "success");
             setTimeout(() => {
-                window.location.reload();
+                $(".switch_wraps[data-wrap='versions']").trigger("click");
+                $("#language_select_preview option[value='" + bucket + "']").prop("selected", true).change()
+                SetEmptyBlocks(["#datepicker", "#CollectionName", "#CollectionId", ".static_blocks"], [".external_branches_table tbody", ".wrap_images_", ".doors_table tbody", ".models_table tbody"])
             }, 300)
         },
         error: function () {
@@ -62,6 +74,7 @@ function updateCollection(data, id) {
 
 function publishPage() {
     let data = []
+    let prefixLanguage = $("#language_select_preview option:selected").val();
     $("#sortable li").each((i, item) => {
         data.push(
             {
@@ -73,7 +86,7 @@ function publishPage() {
 
     if (data.length != 0) {
         ConformModal("אתה בטוח רוצה לשנות ?", () => {
-            SetActiveMultiPages(data, 'doorcollectionlist')
+            SetActiveMultiPages(data, prefixLanguage)
         })
     } else {
         Flash("צריך לפחות מתקין אחד!", "warning")
@@ -189,7 +202,7 @@ function markCollectionItem() {
         $(".page_item").removeClass("active");
         $(this).addClass("active");
         $("#preview_page").prop("disabled", false);
-        if ($(this).closest("li").attr("data-bucket") == "doorcollectionlist-tmp") {
+        if ($(this).closest("li").attr("data-bucket").includes("tmp")) {
             $("#edit_collection").prop("disabled", false);
         }
     }
@@ -308,7 +321,8 @@ function addNewDoor(e, doors) {
 
 function getForEditCollection() {
     let collectionId = $(".page_item.active").parent().attr("data-id");
-    $.get("/admin/collection/" + collectionId)
+    let prefixLanguage = $("#language_select_preview option:selected").val();
+    $.get("/admin/collection/" + collectionId + "/" + prefixLanguage)
         .then(collection => {
             SetEmptyBlocks(["#CollectionName", "#CollectionId"], [".doors_table tbody", ".models_table tbody"])
             $("#CollectionName").val(collection.Data.CollectionName);
@@ -333,6 +347,33 @@ $(document).ready(() => {
     }, 0);
 })
 
-function removeRow(){
+function removeRow() {
     $(this).closest("tr").remove();
+}
+
+
+function sortAndPreviewSelectedItemsByLanguage() {
+    $.get(`/admin/versionsbylanguage/${$(this).val()}/${$(this).attr('data-type')}`)
+        .then(html => {
+            $("#vertion_wrap").html(html)
+            $("#template_page").unbind().click(getTemplatePage);
+            $("#publish_page").unbind().click(publishPage);
+            $("#sortable, #sortable_tmp").sortable({
+                connectWith: ".connectedSortable",
+                stop: () => { sortNavItemsAfterChange() }
+            }).disableSelection();
+            sortNavItemsAfterChange()
+            insertDataToRowItemVersion(["CollectionName"])
+            mouseOverRowVersion()
+            HideBtnOptionsAfterChangeLanguage(['template_page', "preview_page", "deactivate_block"])
+            $("#vertion_wrap .col:last-child").prepend(`<button class="btn_class" id="edit_collection" disabled="">עריכה</button><br>`);
+            $(".remove_page").unbind().click(removePage)
+            $(".page_item").unbind().click(markVersionPage);
+            $("#add_new_model").unbind().click(addNewModal);
+            $("#add_new_door").unbind().click(addNewDoor);
+            $(".primary_door").unbind().click(getDoorsImages);
+            $(".remove_row").unbind().click(removeRow)
+            $("#edit_collection").unbind().click(getForEditCollection)
+            $(".page_item").unbind().click(markCollectionItem);
+        })
 }

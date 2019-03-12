@@ -1,5 +1,5 @@
-<% const withOutPirzul = ['הזזה'] %>
-<% const withSlideSideDoors = ['הזזה']%>
+<% const withOutPirzul = ['הזזה', 'sliding'] %>
+<% const withSlideSideDoors = ['הזזה', 'sliding']%>
 
 <% layout('layoutindex/mainpage') -%>
 
@@ -15,13 +15,22 @@
         </style>
 <![endif]-->
  <% if(Desktop){%>
+ <script>
+    setTimeout(function(){ document.getElementById('down_caret').click()}, 3000)
+</script>
 <div class="contentMainImgContainer general_door_collection_wrap" style="background: #000000 url(<%- (process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId) %>) no-repeat center;">
   
    <div class="collection_header_wrap" >
    <div>
       <h1 tabindex="0"><%- Page.Header.Title %></h1>
       <div tabindex="0"><%- Page.Header.SubTitleHtml %></div>
-      <div><a href="/catalog"><input type="button" class="btn_all_pages" value="לכל הקולקציה"></a></div>
+      <div>
+       <% if(Page.StaticsBlocks && Page.StaticsBlocks.allCollactionBtn){%>
+             <a href="<%= Language %>/catalog" class="btn_all_pages_link"><%= Page.StaticsBlocks.allCollactionBtn %></a>
+        <% } else {%>
+              <a href="<%= Language %>/catalog" class="btn_all_pages_link">לכל הקולקציה</a>
+        <%}%>
+      </div>
    </div>
     <div style="padding-right: 1vh;">
      <% let item = Collection.Models[0]; %>
@@ -29,21 +38,30 @@
     </div>
 <%if(Gallery && Gallery.length){%>
     <div class="link_to_projects_wrap" tabindex="0">
-       בואו לראות איך דגם זה נראה בבית אמיתי
+        <% if(Page.StaticsBlocks && Page.StaticsBlocks.SlideToGalleryBtn){%>
+             <%= Page.StaticsBlocks.SlideToGalleryBtn %>
+        <% } else {%>
+              בואו לראות איך דגם זה נראה בבית אמיתי
+        <%}%>
+     
 
-       <span class="downBtn" style="margin: 3vh 27% 1vh;" data-scrollto="wrap_container_projects"><i class="far fa-caret-square-down"></i></span>
+       <span class="downBtn" style="margin: 3vh 27% 1vh;" data-scrollto="wrap_container_projects" tabindex="0"><i class="far fa-caret-square-down"></i></span>
     </div>
 <%}%>
     </div>
   
-    <span class="downBtn" data-scrollto="wrap_container_door"><i class="far fa-caret-square-down"></i></span>
+    <span class="downBtn" data-scrollto="wrap_container_door" tabindex="0" id="down_caret"><i class="far fa-caret-square-down"></i></span>
 </div>
 <%} else {%>
 
 <div class="contentMainImgContainer" style="background: #000000 url(<%= process.env.LINKTOBUCKETS + 'default/default_background_collactoins.mobile.jpg' %>) no-repeat center;">
     <h1 tabindex="0"><%- Page.Header.Title %></h1>
     <div class="contentTxt" style="font-size: 2.6vh;" tabindex="0"><%- Page.Header.SubTitleHtml %></div>
-    <a href="/catalog"><span class="to_form_section" >לכל הקולקציה</span></a>
+        <% if(Page.StaticsBlocks && Page.StaticsBlocks.allCollactionBtn){%>
+             <a href="<%= Language %>/catalog" class="btn_all_pages_link"><%= Page.StaticsBlocks.allCollactionBtn %></a>
+        <% } else {%>
+             <a href="<%= Language %>/catalog"><span class="to_form_section" >לכל הקולקציה</span></a>
+        <%}%>
 </div>
 
 <%}%>
@@ -54,7 +72,11 @@
 <section >
 <div class="catalog door_preview_wrap" id="wrap_container_door" style="background:#ffffff;color:#000000;height: 112vh;">
    <div class="container">
-   <h2 tabindex="0">דגמי הקולקציה</h2>
+        <% if(Page.StaticsBlocks && Page.StaticsBlocks.ContinentTitleBlock){%>
+             <h2 tabindex="0"><%= Page.StaticsBlocks.ContinentTitleBlock %></h2>
+        <% } else {%>
+               <h2 tabindex="0">דגמי הקולקציה</h2>
+        <%}%>
    </div>
     <div class="flex_container">
         <div class="flex_container_box ie_class" style="width: 40%;">
@@ -63,12 +85,16 @@
                 <% Collection.Models.forEach((item, i) => {%>
                     <%if(item.ModelId == CheckedModal){%>
                     <% let frame = Collection.Doors.find(door => door.ModelId == item.ModelId && door.Type == 'frame') || {} %>
-                        <img class="image_door" style="" data-modelid="<%= item.ModelId %>" alt="<%= item.ModelName %>" src="<%= process.env.LINKTOBUCKETS + item.PrimaryImage %>"  />
-                        <img class="frame_image_door" data-modelid="<%= frame.DoorImageId || '' %>" alt="<%= frame.Description || '' %>" src="<%= process.env.LINKTOBUCKETS + frame.DoorImage %>"   />
+                        <img class="image_door" style="" data-modelid="<%= item.ModelId %>" alt="" src="<%= process.env.LINKTOBUCKETS + item.PrimaryImage %>"  />
+                        <% if(!withSlideSideDoors.find(item => Collection.CollectionName.includes(item))) {%>
+                            <img class="frame_image_door" data-modelid="<%= frame.DoorImageId || '' %>" alt="" src="<%= process.env.LINKTOBUCKETS + frame.DoorImage %>"   />
+                        <%}%>
                     <%}else if(!CheckedModal && i === 0){%>
                     <% let frame = Collection.Doors.find(door => door.ModelId == item.ModelId && door.Type == 'frame') || {}; %>
                         <img class="image_door" style="" data-modelid="<%= item.ModelId %>" alt="<%= item.ModelName %>" src="<%= process.env.LINKTOBUCKETS + item.PrimaryImage %>"  />
-                        <img class="frame_image_door" data-modelid="<%= frame.DoorImageId || '' %>" alt="<%= frame.Description || '' %>" src="<%= process.env.LINKTOBUCKETS + frame.DoorImage %>"   />
+                         <% if(!withSlideSideDoors.find(item => Collection.CollectionName.includes(item))) {%>
+                            <img class="frame_image_door" data-modelid="<%= frame.DoorImageId || '' %>" alt="" src="<%= process.env.LINKTOBUCKETS + frame.DoorImage %>"   />
+                        <%}%>
                     <%}%>
                 <%})%>
                <div class="pirzul_wrap"></div>
@@ -95,48 +121,53 @@
                                     data-frame="<%= process.env.LINKTOBUCKETS + frame.DoorImage %>"><%= model.ModelName %></li>
                     <%})%>
                     <% if(!withOutPirzul.find(item => Collection.CollectionName.includes(item))) {%>
-                     <li tabindex="0" class="pirzul">פרזול</li>
+                        <% if(Page.StaticsBlocks && Page.StaticsBlocks.PirzulTitleBtn){%>
+                                <li tabindex="0" class="pirzul"><%= Page.StaticsBlocks.PirzulTitleBtn %></li>
+                        <% } else {%>
+                               <li tabindex="0" class="pirzul">פרזול</li>
+                        <%}%>
+                 
                     <%}%>
                 </ul>
                 <div style="min-width: 80vh;">
                     <div class="choice_parts_preview_wrap">
-                        <div class="section_text" style="width: 100%;font-size:2.3vh;"><%- checkedModelTitle %></div>
+                        <div class="section_text" tabindex="0" style="width: 100%;font-size:2.3vh;"><%- checkedModelTitle %></div>
                     </div>
 
                  <div class="wrap_slider_doors">
-                 <div tabindex="0" class="ss_l"><i class="fas fa-angle-left"></i></div>
-                  <div tabindex="0" class="ss_r"><i class="fas fa-angle-right"></i></div>
+                 <div tabindex="-1" class="ss_l"><i class="fas fa-angle-left"></i></div>
+                  <div tabindex="-1" class="ss_r"><i class="fas fa-angle-right"></i></div>
                    <div class="line_preview_doors">
-                     <div class="slide_doors right"></div>
+                     <div class="slide_doors right" tabindex="-1"></div>
                         <% for(let i = 0;i < Collection.Doors.length;i++){ let door = Collection.Doors[i]; if(door.Type != "frame"){%> 
-                            <div class="wrap_image_door" style="display:<%= (door.ModelId != CheckedModal?'none':'') %>" 
+                            <div class="wrap_image_door" tabindex="0" style="display:<%= (door.ModelId != CheckedModal?'none':'') %>" 
                                     data-modelid="<%= door.ModelId %>" 
                                     data-description="<%= door.Description %>"
                                      <% if(withSlideSideDoors.find(item => Collection.CollectionName.includes(item))) {%>
                                         data-slide-side = true
                                     <%}%>
                                     data-srcpreview="<%= process.env.LINKTOBUCKETS + door.DoorImage %>">
-                                    <img data-modelid="<%= door.ModelId %>"  class="image_door_in_line" src="<%= process.env.LINKTOBUCKETS + door.DoorImage %>" style="width:57%;"  alt="<%= door.DoorImageId %>">
+                                    <img data-modelid="<%= door.ModelId %>"  class="image_door_in_line" src="<%= process.env.LINKTOBUCKETS + door.DoorImage %>" style="width:57%;"  alt="">
                                     <% let modName = Collection.Models.find(item => item.ModelId == door.ModelId).ModelName %>
                                     <br/><span><%= door.Description.replace(modName, "") %></span>
                             </div>
                         <%}}%>
                         <% Pirzul.forEach(item => { %> 
-                            <div class="wrap_image_door" data-pirzul="true" style="display:none;"  data-srcpreview="<%= process.env.LINKTOBUCKETS + item.DoorImage %>">
-                                    <img class="image_door_in_line" src="<%= process.env.LINKTOBUCKETS + item.DoorImage %>" style="width:100%;"  alt="<%= item.DoorImageId %>">
+                            <div class="wrap_image_door" tabindex="0" data-pirzul="true" style="display:none;"  data-srcpreview="<%= process.env.LINKTOBUCKETS + item.DoorImage %>">
+                                    <img class="image_door_in_line" src="<%= process.env.LINKTOBUCKETS + item.DoorImage %>" style="width:100%;"  alt="">
                                     <br/><span><%= item.Description %></span>
                             </div>
                         <%})%>
-                     <div class="slide_doors left"></div>  
+                     <div class="slide_doors left" tabindex="-1"></div>  
                     </div>
                 </div>
                 <div class="doors_icons_wrap">
-                    <img alt="bitahon_color.png" src="/images/doorsicons/bitahon_color.png" />
-                    <img alt="80_color.png"  src="/images/doorsicons/80_color.png" />
-                    <img alt="amidut_color.png" src="/images/doorsicons/amidut_color.png" />
-                    <img alt="bidud-mereashim_color.png"  src="/images/doorsicons/bidud-mereashim_color.png" />
-                    <img alt="meyutzar_color.png" src="/images/doorsicons/meyutzar_color.png" />
-                    <img alt="sherut_color.png" src="/images/doorsicons/sherut_color.png" />
+                    <img tabindex="0" alt="ביטוח בקנייה" src="/images/doorsicons/bitahon_color.png" />
+                    <img tabindex="0" alt="מעל 80% בחרו פנדוור"  src="/images/doorsicons/80_color.png" />
+                    <img tabindex="0" alt="עמידות למים ולמזיקי עץ" src="/images/doorsicons/amidut_color.png" />
+                    <img tabindex="0" alt="בידוד מרעשים"  src="/images/doorsicons/bidud-mereashim_color.png" />
+                    <img tabindex="0" alt="מפותח ומיוצר בישראל" src="/images/doorsicons/meyutzar_color.png" />
+                    <img tabindex="0" alt="שירות ואחריות פנדור" src="/images/doorsicons/sherut_color.png" />
                 </div>
                 </div>
             </div>
@@ -164,11 +195,18 @@
                             <li class="<%= (model.ModelId == CheckedModal?'active':'') %>" 
                                         data-title="<%= model.ModelTitle %>" 
                                         data-modelid="<%= model.ModelId %>" 
-                                        data-srcpreview="<%= process.env.LINKTOBUCKETS + model.PrimaryImage %>" 
+                                        data-srcpreview="<%= process.env.LINKTOBUCKETS + model.PrimaryImage %>"
+                                        <% if(withSlideSideDoors.find(item => Collection.CollectionName.includes(item))) {%>
+                                            data-slide-side = true
+                                        <%}%>
                                         data-frame="<%= process.env.LINKTOBUCKETS + frame.DoorImage %>"><%= model.ModelName %></li>
                         <%})%>
                          <% if(!withOutPirzul.find(item => Collection.CollectionName.includes(item))) {%>
-                            <li class="pirzul">פרזול</li>
+                             <% if(Page.StaticsBlocks && Page.StaticsBlocks.PirzulTitleBtn){%>
+                                <li tabindex="0" class="pirzul"><%= Page.StaticsBlocks.PirzulTitleBtn %></li>
+                            <% } else {%>
+                                <li tabindex="0" class="pirzul">פרזול</li>
+                            <%}%>
                         <%}%>
                     </ul>
                 </div>   
@@ -179,11 +217,15 @@
                     <%if(item.ModelId == CheckedModal){%>
                      <% let frame = Collection.Doors.find(door => door.ModelId == item.ModelId && door.Type == 'frame') || {} %>
                         <img class="image_door" style="" data-modelid="<%= item.ModelId %>" alt="<%= item.ModelName %>" src="<%= process.env.LINKTOBUCKETS + item.PrimaryImage %>"  />
-                        <img class="frame_image_door" style="position: absolute;width: 20vh;height: 41vh;" data-modelid="<%= frame.ModelId || '' %>" alt="<%= frame.Description || '' %>" src="<%= process.env.LINKTOBUCKETS + frame.DoorImage %>"   />
+                        <% if(!withSlideSideDoors.find(item => Collection.CollectionName.includes(item))) {%>
+                            <img class="frame_image_door" style="position: absolute;width: 20vh;height: 41vh;" data-modelid="<%= frame.ModelId || '' %>" alt="<%= frame.Description || '' %>" src="<%= process.env.LINKTOBUCKETS + frame.DoorImage %>"   />
+                        <%}%>
                     <%}else if(!CheckedModal && i === 0){%>
                     <% let frame = Collection.Doors.find(door => door.ModelId == item.ModelId && door.Type == 'frame') || {}; %>
                         <img class="image_door" style="" data-modelid="<%= item.ModelId %>" alt="<%= item.ModelName %>" src="<%= process.env.LINKTOBUCKETS + item.PrimaryImage %>"  />
-                        <img class="frame_image_door" style="position: absolute;width: 20vh;height: 41vh;" data-modelid="<%= frame.ModelId || '' %>" alt="<%= frame.Description || '' %>" src="<%= process.env.LINKTOBUCKETS + frame.DoorImage %>"   />
+                         <% if(!withSlideSideDoors.find(item => Collection.CollectionName.includes(item))) {%>
+                            <img class="frame_image_door" style="position: absolute;width: 20vh;height: 41vh;" data-modelid="<%= frame.ModelId || '' %>" alt="<%= frame.Description || '' %>" src="<%= process.env.LINKTOBUCKETS + frame.DoorImage %>"   />
+                        <%}%>
                     <%}%>
                 <%})%>
                  <div class="pirzul_wrap mobile"></div>
@@ -193,7 +235,13 @@
                    <div class="line_preview_doors">
                      <div class="slide_doors right"></div>
                         <% for(let i = 0;i < Collection.Doors.length;i++){ let door = Collection.Doors[i]; if(door.Type != "frame"){  %> 
-                            <div class="wrap_image_door" style="display:<%= (door.ModelId != CheckedModal?'none':'') %>" data-modelid="<%= door.ModelId %>" data-description="<%= door.Description %>"  data-srcpreview="<%= process.env.LINKTOBUCKETS + door.DoorImage %>">
+                            <div class="wrap_image_door" style="display:<%= (door.ModelId != CheckedModal?'none':'') %>" 
+                                    data-modelid="<%= door.ModelId %>" 
+                                    data-description="<%= door.Description %>"
+                                    <% if(withSlideSideDoors.find(item => Collection.CollectionName.includes(item))) {%>
+                                        data-slide-side = true
+                                    <%}%>
+                                    data-srcpreview="<%= process.env.LINKTOBUCKETS + door.DoorImage %>">
                                     <img data-modelid="<%= door.ModelId %>"  class="image_door_in_line" src="<%= process.env.LINKTOBUCKETS + door.DoorImage %>" style="width:57%;"  alt="<%= door.DoorImageId %>">
                                     <% let modName = Collection.Models.find(item => item.ModelId == door.ModelId).ModelName %>
                                     <br/><span class="mobile_door_desc"><%= door.Description.replace(modName, "") %></span>
@@ -214,12 +262,12 @@
         </div>
     </div>
      <div class="doors_icons_wrap">
-                    <img alt="bitahon_color.png" style="width: 30%;" src="/images/doorsicons/bitahon_color.png" />
-                    <img alt="80_color.png"  src="/images/doorsicons/80_color.png" />
-                    <img alt="amidut_color.png" src="/images/doorsicons/amidut_color.png" />
-                    <img alt="bidud-mereashim_color.png"  src="/images/doorsicons/bidud-mereashim_color.png" />
-                    <img alt="meyutzar_color.png" src="/images/doorsicons/meyutzar_color.png" />
-                    <img alt="sherut_color.png" src="/images/doorsicons/sherut_color.png" />
+                    <img alt="ביטוח בקנייה" style="width: 30%;" src="/images/doorsicons/bitahon_color.png" />
+                    <img alt="מעל 80% בחרו פנדוור"  src="/images/doorsicons/80_color.png" />
+                    <img alt="עמידות למים ולמזיקי עץ" src="/images/doorsicons/amidut_color.png" />
+                    <img alt="בידוד מרעשים"  src="/images/doorsicons/bidud-mereashim_color.png" />
+                    <img alt="מפותח ומיוצר בישראל" src="/images/doorsicons/meyutzar_color.png" />
+                    <img alt="שירות ואחריות פנדור" src="/images/doorsicons/sherut_color.png" />
                 </div>
 </div>
 </section>
@@ -228,23 +276,30 @@
 <section class="wrap_container">
     <div class="container">
         <div class="tbContainer bottom_side">
-            <h2>מעוניינ/ת בפרטים נוספים?<b> מלא/י את הטופס:</b></h2>
+             <% if(Page.StaticsBlocks && Page.StaticsBlocks.FormTitleBlock){%>
+                    <h2 tabindex="0"><%= Page.StaticsBlocks.FormTitleBlock %></h2>
+            <% } else {%>
+                    <h2 tabindex="0">מעוניינ/ת בפרטים נוספים?<b> מלא/י את הטופס:</b></h2>
+            <%}%>
+           
            <% if(Desktop) {%>
                 <form class="clientcomment_form" action="/priceoffer" method="post" >
                     <div>
-                        <input name="Name" type="text" class="tb form_input" placeholder="שם מלא:" required minlength="2"/>
-                        <input name="PhoneNumber" type="text" class="tb form_input" placeholder="טלפון:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
-                        <input name="City" type="text" class="tb form_input" placeholder="עיר:" required minlength="2" />
-                        <input type="submit" class="tb send_btn" value="שליחה" style="height: 50%;margin-top: 8vh;" />
+                        <input name="Name" type="text" class="tb form_input" placeholder="<%= global.GlobalVar.Name && global.GlobalVar.Name[Language] ?global.GlobalVar.Name[Language] : 'שם מלא'%>:" required minlength="2"/>
+                        <input name="PhoneNumber" type="text" class="tb form_input" placeholder="<%= global.GlobalVar.Phone && global.GlobalVar.Phone[Language]? global.GlobalVar.Phone[Language] : 'טלפון'%>:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                        <input name="City" type="text" class="tb form_input" placeholder="<%= global.GlobalVar.City && global.GlobalVar.City[Language] ?global.GlobalVar.City[Language] : 'עיר'%>:" required minlength="2" />
+                        <input name="FromPage" type="hidden" class="tb form_input" value="אתר קולקציות" />
+                        <input type="submit" class="tb send_btn" value="<%= global.GlobalVar.Send && global.GlobalVar.Send[Language] ? global.GlobalVar.Send[Language] : 'שליחה'%>" style="height: 50%;margin-top: 8vh;" />
                     </div>
                    
                 </form>
             <%} else {%>
                 <form class="clientcomment_form" action="/priceoffer" method="post" >
-                    <input name="Name" type="text" class="tb form_input" placeholder="שם מלא:" required minlength="2"/>
-                    <input name="PhoneNumber"type="text" class="tb form_input" placeholder="טלפון:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
-                    <input name="City"type="text" class="tb form_input" placeholder="עיר:" required minlength="2" /> 
-                    <input type="submit" class="tb send_btn" value="שליחה" />
+                    <input name="Name" type="text" class="tb form_input" placeholder="<%= global.GlobalVar.Name && global.GlobalVar.Name[Language] ?global.GlobalVar.Name[Language] : 'שם מלא'%>:" required minlength="2"/>
+                    <input name="PhoneNumber"type="text" class="tb form_input" placeholder="<%= global.GlobalVar.Phone && global.GlobalVar.Phone[Language]? global.GlobalVar.Phone[Language] : 'טלפון'%>:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                    <input name="City"type="text" class="tb form_input" placeholder="<%= global.GlobalVar.City && global.GlobalVar.City[Language] ?global.GlobalVar.City[Language] : 'עיר'%>:" required minlength="2" /> 
+                    <input name="FromPage" type="hidden" class="tb form_input" value="אתר קולקציות" />
+                    <input type="submit" class="tb send_btn" value="<%= global.GlobalVar.Send && global.GlobalVar.Send[Language] ? global.GlobalVar.Send[Language] : 'שליחה'%>" />
                 </form>
             <%}%>
         </div>
@@ -256,14 +311,19 @@
 <%if(Gallery && Gallery.length){%>
 <section class="wrap_container" id="wrap_container_projects" style="padding:2%;">
  <div class="container">
-  <h2 tabindex="0">פנדור אצלכם בבית - הדגמים שלנו, בבתים שלכם</h2>
+  <% if(Page.StaticsBlocks && Page.StaticsBlocks.GalleryTitleBlock){%>
+            <h2 tabindex="0"><%= Page.StaticsBlocks.GalleryTitleBlock %></h2>
+    <% } else {%>
+            <h2 tabindex="0">פנדור אצלכם בבית - הדגמים שלנו, בבתים שלכם</h2>
+    <%}%>
+  
  <div class="content_sales">
     <% let gallery1 = Gallery[0] %>
     <% let gallery2 = Gallery[1] %>
     <% let gallery3 = Gallery[2] %>
     <div class="right_one">
-        <a href="/project/<%= gallery1.ProjectId %>">
-            <img alt="<%= gallery1.ImageId %>" src="<%= process.env.LINKTOBUCKETS + gallery1.LinkToBucket + gallery1.ImageId %>" />
+        <a href="<%= Language %>/project/<%= gallery1.ProjectId %>" tabindex="0">
+            <img alt="" src="<%= process.env.LINKTOBUCKETS + gallery1.LinkToBucket + gallery1.ImageId %>" />
             <div class="info">
                 <div class="middle"><span tabindex="0">
                         <%= decodeURIComponent(gallery1.Title) %></span></div>
@@ -274,8 +334,8 @@
     </div>
     <div class="left_one">
         <div class="box_one">
-            <a href="/project/<%= gallery2.ProjectId %>">
-                <img alt="<%= gallery2.ImageId %>" src="<%= process.env.LINKTOBUCKETS + gallery2.LinkToBucket + gallery2.ImageId %>" />
+            <a href="<%= Language %>/project/<%= gallery2.ProjectId %>" tabindex="0">
+                <img alt="" src="<%= process.env.LINKTOBUCKETS + gallery2.LinkToBucket + gallery2.ImageId %>" />
                 <div class="info">
                     <div class="middle"><span tabindex="0">
                              <%= decodeURIComponent(gallery2.Title) %></span></div>
@@ -284,8 +344,8 @@
             </a>
         </div>
         <div class="box_one">
-            <a href="/project/<%= gallery3.ProjectId %>">
-                <img alt="<%= gallery3.ImageId %>" src="<%= process.env.LINKTOBUCKETS + gallery3.LinkToBucket + gallery3.ImageId %>" />
+            <a href="<%= Language %>/project/<%= gallery3.ProjectId %>" tabindex="0">
+                <img alt="" src="<%= process.env.LINKTOBUCKETS + gallery3.LinkToBucket + gallery3.ImageId %>" />
                 <div class="info">
                     <div class="middle"><span tabindex="0">
                              <%= decodeURIComponent(gallery3.Title) %></span></div>

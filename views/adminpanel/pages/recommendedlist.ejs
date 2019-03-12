@@ -8,6 +8,20 @@
 <div>
     <button class="btn_class switch_wraps" data-wrap="active_version">המלצה חדשה</button>
     <button class="btn_class switch_wraps active" data-wrap="versions">רשימת דלתות</button>
+     <select class="select_item" id="language_select_preview" data-type="1" style="width: 150px;font-size: 19px;">
+        <option value="recommendedlist" selected>עברית</option>
+        <option value="en_recommendedlist">English</option>
+        <option value="ru_recommendedlist">Русский</option>
+        <option value="ar_recommendedlist">العربية</option>
+    </select>
+    <button class="btn_class btn_green" id="save_new"  style="float:left;" disabled>לשמור</button>
+     <select class="select_item" id="language_select" style="width: 150px;font-size: 19px;float:left;background:#eee" disabled>
+        <option value selected>בחר...</option>
+        <option value="he">עברית</option>
+        <option value="en">English</option>
+        <option value="ru">Русский</option>
+        <option value="ar">العربية</option>
+    </select>
 </div>
 
 <div class="wrap_three_col" style="display:none;" data-wrap="active_version">
@@ -28,26 +42,24 @@
     <div class="col" style="width:12%;">
         <button class="btn_class upload_btn" data-bucket="recommendatedlist" style="float:none;"> הוספת קובץ <i class="fas fa-cloud-upload-alt"></i></button><br>
         <button class="btn_class open_gallery_clients" data-bucket="recommendatedlist">תמונת דלת</button><br>
-        <button class="btn_class btn_green" id="save_new" disabled>לשמור</button>
+        
     </div>
 
 </div>
 
-<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions">
+<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions" id="vertion_wrap">
     <div id="sortable" class="col connectedSortable">
      <h2 class="version_title">פעיל</h2>
         <% if(Prods && Prods.length){ Prods.sort((a, b) => a.Position -b.Position).forEach(item => { %>
         <li data-id="<%= item.Id %>" data-bucket="recommendedlist">
             <div class="page_item">
-                <span class="page_item_position"><b>
-                        <%= item.Position %></b></span>
+                <span class="page_item_position"><b><%= item.Position %></b></span>
+                 <b style="margin:0 2vh;">&#124;</b>
+                <b class="language_type_in_row"><%= item.Language || "he" %></b>
                 <b style="margin:0 2vh;">&#124;</b>
-                <span>
-                    <%= item.Data.Title %></span>
+                <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
                 <b style="margin:0 2vh;">&#124;</b>
-                <span class="title_news_versions">
-                    <%= item.Data.Link %>
-                </span>
+                <span class="title_news_versions"><%= item.Data.Title %> &#124; <%= item.Data.Link %></span>
                 <i class="fas fa-bars nav_options"></i>
             </div>
         </li>
@@ -61,14 +73,12 @@
         <li data-id="<%= item.Id %>" data-bucket="recommendedlist-tmp">
             <div class="page_item">
                 <span class="page_item_position"><b>0</b></span>
+                  <b style="margin:0 2vh;">&#124;</b>
+                <b class="language_type_in_row"><%= item.Language || "he" %></b>
                 <b style="margin:0 2vh;">&#124;</b>
-                <span>
-                    <%= item.Data.Title %>
-                </span>
+                <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
                 <b style="margin:0 2vh;">&#124;</b>
-                <span class="title_news_versions">
-                        <%= item.Data.Link %>
-                </span>
+                <span class="title_news_versions"><%= item.Data.Title %> &#124; <%= item.Data.Link %></span>
                 <i class="fas fa-bars nav_options"></i>
                 <i class="fas fa-trash-alt remove_page" data-page="recommendedlist-tmp" style="margin:0 3vh;cursor:pointer;"
                     data-id="<%= item.Id %>"></i>
@@ -78,6 +88,7 @@
     </div>
 
     <div class="col">
+        <button class="btn_class btn_purple" id="template_page" style="float:none;" disabled>דוגמה</button><br>
         <button class="btn_class btn_blue" id="publish_page">לפרסם</button><br>
         <button class="btn_class btn_liteblue" id="deactivate_block">בלוק לא פעיל</button>
     </div>

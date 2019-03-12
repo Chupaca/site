@@ -1,71 +1,104 @@
 <% layout('layoutindex/mainpage') -%>
 
 <div class="contentMainImgContainer">
-    <img class="contentMainImg" alt="תמונת רקע" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" />
+    <img class="contentMainImg" alt="" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" />
     <h1 tabindex="0"><%- Page.Header.Title %></h1>
     <div class="contentTxt" tabindex="0"><%- Page.Header.SubTitleHtml %></div>
     <% if(Desktop){ %>
     <div class="tbContainer">
         <form class="clientcomment_form" action="/service" method="post" >
                     <div>
-                        <input name="Name" type="text" class="tb form_input" placeholder="שם מלא:" required minlength="2"/>
-                        <input name="PhoneNumber" type="text" class="tb form_input" placeholder="טלפון:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                        <lable class="invisible_text">שם מלא</lable><input name="Name" type="text" class="tb form_input" placeholder="<%= global.GlobalVar.Name && global.GlobalVar.Name[Language] ?global.GlobalVar.Name[Language] : 'שם מלא'%>:" required minlength="2"/><i style="color:#ffffff;font-size: 2vh;vertical-align: top;">*</i>
+                        <lable class="invisible_text">טלפון</lable><input name="PhoneNumber" type="text" class="tb form_input" placeholder="<%= global.GlobalVar.Phone && global.GlobalVar.Phone[Language]? global.GlobalVar.Phone[Language] : 'טלפון'%>:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required/><i style="color:#ffffff;font-size: 2vh;vertical-align: top;">*</i>
                     </div>
                     <div>
-                        <input name="Email" type="email" class="tb form_input" placeholder="אימייל:"  required/>
-                        <input name="City" type="text" class="tb form_input" placeholder="עיר:" required minlength="2" /> 
+                        <lable class="invisible_text">אי-מייל</lable><input name="Email" type="email" class="tb form_input" placeholder="<%= global.GlobalVar.Email && global.GlobalVar.Email[Language]?global.GlobalVar.Email[Language] : 'אימייל'%>:" />
+                        <lable class="invisible_text">עיר</lable><input name="City" type="text" class="tb form_input" placeholder="<%= global.GlobalVar.City && global.GlobalVar.City[Language] ?global.GlobalVar.City[Language] : 'עיר'%>:" required minlength="2" /> <i style="color:#ffffff;font-size: 2vh;vertical-align: top;">*</i>
                     </div>
                     <div style="display:inline-flex;">
-                        <textarea name="Content" class="tb form_input" placeholder="תוכן:" style="height: 11vh;width: 62vh;resize:none;" required minlength="5" /></textarea>
-                        <input type="submit" class="tb send_btn" value="שליחה" style="height: 50%;margin-top: 8vh;" />
+                        <textarea name="Content" class="tb form_input" placeholder="<%= global.GlobalVar.Content && global.GlobalVar.Content[Language]? global.GlobalVar.Content[Language] : 'תוכן'%>:" style="height: 8vh;width: 62vh;resize:none;" required minlength="5" /></textarea><i style="color:#ffffff;font-size: 2vh;vertical-align: top;">*</i>
+                        <input type="submit" class="tb send_btn" value="<%= global.GlobalVar.Send && global.GlobalVar.Send[Language] ? global.GlobalVar.Send[Language] : 'שליחה'%>" style="height: 50%;margin-top: 6vh;" />
                     </div>
                 </form>
     </div>
     <%}%>
-    <span data-scrollto="bottom_side_form" class="event_scroll_to_el to_form_section" >השארת פרטים</span>
+     <% if(Page.StaticsBlocks && Page.StaticsBlocks.FormTitleBlock){%>
+         <span data-scrollto="bottom_side_form" class="event_scroll_to_el to_form_section"><%= Page.StaticsBlocks.FormTitleBlock %></span>
+    <%} else {%>
+         <span data-scrollto="bottom_side_form" class="event_scroll_to_el to_form_section" >השארת פרטים</span>
+    <%}%>
+   
 
-    <span class="downBtn" data-scrollto="wrap_container"><i class="far fa-caret-square-down"></i></span>
+    <span class="downBtn" data-scrollto="wrap_container" tabindex="0"><i class="far fa-caret-square-down"></i></span>
 </div>
 
 <section id="wrap_container" class="wrap_container">
     <div class="container">
-        <div class="infoContactBox">
+        <div class="infoContactBox" tabindex="0">
             <i class="far fa-clock" style="font-size: 60px;"></i>
-            <span tabindex="0">
+            <span>
+            <% if(Page.StaticsBlocks && Page.StaticsBlocks.HoursBlock){%>
+                <b><%= Page.StaticsBlocks.HoursBlock %></b><br />
+            <%} else {%>
                 <b>שעות פעילות</b><br />
+            <%}%>
                 א'-ה' <%= Page.Open + " - " + Page.Close %>
             </span>
         </div>
-        <div class="infoContactBox">
+        <div class="infoContactBox"  tabindex="0">
             <i class="far fa-envelope" style="font-size: 60px;"></i>
-            <span tabindex="0">
-                <b>אימייל</b><br />
+            <span>
+            <% if(Page.StaticsBlocks && Page.StaticsBlocks.EmailBlock){%>
+                <b><%= Page.StaticsBlocks.EmailBlock %></b><br />
+            <%} else {%>
+                 <b>אימייל</b><br />
+            <%}%>
+               
                 <a href="mailto:<%= Page.Email %>"><%= Page.Email %></a>
             </span>
         </div>
-        <div class="infoContactBox">
+        <div class="infoContactBox" tabindex="0">
             <i class="fas fa-mobile-alt" style="font-size: 60px;"></i>
-            <span tabindex="0">
-                <b>טלפון</b><br />
+            <span>
+              <% if(Page.StaticsBlocks && Page.StaticsBlocks.PhoneBlock){%>
+                <b><%= Page.StaticsBlocks.PhoneBlock %></b><br />
+            <%} else {%>
+                 <b>טלפון</b><br />
+            <%}%>
+               
                 <a href="tel:<%= Page.PhoneNumber %>"><%= Page.PhoneNumber %></a>
             </span>
         </div>
-        <div class="infoContactBox">
+        <div class="infoContactBox" tabindex="0">
             <i class="fas fa-fax" style="font-size: 60px;"></i>
-            <span tabindex="0">
-                <b>פקס</b><br />
+            <span>
+              <% if(Page.StaticsBlocks && Page.StaticsBlocks.FaxBlock){%>
+                <b><%= Page.StaticsBlocks.FaxBlock %></b><br />
+            <%} else {%>
+                  <b>פקס</b><br />
+            <%}%>
+               
                 <%= Page.Fax %>
             </span>
         </div>
-        <a href="/video">
-            <div class="infoContactBox hover">
+        <a href="/video" tabindex="-1">
+            <div class="infoContactBox hover" tabindex="0">
                 <i class="fas fa-film" style="font-size: 60px;"></i>
-                <span tabindex="0"><b>סרטוני הדרכה של דלתות פנדור</b></span>
+                  <% if(Page.StaticsBlocks && Page.StaticsBlocks.TvLinkBlock){%>
+                    <span><b><%= Page.StaticsBlocks.TvLinkBlock %></b></span>
+                <%} else {%>
+                    <span><b>סרטוני הדרכה של דלתות פנדור</b></span>
+                <%}%>
             </div>
         </a>
-        <div class="infoContactBox hover event_scroll_to_el" data-scrollto="installers">
+        <div class="infoContactBox hover event_scroll_to_el" data-scrollto="installers" tabindex="0">
             <i class="far fa-address-card" style="font-size: 60px;"></i>
-            <span tabindex="0"><b>טיפול חירום</b></span>
+              <% if(Page.StaticsBlocks && Page.StaticsBlocks.InstallersLinkBlock){%>
+                    <span><b><%= Page.StaticsBlocks.InstallersLinkBlock %></b></span>
+                <%} else {%>
+                   <span><b>טיפול חירום</b></span>
+                <%}%>
+            
         </div>
     </div>
 </section>
@@ -74,7 +107,12 @@
 <section class="wrap_container">
     <div class="faq">
         <div class="container" style="text-align: right;">
-            <h2 tabindex="0">שאלות נפוצות</h2>
+                <% if(Page.StaticsBlocks && Page.StaticsBlocks.QuestionsTitleBlock){%>
+                   <h2 tabindex="0"><%= Page.StaticsBlocks.QuestionsTitleBlock %></h2>
+                <%} else {%>
+                  <h2 tabindex="0">שאלות נפוצות</h2>
+                <%}%>
+            
              <% Page.Accordion.forEach(item => {%>
                 <button class="accordion_row"><%- item.AccordionTitle %></button>
                 <div class="accordion_inside_panel"><p tabindex="0"><%- item.AccordionDescription %></p></div>
@@ -99,16 +137,21 @@
     <div class="container ta_center">
         <div class="ttl">
             <img alt="247Icon" src="/images/247Icon.png" /><br />
-            <b tabindex="0">טיפול חירום בפריצות דלתות</b>
+                <% if(Page.StaticsBlocks && Page.StaticsBlocks.InstallersTitleBlock){%>
+                    <h3 tabindex="0"><%= Page.StaticsBlocks.InstallersTitleBlock %></h3>
+                <%} else {%>
+                   <h3 tabindex="0">טיפול חירום בפריצות דלתות</h3>
+                <%}%>
+           
         </div>
         <ul>
             <% Installers.forEach(installer => { %>
             <li>
-                <a href="tel:<%= installer.Data.PhoneNumber %>">
+                <a href="tel:<%= installer.Data.PhoneNumber %>"  tabindex="-1">
                     <div tabindex="0">
-                        <b tabindex="0"><%= installer.Data.Name %></b>
-                        <span tabindex="0"><%= installer.Data.PhoneNumber %></span>
-                        <span style="font-weight: 700;color: #ff4200;" tabindex="0"><%= installer.Data.LocationHe %></span>
+                        <b><%= installer.Data.Name %></b>
+                        <span><%= installer.Data.PhoneNumber %></span>
+                        <span style="font-weight: 700;color: #ff4200;"><%= installer.Data.LocationHe %></span>
                     </div>
                 </a>
                
@@ -122,15 +165,19 @@
 <% if(!Desktop){%>
 <section id="bottom_side_form" class="wrap_container">
     <div class="container">
-        <h2>השארת פרטים</h2>
+                <% if(Page.StaticsBlocks && Page.StaticsBlocks.FormTitleBlock){%>
+                   <h2 tabindex="0"><%= Page.StaticsBlocks.FormTitleBlock %></h2>
+                <%} else {%>
+                  <h2 tabindex="0">שאלות נפוצות</h2>
+                <%}%>
         <div class="tbContainer bottom_side">
             <form class="clientcomment_form" action="/service" method="post" >
-                <input type="text" class="tb form_input" name="Name" placeholder="שם מלא:" />
-                <input type="text" class="tb form_input" name="PhoneNumber" placeholder="טלפון:" />
-                <input type="text" class="tb form_input" name="Email" placeholder="אימייל:" />
-                <input type="text" class="tb form_input" name="City" placeholder="כתובת:" />
-                <input type="text" class="tb form_input" name="Content" placeholder="תוכן:" />
-                <input type="submit" class="tb send_btn" value="שליחה" />
+                <input type="text" class="tb form_input" name="Name" placeholder="<%= global.GlobalVar.Name && global.GlobalVar.Name[Language] ?global.GlobalVar.Name[Language] : 'שם מלא'%>:" />
+                <input type="text" class="tb form_input" name="PhoneNumber" placeholder="<%= global.GlobalVar.Phone && global.GlobalVar.Phone[Language]? global.GlobalVar.Phone[Language] : 'טלפון'%>:" />
+                <input type="text" class="tb form_input" name="Email" placeholder="<%= global.GlobalVar.Email && global.GlobalVar.Email[Language]?global.GlobalVar.Email[Language] : 'אימייל'%>:" />
+                <input type="text" class="tb form_input" name="City" placeholder="<%= global.GlobalVar.City && global.GlobalVar.City[Language] ?global.GlobalVar.City[Language] : 'עיר'%>:" />
+                <input type="text" class="tb form_input" name="Content" placeholder="<%= global.GlobalVar.Content && global.GlobalVar.Content[Language]? global.GlobalVar.Content[Language] : 'תוכן'%>:" />
+                <input type="submit" class="tb send_btn" value="<%= global.GlobalVar.Send && global.GlobalVar.Send[Language] ? global.GlobalVar.Send[Language] : 'שליחה'%>" />
             </form>
         </div>
     </div>

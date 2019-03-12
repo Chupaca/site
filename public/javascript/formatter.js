@@ -4,6 +4,7 @@ const linkToBuckets = $("#LinkToBuckets").val().trim();
 
 function SetEmptyBlocks(arrayForEmptyValue, arrayForEmptyHTML) {
     $(".meta_data_table tbody").empty();
+    $(".static_blocks").val("")
     $(".wrap_images_[data-wrap_images='headers']").empty();
     $(".wrap_images_[data-wrap_images='generals']").empty();
     $(".wrap_images_[data-wrap_images='blogs']").empty();
@@ -12,7 +13,7 @@ function SetEmptyBlocks(arrayForEmptyValue, arrayForEmptyHTML) {
     $(".text_area_page_editor").text("").css({ 'display': 'block' });
     $(".original_html_text").empty().css({ 'display': 'none' });
     if (arrayForEmptyValue) {
-        $(arrayForEmptyValue.join(",")).val("").text();
+        $(arrayForEmptyValue.join(",")).val("").text("");
     }
     if (arrayForEmptyHTML) {
         $(arrayForEmptyHTML.join(",")).empty();
@@ -59,7 +60,7 @@ function GetHeaderDataWithOutImage() {
     return header;
 }
 
-function GetSimpleContent() {
+function GetSimpleContent(notSanitize) {
     let content = {
         ContentImages: Array.from($(".wrap_content_page .wrap_images_ .image_one")).map(item => {
             return {
@@ -70,7 +71,7 @@ function GetSimpleContent() {
         }),
         ContentHtml: $(".wrap_content_page .original_html_text").html()
     }
-    if (SanitizeAllFields(content, [])) {
+    if (SanitizeAllFields(content, notSanitize || [])) {
         return content;
     } else {
         return false;
@@ -239,5 +240,28 @@ function BuildVideoTable(videoList) {
         `
     })
     return html;
+}
 
+function GetStaticsFieldsBlocks(obj) {
+    let flagStatics = true;
+    Array.from($(".static_blocks")).forEach(item => {
+        if (!$(item).val()) flagStatics = false
+        obj[$(item).attr("name")] = $(item).val()
+    })
+    return flagStatics;
+}
+
+function SetStaticsFieldsBlocks(template) {
+    if (template && template.StaticsBlocks) {
+        Object.entries(template.StaticsBlocks).forEach(([key, value]) => {
+            $("[name='" + key + "']").val(value)
+        })
+    }
+    return;
+}
+
+function HideBtnOptionsAfterChangeLanguage(arr) {
+    arr.forEach(item => {
+        $("#" + item).hide(10)
+    })
 }

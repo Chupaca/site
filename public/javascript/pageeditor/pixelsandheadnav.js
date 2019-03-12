@@ -2,7 +2,11 @@
 
 
 function saveNewPage() {
+    let prefixLanguage = $("#language_select option:selected").val() != 'he' ? $("#language_select option:selected").val() + '_' : '';
+   
     let headNav = { Pixels: [], Nav: [] };
+    headNav.Language = $("#language_select option:selected").val() || 0;
+
     $(".upper_nav_row").each((i, item) => {
         headNav.Nav.push({
             Position: $(item).find(".Position").val().trim(),
@@ -18,18 +22,24 @@ function saveNewPage() {
         })
     })
 
-    if (headNav) {
+    if (headNav && headNav.Language) {
         ConformModal("האם אתה רוצה לשמור גרסה חדשה?", () => {
-            SaveNewPageToServer(headNav, 'pixelsandheadnav')
+            SaveNewPageToServer(headNav, prefixLanguage + 'pixelsandheadnav')
         })
     } else {
-        Flash("לא כל השדות של מלאים", "warning")
+        if(!headNav.Language){
+            Flash('נא לבחור שפה!', 'warning');
+        }else{
+            Flash('לא כל השדות מלאים!', 'warning');
+        }
+        return;
 
     }
 }
 
 function publishPage() {
     let data = []
+    let prefixLanguage = $("#language_select_preview option:selected").val();
     $("#sortable li").each((i, item) => {
         data.push(
             {
@@ -41,7 +51,7 @@ function publishPage() {
 
     if (data.length != 0) {
         ConformModal("האם אתה רוצה לפרסם גרסה ?", () => {
-            SetActiveSinglePage(data[0].Id, "pixelsandheadnav");
+            SetActiveSinglePage(data[0].Id, prefixLanguage);
         })
     } else {
         Flash("צריך לפחות מתקין אחד!", "warning")
@@ -132,8 +142,8 @@ function addNewUpperNavFromTmp(navs) {
     navs.forEach(item => {
         html += `<tr class="upper_nav_row" style="width:100%;">
         <td style="width: 5%;"><input type="text" class="Position" value="${item.Position}" style="padding:1vh 1vh;" readonly></td>
-        <td style="width: 20%;"><input style="width: 96%;" type="text" class="Title" value="${item.Title}" readonly /></td>
-        <td style="width: 30%;"><input class="Link" value='${item.Link}' readonly  dir="ltr" /><b>&nbsp;/&nbsp;</b></td>
+        <td style="width: 20%;"><input style="width: 96%;" type="text" class="Title" value="${item.Title}"  /></td>
+        <td style="width: 30%;"><input class="Link" value='${item.Link}'   dir="ltr" /><b>&nbsp;/&nbsp;</b></td>
         <td style="width: 5%;"><i class="fas fa-trash-alt remove_row_nav" style="color:red;cursor:pointer;"></i></td>
         </tr>`
     })
@@ -155,4 +165,23 @@ function addNewPixelFromTmp(pixels) {
     $(".pixels_table tbody").append(html);
     $("#title_pixel, #pixels_wrap").val("")
     $(".remove_row_pixel").unbind().click(removePixel)
+}
+
+
+function sortAndPreviewSelectedItemsByLanguage() {
+    $.get(`/admin/versionsbylanguage/${$(this).val()}/${$(this).attr('data-type')}`)
+        .then(html => {
+            $("#vertion_wrap").html(html)
+            $("#template_page").unbind().click(getTemplatePage);
+            $("#publish_page").unbind().click(publishPage);
+            $("#sortable, #sortable_tmp").sortable({
+                connectWith: ".connectedSortable",
+                stop: () => { sortNavItemsAfterChange() }
+            }).disableSelection();
+            sortNavItemsAfterChange()
+            mouseOverRowVersion()
+            HideBtnOptionsAfterChangeLanguage([ "preview_page", "deactivate_block"])
+            $(".remove_page").unbind().click(removePage)
+            $(".page_item").unbind().click(markVersionPage);
+        })
 }

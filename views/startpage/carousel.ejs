@@ -13,22 +13,22 @@
     <div class="mySlides cur_animate active" style="background: #000000 url(<%- (process.env.LINKTOBUCKETS + Carousel.Desktop.Slide1.Theme +  Carousel.Desktop.Slide1.ThemeId) %>) no-repeat center;"></div>
     <div class="mySlides cur_animate" style="background: #000000 url(<%- (process.env.LINKTOBUCKETS + Carousel.Desktop.Slide2.Theme +  Carousel.Desktop.Slide2.ThemeId) %>) no-repeat center;"></div>
     <span class="overlay_slides_wrap"></span>
-    <span class="slide_inside">
+    <div class="slide_inside">
         <img class="door_img" alt="<%= Carousel.Desktop.Slide1.DoorImageId %>" src="<%= ( process.env.LINKTOBUCKETS + Carousel.Desktop.Slide1.DoorImage + Carousel.Desktop.Slide1.DoorImageId) %>" style="max-height:98%;" />
         <div class="door_info_container">
             <div><%- Carousel.Desktop.Slide1.Title %></div>
-            <a class="pandor-collection-btn" href="/<%= Carousel.Desktop.Slide1.Link %>"><%= Carousel.Desktop.Slide1.Button %></a>
+            <a class="pandor-collection-btn" href="<%= Language %>/<%= Carousel.Desktop.Slide1.Link %>"><%= Carousel.Desktop.Slide1.Button %></a>
         </div>
-        <div class="slider_left_text"><%- Carousel.Desktop.Slide1.LeftTitle %></div>
-    </span>
-    <span class="slide_inside">
+        <div class="slider_left_text"><h3><%- Carousel.Desktop.Slide1.LeftTitle %></h3></div>
+    </div>
+    <div class="slide_inside">
         <img class="door_img" alt="<%= Carousel.Desktop.Slide2.DoorImageId %>" src="<%= (process.env.LINKTOBUCKETS + Carousel.Desktop.Slide2.DoorImage + Carousel.Desktop.Slide2.DoorImageId) %>" style="max-height:98%;" />
         <div class="door_info_container">
             <div><%- Carousel.Desktop.Slide2.Title%></div>
-            <a class="pandor-collection-btn" href="/<%= Carousel.Desktop.Slide2.Link %>"><%= Carousel.Desktop.Slide2.Button %></a>
+            <a class="pandor-collection-btn" href="<%= Language %>/<%= Carousel.Desktop.Slide2.Link %>"><%= Carousel.Desktop.Slide2.Button %></a>
         </div>
-        <div class="slider_left_text"><%- Carousel.Desktop.Slide2.LeftTitle %></div>
-    </span>
+        <div class="slider_left_text"><h3><%- Carousel.Desktop.Slide2.LeftTitle %></h3></div>
+    </div>
 </div>
 
 <%} else if(Carousel) {%>
@@ -38,20 +38,20 @@
         <div class="mySlides cur_animate active" style="background: #000000 url(<%- (process.env.LINKTOBUCKETS + Carousel.Mobile.Slide1.Theme + Carousel.Mobile.Slide1.ThemeId) %>) no-repeat center;background-size: 100%;"></div>
         <div class="mySlides cur_animate" style="background: #000000 url(<%- (process.env.LINKTOBUCKETS + Carousel.Mobile.Slide2.Theme + Carousel.Mobile.Slide2.ThemeId) %>) no-repeat center;background-size: 100%;"></div>
         <span class="overlay_slides_wrap"></span>
-        <span class="slide_inside">
+        <div class="slide_inside">
             <img class="door_img" alt="<%= Carousel.Mobile.Slide1.DoorImageId %>" src="<%- (process.env.LINKTOBUCKETS + Carousel.Mobile.Slide1.DoorImage + Carousel.Mobile.Slide1.DoorImageId) %>" />
             <div class="door_info_container">
                 <div><%- Carousel.Mobile.Slide1.Title %></div>
-                <a class="pandor-collection-btn" href="/<%= Carousel.Mobile.Slide1.Link %>"><%= Carousel.Mobile.Slide1.Button %></a>
+                <a class="pandor-collection-btn" href="<%= Language %>/<%= Carousel.Mobile.Slide1.Link %>"><%= Carousel.Mobile.Slide1.Button %></a>
             </div>
-        </span>
-        <span class="slide_inside">
+        </div>
+        <div class="slide_inside">
             <img class="door_img" alt="<%= Carousel.Mobile.Slide2.DoorImageId %>" src="<%- (process.env.LINKTOBUCKETS + Carousel.Mobile.Slide2.DoorImage + Carousel.Mobile.Slide2.DoorImageId) %>"  />
             <div class="door_info_container">
                 <div><%- Carousel.Mobile.Slide2.Title %></div>
-                <a class="pandor-collection-btn" href="/<%= Carousel.Mobile.Slide2.Link %>"><%= Carousel.Mobile.Slide2.Button %></a>
+                <a class="pandor-collection-btn" href="<%= Language %>/<%= Carousel.Mobile.Slide2.Link %>"><%= Carousel.Mobile.Slide2.Button %></a>
             </div>
-        </span>
+        </div>
     </div>
 </div>
 

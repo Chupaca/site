@@ -8,7 +8,20 @@
     <button class="btn_class switch_wraps" data-wrap="header">עריכת כותרת</button>
     <button class="btn_class switch_wraps" data-wrap="videolist">רשימת סרטונים</button>
     <button class="btn_class switch_wraps active" data-wrap="versions">רשימת גרסות</button>
+    <select class="select_item" id="language_select_preview" data-type="0" style="width: 150px;font-size: 19px;">
+        <option value="video" selected>עברית</option>
+        <option value="en_video">English</option>
+        <option value="ru_video">Русский</option>
+        <option value="ar_video">العربية</option>
+    </select>
     <button class="btn_class btn_green" id="save_new" style="float:left;" disabled>לשמור</button>
+    <select class="select_item" id="language_select" style="width: 150px;font-size: 19px;float:left;background:#eee" disabled>
+        <option value selected>בחר...</option>
+        <option value="he">עברית</option>
+        <option value="en">English</option>
+        <option value="ru">Русский</option>
+        <option value="ar">العربية</option>
+    </select>
 </div>
 
 
@@ -61,13 +74,15 @@
 </div>
 
 
-<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions">
+<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions" id="vertion_wrap">
     <div id="sortable" class="col connectedSortable">
      <h2 class="version_title">פעיל</h2>
         <% if(Prod && Prod.Data.Header){ let item = Prod; %>
         <li data-id="<%= item.Id %>" data-bucket="video">
             <div class="page_item">
                 <span class="page_item_position"><b><%= item.Position %></b></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <b class="language_type_in_row"><%= item.Language || "he" %></b>
                 <b style="margin:0 2vh;">&#124;</b>
                 <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
                 <b style="margin:0 2vh;">&#124;</b>
@@ -85,6 +100,8 @@
         <li data-id="<%= item.Id %>" data-bucket="video-tmp">
             <div class="page_item">
                 <span class="page_item_position"><b>0</b></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <b class="language_type_in_row"><%= item.Language || "he" %></b>
                 <b style="margin:0 2vh;">&#124;</b>
                 <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
                 <b style="margin:0 2vh;">&#124;</b>

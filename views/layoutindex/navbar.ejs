@@ -1,30 +1,41 @@
+<% if(Desktop){%>
+<ul id="skip_links" tabindex='0'>
+    <li><a href="#nav_panel">ניווט</a></li>
+    <li><a href="#accessibility_btn">נגישות</a></li>
+    <li><a href="#lining_nav">כותרת דף</a></li>
+    <li><a href="#wrap_container">תוכן</a></li>
+    <li><a href="#footer_cont_link">ניוות תחתית</a></li>
+</ul>
+<%}%>
 <nav id="nav_panel">
     <div id="nav_wrap">
         <div id="logo_side">
-            <a id="logo_imgs" href="/" tabindex="0">
-                <img alt="לוגו פנדור" tabindex="0" src="/images/logo.jpg" id="bigger_logo" />
-                <img alt="לוגו פנדור" src="/images/only_door.png" id="minimize_logo" />
+            <a id="logo_imgs" href="<%= Language %>/">
+                <img alt="לוגו דלתות פנדור - קישור לדף הבית" src="/images/logo.jpg" id="bigger_logo" />
+                <% if(!Desktop){%>
+                    <img alt="לוגו פנדור" src="/images/only_door.png" id="minimize_logo" />
+                <%}%>
             </a>
         </div>
 
         <div id="centarl_nav" class="header-txt">
-            <ul class="header-lang-nav">
-                <li><a href="#">HEB</a></li>
-                <li><a href="#">ENG</a></li>
-                <li><a href="#">RUS</a></li>
+            <ul class="header-lang-nav" style="display:none;">
+                <li><a href="/">HEB</a></li>
+                <li><a href="/en">ENG</a></li>
+                <li><a href="/ru">RUS</a></li>
             </ul>
             <ul class="header-nav">
-                <li><a class="" href="tel:*5058" tabindex="0"><i class="fa fa-phone-square" style="margin:0 5px;"></i>5058
-                        *</a></li>
+                <li><a class="" href="tel:*5058" tabindex="0"><i class="fa fa-phone-square" style="margin:0 5px;"><span class="invisible_text">טלפון</span></i>5058*</a></li>
                 <% if(PixelsAndNav && PixelsAndNav.Nav && PixelsAndNav.Nav.length){%>
                 <% PixelsAndNav.Nav.forEach(item => { %>
-                    <li><a href="/<%= item.Link %>" tabindex="0"><%= item.Title %></a></li>
+                    <li><a href="<%= Language %>/<%= item.Link %>" tabindex="0"><%= item.Title %></a></li>
                  <%})}%>
             </ul>
+            
         </div>
 
-        <a class="" href="tel:*5058" style=""  tabindex="-1">
-            <div id="phone_number_mobile"><i class="fa fa-phone-square" style="margin:0 5px;"></i>5058 *</div>
+        <a class="" href="tel:*5058" style="" tabindex="-1">
+            <div id="phone_number_mobile"><i class="fa fa-phone-square" style="margin:0 5px;"><span class="invisible_text">טלפון</span></i>5058 *</div>
         </a>
 
         <div id="nav_side" tabindex="-1">
@@ -32,6 +43,7 @@
                 <div class="bar1"></div>
                 <div class="bar2"></div>
                 <div class="bar3"></div>
+                <span class="invisible_text">תפרית</span>
             </div>
         </div>
         
@@ -42,7 +54,7 @@
 <div class="nav">
     <ul>
      <% for(let i=0; i<Navigation.length;i++){%>
-        <li class="navLink"><a href="/<%= Navigation[i].Data.Link %>" tabindex="0"><%= Navigation[i].Data.Title %></a></li>
+        <li class="navLink"><a href="<%= Language %>/<%= Navigation[i].Data.Link %>" tabindex="0"><%= Navigation[i].Data.Title %></a></li>
         <% if((Navigation.length / 2).toFixed(0) == (i+1)){ %>
             </ul><ul>
     <%}}%>
@@ -53,20 +65,22 @@
     </ul>
     <ul class="long" style="text-align: center;">
         <li>
-            <a href="tel:*5058" style=""><i class="fa fa-phone-square" style="margin:0 5px;"></i>5058 *</a>&nbsp;|&nbsp;
-            <a class="mailto" href="mailto:office@pandoor.co.il" style="font-size:3vh;">office<i class="fas fa-at"></i>pandoor.co.il</a>&nbsp;|&nbsp;
+            <a href="tel:*5058" style=""><i class="fa fa-phone-square" style="margin:0 5px;"><span class="invisible_text">טלפון</span></i>5058 *</a>&nbsp;|&nbsp;
+            <a class="mailto" href="mailto:office@pandoor.co.il" style="font-size:3vh;">office<i class="fas fa-at"><span class="invisible_text">מייל</span></i>pandoor.co.il</a>&nbsp;|&nbsp;
             <a href="https://www.facebook.com/pandoors/" target="_blank"><i class="fab fa-facebook-square"
-                    style="font-size:3vh;"></i></a>
+                    style="font-size:3vh;"><span class="invisible_text">קישור לפיסבוק</span></i></a>
             <a href="https://www.instagram.com/pandoor_doors/" target="_blank"><i class="fab fa-instagram"
-                    style="font-size:3vh;"></i></a>
-            <a href="https://www.youtube.com/user/pandoor100" target="_blank"><i class="fab fa-youtube" style="font-size:3vh;"></i></a>
+                    style="font-size:3vh;"><span class="invisible_text">קישור לאינסטגרם</span></i></a>
+            <a href="https://www.youtube.com/user/pandoor100" target="_blank"><i class="fab fa-youtube" style="font-size:3vh;"><span class="invisible_text">קישור ליוטוב</span></i></a>
         </li>
     </ul>
-    <a class="mobileNavDesignerInfo" href="/architectscontact" tabindex="-1">
-        <span class="click">אדריכל / מעצב?<br /> <b>לחץ כאן</b></span>
-        <i class="fas fa-ruler-combined fa-rotate-180"></i>
+    <a class="mobileNavDesignerInfo" href="<%= Language %>/architectscontact" tabindex="-1">
+        <% if(!Language){%>
+            <span class="click"><%= global.GlobalVar.ArchitectsDesigner && global.GlobalVar.ArchitectsDesigner[Language] ? global.GlobalVar.ArchitectsDesigner[Language] : 'אדריכל / מעצב?' %></span>
+            <i class="fas fa-ruler-combined fa-rotate-180"></i>
+        <%}%>
     </a>
 
-    <i class="fa fa-times xNav" style="font-size:4vh;" tabindex="0"></i>
+    <i class="fa fa-times xNav" style="font-size:4vh;" tabindex="0"><span class="invisible_text">סגר</span></i>
 
 </div> 

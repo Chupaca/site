@@ -1,14 +1,14 @@
 <% layout('layoutindex/mainpage') -%>
 
 <div class="contentMainImgContainer">
-   <img class="contentMainImg" alt="תמונת רקע" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" />
+   <img class="contentMainImg" alt="" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" />
     <h1 tabindex="0"><%= Page.Header.Title %></h1>
     <div class="contentTxt" tabindex="0">
         <h5>מעצב/ת :</h5><span><%= Page.ArchitectName%></span><br>
         <h5>פרטים :</h5><span><%= Page.ArchitectPhonenumber%></span><br>
         <span><%= Page.ArchitectEmail %></span><br>
     </div>
-    <span class="downBtn" data-scrollto="wrap_container"><i class="far fa-caret-square-down"></i></span>
+    <span class="downBtn" data-scrollto="wrap_container" tabindex="0"><i class="far fa-caret-square-down"></i></span>
 </div>
 
 
@@ -21,7 +21,7 @@
            <% if(i == 0 || i == 3 || i == 6){ %>
                 <div class="project_gallery_column">
            <%}%>
-                <img alt="<%= item.ImageId %>" tabindex="0" src="<%= process.env.LINKTOBUCKETS + item.LinkToBucket + item.ImageId %>" data-index="<%= i %>" style="width:100%">
+                <img alt="" tabindex="0" src="<%= process.env.LINKTOBUCKETS + item.LinkToBucket + item.ImageId %>" data-index="<%= i %>" style="width:100%">
              <% if(i == 2 || i == 5 || i == 8){ %>
                 </div>
            <%}else if(i == Page.Content.ContentImages.length-1){ %> 
@@ -30,7 +30,12 @@
             <%})}%>
         </div>
         <div>
-            <a href="/architect/<%= Page.ArchitectId %>"><input type="button" class="btn_all_pages" value="לכל הפרויקטים של האדריכל" /></a>
+         <% if(Page.StaticsBlocks && Page.StaticsBlocks.linkBtn){%>
+             <a href="/architect/<%= Page.ArchitectId %>" class="btn_all_pages_link"><%= Page.StaticsBlocks.linkBtn %></a>
+        <% } else {%>
+             <a href="/architect/<%= Page.ArchitectId %>" class="btn_all_pages_link">לכל הפרויקטים של האדריכל</a>
+        <%}%>
+             
         </div>
     </div>
 
@@ -39,7 +44,7 @@
         <span class="close" tabindex="0">&times;</span>
         <span class="next" tabindex="0">&lt;</span>
         <span class="prev" tabindex="0">&gt;</span>
-        <img class="modal-content" id="preview_image">
+        <img class="modal-content" id="preview_image" alt="" src="">
         <span id="count_images"></span>
       </div>
       

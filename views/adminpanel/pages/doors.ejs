@@ -7,8 +7,22 @@
     <button class="btn_class switch_wraps" data-wrap="metadata">עריכת מטה</button>
     <button class="btn_class switch_wraps" data-wrap="header">עריכת כותרת</button>
     <button class="btn_class switch_wraps" data-wrap="content">עריכת תוכן</button>
+    <button class="btn_class switch_wraps" data-wrap="staticblocks">בלוקים סטטים</button>
     <button class="btn_class switch_wraps active" data-wrap="versions">רשימת גרסות</button>
+     <select class="select_item" id="language_select_preview" data-type="1" style="width: 150px;font-size: 19px;">
+        <option value="doors" selected>עברית</option>
+        <option value="en_doors">English</option>
+        <option value="ru_doors">Русский</option>
+        <option value="ar_doors">العربية</option>
+    </select>
     <button class="btn_class btn_green" id="save_new" style="float:left;" disabled>לשמור</button>
+    <select class="select_item" id="language_select" style="width: 150px;font-size: 19px;float:left;background:#eee" disabled>
+        <option value selected>בחר...</option>
+        <option value="he">עברית</option>
+        <option value="en">English</option>
+        <option value="ru">Русский</option>
+        <option value="ar">العربية</option>
+    </select>
 </div>
 
 <!--  meta  -->
@@ -65,13 +79,36 @@
     </div>
 </div>
 
-<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions">
+
+
+<div class="wrap_two_col" style="display:none;" data-wrap="staticblocks">
+    <div class="col">
+        <table class="statics_data_table">
+            <tbody>
+                 <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="כפתור לכל קולקציה" readonly /></td><td><input name="allCollactionBtn" class="static_blocks" /></td></tr>
+                 <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="כפתור לגלריה" readonly /></td><td><input name="SlideToGalleryBtn" class="static_blocks" /></td></tr>
+                 <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="כותרת סוגי דלת" readonly /></td><td><input name="ContinentTitleBlock" class="static_blocks" /></td></tr>
+                 <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="פירזול בסוגים" readonly /></td><td><input name="PirzulTitleBtn" class="static_blocks" /></td></tr>
+                 <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="כותרת ליד" readonly /></td><td><input name="FormTitleBlock" class="static_blocks" /></td></tr>
+                 <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="כותרת גלריה" readonly /></td><td><input name="GalleryTitleBlock" class="static_blocks" /></td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col">
+        
+    </div>
+</div>
+
+
+<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions" id="vertion_wrap">
     <div id="sortable" class="col connectedSortable">
      <h2 class="version_title">פעיל</h2>
         <% if(Prods && Prods.length){ Prods.sort((a, b) => a.Position -b.Position).forEach(item => { %>
         <li data-id="<%= item.Id %>" data-bucket="doors">
             <div class="page_item">
                 <span class="page_item_position"><b><%= item.Position %></b></span>
+                 <b style="margin:0 2vh;">&#124;</b>
+                <b class="language_type_in_row"><%= item.Language || "he" %></b>
                 <b style="margin:0 2vh;">&#124;</b>
                 <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
                 <b style="margin:0 2vh;">&#124;</b>
@@ -89,6 +126,8 @@
         <li data-id="<%= item.Id %>" data-bucket="doors-tmp">
             <div class="page_item">
                 <span class="page_item_position"><b>0</b></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <b class="language_type_in_row"><%= item.Language || "he" %></b>
                 <b style="margin:0 2vh;">&#124;</b>
                 <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
                 <b style="margin:0 2vh;">&#124;</b>

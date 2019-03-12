@@ -14,25 +14,47 @@
         <div class="branches_descriptions <%= (first?'active':'') %>" id="<%= salf.Id %>">
             <div class="infoContactBox">
                 <i class="fas fa-map-marker-alt" style="font-size: 50px;"></i>
-                <span style="vertical-align: sub;" tabindex="0"><b>כתובת:</b><br><%= salfBranch.City + " , " + salfBranch.Address %></span>
+                <span style="vertical-align: sub;" tabindex="0">
+                 <% if(Page.StaticsBlocks && Page.StaticsBlocks.AddressBlock){%>
+                    <b><%= Page.StaticsBlocks.AddressBlock %></b><br />
+                <%} else {%>
+                     <b>כתובת:</b><br>
+                <%}%>
+               
+                <%= salfBranch.City + " , " + salfBranch.Address %></span>
                 <div style="display: inline-flex;">
                      <% let address = (salfBranch.Address + " " + salfBranch.City).replace(' ', '%20');  if(!Desktop) {%>
-                    <a href="https://www.waze.com/ul?q=<%= address%>"><img src="/images/icon-waze.png"  style="width: 5vh;height: 5vh;" /></a>
+                    <a href="https://www.waze.com/ul?q=<%= address%>"><img src="/images/icon-waze.png" alt="" style="width: 5vh;height: 5vh;" /></a>
                     <%}%>
-                    <a  href="https://www.google.com/maps/search/?api=1&query=<%= address%>"><img src="/images/icon-google-maps.png"  style="width: 5vh;height: 5vh;" /></a>
+                    <a  href="https://www.google.com/maps/search/?api=1&query=<%= address%>"><img src="/images/icon-google-maps.png" alt="" style="width: 5vh;height: 5vh;" /></a>
                 </div>
             </div>
             <div class="infoContactBox">
                 <i class="fas fa-mobile-alt" style="font-size: 50px;"></i>
                 <span tabindex="0">
-                    <b>טלפון</b> : <a href="tel:<%= salfBranch.PhoneNumber %>"><%= salfBranch.PhoneNumber %></a><br />
+                 <% if(Page.StaticsBlocks && Page.StaticsBlocks.PhoneBlock){%>
+                    <b><%= Page.StaticsBlocks.PhoneBlock %></b> : <a href="tel:<%= salfBranch.PhoneNumber %>"><%= salfBranch.PhoneNumber %></a><br />
+                <%} else {%>
+                   <b>טלפון</b> : <a href="tel:<%= salfBranch.PhoneNumber %>"><%= salfBranch.PhoneNumber %></a><br />
+                <%}%>
+
+                <% if(Page.StaticsBlocks && Page.StaticsBlocks.FaxBlock){%>
+                    <b><%= Page.StaticsBlocks.FaxBlock %></b> : <%= salfBranch.Fax  %><br />
+                <%} else {%>
                     <b>פקס</b> : <%= salfBranch.Fax  %><br />
+                <%}%>
+                   
                 </span>
             </div>
             <div class="infoContactBox">
                 <i class="far fa-clock" style="font-size: 50px;"></i>
                 <span tabindex="0">
-                    <b>שעות פעילות</b><br>
+                 <% if(Page.StaticsBlocks && Page.StaticsBlocks.HoursBlock){%>
+                    <b><%= Page.StaticsBlocks.HoursBlock %></b><br />
+                <%} else {%>
+                     <b>שעות פעילות</b><br>
+                <%}%>
+                  
                     א'-ה' : <%= salfBranch.Open + " - " +  salfBranch.Close %><br>
                     <% if(salfBranch.OpenFr) {%>
                      ו': <%=  salfBranch.OpenFr + " - " + salfBranch.CloseFr%>
@@ -42,14 +64,21 @@
             <div class="infoContactBox">
                 <i class="far fa-envelope" style="font-size: 50px;"></i>
                 <span tabindex="0">
+                 <% if(Page.StaticsBlocks && Page.StaticsBlocks.EmailBlock){%>
+                    <b><%= Page.StaticsBlocks.EmailBlock %></b><br />
+                <%} else {%>
                     <b>אימייל</b><br />
+                <%}%>
+                   
                     <a href="mailto:<%= salfBranch.Email %>"><%= salfBranch.Email %></a>
                 </span>
             </div>
 
             <% if(salfBranch.Link && salfBranch.Link.length && Desktop){%>
              <br>
-             <h4 style="">אנו מזמינים אתכם להתרשם מסיור וירטואלי באולם התצוגה בראשון לציון</h4>
+             <% if(!Language) {%>
+                <h4 style="">אנו מזמינים אתכם להתרשם מסיור וירטואלי באולם התצוגה בראשון לציון</h4>
+             <%}%>
              <iframe class="virtual_branch" width='750' height='380' src='<%= salfBranch.Link%>' frameborder='0' allowfullscreen allow='vr'></iframe>
              <div class="infoContactBox virtual_branch_mobile" >
                     <i class="fas fa-vr-cardboard" style="font-size: 50px;"></i>
@@ -65,50 +94,51 @@
 
 
     <div class="branchesMap">
-        <img src="/images/mapBg.jpg" style="filter: brightness(103%);" />
+        <img src="/images/mapBg.jpg" alt="מפת ישראל" style="filter: brightness(103%);" />
         <div id="tag_on_map_bnay_brak" class="on_map_btn" data-index="1">
+        <% if(!Language){%>
             <div>
-                <div class="dialogbubbl_left">
+                <div class="dialogbubbl_left" tabindex="0">
                     <b>בני ברק</b>
                 </div>
             </div>
         </div>
         <div id="tag_on_map_reashin_top" class="on_map_btn" data-index="5">
             <div>
-                <div class="dialogbubbl_left">
+                <div class="dialogbubbl_left" tabindex="0">
                     <span>ראשל"צ<br /><b>הנהלת פנדור</b></span>
                 </div>
             </div>
         </div>
         <div id="tag_on_map_kriayt_gat" class="on_map_btn" data-index="4">
             <div>
-                <div class="dialogbubbl_left">
+                <div class="dialogbubbl_left" tabindex="0">
                     <b>קרית גת</b>
                 </div>
             </div>
         </div>
         <div id="tag_on_map_natania" class="on_map_btn active" data-index="0">
             <div>
-                <div class="dialogbubbl_right">
+                <div class="dialogbubbl_right" tabindex="0">
                     <b>נתניה</b>
                 </div>
             </div>
         </div>
         <div id="tag_on_map_rashlatz" class="on_map_btn" data-index="2">
             <div>
-                <div class="dialogbubbl_right">
+                <div class="dialogbubbl_right" tabindex="0">
                     <b>ראשל"צ</b>
                 </div>
             </div>
         </div>
         <div id="tag_on_map_ashdod" class="on_map_btn" data-index="3">
             <div>
-                <div class="dialogbubbl_right">
+                <div class="dialogbubbl_right" tabindex="0">
                     <b>אשדוד</b>
                 </div>
             </div>
         </div>
-
+ <%}%>
     </div>
 
 </div>

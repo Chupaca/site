@@ -9,7 +9,20 @@
     <button class="btn_class switch_wraps" data-wrap="models_collection"> שם ודגמים</button>
     <button class="btn_class switch_wraps" data-wrap="doors_collection">דוגמות דלתות</button>
     <button class="btn_class switch_wraps active" data-wrap="versions">רשימת קולקציות</button>
+    <select class="select_item" id="language_select_preview" data-type="1" style="width: 150px;font-size: 19px;">
+        <option value="doorcollectionlist" selected>עברית</option>
+        <option value="en_doorcollectionlist">English</option>
+        <option value="ru_doorcollectionlist">Русский</option>
+        <option value="ar_doorcollectionlist">العربية</option>
+    </select>
     <button class="btn_class btn_green" id="save_new" style="float:left;" disabled>לשמור</button>
+     <select class="select_item" id="language_select" style="width: 150px;font-size: 19px;float:left;background:#eee" disabled>
+        <option value selected>בחר...</option>
+        <option value="he">עברית</option>
+        <option value="en">English</option>
+        <option value="ru">Русский</option>
+        <option value="ar">العربية</option>
+    </select>
 </div>
 
 <div class="wrap_two_col" style="display:none;" data-wrap="models_collection">
@@ -37,7 +50,7 @@
     </div>
 </div>
 
-<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions">
+<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions" id="vertion_wrap">
     <div id="sortable" class="col connectedSortable">
      <h2 class="version_title">פעיל</h2>
         <% if(Prods && Prods.length){ Prods.sort((a, b) => a.Position -b.Position).forEach(item => { %>
@@ -45,6 +58,8 @@
             <div class="page_item">
                 <span class="page_item_position"><b>
                         <%= item.Position %></b></span>
+                  <b style="margin:0 2vh;">&#124;</b>
+                <b class="language_type_in_row"><%= item.Language || "he" %></b>
                 <b style="margin:0 2vh;">&#124;</b>
                 <span>
                     <%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %>
@@ -66,6 +81,8 @@
         <li data-id="<%= item.Id %>" data-bucket="doorcollectionlist-tmp">
             <div class="page_item">
                 <span class="page_item_position"><b>0</b></span>
+                  <b style="margin:0 2vh;">&#124;</b>
+                <b class="language_type_in_row"><%= item.Language || "he" %></b>
                 <b style="margin:0 2vh;">&#124;</b>
                 <span>
                     <%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %>

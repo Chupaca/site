@@ -192,7 +192,7 @@ h2{
 }
 
 #nav_bar_wrap .nav_item {
-    margin-right: -5em;
+    margin-right: -6em;
     transition: 0.3s;
     padding: 8px 2px;
     width: 10em;
@@ -631,6 +631,8 @@ h2{
     text-align: right;
     padding: 2vh;
     max-width: 70vh;
+    /*display: inline-flex;
+    position: relative; */
 }
 .connectedSortable li{
     list-style: none;
@@ -694,7 +696,12 @@ h2{
 }
 
 
-.branches_table, .meta_data_table, .default_table{
+.branches_table,
+.meta_data_table, 
+.default_table, 
+.statics_data_table,
+.pirzullist_table,
+.commonwords_table{
     width: 100%;
 }
 .branches_table input, .branches_table select,
@@ -702,8 +709,12 @@ h2{
 .default_table input, .default_table select,
 .doors_table input, .doors_table select,
 .models_table input, .models_table select,
+.pirzullist_table input, .pirzullist_table select,
 .models_table textarea,
-#door_pages_select
+#door_pages_select,
+.statics_data_table input, 
+.statics_data_table textarea,
+.commonwords_table input
 {
     width: 92%;
     padding: 1vh;
@@ -878,9 +889,9 @@ h2{
     background: #ffffff;
     padding: 1vh 3vh;
 }
-.title_news_versions{
+.title_news_versions, .page_item_desc{
     white-space: nowrap;
-    width: 35%;
+    width: 25%;
     overflow: hidden;
     text-overflow: ellipsis;
     display: inline-block;
@@ -983,5 +994,11 @@ h2{
     }
     .wrap_three_col .col {
         margin-left: 4vh;
+    }
+}
+
+@media all and (min-width:1900px) {
+    .title_news_versions, .page_item_desc{
+        width: 31%;
     }
 }

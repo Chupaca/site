@@ -4,19 +4,17 @@
     <img class="contentMainImg" tabindex="0" alt="תמונת רכע" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" />
     <h1 tabindex="0"><%= Architect.Name %></h1>
     <div class="contentTxt" style="margin-top: 1vh;text-align: right;width:40%;">
-        <div style="float: right;">
-            <img class="arcitect_image_page" tabindex="0" alt="תמונת אדריכל" src="<%= process.env.LINKTOBUCKETS + Architect.ProfileImage %>" />
-        </div>
+        <div style="float: right;height: 28vh;width: 28vh;background:url(<%= process.env.LINKTOBUCKETS + Architect.ProfileImage %>) no-repeat 100% /75%;background-position: right top;"></div>
         <div style="float: left;">
         <h5 tabindex="0">פרטים :</h5>
             <span tabindex="0"><%= Architect.PhoneNumber %></span><br>
-           <!-- <% if(Architect.PhoneNumber2){ %>
+            <% if(Architect.PhoneNumber2){ %>
               <span><%= Architect.PhoneNumber2 %></span><br>
-            <%}%> -->
+            <%}%>
             <span tabindex="0"><%= Architect.Email %></span>
         </div>
     </div>
-    <span class="downBtn" data-scrollto="wrap_container"><i class="far fa-caret-square-down"></i></span>
+    <span class="downBtn" data-scrollto="wrap_container" tabindex="0"><i class="far fa-caret-square-down" ></i></span>
 </div>
 
 <section id="wrap_container" class="wrap_container">
@@ -29,7 +27,7 @@
             <div class="project_gallery_column">
                 <%}%>
                 <div>
-                <a href="/project/<%= item.Id %>" tabindex="0">
+                <a href="/project/<%= item.Id %>" tabindex="-1">
                 <img alt="<%= item.Data.Content.ContentImages[0].ImageId %>" src="<%=  process.env.LINKTOBUCKETS + item.Data.Content.ContentImages[0].LinkToBucket + item.Data.Content.ContentImages[0].ImageId %>"
                     data-index="<%= i %>"  style="width:100%" data-title="<%= item.Data.Header.Title %>">
                     <div class="sub_project_title" tabindex="0"><%= item.Data.Header.Title %></div>
@@ -42,7 +40,7 @@
                 <%}%>
             <%})}%>
     </div>
-        <div class="num_pages_wrap">
+        <!-- <div class="num_pages_wrap">
             <div class="num_prev_page_btn" tabindex="0" onclick="PrevSimplePage('comment_client_row', 'table-row')" style="display:none;">&lt;</div>
             <div class="num_page_btn active" tabindex="0" onclick="SimpleChangePage(this, 1, 'comment_client_row', 'table-row')">1</div>
             <% countCom= 2; for(let i= 0; i< Projects.length-4;i +=4 ){ %>
@@ -51,6 +49,6 @@
             </div>
             <% countCom++; }%>
             <div class="num_next_page_btn" tabindex="0" onclick="NextSimplePage('comment_client_row', 'table-row')">&gt;</div>
-        </div>
+        </div> -->
     </div>
 </section>

@@ -34,6 +34,9 @@ function saveNewPage() {
     if (flag && !$("#architect_id").val().trim().length) {
         ConformModal("האם אתה רוצה לשמור אדריכל חדש?", () => {
             SaveNewPageToServer(architect, 'architectslist')
+            setTimeout(() => {
+                window.location.reload();
+            }, 500)
         })
     } else if ($("#architect_id").val().trim().length) {
         ConformModal("האם אתה רוצה לשמור אדריכל ?", () => {
@@ -202,3 +205,75 @@ function clearSearch(){
     $(".connectedSortable li").css("display", "block");
     $("#searchArchitects").val("")
 }
+
+$("#template_meta").unbind().click(()=>{
+    $(".meta_data_table tbody").append(`
+    <tr>
+            <td style="width: 23vh;">
+                <select class="type_meta_select">
+                    <option value="description" selected="">Description</option>
+                    <option value="keywords">Keywords</option>
+                    <option value="title">Title</option>
+
+                    <option value="og:description">Micro Description</option>
+                    <option value="og:title">Micro Title</option>
+                </select>
+            </td>
+            <td><input value=" באינדקס אדריכלים של דלתות פנדור"></td>
+            <td style="width: 5vh;"><i class="fas fa-trash-alt remove_row_meta" style="color:red;cursor:pointer;"></i></td>
+        </tr><tr>
+            <td style="width: 23vh;">
+                <select class="type_meta_select">
+                    <option value="description">Description</option>
+                    <option value="keywords">Keywords</option>
+                    <option value="title">Title</option>
+
+                    <option value="og:description" selected="">Micro Description</option>
+                    <option value="og:title">Micro Title</option>
+                </select>
+            </td>
+            <td><input value="   באינדקס אדריכלים של דלתות פנדור"></td>
+            <td style="width: 5vh;"><i class="fas fa-trash-alt remove_row_meta" style="color:red;cursor:pointer;"></i></td>
+        </tr><tr>
+            <td style="width: 23vh;">
+                <select class="type_meta_select">
+                    <option value="description">Description</option>
+                    <option value="keywords">Keywords</option>
+                    <option value="title" selected="">Title</option>
+
+                    <option value="og:description">Micro Description</option>
+                    <option value="og:title">Micro Title</option>
+                </select>
+            </td>
+            <td><input value="  | דלתות פנדור | חברת הדלתות הגדולה בישראל"></td>
+            <td style="width: 5vh;"><i class="fas fa-trash-alt remove_row_meta" style="color:red;cursor:pointer;"></i></td>
+        </tr><tr>
+            <td style="width: 23vh;">
+                <select class="type_meta_select">
+                    <option value="description">Description</option>
+                    <option value="keywords">Keywords</option>
+                    <option value="title">Title</option>
+
+                    <option value="og:description">Micro Description</option>
+                    <option value="og:title" selected="">Micro Title</option>
+                </select>
+            </td>
+            <td><input value="   | דלתות פנדור | חברת הדלתות הגדולה בישראל"></td>
+            <td style="width: 5vh;"><i class="fas fa-trash-alt remove_row_meta" style="color:red;cursor:pointer;"></i></td>
+        </tr><tr>
+            <td style="width: 23vh;">
+                <select class="type_meta_select">
+                    <option value="description">Description</option>
+                    <option value="keywords" selected="">Keywords</option>
+                    <option value="title">Title</option>
+
+                    <option value="og:description">Micro Description</option>
+                    <option value="og:title">Micro Title</option>
+                </select>
+            </td>
+            <td><input value="  , דלתות פנדור"></td>
+            <td style="width: 5vh;"><i class="fas fa-trash-alt remove_row_meta" style="color:red;cursor:pointer;"></i></td>
+        </tr>
+    `);
+    $(".remove_row_meta").unbind().click(removeMetaRow)
+})

@@ -2,12 +2,16 @@
 <% let Locations = Page.ExternalBranches.reduce((prev, curr) => { %>
 <% if(prev[curr.Location]) { prev[curr.Location].push(curr) } else { prev[curr.Location] = [curr] } return prev; }, {})%>
   
-    <p class="section_text" tabindex="0">רשת מפיצים מורשים של דלתות פנדור עומדת לרשותכם בכל חלקי בארץ. <br>הם שמחים לעמוד לצד עקרונות האיכות, השירות והמכירה של דלתות פנדור.</p>
-     <br>
+     <% if(Page.StaticsBlocks && Page.StaticsBlocks.ExternalBranchesContentBlock){%>
+         <p class="section_text" tabindex="0"><%- Page.StaticsBlocks.ExternalBranchesContentBlock %></p>
+    <%} else {%>
+         <p class="section_text" tabindex="0">רשת מפיצים מורשים של דלתות פנדור עומדת לרשותכם בכל חלקי בארץ. <br>הם שמחים לעמוד לצד עקרונות האיכות, השירות והמכירה של דלתות פנדור.</p>
+    <%}%>
+      <br>
     <div class="accordionContainer">
     <% Object.keys(Locations).sort().forEach(key => { %>
-    <button class="accordion_row">   
-        <h3><b tabindex="0"><%= Locations[key][0].LocationHe %></b></h3>
+    <button class="accordion_row" tabindex="0">   
+        <h3><b ><%= Locations[key][0].LocationHe %></b></h3>
     </button>
    <div class="accordion_inside_panel" >
             <table style="width:100%;">
@@ -17,18 +21,31 @@
                 <tr class="ex_branch_row" >
                     <th style="" tabindex="0"><%= item.City %></th>
                     <td tabindex="0"><%= item.BranchName %></td>
-                    <td tabindex="0"><b>כתובת:</b><%= item.Address %></td>
+                    <td tabindex="0">
+                     <% if(Page.StaticsBlocks && Page.StaticsBlocks.AddressBlock){%>
+                         <b><%= Page.StaticsBlocks.AddressBlock %></b><br />
+                    <%} else {%>
+                     <b>כתובת:</b><br>
+                     <%}%>
+                    <%= item.Address %></td>
                     <td>
                     <% let address = (item.Address + " " + item.City).replace(' ', '%20');  if(!Desktop) {%>
                         <a href="https://www.waze.com/ul?q=<%= address%>">
-                            <img src="/images/icon-waze.png" style="width: 5vh;height: 5vh;" />
+                            <img src="/images/icon-waze.png" alt="" style="width: 5vh;height: 5vh;" />
                         </a>
                     <%}%>
                         <a href="https://www.google.com/maps/search/?api=1&query=<%= address%>">
-                            <img src="/images/icon-google-maps.png"  style="width: 5vh;height: 5vh;" />
+                            <img src="/images/icon-google-maps.png" alt="" style="width: 5vh;height: 5vh;" />
                         </a>
                     </td>
-                    <td><b>טלפון:</b><a href="tel:<%= item.PhoneNumber %>"><%= item.PhoneNumber %></a><br>
+                    <td>
+                     <% if(Page.StaticsBlocks && Page.StaticsBlocks.PhoneBlock){%>
+                        <b><%= Page.StaticsBlocks.PhoneBlock %></b>
+                    <%} else {%>
+                        <b>טלפון</b>
+                    <%}%>
+                    
+                    <a href="tel:<%= item.PhoneNumber %>"><%= item.PhoneNumber %></a><br>
                         <a href="mailto:<%= item.Email %>"><%= item.Email %></a>
                     </td>
                 </tr>
@@ -39,9 +56,14 @@
      </div>
     <%})%>
      </div>
-    <div class="txt" style="text-align: justify;padding: 0 6%;" tabindex="0">
-        *כל מפיץ מורשה ברשימה הוא סוחר עצמאי, הקונה את המוצרים מפנדור על חשבונו ומוכר אותם בשמו ועל אחריותו.<br />
+            <% if(Page.StaticsBlocks && Page.StaticsBlocks.ExternalBranchesContentFooterBlock){%>
+                <div class="txt" style="text-align: justify;padding: 0 6%;" tabindex="0"><%- Page.StaticsBlocks.ExternalBranchesContentFooterBlock %></div>
+            <%} else {%>
+               <div class="txt" style="text-align: justify;padding: 0 6%;" tabindex="0">
+                    *כל מפיץ מורשה ברשימה הוא סוחר עצמאי, הקונה את המוצרים מפנדור על חשבונו ומוכר אותם בשמו ועל אחריותו.<br />
 
-        **ברכישה ממפיץ מורשה של מוצרי פנדור, המפיץ הוא הגורם האחראי להתקנה, לשירות וכיוצ"ב, ולא פנדור.
-    </div>
+                    **ברכישה ממפיץ מורשה של מוצרי פנדור, המפיץ הוא הגורם האחראי להתקנה, לשירות וכיוצ"ב, ולא פנדור.
+                </div>
+            <%}%>
+    
     <%}%>

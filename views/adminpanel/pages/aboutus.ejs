@@ -8,7 +8,21 @@
     <button class="btn_class switch_wraps" data-wrap="header">עריכת כותרת</button>
     <button class="btn_class switch_wraps" data-wrap="content">עריכת תוכן</button>
     <button class="btn_class switch_wraps active" data-wrap="versions">רשימת גרסות</button>
+    <select class="select_item" id="language_select_preview" data-type="0" style="width: 150px;font-size: 19px;">
+        <option value="aboutus" selected>עברית</option>
+        <option value="en_aboutus">English</option>
+        <option value="ru_aboutus">Русский</option>
+        <option value="ar_aboutus">العربية</option>
+    </select>
+
     <button class="btn_class btn_green" id="save_new" style="float:left;" disabled>לשמור</button>
+     <select class="select_item" id="language_select" style="width: 150px;font-size: 19px;float:left;background:#eee" disabled>
+        <option value selected>בחר...</option>
+        <option value="he">עברית</option>
+        <option value="en">English</option>
+        <option value="ru">Русский</option>
+        <option value="ar">العربية</option>
+    </select>
 </div>
 
 <!--  meta  -->
@@ -68,13 +82,15 @@
     </div>
 </div>
 
-<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions">
+<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions" id="vertion_wrap">
     <div id="sortable" class="col connectedSortable">
      <h2 class="version_title">פעיל</h2>
         <% if(Prod){ let item = Prod; %>
         <li data-id="<%= item.Id %>" data-bucket="aboutus">
             <div class="page_item">
                 <span class="page_item_position"><b><%= item.Position %></b></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <b class="language_type_in_row"><%= item.Language || "he" %></b>
                 <b style="margin:0 2vh;">&#124;</b>
                 <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
                 <b style="margin:0 2vh;">&#124;</b>
@@ -92,6 +108,8 @@
         <li data-id="<%= item.Id %>" data-bucket="aboutus-tmp">
             <div class="page_item">
                 <span class="page_item_position"><b>0</b></span>
+               <b style="margin:0 2vh;">&#124;</b>
+                <b class="language_type_in_row"><%= item.Language || "he" %></b>
                 <b style="margin:0 2vh;">&#124;</b>
                 <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
                 <b style="margin:0 2vh;">&#124;</b>

@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container" id="footer_cont_link">
     <ul class="footer-nav">
         <% Footer.forEach(itemFoo => { %>
-        <li><a href="/<%= itemFoo.Data.Link %>" tabindex="0">
+        <li><a href="<%= Language %>/<%= itemFoo.Data.Link %>">
                 <%= itemFoo.Data.Title %></a></li>
         <%})%>
     </ul>
@@ -13,16 +13,16 @@
     </div>
     <ul class="social">
         <li class="mobile">עיקבו אחרינו ברשת</li>
-        <li><a href="https://www.facebook.com/pandoors/" target="_blank" class="light_style"><i class="fab fa-facebook-square"></i></a></li>
-        <li><a href="https://www.instagram.com/pandoor_doors/" target="_blank" class="light_style"><i class="fab fa-instagram"></i></a></li>
-        <li><a href="https://www.youtube.com/user/pandoor100" target="_blank" class="light_style"><i class="fab fa-youtube"></i></a></li>
+        <li><a href="https://www.facebook.com/pandoors/" target="_blank" class="light_style"><i class="fab fa-facebook-square"><span class="invisible_text">קישור לפיסבוק</span></i></a></li>
+        <li><a href="https://www.instagram.com/pandoor_doors/" target="_blank" class="light_style"><i class="fab fa-instagram"><span class="invisible_text">קישור לאינסטגרם</span></i></a></li>
+        <li><a href="https://www.youtube.com/user/pandoor100" target="_blank" class="light_style"><i class="fab fa-youtube"><span class="invisible_text">קישור ליוטוב</span></i></a></li>
 
     </ul>
-    <a class="footerBtn" href="/branches">לרשימת הסניפים</a>
+    <a class="footerBtn" href="<%= Language %>/branches">לרשימת הסניפים</a>
     <ul class="site-map">
         <% if(Branches){ Branches.forEach((itemBr, i) => { %>
         <li tabindex="0">
-            <a href="/branches/<%= i %>">
+            <a href="<%= Language %>/branches/<%= i %>">
                 <h3>
                     <%= itemBr.Data.BranchName %>
                 </h3>
@@ -40,8 +40,8 @@
 <div class="footer-bottom-strip">
     <div class="container">
         <span class="pandoor_rights" tabindex="0">כל הזכויות שמורות לדלתות פנדור ©</span>
-        <img class="pandoor_left" src="<%= process.env.LINKTOBUCKETS +  'default/default_footer_madeinisrael.png' %>" alt="מיוצר בישראל"/>
-        <img class="pandoor_left" src="<%= process.env.LINKTOBUCKETS +  'default/default_footer_emonatzibur.png' %>" alt="אמון הציבור"/>
+        <img tabindex="0" class="pandoor_left" src="<%= process.env.LINKTOBUCKETS +  'default/default_footer_madeinisrael.png' %>" alt="מיוצר בישראל"/>
+        <img tabindex="0" class="pandoor_left" src="<%= process.env.LINKTOBUCKETS +  'default/default_footer_emonatzibur.png' %>" alt="אמון הציבור"/>
     </div>
 </div>
 

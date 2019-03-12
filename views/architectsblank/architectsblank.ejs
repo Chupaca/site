@@ -25,22 +25,25 @@
         <div class="container">
             <div class="tbContainer bottom_side">
                 <h2><b> מלא/י את הטופס:</b></h2>
-                <% if(Desktop) {%>
+                <% if(MulterError) {%>
+                    <b style="color:red;">קובץ מצורף לא תקין!</b><br>
+                <%}%>
+                <% if(Desktop) { %>
                 <form class="clientcomment_form" action="/architectblank?token=<%= Token %>" method="post" enctype="multipart/form-data">
                     <div>
-                        <input name="Name" type="text" class="tb form_input" placeholder="שם מלא:" required minlength="2" />
-                        <input name="PhoneNumber" type="text" class="tb form_input" placeholder="טלפון2:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                        <input name="Name" type="text" class="tb form_input" placeholder="שם מלא:" value="<%= Name %>" required minlength="2" />
+                        <input name="PhoneNumber" type="text" class="tb form_input" placeholder="טלפון:" value="<%= PhoneNumber %>" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
                     </div>
                     <div>
-                        <input name="PhoneNumber2" type="text" class="tb form_input" placeholder="טלפון:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
-                        <input name="Email" type="email" class="tb form_input" placeholder="אימייל:" required />
+                        <input name="PhoneNumber2" type="text" class="tb form_input" placeholder="2טלפון:" value="<%= PhoneNumber2 %>" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                        <input name="Email" type="email" class="tb form_input" placeholder="אימייל:" value="<%= Email %>" />
                     </div>
                     <div>
-                            <input name="City" type="text" style="padding: 0.7vh 1vh;font-size: 3vh;" class="tb form_input" placeholder="עיר:" required minlength="2" />
+                            <input name="City" type="text" style="padding: 0.7vh 1vh;font-size: 3vh;" class="tb form_input" value="<%= City %>" placeholder="עיר:" required minlength="2" />
                     </div>
                     <div>
                         <textarea name="Content" class="tb form_input" placeholder="ספרו קצת על עצמכם:" style="height: 11vh;width: 62vh;resize:none;"
-                            required minlength="5" /></textarea>
+                            required minlength="5" /><%= Content %></textarea>
                     </div>
                     <div>
                         <label for=""> תוסיפו תמונה/לוגו: </label>&nbsp;&nbsp;
@@ -54,12 +57,14 @@
                 </form>
                 <%} else {%>
                 <form class="clientcomment_form" action="/architect" method="post" enctype="multipart/form-data">
-                    <input name="Name" type="text" class="tb form_input" placeholder="שם מלא:" required minlength="2" />
-                    <input name="PhoneNumber" type="text" class="tb form_input" placeholder="טלפון:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
-                    <input name="PhoneNumber2" type="text" class="tb form_input" placeholder="טלפון2:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
-                    <input name="Email" type="email" class="tb form_input" placeholder="אימייל:" required />
-                    <input name="City" type="text" class="tb form_input" placeholder="עיר:" required minlength="2" />
-                    <textarea name="Content" class="tb form_input" placeholder="ספרו קצת על עצמכם:" style="font-size: 2vh;height: 11vh;width: 37vh;resize:none;" required minlength="5" /></textarea>
+                    <input name="Name" type="text" class="tb form_input" placeholder="שם מלא:" value="<%= Name %>" required minlength="2" />
+                    <input name="PhoneNumber2" type="text" class="tb form_input" placeholder="2טלפון:" value="<%= PhoneNumber2 %>" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                    <input name="PhoneNumber" type="text" class="tb form_input" placeholder="טלפון:" value="<%= PhoneNumber %>" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                    <input name="Email" type="email" class="tb form_input" placeholder="אימייל:" value="<%= Email %>" />
+                    <input name="City" type="text" class="tb form_input" placeholder="עיר:" value="<%= City %>" required minlength="2" />
+                    <textarea name="Content" class="tb form_input" placeholder="ספרו קצת על עצמכם:" style="font-size: 2vh;height: 11vh;width: 37vh;resize:none;" required minlength="5" />
+                    <%= Content %>
+                    </textarea>
                     <label for=""> תוסיפו תמונה/לוגו: </label>&nbsp;&nbsp;
                     <input name="FromPage" type="hidden" class="tb form_input" value="ArchitectsBlank" />
                     <input type="file" name="Image" class="" multiple><br/>

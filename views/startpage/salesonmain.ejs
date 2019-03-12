@@ -1,20 +1,25 @@
-<h2  tabindex="0" >מבצעים חמים בפנדור</h2>
-<p class="section_text"  tabindex="0">
-    פנדור חברת דלתות הפנים הגדולה בישראל לא מתפשרת על איכות מוצריה ושביעות רצונם של לקוחותיה ולכן מציעה לכם את דלתות
-    הפנים הידועות והאיכותיות שלנו במבצעים מתחלפים שמשתנים מעת לעת ומוזילים לכם את הרכישה. כדאי להישאר מעודכנים באתר
-    ובאולמות התצוגה השונים.
 
-</p>
+ <% if(Page.StaticsBlocks && Page.StaticsBlocks.SalesTitleBlock){%>
+    <h1 class="special_title_page" tabindex="0"><%= Page.StaticsBlocks.SalesTitleBlock %></h1>
+    <p class="section_text"  tabindex="0"><%- Page.StaticsBlocks.SalesContentBlock %></p>
+ <%} else {%>
+    <h1 class="special_title_page" tabindex="0" >מבצעים חמים על דלתות פנים בפנדור</h1>
+    <p class="section_text"  tabindex="0">
+        פנדור חברת דלתות הפנים הגדולה בישראל לא מתפשרת על איכות מוצריה ושביעות רצונם של לקוחותיה ולכן מציעה לכם את דלתות
+        הפנים הידועות והאיכותיות שלנו במבצעים מתחלפים שמשתנים מעת לעת ומוזילים לכם את הרכישה. כדאי להישאר מעודכנים באתר
+        ובאולמות התצוגה השונים.
+    </p>
+ <%}%>
 <div class="content_sales">
     <% if(Sales && Sales.length) { %>
     <% let sale1 = Sales.find(item => item.Position == 1) %>
     <% let sale2 = Sales.find(item => item.Position == 2) %>
     <% let sale3 = Sales.find(item => item.Position == 3) %>
     <div class="right_one">
-        <a href="/sales/<%= sale1.Position %>" tabindex="0">
-            <img alt="מבצע 1"  tabindex="0" src="<%= process.env.LINKTOBUCKETS + sale1.Data.Preview.LinkToBucket + sale1.Data.Preview.ImageId %>" />
+        <a href="<%= Language %>/sales/<%= sale1.Position %>">
+            <img alt="<%= sale1.Data.Preview.SubTitleHtml.replace(/<[^>]+>/g, '') %>"  src="<%= process.env.LINKTOBUCKETS + sale1.Data.Preview.LinkToBucket + sale1.Data.Preview.ImageId %>" />
             <div class="info">
-                <div class="middle"><span  tabindex="0">
+                <div class="middle"><span>
                         <%- sale1.Data.Preview.SubTitleHtml %></span></div>
                 <div class="sale-btn"></div>
             </div>
@@ -23,20 +28,20 @@
     </div>
     <div class="left_one">
         <div class="box_one">
-            <a href="/sales/<%= sale3.Position %>" tabindex="0">
-                <img alt="מבצע 2"  tabindex="0" src="<%= process.env.LINKTOBUCKETS + sale3.Data.Preview.LinkToBucket + sale3.Data.Preview.ImageId %>" />
+            <a href="<%= Language %>/sales/<%= sale3.Position %>">
+                <img alt="<%= sale3.Data.Preview.SubTitleHtml.replace(/<[^>]+>/g, '') %>"  src="<%= process.env.LINKTOBUCKETS + sale3.Data.Preview.LinkToBucket + sale3.Data.Preview.ImageId %>" />
                 <div class="info">
-                    <div class="middle"><span  tabindex="0">
+                    <div class="middle"><span>
                             <%- sale3.Data.Preview.SubTitleHtml %></span></div>
                     <div class="sale-btn"></div>
                 </div>
             </a>
         </div>
         <div class="box_one">
-            <a href="/sales/<%= sale2.Position %>" tabindex="0">
-                <img alt="מבצע 3"  tabindex="0" src="<%= process.env.LINKTOBUCKETS + sale2.Data.Preview.LinkToBucket + sale2.Data.Preview.ImageId %>" />
+            <a href="<%= Language %>/sales/<%= sale2.Position %>">
+                <img alt="<%= sale2.Data.Preview.SubTitleHtml.replace(/<[^>]+>/g, '') %>"  src="<%= process.env.LINKTOBUCKETS + sale2.Data.Preview.LinkToBucket + sale2.Data.Preview.ImageId %>" />
                 <div class="info">
-                    <div class="middle"><span  tabindex="0">
+                    <div class="middle"><span>
                             <%- sale2.Data.Preview.SubTitleHtml %></span></div>
                     <div class="sale-btn"></div>
                 </div>

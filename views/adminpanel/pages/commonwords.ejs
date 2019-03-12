@@ -1,0 +1,38 @@
+<% layout('adminpanel/index') -%>
+
+<h2 class="title_wrap">מילים נפוצות</h2>
+<div></div>
+
+<div class="wrap_two_col" style="display:inline-flex;"  data-wrap="external">
+    <div class="col" style="max-height: 60vh;">
+        <table class="commonwords_table" >
+            <thead>
+                <tr style="text-align:center;">
+                    <th style="width:19%;"></th>
+                    <th style="width:19%;">English</th>
+                    <th style="width:19%;">עברית</th>
+                    <th style="width:19%;">Русский</th>
+                    <th style="width:19%;">العربية</th>
+                    <th style="width:5%;"></th>
+                </tr>
+                 <% if(Prod && Prod.Data) { Object.entries(Prod.Data).forEach(([key, value]) => { %> 
+                  <tr class="common_word_row" style="width:100%;">
+                    <td style="width: 19%;"><input type="text" class="common_word" name="word_var" style="direction:ltr;text-align:center;" value="<%= key %>" placeholder="שם שדה באנגלית" disabled/></td>
+                    <td style="width: 19%;"><input type="text" class="common_word" name="/en" style="direction:ltr;text-align:center;" value="<%= value['/en'] || '' %>" placeholder="" disabled /></td>
+                    <td style="width: 19%;"><input type="text" class="common_word" name="/he" style="direction:rtl;text-align:center;" value="<%= value['/he'] || '' %>" placeholder="" disabled /></td>
+                    <td style="width: 19%;"><input type="text" class="common_word" name="/ru" style="direction:ltr;text-align:center;" value="<%= value['/ru'] || '' %>" placeholder="" disabled /></td>
+                    <td style="width: 19%;"><input type="text" class="common_word" name="/ar" style="direction:rtl;text-align:center;" value="<%= value['/ar'] || '' %>" placeholder="" disabled /></td>
+                    <td style="width: 5%;text-align: center;"><i class="fas fa-trash-alt remove_row" style="color:red;cursor:pointer;"></i></td>
+                  </tr>
+            <%})}%>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col">
+        <button class="btn_class" id="add_new">הוסיף חדש</button>
+        <button class="btn_class btn_green" id="save_new" >לשמור</button>
+    </div>
+</div>

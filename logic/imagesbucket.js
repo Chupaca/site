@@ -6,7 +6,7 @@ const promise = require("bluebird");
 const fs = require("fs");
 
 const storage = Storage({
-    keyFilename: './my_app_engin_project_key.json'
+    keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS
 });
 
 

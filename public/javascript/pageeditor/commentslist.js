@@ -2,6 +2,8 @@
 
 
 function saveNewPage() {
+    let prefixLanguage = $("#language_select option:selected").val() != 'he' ? $("#language_select option:selected").val() + '_' : '';
+   
     let client = {
         Name: $("#client_name").val().trim(),
         City: $("#client_city").val().trim(),
@@ -10,19 +12,25 @@ function saveNewPage() {
         PhoneNumber: $("#client_phonenumber").val().trim(),
         ProfileImage: ($("#client_profileimage").attr("data-imgid") == 'default_client_comments_icon.png' ? "default/" : "clients/") + $("#client_profileimage").attr("data-imgid").trim()
     }
+    client.Language = $("#language_select option:selected").val() || 0;
 
-    if (SanitizeAllFields(client, ["PhoneNumber", "Email", "ProfileImage"])) {
+    if (SanitizeAllFields(client, ["PhoneNumber", "Email", "ProfileImage", "Language"]) && client.Language) {
         ConformModal("האם אתה רוצה לשמור לקוח חדש?", () => {
-            SaveNewPageToServer(client, 'commentslist')
+            SaveNewPageToServer(client, prefixLanguage + 'commentslist')
         })
     } else {
-        Flash("לא כל השדות של לקוח מלאים", "warning")
-
+        if(!client.Language){
+            Flash('נא לבחור שפה!', 'warning');
+        }else{
+            Flash('לא כל השדות מלאים!', 'warning');
+        }
+        return;
     }
 }
 
 function publishPage() {
     let data = []
+    let prefixLanguage = $("#language_select_preview option:selected").val();
     $("#sortable li").each((i, item) => {
         data.push(
             {
@@ -34,7 +42,7 @@ function publishPage() {
 
     if (data.length > 3) {
         ConformModal("האם אתה רוצה לשמור גרסה חדשה?", () => {
-            SetActiveMultiPages(data, 'commentslist')
+            SetActiveMultiPages(data, prefixLanguage)
         })
     } else {
         Flash("ניתן לפרסם ללא פחות מ-4 לקוחות!", "warning")
@@ -76,3 +84,23 @@ $(document).ready(() => {
         })
     }, 0)
 })
+
+
+function sortAndPreviewSelectedItemsByLanguage() {
+    $.get(`/admin/versionsbylanguage/${$(this).val()}/${$(this).attr('data-type')}`)
+        .then(html => {
+            $("#vertion_wrap").html(html)
+            $("#template_page").unbind().click(getTemplatePage);
+            $("#publish_page").unbind().click(publishPage);
+            $("#sortable, #sortable_tmp").sortable({
+                connectWith: ".connectedSortable",
+                stop: () => { sortNavItemsAfterChange() }
+            }).disableSelection();
+            sortNavItemsAfterChange()
+            insertDataToRowItemVersion(["Name"])
+            mouseOverRowVersion()
+            HideBtnOptionsAfterChangeLanguage(["preview_page", "deactivate_block"])
+            $(".remove_page").unbind().click(removePage)
+            $(".page_item").unbind().click(markVersionPage);
+        })
+}

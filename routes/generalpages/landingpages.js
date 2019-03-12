@@ -17,7 +17,7 @@ exports.GetPage = (req, res) => {
                 })
                 res.render('landingpages/landingpage', {
                     Desktop: (req.device.type == 'desktop' ? true : false),
-                    Url: ('https://pandoor.co.il' + req.url),
+                    Url: ('https://www.pandoor.co.il' + req.url),
                     moment,
                     MetaDescription: "",
                     title: "מחיר משתלם לכולם | דלתות פנדור | חברת הדלתות הגדולה בישראל",

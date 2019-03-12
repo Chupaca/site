@@ -4,10 +4,10 @@
     
 <%if(Desktop){%>
 <div class="contentMainImgContainer">
-    <img class="contentMainImg" alt="תמונת רקע" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" style="filter: brightness(50%);" />
+    <img class="contentMainImg" alt="" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" style="filter: brightness(50%);" />
     <h1 tabindex="0"><%- Page.Header.Title %></h1>
     <div class="contentTxt" tabindex="0"><%- Page.Header.SubTitleHtml %></div>
-    <span class="downBtn" data-scrollto="wrap_container"><i class="far fa-caret-square-down"></i></span>
+    <span class="downBtn" data-scrollto="wrap_container" tabindex="0"><i class="far fa-caret-square-down"></i></span>
 </div>
 <%}else{%>
 <div class="contentMainImgContainer" style="background: #000000 url(<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>) top right;">
@@ -35,8 +35,8 @@
             <div style="margin-bottom: 5vh;">
                 <table id="architects_tb">
                     <tbody>
-                     <% Architects.forEach(archi => { %> 
-                        <tr onclick="window.open('/architect/<%= archi.Id %>', '_self')" >
+                     <% let countCom = 1; Architects.forEach((archi, i) => {  if(i != 0 && i%6 == 0) countCom++ %> 
+                        <tr onclick="window.open('/architect/<%= archi.Id %>', '_self')" data-index="<%= countCom %>" class="architect_row" tabindex="0" style="display:<%= (i > 5?'none':'') %>">
                             <td class="architect_logo">
                                 <img src="<%=  process.env.LINKTOBUCKETS + archi.Data.ProfileImage %>" alt="תמונה אדריכל" />
                             </td>
@@ -54,15 +54,14 @@
                     </tbody>
                 </table>
             </div>
-          <!--  
-          <div class="num_pages_wrap">
-                <div tabindex="0" class="num_page_btn">1</div>
-                <div tabindex="0" class="num_page_btn">2</div>
-                <div tabindex="0" class="num_page_btn">3</div>
-                <div tabindex="0" class="num_page_btn">4</div>
-                <div tabindex="0" class="num_page_btn">...</div>
-                <div tabindex="0" class="num_page_btn">&gt;</div>
-            </div> 
-            -->
+         <div class="num_pages_wrap">
+        <div class="num_prev_page_btn" tabindex="0" onclick="PrevSimplePage('architect_row', 'table-row')" style="display:none;">&lt;</div>
+            <div class="num_page_btn active" tabindex="0" onclick="SimpleChangePage(this, 1, 'architect_row', 'table-row')" >1</div>
+            <% countCom= 2; for(let i= 0; i< Architects.length-6;i +=6 ){ %>
+            <div class="num_page_btn" tabindex="0" onclick="SimpleChangePage(this, <%= countCom %>, 'architect_row', 'table-row')"><%= countCom %></div>
+            <% countCom++; }%>
+            <div class="num_next_page_btn" tabindex="0" onclick="NextSimplePage('architect_row', 'table-row')">&gt;</div>
+         </div>
+    </div>
         </div>
     </section>

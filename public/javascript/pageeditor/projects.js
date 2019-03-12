@@ -2,6 +2,8 @@
 
 
 function saveNewPage() {
+    let prefixLanguage = $("#language_select option:selected").val() != 'he' ? $("#language_select option:selected").val() + '_' : '';
+   
     let project = { MetaData: [] };
     project.MetaData = GetMetaData();
     project.Header = GetHeaderData();
@@ -13,14 +15,22 @@ function saveNewPage() {
     $(".architect_details").each((i, item) => {
         project[$(item).attr("id")] = $(item).val().trim() || ""
     })
+    project.Language = $("#language_select option:selected").val() || 0;
 
-    if (project.MetaData && project.Header && project.Content && project.ArchitectId.length) {
+    project.StaticsBlocks = {};
+    let flagStatics = GetStaticsFieldsBlocks(project.StaticsBlocks);
+
+    if (project.MetaData && project.Header && project.Content && project.ArchitectId.length && project.Language && flagStatics) {
         ConformModal("האם אתה רוצה לשמור פרויקט חדש?", () => {
-            SaveNewPageToServer(project, "projects");
+            SaveNewPageToServer(project, prefixLanguage + "projects");
             return;
         })
     } else {
-        Flash('לא כל השדות מלאים!', 'warning');
+        if(!project.Language){
+            Flash('נא לבחור שפה!', 'warning');
+        }else{
+            Flash('לא כל השדות מלאים!', 'warning');
+        }
         return;
     }
 }
@@ -35,6 +45,7 @@ function PreviewPageProject() {
 
 function publishPage() {
     let data = []
+    let prefixLanguage = $("#language_select_preview option:selected").val();
     $("#sortable li").each((i, item) => {
         data.push(
             {
@@ -46,7 +57,7 @@ function publishPage() {
 
     if (data.length > 3) {
         ConformModal("האם אתה רוצה לפרסם גרסה ?", () => {
-            SetActiveMultiPages(data, 'projects')
+            SetActiveMultiPages(data, prefixLanguage)
         })
     } else {
         Flash("צריך לפחות פרויקט אחד!", "warning")
@@ -153,4 +164,25 @@ function SetFieldsTemplate(template) {
     $("#PhotographerPhoneNumber").val(template.Header.PhotographerPhoneNumber || '');
     $("#architects_select option[data-id='" + template.ArchitectId + "']").prop("selected", true).change();
     $(".switch_wraps[data-wrap='metadata']").trigger("click");
+    SetStaticsFieldsBlocks(template)
+}
+
+
+function sortAndPreviewSelectedItemsByLanguage() {
+    $.get(`/admin/versionsbylanguage/${$(this).val()}/${$(this).attr('data-type')}`)
+        .then(html => {
+            $("#vertion_wrap").html(html)
+            $("#template_page").unbind().click(getTemplatePage);
+            $("#publish_page").unbind().click(publishPage);
+            $("#sortable, #sortable_tmp").sortable({
+                connectWith: ".connectedSortable",
+                stop: () => { sortNavItemsAfterChange() }
+            }).disableSelection();
+            sortNavItemsAfterChange()
+            insertDataToRowItemVersion(["Header", "Title"])
+            mouseOverRowVersion()
+            HideBtnOptionsAfterChangeLanguage(["deactivate_block"])
+            $(".remove_page").unbind().click(removePage)
+            $(".page_item").unbind().click(markVersionPage);
+        })
 }

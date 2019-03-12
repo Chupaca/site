@@ -2,6 +2,8 @@
 'use strict'
 
 function saveNewPage() {
+    let prefixLanguage = $("#language_select option:selected").val() != 'he' ? $("#language_select option:selected").val() + '_' : '';
+   
     let collection = { Pirzul: [] }
     Array.from($(".pirzul_row")).forEach(pirzul => {
         collection.Pirzul.push({
@@ -10,13 +12,18 @@ function saveNewPage() {
             DoorImageId: $(pirzul).find(".sub_model_pirzul_wrap").attr("data-imgid").trim()
         })
     })
-    if (collection && collection.Pirzul && collection.Pirzul.length) {
+    collection.Language = $("#language_select option:selected").val() || 0;
+    if (collection && collection.Pirzul && collection.Pirzul.length && collection.Language) {
         ConformModal("האם אתה רוצה לשמור גרסה חדשה?", () => {
-            SaveNewPageToServer(collection, "pirzul");
+            SaveNewPageToServer(collection, prefixLanguage + "pirzul");
             return;
         })
     } else {
-        Flash('לא כל השדות מלאים!', 'warning');
+        if(!collection.Language){
+            Flash('נא לבחור שפה!', 'warning');
+        }else{
+            Flash('לא כל השדות מלאים!', 'warning');
+        }
         return;
     }
 }
@@ -24,6 +31,7 @@ function saveNewPage() {
 
 function publishPage() {
     let data = [];
+    let prefixLanguage = $("#language_select_preview option:selected").val();
     $("#sortable li").each((i, item) => {
         data.push(
             {
@@ -34,7 +42,7 @@ function publishPage() {
     })
     if (data && data.length == 1) {
         ConformModal("האם אתה רוצה לפרסם גרסה ?", () => {
-            SetActiveSinglePage(data[0].Id, "pirzul");
+            SetActiveSinglePage(data[0].Id, prefixLanguage);
             return;
         })
     } else {
@@ -114,3 +122,23 @@ $(document).ready(() => {
         $(".remove_row").unbind().click(removeRow)
     }, 0);
 })
+
+
+
+function sortAndPreviewSelectedItemsByLanguage() {
+    $.get(`/admin/versionsbylanguage/${$(this).val()}/${$(this).attr('data-type')}`)
+        .then(html => {
+            $("#vertion_wrap").html(html)
+            $("#template_page").unbind().click(getTemplatePage);
+            $("#publish_page").unbind().click(publishPage);
+            $("#sortable, #sortable_tmp").sortable({
+                connectWith: ".connectedSortable",
+                stop: () => { sortNavItemsAfterChange() }
+            }).disableSelection();
+            sortNavItemsAfterChange()
+            mouseOverRowVersion()
+            HideBtnOptionsAfterChangeLanguage([ "preview_page", "deactivate_block"])
+            $(".remove_page").unbind().click(removePage)
+            $(".page_item").unbind().click(markVersionPage);
+        })
+}

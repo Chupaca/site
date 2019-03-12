@@ -10,7 +10,7 @@ exports.GetPageForEdit = (req, res) => {
     const { page } = req.query;
     pageslogic.GetPageForAdmin(page)
         .then(([prod, tmp]) => {
-            res.render("adminpanel/pages/" + page, { Prod: prod[0], Prods: prod, Versions: tmp, moment, controller: page })
+            res.render("adminpanel/pages/" + page, { Prod: prod[0], Prods: prod, Versions: tmp, moment, controller: page, UserType:req.user.UserType })
         })
 }
 
@@ -19,7 +19,7 @@ exports.GetPageById = (req, res) => {
     if (id && page) {
         pageslogic.GetPageById(id, page)
             .then(([prod, tmp]) => {
-                res.render("adminpanel/pages/" + page, { Prod: prod[0], controller: page })
+                res.render("adminpanel/pages/" + page, { Prod: prod[0], controller: page, UserType:req.user.UserType })
             })
     }
 }
@@ -99,7 +99,7 @@ exports.PreviewPage = (req, res) => {
                 }
                 res.render(pageview, {
                     Desktop: (req.device.type == 'desktop' ? true : false),
-                    moment,Url:"admin",
+                    moment, Url: "admin",
                     Navigation: previewPage.Navigation,
                     Footer: previewPage.Footer,
                     Branches: previewPage.Branches,
@@ -161,7 +161,7 @@ exports.PreviewStartPage = (req, res) => {
         .then(generals => {
             res.render('startpage/startpage', {
                 Desktop: (req.device.type == 'desktop' ? true : false),
-                moment, Url:"admin",
+                moment, Url: "admin",
                 Navigation: generals.Navigation,
                 Footer: generals.Footer,
                 Sales: generals.Sales,
@@ -244,7 +244,7 @@ exports.DeactivateBlock = (req, res) => {
 exports.IncomingRequests = (req, res) => {
     pageslogic.GetIncomingRequests()
         .then(incomingRequests => {
-            res.render("adminpanel/incomingrequests", { IncomingRequests: incomingRequests, moment, controller: "incomingRequests" })
+            res.render("adminpanel/incomingrequests", { IncomingRequests: incomingRequests, moment, controller: "incomingrequests", UserType: req.user.UserType })
         })
 }
 
@@ -274,9 +274,9 @@ exports.GetNotifications = (req, res) => {
 }
 
 exports.GetCollectionById = (req, res) => {
-    const { id } = req.params;
-    if (id) {
-        pageslogic.GetPageById(id, "doorcollectionlist-tmp")
+    const { id, bucket} = req.params;
+    if (id && bucket) {
+        pageslogic.GetPageById(id, bucket + "-tmp")
             .then(result => {
                 res.send(result)
                 return
@@ -290,10 +290,10 @@ exports.GetCollectionById = (req, res) => {
 }
 
 exports.UpdateCollectionById = (req, res) => {
-    const { id } = req.params;
+    const { id, bucket } = req.params;
     let { Data } = req.body;
-    if (id && Data) {
-        pageslogic.UpdateCollectionById(id, Data)
+    if (id && Data && bucket) {
+        pageslogic.UpdateCollectionById(id, Data, bucket)
             .then(() => {
                 res.sendStatus(200)
                 return
@@ -310,23 +310,57 @@ exports.UpdateCollectionById = (req, res) => {
 exports.GetCollectionsList = (req, res) => {
     pageslogic.GetCollectionsList()
         .then(result => {
-            res.send(result[0])
+            res.send(result)
         })
 }
 
 exports.GetDoorsPagesList = (req, res) => {
     pageslogic.GetDoorsPagesList()
-    .then(result => {
-        res.send(result[0])
-    })
+        .then(result => {
+            res.send(result)
+        })
 }
 
 exports.SetNewCatalogPage = (req, res) => {
     const { DataPage, Page } = req.body;
+    const { lang } = req.params;
     if (Page && DataPage) {
-        pageslogic.SetNewCatalogPage(DataPage, Page)
+        pageslogic.SetNewCatalogPage(DataPage, Page, lang)
             .then(result => {
                 if (result) {
+                    res.sendStatus(200)
+                } else {
+                    res.sendStatus(500)
+                }
+            })
+    } else {
+        res.sendStatus(403)
+    }
+}
+
+exports.SetVersionsByLanguage = (req, res) => {
+    const { bucket, type } = req.params;
+    if (bucket) {
+        pageslogic.GetPageForAdmin(bucket)
+            .then(([prod, tmp]) => {
+                let partialPage = "adminpanel/parialvertionswithoneprod"
+                if(Number(type)){
+                    partialPage = "adminpanel/parialvertionswithmultiprod"
+                }
+                res.render(partialPage, { Prod: prod[0], Prods: prod, Versions: tmp, moment, Bucket: bucket })
+            })
+    } else {
+        res.sendStatus(403)
+    }
+}
+
+
+exports.SetCommonWords = (req, res) => {
+    const { CommonWords } = req.body;
+    if (CommonWords) {
+        pageslogic.SetCommonWords(CommonWords)
+            .then(results => {
+                if (results) {
                     res.sendStatus(200)
                 } else {
                     res.sendStatus(500)

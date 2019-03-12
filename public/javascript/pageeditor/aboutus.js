@@ -2,24 +2,31 @@
 
 
 function saveNewPage() {
+    let prefixLanguage = $("#language_select option:selected").val() != 'he' ? $("#language_select option:selected").val() + '_' : '';
     let aboutUs = {};
     aboutUs.MetaData = GetMetaData();
     aboutUs.Header = GetHeaderData();
     aboutUs.Content = GetSimpleContent()
+    aboutUs.Language = $("#language_select option:selected").val() || 0;
 
-    if (aboutUs.MetaData && aboutUs.Header && aboutUs.Content) {
+    if (aboutUs.MetaData && aboutUs.Header && aboutUs.Content && aboutUs.Language) {
         ConformModal("האם אתה רוצה לשמור גרסה חדשה?", () => {
-            SaveNewPageToServer(aboutUs, "aboutus");
+            SaveNewPageToServer(aboutUs, prefixLanguage + "aboutus");
             return;
         })
     } else {
-        Flash('לא כל השדות מלאים!', 'warning');
+        if(!aboutUs.Language){
+            Flash('נא לבחור שפה!', 'warning');
+        }else{
+            Flash('לא כל השדות מלאים!', 'warning');
+        }
         return;
     }
 }
 
 function publishPage() {
     let data = [];
+    let prefixLanguage = $("#language_select_preview option:selected").val();
     $("#sortable li").each((i, item) => {
         data.push(
             {
@@ -30,7 +37,7 @@ function publishPage() {
     })
     if (data && data.length == 1) {
         ConformModal("האם אתה רוצה לפרסם גרסה ?", () => {
-            SetActiveSinglePage(data[0].Id, "aboutus");
+            SetActiveSinglePage(data[0].Id, prefixLanguage);
             return;
         })
     } else {
@@ -50,4 +57,23 @@ function SetFieldsTemplate(template) {
     GetImagePreviewFormattingTemplate(template.Content.ContentImages.map(item => item.ImageId), template.Content.ContentImages.map(item => item.LinkToBucket), "generals");
     $(".wrap_content_page .original_html_text").html(template.Content.ContentHtml);
     $(".switch_wraps[data-wrap='metadata']").trigger("click");
+}
+
+
+function sortAndPreviewSelectedItemsByLanguage() {
+    $.get(`/admin/versionsbylanguage/${$(this).val()}/${$(this).attr('data-type')}`)
+        .then(html => {
+            $("#vertion_wrap").html(html)
+            $("#template_page").unbind().click(getTemplatePage);
+            $("#publish_page").unbind().click(publishPage);
+            $("#sortable, #sortable_tmp").sortable({
+                connectWith: ".connectedSortable",
+                stop: () => { sortNavItemsAfterChange() }
+            }).disableSelection();
+            sortNavItemsAfterChange()
+            insertDataToRowItemVersion(["Header", "Title"])
+            mouseOverRowVersion()
+            $(".remove_page").unbind().click(removePage)
+            $(".page_item").unbind().click(markVersionPage);
+        })
 }

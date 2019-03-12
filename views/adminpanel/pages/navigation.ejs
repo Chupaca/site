@@ -8,6 +8,20 @@
 <div>
     <button class="btn_class switch_wraps" data-wrap="active_version" >ניווט חדש</button>
     <button class="btn_class switch_wraps active" data-wrap="versions">רשימת ניווטים</button>
+    <select class="select_item" id="language_select_preview" data-type="1" style="width: 150px;font-size: 19px;">
+        <option value="navigation" selected>עברית</option>
+        <option value="en_navigation">English</option>
+        <option value="ru_navigation">Русский</option>
+        <option value="ar_navigation">العربية</option>
+    </select>
+    <button class="btn_class btn_green" id="save_new" style="float:left;" disabled>לשמור</button>
+<select class="select_item" id="language_select" style="width: 150px;font-size: 19px;float:left;background:#eee" disabled>
+        <option value selected>בחר...</option>
+        <option value="he">עברית</option>
+        <option value="en">English</option>
+        <option value="ru">Русский</option>
+        <option value="ar">العربية</option>
+    </select>
 </div>
 
 <div class="wrap_two_col" style="display:none;" data-wrap="active_version">
@@ -17,7 +31,7 @@
     </div>
 
     <div class="col" style="width:30%;">
-        <button class="btn_class btn_green" id="save_new" style="float:left;" disabled>לשמור</button>
+        
     </div>
 
     <div class="col" style="width:30%;">
@@ -27,7 +41,7 @@
 </div>
 
 
-<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions">
+<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions" id="vertion_wrap">
     <div id="sortable" class="col connectedSortable">
      <h2 class="version_title">פעיל</h2>
         <% if(Prods && Prods.length){ Prods.sort((a, b) => a.Position -b.Position).forEach(item => { %>
@@ -35,9 +49,11 @@
             <div class="page_item">
                 <span class="page_item_position"><b><%= item.Position %></b></span>
                 <b style="margin:0 2vh;">&#124;</b>
-                <span ><%= item.Data.Title %></span>
+                <b class="language_type_in_row"><%= item.Language || "he" %></b>
                 <b style="margin:0 2vh;">&#124;</b>
-                <span class="title_news_versions" style="text-align:left;width:45%;"><b>pandoor.co.il&nbsp;/&nbsp;</b><b><%= item.Data.Link %></b></span>
+                <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <span class="title_news_versions" style="text-align:right;"><%= item.Data.Title %><b>&nbsp;/&nbsp;</b><b><%= item.Data.Link %></b></span>
                 <i class="fas fa-bars nav_options"></i>
             </div>
         </li>
@@ -51,10 +67,12 @@
         <li data-id="<%= item.Id %>" data-bucket="navigation-tmp">
             <div class="page_item">
                 <span class="page_item_position"><b>0</b></span>
+                 <b style="margin:0 2vh;">&#124;</b>
+                <b class="language_type_in_row"><%= item.Language || "he" %></b>
                 <b style="margin:0 2vh;">&#124;</b>
-                <span ><%= item.Data.Title %></span>
+                <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
                 <b style="margin:0 2vh;">&#124;</b>
-                <span class="title_news_versions" style="text-align:left;width:45%;"><b>pandoor.co.il&nbsp;/&nbsp;</b><b><%= item.Data.Link %></b></span>
+                <span class="title_news_versions" style="text-align:right;"><%= item.Data.Title %><b>&nbsp;/&nbsp;</b><b><%= item.Data.Link %></b></span>
                 <i class="fas fa-bars nav_options"></i>
                 <i class="fas fa-trash-alt remove_page" data-page="navigation-tmp" style="margin:0 3vh;cursor:pointer;"  data-id="<%= item.Id %>"></i>
             </div>

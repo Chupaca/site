@@ -3,9 +3,11 @@
 let doorsPagesSelect = [];
 
 function saveNewPage() {
-    let catalog = {DoorPages:[]};
+    let prefixLanguage = $("#language_select option:selected").val() != 'he' ? $("#language_select option:selected").val() + '_' : '';
+    let catalog = { DoorPages: [] };
     catalog.MetaData = GetMetaData();
     catalog.Header = GetHeaderDataWithOutImage();
+    catalog.Language = $("#language_select option:selected").val() || 0;
 
     Array.from($(".door_page_row")).forEach(page => {
         catalog.DoorPages.push({
@@ -17,19 +19,24 @@ function saveNewPage() {
         })
     })
 
-    if (catalog.MetaData) {
+    if (catalog.MetaData && catalog.Language) {
         ConformModal("האם אתה רוצה לשמור גרסה חדשה?", () => {
-            SaveNewPageToServerCatalog(catalog, "catalog");
+            SaveNewPageToServerCatalog(catalog, prefixLanguage + "catalog", prefixLanguage);
             return;
         })
     } else {
-        Flash('לא כל השדות מלאים!', 'warning');
+        if (!catalog.Language) {
+            Flash('נא לבחור שפה!', 'warning');
+        } else {
+            Flash('לא כל השדות מלאים!', 'warning');
+        }
         return;
     }
 }
 
 function publishPage() {
     let data = [];
+    let prefixLanguage = $("#language_select_preview option:selected").val();
     $("#sortable li").each((i, item) => {
         data.push(
             {
@@ -40,7 +47,7 @@ function publishPage() {
     })
     if (data && data.length == 1) {
         ConformModal("האם אתה רוצה לפרסם גרסה ?", () => {
-            SetActiveSinglePage(data[0].Id, "catalog");
+            SetActiveSinglePage(data[0].Id, prefixLanguage);
             return;
         })
     } else {
@@ -49,16 +56,18 @@ function publishPage() {
     }
 }
 
-function SaveNewPageToServerCatalog(dataPage, bucket) {
+function SaveNewPageToServerCatalog(dataPage, bucket, prefixLanguage) {
     $.ajax({
-        url: "/admin/setnewcatalogpage",
+        url: "/admin/setnewcatalogpage/" + prefixLanguage,
         data: JSON.stringify({ DataPage: dataPage, Page: bucket }),
         type: "POST",
         contentType: "application/json",
         success: function () {
             Flash("נשמר בהצלחה!", "success");
             setTimeout(() => {
-                window.location.reload();
+                $(".switch_wraps[data-wrap='versions']").trigger("click");
+                $("#language_select_preview option[value='" + bucket + "']").prop("selected", true).change()
+                SetEmptyBlocks(["#datepicker", "#CollectionName", "#CollectionId", ".static_blocks"], [".external_branches_table tbody", ".wrap_images_", ".doors_table tbody", ".models_table tbody"])
             }, 300)
         },
         error: function () {
@@ -71,7 +80,7 @@ function SetFieldsTemplate(template) {
     SetEmptyBlocks()
     $(".meta_data_table tbody").html(BuildMetaRow(template.MetaData));
     $(".wrap_header_page .title_header").val(template.Header.Title),
-    $(".remove_text").trigger("click")
+        $(".remove_text").trigger("click")
     $(".wrap_header_page .original_html_text").html(template.Header.SubTitleHtml);
     addDoorPage(null, template.DoorPages)
     $(".switch_wraps[data-wrap='metadata']").trigger("click");
@@ -128,7 +137,7 @@ function addDoorPage(e, doorsPages) {
 
 }
 
-function removeRow(){
+function removeRow() {
     $(this).closest("tr").remove();
 }
 
@@ -144,3 +153,23 @@ $(document).ready(() => {
         $("#add_door_page").unbind().click(addDoorPage);
     }, 0)
 })
+
+
+
+function sortAndPreviewSelectedItemsByLanguage() {
+    $.get(`/admin/versionsbylanguage/${$(this).val()}/${$(this).attr('data-type')}`)
+        .then(html => {
+            $("#vertion_wrap").html(html)
+            $("#template_page").unbind().click(getTemplatePage);
+            $("#publish_page").unbind().click(publishPage);
+            $("#sortable, #sortable_tmp").sortable({
+                connectWith: ".connectedSortable",
+                stop: () => { sortNavItemsAfterChange() }
+            }).disableSelection();
+            sortNavItemsAfterChange()
+            mouseOverRowVersion()
+            HideBtnOptionsAfterChangeLanguage(['preview_page',  "deactivate_block"])
+            $(".remove_page").unbind().click(removePage)
+            $(".page_item").unbind().click(markVersionPage);
+        })
+}

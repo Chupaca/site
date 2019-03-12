@@ -5,14 +5,18 @@ const pages = require("../data/pages");
 const uploadImage = require('../logic/imagesbucket').UploadNewImage
 
 const textValidation = text => {
-    let regex = /[^a-zA-Zא-ת0-9А-Яа-я\_ ]/g
-    return (text.replace(regex, ''));
+    if (text) {
+        let regex = /[^a-zA-Zא-ת0-9А-Яа-я\_\\"\\'\\'\\?!:;.,\\(\\) ]/g
+        return (text.replace(regex, ' '));
+    } else {
+        return "";
+    }
 }
 
 
 const validateForCellularPhone = phoneNumber => {
     if ((typeof phoneNumber == 'undefined') || (phoneNumber == null) || (phoneNumber == "")) {
-        return ''
+        return 'without phone'
     } else {
         phoneNumber = phoneNumber.replace(/[\D]/g, '')
         let validHomePhone = phoneNumber.match(/^(02|03|04|08|09)([0-9]{7})$/g)
@@ -22,14 +26,18 @@ const validateForCellularPhone = phoneNumber => {
         } else if (validHomePhone) {
             return validHomePhone[0]
         }
-        return ''
+        return 'without phone'
     }
 };
 
 
 const validateEmail = email => {
-    let regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))([ ]?,[ ]?(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,})))*$/;
-    return (regex.test(email) ? email : '');
+    if (email) {
+        let regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))([ ]?,[ ]?(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,})))*$/;
+        return (regex.test(email) ? email : '');
+    } else {
+        return "without mail";
+    }
 }
 
 
@@ -104,7 +112,7 @@ const PostNewArchitectBlank = (form, file) => {
                 if (imageName) {
                     newApplicant.LinkImage = imageName;
                     return pages.SetNewPage(newApplicant, 'architectblankapplicant')
-                }else{
+                } else {
                     return false
                 }
             })
@@ -113,6 +121,9 @@ const PostNewArchitectBlank = (form, file) => {
     }
 }
 
+const BackUpLeadsAndServices = (doc, type) => {
+    return pages.SetNewPage(doc, 'backup' + type)
+}
 
 
 module.exports = {
@@ -122,5 +133,6 @@ module.exports = {
     validateEmail,
     PostNewProject,
     PostNewArchitect,
-    PostNewArchitectBlank
+    PostNewArchitectBlank,
+    BackUpLeadsAndServices
 }

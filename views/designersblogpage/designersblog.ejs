@@ -1,0 +1,33 @@
+ <% layout('layoutindex/mainpage') -%>
+
+<% if(Desktop){%>
+ <div class="contentMainImgContainer" style="background: #ffffff;">
+    <img class="contentMainImg" alt="" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" />
+<%} else {%>
+ <div class="contentMainImgContainer" style="height: 50vh;background: #ffffff;">
+     <img class="contentMainImg" alt="" style="width:100%;" src="<%= process.env.LINKTOBUCKETS + Page.Header.MobileLinkToBucket + Page.Header.MobileImageId %>">
+<%}%>
+   <!-- <span class="downBtn" data-scrollto="wrap_container" tabindex="0"><i class="far fa-caret-square-down"></i></span> -->
+</div>
+
+<section id="wrap_container" class="wrap_container" style="background: #ffffff;">
+    <div class="container">
+        <div class="contentTextContainer" tabindex="0"><%- Page.Content.ContentHtml %></div>
+        <div class="contentImages">
+            <% if(Page.Content.ContentImages && Page.Content.ContentImages.length ) {  Page.Content.ContentImages.forEach((item, i) => { %>
+                <% if(item) { %>
+                   <img tabindex="0" alt="" src="<%= process.env.LINKTOBUCKETS + item.LinkToBucket + item.ImageId %>" style="width:100%;" onclick="openWithSimpleImageModal(this)"/>
+                <%}%>
+             <%})}%>
+        </div>
+   
+    <div style="margin-top: 5em;">
+        <% if(Page.StaticsBlocks && Page.StaticsBlocks.linkBtn){%>
+             <a href="<%= Language %>/designersblogs" class="btn_all_pages_link"><%= Page.StaticsBlocks.linkBtn %></a>
+        <% } else {%>
+              <a href="<%= Language %>/designersblogs" class="btn_all_pages_link">לכל המאמרים</a>
+        <%}%>
+    </div>
+
+     </div>
+</section>

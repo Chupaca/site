@@ -2,7 +2,9 @@
 
 
 function saveNewPage() {
+    let prefixLanguage = $("#language_select option:selected").val() != 'he' ? $("#language_select option:selected").val() + '_' : '';
     let carousel = { Desktop: {}, Mobile: {} };
+    carousel.Language = $("#language_select option:selected").val() || 0;
     carousel.Desktop.Slide1 = {};
     carousel.Desktop.Slide2 = {};
     $(".DesktopDetailsSlide1").each((i, item) => {
@@ -40,17 +42,23 @@ function saveNewPage() {
     carousel.Mobile.Slide2.DoorImage = "doors/" || null;
     carousel.Mobile.Slide2.DoorImageId = $($(".wrap_images_[data-wrap_images='mobile_door'] .image_one")[1]).attr("data-imageid") || null;
 
-    if (SanitizeAllFields(carousel, [])) {
+    if (SanitizeAllFields(carousel, ["Language"]) && carousel.Language) {
         ConformModal("האם אתה רוצה לשמור גרסה חדשה?", () => {
-            SaveNewPageToServer(carousel, "carousel");
+            SaveNewPageToServer(carousel, prefixLanguage + "carousel");
         })
     } else {
-        Flash("לא כל שדות מלאים!", "warning");
+        if(!carousel.Language){
+            Flash('נא לבחור שפה!', 'warning');
+        }else{
+            Flash('לא כל השדות מלאים!', 'warning');
+        }
+        return;
     }
 }
 
 function publishPage() {
     let data = [];
+    let prefixLanguage = $("#language_select_preview option:selected").val();
     $("#sortable li").each((i, item) => {
         data.push(
             {
@@ -61,7 +69,7 @@ function publishPage() {
     })
     if (data && data.length == 1) {
         ConformModal("האם אתה רוצה לפרסם גרסה ?", () => {
-            SetActiveSinglePage(data[0].Id, "carousel")
+            SetActiveSinglePage(data[0].Id, prefixLanguage)
         })
     } else {
         Flash("אי אפשר לשמור ללא דף ולא יותר מ-1", "warning")
@@ -130,3 +138,21 @@ $(document).ready(() => {
         $("#preview_start_page").unbind().click(previewStartPage);
     }, 0)
 })
+
+
+function sortAndPreviewSelectedItemsByLanguage() {
+    $.get(`/admin/versionsbylanguage/${$(this).val()}/${$(this).attr('data-type')}`)
+        .then(html => {
+            $("#vertion_wrap").html(html)
+            $("#template_page").unbind().click(getTemplatePage);
+            $("#publish_page").unbind().click(publishPage);
+            $("#sortable, #sortable_tmp").sortable({
+                connectWith: ".connectedSortable",
+                stop: () => { sortNavItemsAfterChange() }
+            }).disableSelection();
+            sortNavItemsAfterChange()
+            mouseOverRowVersion()
+            $(".remove_page").unbind().click(removePage)
+            $(".page_item").unbind().click(markVersionPage);
+        })
+}

@@ -151,31 +151,52 @@ const GetNotifications = () => {
         })
 }
 
-const UpdateCollectionById = (id, data) => pagesRepo.UpdateCollectionById(id, data);
+const UpdateCollectionById = (id, data, bucket) => pagesRepo.UpdateCollectionById(id, data, bucket);
 
-const GetCollectionsList = () => pagesRepo.GetCollectionsList();
+const GetCollectionsList = () => {
+    return promise.all([
+        pagesRepo.GetCollectionsList("doorcollectionlist"),
+        pagesRepo.GetCollectionsList("en_doorcollectionlist"),
+        pagesRepo.GetCollectionsList("ru_doorcollectionlist"),
+        pagesRepo.GetCollectionsList("ar_doorcollectionlist")
+    ])
+        .then(([collhe, collen, collru, collar]) => {
+            return [...collhe[0], ...collen[0], ...collru[0], ...collar[0]]
+        })
+}
 
-const GetDoorsPagesList = () => pagesRepo.GetDoorsPagesList();
+const GetDoorsPagesList = () => {
+    return promise.all([
+        pagesRepo.GetDoorsPagesList('doors'),
+        pagesRepo.GetDoorsPagesList('en_doors'),
+        pagesRepo.GetDoorsPagesList('ru_doors'),
+        pagesRepo.GetDoorsPagesList('ar_doors')
+    ])
+    .then(([collhe, collen, collru, collar]) => {
+        return [...collhe[0], ...collen[0], ...collru[0], ...collar[0]]
+    })
+}
 
-const SetNewCatalogPage = (data, bucket) => {
-    if (data && data.DoorPages && data.DoorPages.length){
+const SetNewCatalogPage = (data, bucket, lang="") => {
+    if (data && data.DoorPages && data.DoorPages.length) {
         return promise.each(data.DoorPages, (doorPages) => {
-            return pagesRepo.GetPageById(doorPages.CollectionId, 'doorcollectionlist')
+            return pagesRepo.GetPageById(doorPages.CollectionId, lang + 'doorcollectionlist')
                 .then(collection => {
                     let frame = collection.Data.Doors.find(item => item.ModelId == collection.Data.Models[0].ModelId && item.Type == 'frame')
                     doorPages.FrontModelImage = collection.Data.Models[0].PrimaryImage;
-                    doorPages.FrameModel = frame?frame.DoorImage:''
+                    doorPages.FrameModel = frame ? frame.DoorImage : ''
                     return true
                 })
         })
             .then(result => {
                 return pagesRepo.SetNewPage(data, bucket);
             })
-        }else{
-            return new promise.reject(new Error("error"))
-        }
+    } else {
+        return new promise.reject(new Error("error"))
+    }
 }
 
+const SetCommonWords = CommonWords => pagesRepo.SetCommonWords(CommonWords)
 
 module.exports = {
     GetPageForAdmin,
@@ -198,5 +219,6 @@ module.exports = {
     UpdateCollectionById,
     GetCollectionsList,
     GetDoorsPagesList,
-    SetNewCatalogPage
+    SetNewCatalogPage,
+    SetCommonWords
 }

@@ -87,8 +87,8 @@ exports.SetActive = (id, bucket) => {
         })
 }
 
-
-exports.SetNewPage = (data, bucket) => {
+exports.SetNewPage = setNewPage;
+function setNewPage(data, bucket) {
     return dataStore.save(schemaPage(data, bucket + "-tmp"))
         .then(() => {
             return true;
@@ -136,7 +136,11 @@ function schemaPage(data, bucket) {
             "Data.ProfileText",
             "Data.Pixels",
             "Data.Request",
-            "Data.ModelTitle"
+            "Data.ModelTitle",
+            "Data.StaticsBlocks.SalesContentBlock",
+            "Data.StaticsBlocks.StoryContentBlock",
+            "Data.StaticsBlocks.RecommendationContentBlock",
+            "Data.StaticsBlocks.BlogsContentBlock"
         ],
         data: {
             DateCreate: data.DateCreate || moment().tz("Asia/Jerusalem").toDate(),
@@ -145,7 +149,8 @@ function schemaPage(data, bucket) {
             UserName: data.UserName || 'admin',
             Id: data.Id || uuid(),
             Position: data.Position || 0,
-            Index: data.Index || data.Position || 0
+            Index: data.Index || data.Position || 0,
+            Language: data.Language || 'he'
         }
     };
     return condition;
@@ -162,18 +167,20 @@ exports.DeletePage = (id, bucket) => {
 }
 
 
-exports.GetSales = () => dataStore.createQuery("sales").order('Position', { descending: false }).run();
-exports.GetNews = () => dataStore.createQuery("newspandoor").order('Position', { descending: false }).run();
-exports.GetBlogs = () => dataStore.createQuery("blogslist").order('Position', { descending: false }).limit(2).run();
+exports.GetSales = (lang="") => dataStore.createQuery(lang + "sales").order('Position', { descending: false }).run();
+exports.GetNews = (lang="") => dataStore.createQuery(lang + "newspandoor").order('Position', { descending: false }).run();
+exports.GetBlogs = (lang="") => dataStore.createQuery(lang + "blogslist").order('Position', { descending: false }).limit(2).run();
 exports.GetInstallers = () => dataStore.createQuery("installers").order('Position', { descending: false }).run();
-exports.GetNavigationItemsForProd = () => dataStore.createQuery("navigation").order('Position', { descending: false }).run();
-exports.GetFooterItemsForProd = () => dataStore.createQuery("footer").order('Position', { descending: false }).run();
-exports.GetBranchesItemsForProd = () => dataStore.createQuery("brancheslist").order('Position', { descending: false }).run();
-exports.GetComments = () => dataStore.createQuery("commentslist").order('Position', { descending: false }).limit(4).run();
-exports.RecommendedList = () => dataStore.createQuery("recommendedlist").order('Position', { descending: false }).limit(4).run();
+
+exports.GetNavigationItemsForProd = (lang="") => dataStore.createQuery(lang + "navigation").order('Position', { descending: false }).run();
+exports.GetFooterItemsForProd = (lang="") => dataStore.createQuery(lang + "footer").order('Position', { descending: false }).run();
+exports.GetBranchesItemsForProd = (lang="") => dataStore.createQuery(lang + "brancheslist").order('Position', { descending: false }).run();
+exports.GetComments = (lang="") => dataStore.createQuery(lang + "commentslist").order('Position', { descending: false }).limit(4).run();
+
+exports.RecommendedList = (lang="") => dataStore.createQuery(lang + "recommendedlist").order('Position', { descending: false }).limit(4).run();
 exports.GetAllArchitects = () => dataStore.createQuery("architectslist-tmp").order('Data.Name', { descending: false }).run();
-exports.GetCollectionsList = () => dataStore.createQuery("doorcollectionlist").order('Data.CollectionName', { descending: false }).run();
-exports.GetDoorsPagesList = () => dataStore.createQuery("doors").order('Position', { descending: false }).run();
+exports.GetCollectionsList = bucket => dataStore.createQuery(bucket).order('Data.CollectionName', { descending: false }).run();
+exports.GetDoorsPagesList = bucket => dataStore.createQuery(bucket).order('Position', { descending: false }).run();
 
 exports.UpdateArchitectById = (id, data) => {
     return getPageById(id, "architectslist-tmp")
@@ -191,7 +198,8 @@ exports.UpdateArchitectById = (id, data) => {
                         UserName: item.UserName || 'admin',
                         Id: item.Id || uuid(),
                         Position: item.Position || 0,
-                        Index: item.Index || item.Position || 0
+                        Index: item.Index || item.Position || 0,
+                        Language: data.Language || 'he'
                     }
                 })
             } else {
@@ -266,12 +274,12 @@ exports.SetNotActiveIncomingRequestById = (id, requestType) => {
 
 exports.GetActiveApplicant = bucket => dataStore.createQuery(bucket).filter('Data.Active', ' = ', true).run();
 
-exports.UpdateCollectionById = (id, data) => {
-    return getPageById(id, "doorcollectionlist-tmp")
+exports.UpdateCollectionById = (id, data, bucket) => {
+    return getPageById(id, bucket + "-tmp")
         .then(item => {
             if (item) {
                 return dataStore.save({
-                    key: dataStore.key(["doorcollectionlist-tmp", item[dataStore.KEY].name]),
+                    key: dataStore.key([bucket + "-tmp", item[dataStore.KEY].name]),
                     excludeFromIndexes: [
                         "Data.ModelTitle"
                     ],
@@ -282,14 +290,57 @@ exports.UpdateCollectionById = (id, data) => {
                         UserName: item.UserName || 'admin',
                         Id: item.Id || uuid(),
                         Position: item.Position || 0,
-                        Index: item.Index || item.Position || 0
+                        Index: item.Index || item.Position || 0,
+                        Language: data.Language || 'he'
                     }
                 })
+            } else if (id && bucket.includes("_")) {
+                return setNewPage(data, bucket)
             } else {
-                return promise.reject(true)
+                return promise.reject(false)
             }
         })
         .catch(err => {
             return promise.reject(true)
         })
 };
+
+exports.GetCountOfBucket = bucket => {
+    if (bucket) {
+        return dataStore.createQuery(bucket).run()
+            .then(res => {
+                return res[0].length;
+            })
+            .catch(err => {
+                return err
+            })
+    } else {
+        return promise.resolve({})
+    }
+}
+
+exports.GetPartialByPageAndLimit = (bucket, fromPosition, limit) => {
+    return dataStore.createQuery(bucket).filter('Position', ' >= ', fromPosition).limit(limit).run()
+        .then(res => {
+            return res[0];
+        })
+        .catch(err => {
+            return err
+        })
+}
+
+exports.SetCommonWords = redirects => {
+    return dataStore.createQuery("commonwords").run()
+        .then(old => {
+            return promise.all([
+                dataStore.insert(schemaPage(redirects, "commonwords")),
+                dataStore.delete(dataStore.key(["commonwords", old[0][0][dataStore.KEY].name]))
+            ])
+        })
+        .then((r) => {
+            return true;
+        })
+        .catch(err => {
+            return false;
+        })
+}

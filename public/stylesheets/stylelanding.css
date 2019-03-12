@@ -91,7 +91,7 @@ body{
     background: url(/images/button_phone.png) 53% 43%/95% 100% no-repeat content-box;
 }
 
-@media all and (max-width: 500px) {
+@media all and (max-device-width: 500px) {
     #general_wrap{
         height: 100vh;
         overflow-y: auto;
@@ -103,8 +103,8 @@ body{
         display: flex;
         width: 95%;
         height: 100%;
-        min-height: 42vh;
-        max-height: 42vh;
+        min-height: 44vh;
+        max-height: 44vh;
         left: 1%;
         top: 29%;
     }
@@ -119,7 +119,7 @@ body{
         height: 91%;
     }
     .mobile_top img:first-child{
-        height: 84vh;
+        height: 90vh;
         margin: 0;
         width: 100%;
     }
@@ -154,8 +154,214 @@ body{
         width: 42%;
         height: 9%;
         position: absolute;
-        bottom: 18%;
+        bottom: 13%;
         text-decoration: none;
         left: 30%;
+    }
+}
+@media (min-device-width: 600px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1){ /* mobile tablet */
+ 
+    body{
+        overflow-y: auto;
+       
+    }
+    #general_wrap{
+        width: 100%;
+        height: 100%;
+    }
+    .mobile_top>img, .mobile_footer>img{
+        width: 100%;
+    }
+    #form_wrap{
+        position: relative;
+        border-radius: 7px;
+        text-align: center;
+        direction: rtl;
+        height: 45vh;
+        top: 14%;
+        left:0;
+        width: 100%;
+    }
+    #wrap_slider_doors {
+        position: absolute;
+        top: 16%;
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        width: 96%;
+        height: 95%;
+        min-height: 35%;
+        max-height: 35%;
+        left: 2%;
+        overflow: auto;
+        min-height: -moz-calc(30% - (20px + 30px));
+        min-height: -webkit-calc(30% - (20px + 30px));
+        min-height: calc(30% - (20px + 30px));
+
+        max-height: -moz-calc(300% - (20px + 30px));
+        max-height: -webkit-calc(300% - (20px + 30px));
+        max-height: calc(30% - (20px + 30px));
+    }
+    #sales_door_wrap {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+    #form_wrap form {
+        position: absolute;
+        height: 50%;
+        padding-top: 18%;
+        max-width: 70%;
+    }
+    .phone_wrap {
+        width: 25%;
+        height: 4%;
+        position: absolute;
+        bottom: 40%;
+        left: 7%;
+        text-decoration: none;
+    }
+    .mobile_footer{
+        margin-top: -4vh;
+    }
+}
+
+@media only screen 
+  and (min-device-width: 600px) 
+  and (max-device-width: 1366px) 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+    body{
+        overflow-y: auto;
+        padding: 0 25% 0 25%;
+    }
+    #general_wrap{
+        width: 100%;
+        height: 100%;
+        text-align: center;
+    }
+    .mobile_top>img, .mobile_footer>img{
+        width: 100%;
+    }
+    #form_wrap{
+        position: relative;
+        border-radius: 7px;
+        text-align: center;
+        direction: rtl;
+        height: 60vh;
+        top: 14%;
+        left:0;
+        width: 100%;
+    }
+    #wrap_slider_doors {
+        position: absolute;
+        top: 16%;
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        width: 96%;
+        height: 95%;
+        min-height: 35%;
+        max-height: 35%;
+        left: 2%;
+        overflow: auto;
+        min-height: -moz-calc(30% - (20px + 30px));
+        min-height: -webkit-calc(30% - (20px + 30px));
+        min-height: calc(30% - (20px + 30px));
+
+        max-height: -moz-calc(300% - (20px + 30px));
+        max-height: -webkit-calc(300% - (20px + 30px));
+        max-height: calc(30% - (20px + 30px));
+    }
+    #sales_door_wrap {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+    #form_wrap form {
+        position: absolute;
+        height: 50%;
+        padding-top: 18%;
+        max-width: 55%;
+    }
+    .phone_wrap {
+        width: 25%;
+        height: 4%;
+        position: absolute;
+        bottom: 40%;
+        left: 7%;
+        text-decoration: none;
+    }
+    .mobile_footer{
+        margin-top: -4vh;
+    }
+}
+
+@media screen and (max-device-width: 600px) 
+and (orientation: landscape) 
+and (-webkit-min-device-pixel-ratio: 1) {
+    body{
+        overflow-y: auto;
+        padding: 0 25% 0 25%;
+    }
+    #general_wrap{
+        width: 100%;
+        height: 100%;
+        text-align: center;
+    }
+    .mobile_top>img, .mobile_footer>img{
+        width: 100%;
+    }
+    #form_wrap{
+        position: relative;
+        border-radius: 7px;
+        text-align: center;
+        direction: rtl;
+        height: 60vh;
+        top: 14%;
+        left:0;
+        width: 100%;
+    }
+    #wrap_slider_doors {
+        position: absolute;
+        top: 16%;
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        width: 96%;
+        height: 95%;
+        min-height: 35%;
+        max-height: 35%;
+        left: 2%;
+        overflow: auto;
+        min-height: -moz-calc(30% - (20px + 30px));
+        min-height: -webkit-calc(30% - (20px + 30px));
+        min-height: calc(30% - (20px + 30px));
+
+        max-height: -moz-calc(300% - (20px + 30px));
+        max-height: -webkit-calc(300% - (20px + 30px));
+        max-height: calc(30% - (20px + 30px));
+    }
+    #sales_door_wrap {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+    #form_wrap form {
+        position: absolute;
+        height: 50%;
+        padding-top: 18%;
+        max-width: 55%;
+    }
+    .phone_wrap {
+        width: 25%;
+        height: 4%;
+        position: absolute;
+        bottom: 40%;
+        left: 7%;
+        text-decoration: none;
+    }
+    .mobile_footer{
+        margin-top: -4vh;
     }
 }

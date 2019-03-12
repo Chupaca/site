@@ -10,7 +10,20 @@
     <button class="btn_class switch_wraps" data-wrap="active_details_desktop"> כותרת דסקטופ</button>
     <button class="btn_class switch_wraps" data-wrap="active_details_mobile"> כותרת מובייל</button>
     <button class="btn_class switch_wraps active" data-wrap="versions">רשימת גרסות</button>
-     <button class="btn_class btn_green" id="save_new" disabled style="float:left;" >לשמור</button>
+    <select class="select_item" id="language_select_preview" data-type="0" style="width: 150px;font-size: 19px;">
+        <option value="carousel" selected>עברית</option>
+        <option value="en_carousel">English</option>
+        <option value="ru_carousel">Русский</option>
+        <option value="ar_carousel">العربية</option>
+    </select>
+    <button class="btn_class btn_green" id="save_new" disabled style="float:left;" >לשמור</button>
+    <select class="select_item" id="language_select" style="width: 150px;font-size: 19px;float:left;background:#eee" disabled>
+        <option value selected>בחר...</option>
+        <option value="he">עברית</option>
+        <option value="en">English</option>
+        <option value="ru">Русский</option>
+        <option value="ar">العربية</option>
+    </select>
 </div>
 
 <!--   header -->
@@ -91,7 +104,7 @@
     </div>
 </div>
 
-<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions">
+<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions" id="vertion_wrap">
     <div id="sortable" class="col connectedSortable">
      <h2 class="version_title">פעיל</h2>
         <% if(Prod){ let item = Prod; %>
@@ -99,9 +112,10 @@
             <div class="page_item">
                 <span class="page_item_position"><b><%= item.Position %></b></span>
                 <b style="margin:0 2vh;">&#124;</b>
+                <b class="language_type_in_row"><%= item.Language || "he" %></b>
+                <b style="margin:0 2vh;">&#124;</b>
                 <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
                 <b style="margin:0 2vh;">&#124;</b>
-                
                 <i class="fas fa-bars nav_options"></i>
             </div>
         </li>
@@ -116,9 +130,10 @@
             <div class="page_item">
                 <span class="page_item_position"><b>0</b></span>
                 <b style="margin:0 2vh;">&#124;</b>
+                <b class="language_type_in_row"><%= item.Language || "he" %></b>
+                <b style="margin:0 2vh;">&#124;</b>
                 <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
                 <b style="margin:0 2vh;">&#124;</b>
-               
                 <i class="fas fa-bars nav_options"></i>
                 <i class="fas fa-trash-alt remove_page" data-page="carousel-tmp" style="margin:0 3vh;cursor:pointer;"  data-id="<%= item.Id %>"></i>
             </div>
@@ -126,8 +141,8 @@
         <%}})}%>
     </div>
     <div class="col">
-        <button class="btn_class btn_purple" id="template_page">דוגמא</button><br>
-        <button class="btn_class" id="preview_start_page">הצגה</button><br>
+        <button class="btn_class btn_purple" id="template_page" disabled>דוגמא</button><br>
+        <button class="btn_class" id="preview_start_page" disabled>הצגה</button><br>
         <button class="btn_class btn_blue" id="publish_page">לפרסם</button>
     </div>
 </div>

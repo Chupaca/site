@@ -1,0 +1,146 @@
+body *{
+    direction: ltr !important;
+}
+.invisible_text{
+    float: right;
+}
+form span{
+    float: left !important;
+}
+.header-nav{
+    margin-left: 0 !important;
+    margin-right: 13% !important;
+}
+.header-nav li, .header-lang-nav li {
+    display: inline-block;
+    padding: 0 10px;
+    border-right: solid 1px #ffffff;
+    border-left:none;
+}
+.navLink{
+    text-align: left;
+}
+.nav{
+    text-align: left;
+}
+.nav ul{
+    font-size: 2.5vh;
+}
+#logo_pandoor_bav_desktop{
+    float: right;
+}
+.contentMainImgContainer h1 {
+    font-size: 7vh;
+    margin: 2vh 5vh;
+}
+.contentTextContainer {
+    text-align: left;
+    text-indent: 10px;
+}
+h2 {
+    font-size: 36px;
+    line-height: 34px;
+    font-weight: normal;
+    border-left: solid 16px #343434;
+    padding-left: 5px;
+    margin-bottom: 25px;
+    border-right: none;
+}
+.special_title_page{
+    font-size: 36px !important;
+    line-height: 34px !important;
+    font-weight: normal !important;
+    border-left: solid 16px #343434 !important;
+    padding-left: 5px !important;
+    margin-bottom: 25px !important;
+    border-right: none !important;
+    text-align: left !important;
+}
+.container h2 {
+    text-align: left !important;
+}
+.section_text_list {
+    text-align: left !important;
+}
+.section_text{
+    text-align: left !important;
+    text-indent: 10px;
+}
+.accordion_row {
+    text-align: left;
+}
+.accordion_inside_panel {
+    text-align: left;
+    text-indent: 10px;
+}
+#map_list{
+    direction: ltr;
+    text-align: left;
+}
+.description_door_catalog{
+    font-size: 24px;
+}
+.collection_header_wrap div:first-child {
+    width: 25%;
+    margin-left: 30vh;
+    margin-right: 5vh;
+    text-align: left;
+}
+.collection_header_wrap div:first-child div {
+    color: #ffffff;
+    width: 100%;
+    font-size: 2.1vh;
+    margin-top: 3vh;
+}
+.door_info_container, .slider_left_text{
+    direction: ltr !important;
+    text-align: left !important;
+}
+.btn_all_pages_link{
+    background: #ff4200 url(../images/sale-btn-right.png) no-repeat 5% 1vw / 5%;
+    padding: 1vh 5vh 1vh 2vh !important;
+    background-position-x: 96% !important;
+}
+.pandor-collection-btn{
+    background: url() !important;
+}
+#ContactFormContainer{
+    text-align: left;
+}
+.font_change{
+    font-size: 0.8em !important;
+}
+.footer-nav li {
+    border-left: solid 1px #cccccc;
+    border-right: solid 1px #cccccc;
+}
+@media all and (max-width: 500px) { /* mobile  */
+    h2{
+        font-size: 27px;
+    }
+    .contentMainImgContainer h1{
+        font-size: 5vh;
+    }
+    .content_sales .left_one .info .middle, .content_sales .right_one .info .middle {
+        font-size: 2.2vh;
+        padding: 0 2vh;
+    }
+    .doorsBox {
+        text-align: left;
+    }
+    .description_door_catalog {
+        width: 18vh;
+        right: 0;
+        font-size: 17px;
+    }
+}
+
+@media (min-width: 1900px){
+    #start_video {
+        margin-left: -20vh;
+        width: 120%;
+    }
+    .doorsBox {
+        margin-top: 2.1%;
+    }
+}

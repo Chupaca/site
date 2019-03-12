@@ -5,8 +5,22 @@
 </h2>
 <div>
     <button class="btn_class switch_wraps" data-wrap="metadata">עריכת מטה</button>
+    <button class="btn_class switch_wraps" data-wrap="staticblocks">בלוקים סטטים</button>
     <button class="btn_class switch_wraps active" data-wrap="versions">רשימת גרסות</button>
+    <select class="select_item" id="language_select_preview" data-type="0" style="width: 150px;font-size: 19px;">
+        <option value="startpage" selected>עברית</option>
+        <option value="en_startpage">English</option>
+        <option value="ru_startpage">Русский</option>
+        <option value="ar_startpage">العربية</option>
+    </select>
     <button class="btn_class btn_green" id="save_new" style="float:left;" disabled>לשמור</button>
+    <select class="select_item" id="language_select" style="width: 150px;font-size: 19px;float:left;background:#eee" disabled>
+        <option value selected>בחר...</option>
+        <option value="he">עברית</option>
+        <option value="en">English</option>
+        <option value="ru">Русский</option>
+        <option value="ar">العربية</option>
+    </select>
 </div>
 
 <!--  meta  -->
@@ -21,13 +35,39 @@
     </div>
 </div>
 
-<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions">
+<div class="wrap_two_col" style="display:none;" data-wrap="staticblocks">
+    <div class="col">
+        <table class="statics_data_table">
+            <tbody>
+                <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="כותרת חדשות" readonly /></td><td><input name="NewsTitleBlock" class="static_blocks" /></td></tr>
+                <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="כותרת מבצעים" readonly /></td><td><input name="SalesTitleBlock" class="static_blocks" /></td></tr>
+                <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="תוכן מבצעים" readonly /></td><td><textarea style="margin: 10px;height: 21vh;resize: none;" name="SalesContentBlock" class="static_blocks" ></textarea></td></tr>
+                <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="כותרת סיפור" readonly /></td><td><input name="StoryTitleBlock" class="static_blocks" /></td></tr>
+                <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="תוכן סיפור" readonly /></td><td><textarea style="margin: 10px;height: 21vh;resize: none;" name="StoryContentBlock" class="static_blocks" ></textarea></td></tr>
+                <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="כותרת מומלצים" readonly /></td><td><input name="RecommendationTitleBlock" class="static_blocks" /></td></tr>
+                <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="תוכן מומלצים" readonly /></td><td><textarea style="margin: 10px;height: 21vh;resize: none;" name="RecommendationContentBlock" class="static_blocks"></textarea></td></tr>
+                <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="כותרת לקוחות" readonly /></td><td><input name="ClientsTitleBlock" class="static_blocks" /></td></tr>
+                <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="כפתור לקוחות" readonly /></td><td><input name="ClientsBtnBlock" class="static_blocks" /></td></tr>
+                <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="כותרת מאמרים" readonly /></td><td><input name="BlogsTitleBlock" class="static_blocks" /></td></tr>
+                <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="תוכן מאמרים" readonly /></td><td><textarea style="margin: 10px;height: 21vh;resize: none;" name="BlogsContentBlock" class="static_blocks" ></textarea></td></tr>
+                <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="כפתור מאמרים" readonly /></td><td><input name="BlogsBtnBlock" class="static_blocks" /></td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col">
+         <button class="btn_class text_formated">הוסיף תוכן</button>
+    </div>
+</div>
+
+<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions" id="vertion_wrap">
     <div id="sortable" class="col connectedSortable">
      <h2 class="version_title">פעיל</h2>
         <% if(Prod){ let item = Prod; %>
         <li data-id="<%= item.Id %>" data-bucket="startpage">
             <div class="page_item">
                 <span class="page_item_position"><b><%= item.Position %></b></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <b  class="language_type_in_row"><%= item.Language%></b>
                 <b style="margin:0 2vh;">&#124;</b>
                 <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
                 <b style="margin:0 2vh;">&#124;</b>
@@ -44,6 +84,8 @@
         <li data-id="<%= item.Id %>" data-bucket="startpage-tmp">
             <div class="page_item">
                 <span class="page_item_position"><b>0</b></span>
+                <b style="margin:0 2vh;">&#124;</b>
+                <b class="language_type_in_row"><%= item.Language || "he" %></b>
                 <b style="margin:0 2vh;">&#124;</b>
                 <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
                 <b style="margin:0 2vh;">&#124;</b>

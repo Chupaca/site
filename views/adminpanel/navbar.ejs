@@ -1,6 +1,7 @@
 
-
-    <div id="nav_bar_wrap">
+ <div id="nav_bar_wrap">
+    <% if(UserType == 'admin'){%>
+   
         <a href="/admin/pagetoedit?page=startpage"><div class="nav_item" id="startpage">דף הבית<span><i class="fas fa-home"></i></span></div></a>
         <a href="/admin/pagetoedit?page=pixelsandheadnav"><div class="nav_item" id="pixelsandheadnav">ניווט עליון<span><i class="fab fa-pied-piper-hat"></i></div></a>
         <a href="/admin/pagetoedit?page=navigation"><div class="nav_item" id="navigation">ניווט ראשי<span><i class="fas fa-bars"></i></span></div></a>
@@ -11,22 +12,26 @@
         <a href="/admin/pagetoedit?page=carousel"><div class="nav_item" id="carousel"> קרוסלה <span><i class="fas fa-recycle"></i></span></div></a>
         <a href="/admin/pagetoedit?page=commentslist"><div class="nav_item" id="commentslist">לקוחות<span><i class="far fa-comments"></i></span></div></a>
         <a href="/admin/pagetoedit?page=blogslist"><div class="nav_item" id="blogslist"> מאמרים <span><i class="fab fa-blogger-b"></i></span></div></a>
+        <a href="/admin/pagetoedit?page=designersblogslist"><div class="nav_item" id="designersblogslist" > מעצבים <span><i class="fas fa-blog"></i></span></div></a>
         <a href="/admin/pagetoedit?page=installers"><div class="nav_item" id="installers">מתקינים<span><i class="fas fa-ambulance"></i></span></div></a>
         <a href="/admin/pagetoedit?page=architectslist"><div class="nav_item" id="architectslist">אדריכלים<span><i class="fas fa-ruler-combined"></i></span></div></a>
         <a href="/admin/pagetoedit?page=doorcollectionlist"><div class="nav_item" id="doorcollectionlist">קולקציות<span><i class="fas fa-dungeon"></i></span></div></a>
         <a href="/admin/pagetoedit?page=pirzul"><div class="nav_item" id="pirzul">פרזול<span><i class="fas fa-shower"></i></span></div></a>
-        <a href="/admin/galleryeditor"><div class="nav_item" id="images_gallery">תמונות<span><i class="far fa-images"></i></span></div></a>
-        <a href="/admin/incomingrequests"><div class="nav_item" id="incoming_requests">מייל<span><i class="fas fa-mail-bulk"></i></span></div></a>
+        <a href="/admin/galleryeditor"><div class="nav_item" id="galleryeditor">תמונות<span><i class="far fa-images"></i></span></div></a>
+        <a href="/admin/incomingrequests"><div class="nav_item" id="incomingrequests">מייל<span><i class="fas fa-mail-bulk"></i></span></div></a>
+        <a href="/admin/pagetoedit?page=commonwords"><div class="nav_item" id="commonwords">מילים נפוצות<span><i class="fab fa-wikipedia-w"></i></span></div></a>
         <a href="/admin/pagetoedit?page=redirects"><div class="nav_item" id="redirects">redirect<span><i class="fas fa-directions"></i></span></div></a>
         <div class="nav_item" id="pages">עמודים <span><i class="far fa-file-alt"></i></span></div>
         <ul class="pages_list">
             <a href="/admin/pagetoedit?page=sales" data-page="sales"><li>מבצעים</li></a>
             <a href="/admin/pagetoedit?page=doors" data-page="doors"><li>דף קולקציה</li></a>
             <a href="/admin/pagetoedit?page=blogs" data-page="blogs"><li>מאמרים</li></a>
+            <a href="/admin/pagetoedit?page=designersblogs" data-page="designersblogs"><li>מאמרים מעצבים</li></a>
             <a href="/admin/pagetoedit?page=comments" data-page="comments"><li>לקוחות מספרים</li></a>
             <a href="/admin/pagetoedit?page=projects" data-page="projects"><li>פרויקטים</li></a>
             <a href="/admin/pagetoedit?page=gallery" data-page="gallery"><li>גלריה</li></a>
             <a href="/admin/pagetoedit?page=catalog" data-page="catalog"><li> כל קולקצית</li></a>
+            <a href="/admin/pagetoedit?page=pirzullist" data-page="pirzullist"><li>דף פירזול</li></a>
             <a href="/admin/pagetoedit?page=architectslistpage" data-page="architectslistpage"><li>רשימה אדריכל</li></a>
             <a href="/admin/pagetoedit?page=architectscontact" data-page="architectscontact"><li>אדריכלים</li></a>
             <a href="/admin/pagetoedit?page=projectcontact" data-page="projectcontact"><li>קבלנים</li></a>
@@ -34,8 +39,20 @@
             <a href="/admin/pagetoedit?page=contact" data-page="contact"><li>צור קשר</li></a>
             <a href="/admin/pagetoedit?page=branches" data-page="branches"><li>סניפים</li></a>
             <a href="/admin/pagetoedit?page=video" data-page="video"><li>סירטונים</li></a>
+            <a href="/admin/pagetoedit?page=sitemap" data-page="sitemap" style=""><li>מפת אתר</li></a>
             <a href="/admin/pagetoedit?page=privacy" data-page="privacy" style="font-size: 14px;"><li>הצהרת פרטיות</li></a>
             <a href="/admin/pagetoedit?page=accessibilitystatement" data-page="accessibilitystatement" style="font-size: 14px;"><li>הצהרת נגישות</li></a>
         </ul>   
-    </div>
     
+    <%} else if(UserType == "helper"){ %>
+         <a href="/admin/incomingrequests"><div class="nav_item" id="incomingrequests">מייל<span><i class="fas fa-mail-bulk"></i></span></div></a>
+         <a href="/admin/pagetoedit?page=commentslist"><div class="nav_item" id="commentslist">לקוחות<span><i class="far fa-comments"></i></span></div></a>
+         <a href="/admin/pagetoedit?page=architectslist"><div class="nav_item" id="architectslist">אדריכלים<span><i class="fas fa-ruler-combined"></i></span></div></a>
+         <div class="nav_item" id="pages">עמודים <span><i class="far fa-file-alt"></i></span></div>
+         <ul class="pages_list">
+             <a href="/admin/pagetoedit?page=projects" data-page="projects"><li>פרויקטים</li></a>
+         </ul>
+         </div>
+    <%}%>
+
+    </div>

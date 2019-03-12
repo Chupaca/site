@@ -17,24 +17,10 @@
     <link rel="canonical" href="<%= Url %>" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-WV73VK5');
-    </script>
-    <!-- End Google Tag Manager -->
-    <!-- Start of Zoom Analytics Code -->
-    <script type="text/javascript">
-        var _zaVer=4,_zaq=_zaq||[]; 
-        (function() {
-        var w=window,d=document;w.__za_api=function(a){_zaq.push(a);if(typeof __ZA!='undefined'&&typeof __ZA.sendActions!='undefined')__ZA.sendActions(a);};
-        var e=d.createElement('script');e.type='text/javascript';e.async=true;e.src=('https:'==d.location.protocol?'https://d2xerlamkztbb1.cloudfront.net/':'http://wcdn.zoomanalytics.co/')+'19761274-a298/3/widget.js';
-        var ssc=d.getElementsByTagName('script')[0];ssc.parentNode.insertBefore(e,ssc);
-        })();
-    </script>
-    <!-- End of Zoom Analytics Code -->
+    <% if(Language){%>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/stylelanguages.css" />
+    <%}%>
+    <% include ./analyticsheader %>
 </head>
 
 <body tabindex="-1">
@@ -45,25 +31,25 @@
         <div id="side_sticker">
             <div class="side_sticker_slide">
                 <div class="iconBg">
-                    <a onclick='openAccessibilityOptions()' >
-                        <i class="fas fa-wheelchair"></i>
-                    </a>
+                    <a class="open_access_popup" id="accessibility_btn" tabindex="0">
+                        <i class="fas fa-wheelchair"><span class="invisible_text">נגישות</span></i>
+                    </a>   
 
                 </div>
                 <div class="iconBg sticker_description accessibility">
-                    <h3>תפריט נגישות</h3>
+                    <h3><%= global.GlobalVar.AccessibilityTitle && global.GlobalVar.AccessibilityTitle[Language] ? global.GlobalVar.AccessibilityTitle[Language] : 'תפריט נגישות' %></h3>
                     <div class="accessibility_wrap">
                         <div class="accessibility_menu">
-                            <a class="part_for_change font_change" name="plus"><b>א</b><br><span>הגדל גופן</span></a>
-                            <a class="part_for_change font_change" name="minus"><b>א</b><br><span>הקטן גופן</span></a>
-                            <a class="part_for_change active" id="accessibility_reset"><b>X</b><br><span>איפוס נגישות</span></a>
-                            <a class="part_for_change row_size contrast_change" name="dark"><i class="fas fa-circle"></i>ניגודיות כהה</a>
-                            <a class="part_for_change row_size contrast_change" name="bright"><i class="far fa-circle"></i>ניגודיות בהירה</a>
-                            <a class="part_for_change row_size contrast_change" name="gray"><i class="fas fa-adjust"></i>שחור לבן</a>
-                            <a class="part_for_change row_size" id="accessibility_links"><i class="fas fa-link"></i>הדגשת קישורים</a>
-                            <a class="part_for_change row_size" id="accessibility_header"><i class="fas fa-heading"></i>הדגשת כותרות</a>
-                            <a class="part_for_change row_size" id="accessibility_statement" onclick="window.open('/accessibilitystatement')"><i class="fas fa-exclamation"></i>הצהרת נגישות</a>
-                            <a class="part_for_change row_size" id="close_accessibility_menu" onclick="closeAccessibilityOptions()" style="text-align: center;"><i style="float: none;" class="fas fa-times"></i></a>
+                            <a tabindex="0" class="part_for_change font_change" name="plus"><b>א</b><br><span><%= global.GlobalVar.AccessibilityPlus && global.GlobalVar.AccessibilityPlus[Language] ? global.GlobalVar.AccessibilityPlus[Language] : 'הגדל גופן' %></span></a>
+                            <a tabindex="0" class="part_for_change font_change" name="minus"><b>א</b><br><span><%= global.GlobalVar.AccessibilityMinus && global.GlobalVar.AccessibilityMinus[Language] ? global.GlobalVar.AccessibilityMinus[Language] : 'הקטן גופן' %></span></a>
+                            <a tabindex="0" class="part_for_change active" id="accessibility_reset"><b>X</b><br><span><%= global.GlobalVar.AccessibilityReset && global.GlobalVar.AccessibilityReset[Language] ? global.GlobalVar.AccessibilityReset[Language] : 'איפוס נגישות' %></span></a>
+                            <a tabindex="0" class="part_for_change row_size contrast_change" name="dark"><i class="fas fa-circle"></i><%= global.GlobalVar.AccessibilityDarkContrast && global.GlobalVar.AccessibilityDarkContrast[Language] ? global.GlobalVar.AccessibilityDarkContrast[Language] : 'ניגודיות כהה' %></a>
+                            <a tabindex="0" class="part_for_change row_size contrast_change" name="bright"><i class="far fa-circle"></i><%= global.GlobalVar.AccessibilityBrightContrast && global.GlobalVar.AccessibilityBrightContrast[Language] ? global.GlobalVar.AccessibilityBrightContrast[Language] : 'ניגודיות בהירה' %></a>
+                            <a tabindex="0" class="part_for_change row_size contrast_change" name="gray"><i class="fas fa-adjust"></i><%= global.GlobalVar.AccessibilityBlackAndWhite && global.GlobalVar.AccessibilityBlackAndWhite[Language] ? global.GlobalVar.AccessibilityBlackAndWhite[Language] : 'שחור לבן' %></a>
+                            <a tabindex="0" class="part_for_change row_size" id="accessibility_links"><i class="fas fa-link"></i><%= global.GlobalVar.AccessibilityLinks && global.GlobalVar.AccessibilityLinks[Language] ? global.GlobalVar.AccessibilityLinks[Language] : 'הדגשת קישורים' %></a>
+                            <a tabindex="0" class="part_for_change row_size" id="accessibility_header"><i class="fas fa-heading"></i><%= global.GlobalVar.AccessibilityLightTitles && global.GlobalVar.AccessibilityLightTitles[Language] ? global.GlobalVar.AccessibilityLightTitles[Language] : 'הדגשת כותרות' %></a>
+                            <a tabindex="0" class="part_for_change row_size" id="accessibility_statement" href="<%= Language%>/accessibilitystatement"><i class="fas fa-exclamation"></i><%= global.GlobalVar.AccessibilityStatement && global.GlobalVar.AccessibilityStatement[Language] ? global.GlobalVar.AccessibilityStatement[Language] : 'הצהרת נגישות' %></a>
+                            <a tabindex="0" class="part_for_change row_size" id="close_accessibility_menu" style="text-align: center;"><i style="float: none;" class="fas fa-times"></i></a>
                         </div>
                     </div>
                 </div>
@@ -71,32 +57,32 @@
 
             <div class="side_sticker_slide">
                 <div class="iconBg">
-                    <a href="/architectscontact"><i class="fas fa-ruler-combined fa-rotate-180"></i></a>
+                    <a href="<%= Language %>/architectscontact" tabindex="0"><i class="fas fa-ruler-combined fa-rotate-180"></i></a>
                 </div>
                 <div class="iconBg sticker_description">
-                    <span><b>אדריכל / מעצב?</b></span>
+                    <span><b><%= global.GlobalVar.ArchitectsDesigner && global.GlobalVar.ArchitectsDesigner[Language] ? global.GlobalVar.ArchitectsDesigner[Language] : 'אדריכל / מעצב?' %></b></span>
                 </div>
             </div>
             <div class="side_sticker_slide">
                 <div class="iconBg">
-                    <a href="https://www.facebook.com/pandoors/" target="_blank">
-                        <i class="far fa-thumbs-up"></i>
+                    <a href="https://www.facebook.com/pandoors/" target="_blank" tabindex="0">
+                        <i class="far fa-thumbs-up"><span class="invisible_text">קישור לפיסבוק</span></i>
                     </a>
                 </div>
                 <div class="iconBg sticker_description">
-                    <a href="#"><i class="fab fa-facebook-square" style="font-size:5vh;color:#ffffff;"></i></a>
+                    <i class="fab fa-facebook-square" style="font-size:4vh;color:#ffffff;"></i>
                 </div>
             </div>
 
             <div class="side_sticker_slide">
                 <div class="iconBg" id="priceofferbtn">
-                    <a href="#">
-                        <i class="fa fa-phone-square"></i>
+                    <a href="#" tabindex="0">
+                        <i class="fa fa-phone-square"><span class="invisible_text">פתיחת טופס</span></i>
                     </a>
 
                 </div>
                 <div class="iconBg sticker_description">
-                    <span><b>מעוניינים לקבל הצעת מחיר?</b></span>
+                    <span><b><%= global.GlobalVar.SetToAppointment && global.GlobalVar.SetToAppointment[Language] ? global.GlobalVar.SetToAppointment[Language] : 'מעוניינים לקבל הצעת מחיר?'%></b></span>
                 </div>
             </div>
             <div id="closed_sticker_flag" class="<%= !Desktop?'visib':'' %>">
@@ -108,15 +94,17 @@
         </div>
 
         <div id="priceoffer_popup" >
+            <span class="close_popup_priceoffer" onclick="$('#priceoffer_popup').hide(30)" tabindex="0">&times; <span class="invisible_text">סגור</span></span>
             <div class="popup_priceoffer_modal_content">
                 <form class="clientcomment_form" action="/priceoffer" method="post">
                     <div id="ContactFormContainer" style="">
-                        <h4>לקביעת פגישה:</h4>
-                        <input class="tabTb form_input" name="Name" type="text" placeholder="שם מלא">
-                        <input class="tabTb form_input" name="PhoneNumber" type="text" placeholder="טלפון">
-                        <input class="tabTb form_input" name="Email" type="text" placeholder="אי-מייל">
-                        <input class="tabTb form_input" name="City" type="text" placeholder="עיר">
-                        <input class="tabButton" type="submit" value="שליחה" data-modal="true">
+                        <h4><%= global.GlobalVar.SetToAppointment && global.GlobalVar.SetToAppointment[Language] ? global.GlobalVar.SetToAppointment[Language] :  'מעוניינים לקבל הצעת מחיר?' %> : </h4>
+                        <lable style="color:#ffffff;margin: 1vh 1%;">*<%= global.GlobalVar.RequiredFields && global.GlobalVar.RequiredFields[Language] ? global.GlobalVar.RequiredFields[Language] : 'שדות חובה'%></lable>
+                        <lable class="invisible_text">שם מלא</lable><input class="tabTb form_input" name="Name" type="text" placeholder="<%= global.GlobalVar.Name && global.GlobalVar.Name[Language] ?global.GlobalVar.Name[Language] : 'שם מלא'%>"><i style="color:#ffffff;margin-right: 1%;vertical-align: top;">*</i>
+                        <lable class="invisible_text">טלפון</lable><input class="tabTb form_input" name="PhoneNumber" type="text" placeholder="<%= global.GlobalVar.Phone && global.GlobalVar.Phone[Language]? global.GlobalVar.Phone[Language] : 'טלפון'%>"><i style="color:#ffffff;margin-right: 1%;vertical-align: top;">*</i>
+                        <lable class="invisible_text">עיר</lable><input class="tabTb form_input" name="City" type="text" placeholder="<%= global.GlobalVar.City && global.GlobalVar.City[Language] ?global.GlobalVar.City[Language] : 'עיר'%>"><i style="color:#ffffff;margin-right: 1%;vertical-align: top;">*</i>
+                        <lable class="invisible_text">אי-מייל</lable><input class="tabTb form_input" name="Email" type="text" placeholder="<%= global.GlobalVar.Email && global.GlobalVar.Email[Language]?global.GlobalVar.Email[Language] : 'אימייל'%>">
+                        <input class="tabButton" type="submit" value="<%= global.GlobalVar.Send && global.GlobalVar.Send[Language] ? global.GlobalVar.Send[Language] : 'שליחה'%>"" data-modal="true">
                     </div>
                 </form>
             </div>
@@ -130,33 +118,13 @@
     </footer>
     <div id="simple_image_preview_modal" class="preview_modal">
         <span class="">&times;</span>
-        <span class="close" onclick="$('#simple_image_preview_modal').hide(30)">&times;</span>
-        <img class="modal-content" id="preview_image_modal_tag">
+        <span class="close" onclick="$('#simple_image_preview_modal').hide(30)">&times; <span class="invisible_text">סגור</span></span>
+        <img class="modal-content" id="preview_image_modal_tag" src="<%= process.env.LINKTOBUCKETS +  'default/default_header_microdata_image.jpg' %>" alt=" ">
     </div>
     <section>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
         <script src="/javascript/general.js"></script>
-        <!-- Google Tag Manager (noscript) -->
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WV73VK5"
-        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-        <!-- End Google Tag Manager (noscript) -->
-        <!-- Facebook Pixel Code -->
-        <script>
-            !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '546851972092514');
-            fbq('track', 'PageView');
-        </script>
-        <noscript><img height="1" width="1" style="display:none"
-            src="https://www.facebook.com/tr?id=546851972092514&ev=PageView&noscript=1"/>
-        </noscript>
-        <!-- End Facebook Pixel Code -->
+        <% include ./analyticsfooter %>
     </section>
 </body>
 

@@ -1,0 +1,72 @@
+<% if(!Partial){%>
+<% layout('layoutindex/mainpage') -%>
+
+<% if(Desktop){%>
+ <div class="contentMainImgContainer">
+    <img class="contentMainImg" alt="" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" />
+<%} else {%>
+ <div class="contentMainImgContainer" style="height: 50vh;">
+     <img class="contentMainImg" alt="" style="width:100%;" src="<%= process.env.LINKTOBUCKETS + Page.Header.MobileLinkToBucket + Page.Header.MobileImageId %>">
+<%}%>
+    
+    <span class="downBtn" data-scrollto="wrap_container" tabindex="0"><i class="far fa-caret-square-down"></i></span>
+</div>
+
+<section id="wrap_container" class="wrap_container">
+    <div class="container">
+     <% if(Page.StaticsBlocks && Page.StaticsBlocks.TitleBlock){%>
+           <h2 class="section_title" tabindex="0"><%= Page.StaticsBlocks.TitleBlock %></h2>
+    <% } else {%>
+            <h2 class="section_title" tabindex="0">מאמרים</h2>
+    <%}%>
+    <article id="blocks_wrap">
+    <% for(let i=0;i<Blogs.length;i++){%>
+            <% if(i == 0 || i == 2 || i == 4){ %>
+                <div class="blog_wrap"  data-index="<%= PageNumber %>" >
+            <%}%>
+    
+                        <div class="blog_box" >
+                        <a href="<%= Language %>/designersblog/<%= Blogs[i].Position %>" tabindex="-1">
+                            <img tabindex="0" alt="<%= Blogs[i].Data.Preview.ImageId %>" src="<%= process.env.LINKTOBUCKETS + Blogs[i].Data.Preview.LinkToBucket + Blogs[i].Data.Preview.ImageId %>" />
+                        </a>
+                        </div>
+       <% if(i == 1 || i == 3 || i == 5){ %>
+            </div>
+            <%if(!Desktop){%>
+                <div tabindex="-1" class='only_mobile' style="height:10px;" data-index='<%= PageNumber %>'></div>
+            <%}%>
+      <%}%>
+    <%}%>
+    </article>
+
+    <div class="num_pages_wrap">
+        <div class="num_prev_page_btn" tabindex="0" onclick="prevChangePageList('#blocks_wrap', '<%= Language %>designersblogs', 'block')" style="display:<%= (Number(PageNumber)>1?'':'none') %>;">&lt;</div>
+            <% for(let i= 1; i<= CountPages;i++ ){ %>
+                <div class="num_page_btn <%= (i == Number(PageNumber)?'active':'') %>" tabindex="0" onclick="changePageList(this, '#blocks_wrap', '<%= Language %>designersblogs', <%= i %>, 'block')" ><%= i %></div>
+            <%}%>
+            <div class="num_next_page_btn" tabindex="0" onclick="nextChangePageList('#blocks_wrap', '<%= Language %>designersblogs', 'block')" style="display:<%= (Number(PageNumber) == CountPages?'none':'') %>;">&gt;</div>
+         </div>
+    </div>
+
+    </div>
+    </div>
+</section>
+<%} else {%>
+    <% for(let i=0;i<Blogs.length;i++){%>
+            <% if(i == 0 || i == 2 || i == 4){ %>
+                <div class="blog_wrap" data-index='<%= PageNumber %>'>
+            <%}%>
+    
+                        <div class="blog_box" >
+                        <a href="<%= Language %>/designersblog/<%= Blogs[i].Position %>">
+                            <img tabindex="0" alt="<%= Blogs[i].Data.Preview.ImageId %>" src="<%= process.env.LINKTOBUCKETS + Blogs[i].Data.Preview.LinkToBucket + Blogs[i].Data.Preview.ImageId %>" />
+                        </a>
+                        </div>
+       <% if(i == 1 || i == 3 || i == 5){ %>
+            </div>
+            <%if(!Desktop){%>
+                <div class='only_mobile' style="height:10px;" data-index='<%= PageNumber %>'></div>
+            <%}%>
+      <%}%>
+       <%}%>
+<%}%>

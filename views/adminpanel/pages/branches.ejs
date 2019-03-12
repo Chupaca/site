@@ -7,8 +7,22 @@
     <button class="btn_class switch_wraps" data-wrap="metadata">עריכת מטה</button>
     <button class="btn_class switch_wraps" data-wrap="header">עריכת כותרת</button>
     <button class="btn_class switch_wraps" data-wrap="external">עריכת סוחרים</button>
+    <button class="btn_class switch_wraps" data-wrap="staticblocks">בלוקים סטטים</button>
     <button class="btn_class switch_wraps active" data-wrap="versions">רשימת גרסות</button>
+    <select class="select_item" id="language_select_preview" data-type="0" style="width: 150px;font-size: 19px;">
+        <option value="branches" selected>עברית</option>
+        <option value="en_branches">English</option>
+        <option value="ru_branches">Русский</option>
+        <option value="ar_branches">العربية</option>
+    </select>
     <button class="btn_class btn_green" id="save_new" style="float:left;" disabled>לשמור</button>
+    <select class="select_item" id="language_select" style="width: 150px;font-size: 19px;float:left;background:#eee" disabled>
+        <option value selected>בחר...</option>
+        <option value="he">עברית</option>
+        <option value="en">English</option>
+        <option value="ru">Русский</option>
+        <option value="ar">العربية</option>
+    </select>
 </div>
 
 <!--  meta  -->
@@ -59,14 +73,39 @@
     </div>
 </div>
 
+<div class="wrap_two_col" style="display:none;" data-wrap="staticblocks">
+    <div class="col" style="max-height: 67vh;">
+        <table class="statics_data_table">
+            <tbody>
+                <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="כותרת ליד" readonly /></td><td><input name="FormTitleBlock" class="static_blocks" /></td></tr>
+                <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="כותרת דף" readonly /></td><td><input name="PageTitleBlock" class="static_blocks" /></td></tr>
+                <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="תוכן דף" readonly /></td><td><textarea style="margin: 10px;height: 21vh;resize: none;" name="PageContentBlock" class="static_blocks" ></textarea></td></tr>
+                <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="כותרת סניפים זרים" readonly /></td><td><input name="ExternalBranchesTitleBlock" class="static_blocks" /></td></tr>
+                <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="תוכן סניפים זרים" readonly /></td><td><textarea style="margin: 10px;height: 21vh;resize: none;" name="ExternalBranchesContentBlock" class="static_blocks" ></textarea></td></tr>
+                <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="תוכן תחתון סניפים זרים" readonly /></td><td><textarea style="margin: 10px;height: 21vh;resize: none;" name="ExternalBranchesContentFooterBlock" class="static_blocks"></textarea></td></tr>    
+                
+                <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="פקס" readonly /></td><td><input name="FaxBlock" class="static_blocks" /></td></tr>
+                <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="טלפון" readonly /></td><td><input name="PhoneBlock" class="static_blocks" /></td></tr>
+                <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="אימייל" readonly /></td><td><input name="EmailBlock" class="static_blocks" /></td></tr>
+                <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="שעות פעילות" readonly /></td><td><input name="HoursBlock" class="static_blocks" /></td></tr>
+                <tr style="outline:2px solid #bbb;margin-bottom:1vh;padding:1vh;"><td style="width:20%;background:#928c8c;"><input value="כתובת" readonly /></td><td><input name="AddressBlock" class="static_blocks" /></td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col">
+         <button class="btn_class text_formated">הוסיף תוכן</button>
+    </div>
+</div>
 
-<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions">
+<div class="wrap_three_col" style="display:inline-flex;" data-wrap="versions" id="vertion_wrap">
     <div id="sortable" class="col connectedSortable">
      <h2 class="version_title">פעיל</h2>
         <% if(Prod && Prod.Data.Header){ let item = Prod; %>
         <li data-id="<%= item.Id %>" data-bucket="branches">
             <div class="page_item">
                 <span class="page_item_position"><b><%= item.Position %></b></span>
+                 <b style="margin:0 2vh;">&#124;</b>
+                <b class="language_type_in_row"><%= item.Language || "he" %></b>
                 <b style="margin:0 2vh;">&#124;</b>
                 <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
                 <b style="margin:0 2vh;">&#124;</b>
@@ -84,6 +123,8 @@
         <li data-id="<%= item.Id %>" data-bucket="branches-tmp">
             <div class="page_item">
                 <span class="page_item_position"><b>0</b></span>
+                 <b style="margin:0 2vh;">&#124;</b>
+                <b class="language_type_in_row"><%= item.Language || "he" %></b>
                 <b style="margin:0 2vh;">&#124;</b>
                 <span class=""><%= moment(item.DateCreate).tz('Asia/Jerusalem').format("DD/MM/YYYY HH:mm") %></span>
                 <b style="margin:0 2vh;">&#124;</b>

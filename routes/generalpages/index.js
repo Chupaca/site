@@ -28,6 +28,8 @@ var upload = multer(
         fileFilter: function (req, file, callback) {
             if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
                 return callback(new Error('Only image files are allowed!'));
+            } else if (file.size > (1 * 1024 * 1024)) {
+                return callback(new Error('File too large!'));
             }
             callback(null, true);
         }
@@ -54,11 +56,14 @@ router.get('/privacy', generalpages.GetPrivacyPage);
 router.get('/blogs', generalpages.GetBlogsListPage);
 router.get('/projectcontact', generalpages.GetProjectContactPage);
 router.get('/accessibilitystatement', generalpages.GetAccessibilityStatementPage);
-
+router.get('/pirzul', generalpages.GetPirzulPage);
+router.get('/designersblogs', generalpages.GetDesignersBlogsListPage);
+router.get('/designersblog/:index', generalpages.GetDesignersBlogPage);
 //============= landing pages ======================================================
 router.get('/pandoorwebmedia/:type/:frompage', landingPages.GetPage);
 router.get('/catalogpandoor.pdf', landingPages.GetCatalogPandoorPDF)
 //============= analytics gets =====================================================
+router.get('/sitemap', sitemap.GetSiteMapHTML)
 router.get('/sitemap.xml', sitemap.GetSiteMapXML);
 
 
@@ -69,9 +74,33 @@ router.post('/service', postFromClient.PostNewClientService);
 router.post('/project', postFromClient.PostNewProject);
 router.post('/architect', postFromClient.PostNewArchitect);
 
+router.get('/thankyou', postFromClient.FinalSubmit)
 router.get('/architectblank', postFromClient.GetPageForArchitectsBlank);
-router.post('/architectblank', upload.any(), postFromClient.PostNewArchitectBlank);
+router.post('/architectblank', function (req, res, next) {
+    let uploadFunc = upload.any()
+    uploadFunc(req, res, function (err) {
+        if (err instanceof multer.MulterError) {
+            res.render("architectsblank/architectsblank.ejs", {
+                Desktop: (req.device.type == 'desktop' ? true : false),
+                Token: process.env.TOKEN,
+                Success: false,
+                MulterError: true,
+                ...req.body
+            })
+        } else if (err) {
+            res.render("architectsblank/architectsblank.ejs", {
+                Desktop: (req.device.type == 'desktop' ? true : false),
+                Token: process.env.TOKEN,
+                Success: false,
+                MulterError: true,
+                ...req.body
+            })
+        } else {
+            next();
+        }
+    })
+}, postFromClient.PostNewArchitectBlank);
 
-router.get('/robot.txt', sitemap.GetRobotTXT)
+router.get('/robots.txt', sitemap.GetRobotTXT)
 
 module.exports = router;

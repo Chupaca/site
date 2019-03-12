@@ -2,6 +2,8 @@
 
 
 function saveNewPage() {
+    let prefixLanguage = $("#language_select option:selected").val() != 'he' ? $("#language_select option:selected").val() + '_' : '';
+  
     let branch = {
         BranchName: $("#branch_branchname").val().trim(),
         PhoneNumber: $("#branch_phonenumber").val().trim(),
@@ -15,6 +17,7 @@ function saveNewPage() {
         OpenFr: $("#branch_openfr").val().trim() || null,
         CloseFr: $("#branch_closefr").val().trim() || null
     }
+    
     const notNeeded = ["OpenFr", "CloseFr", "Link"]
     let flag = true;
     Object.entries(branch).forEach(([key, value]) => {
@@ -25,18 +28,24 @@ function saveNewPage() {
             $("#branch_" + key.toLowerCase()).css({ "background": "#e3f4e5" })
         }
     });
-    if (flag) {
+    branch.Language = $("#language_select option:selected").val() || 0;
+    if (flag && branch.Language) {
         ConformModal(" האם אתה רוצה לשמור סניף חדש ?", () => {
-            SaveNewPageToServer(branch, 'brancheslist')
+            SaveNewPageToServer(branch, prefixLanguage + 'brancheslist')
         })
     } else {
-        Flash("לא כל השדות של מלאים", "warning")
-
+        if(!branch.Language){
+            Flash('נא לבחור שפה!', 'warning');
+        }else{
+            Flash('לא כל השדות מלאים!', 'warning');
+        }
+        return;
     }
 }
 
 function publishPage() {
     let data = []
+    let prefixLanguage = $("#language_select_preview option:selected").val();
     $("#sortable li").each((i, item) => {
         data.push(
             {
@@ -48,7 +57,7 @@ function publishPage() {
 
     if (data.length != 0) {
         ConformModal("אתה בטוח רוצה לשנות ?", () => {
-            SetActiveMultiPages(data, 'brancheslist')
+            SetActiveMultiPages(data, prefixLanguage)
         })
     } else {
         Flash("צריך לפחות מתקין אחד!", "warning")
@@ -82,4 +91,24 @@ function SetFieldsTemplate(template) {
     $("#branch_closefr").val(template.CloseFr);
     $(".switch_wraps[data-wrap='active_version']").trigger("click");
 
+}
+
+
+function sortAndPreviewSelectedItemsByLanguage() {
+    $.get(`/admin/versionsbylanguage/${$(this).val()}/${$(this).attr('data-type')}`)
+        .then(html => {
+            $("#vertion_wrap").html(html)
+            $("#template_page").unbind().click(getTemplatePage);
+            $("#publish_page").unbind().click(publishPage);
+            $("#sortable, #sortable_tmp").sortable({
+                connectWith: ".connectedSortable",
+                stop: () => { sortNavItemsAfterChange() }
+            }).disableSelection();
+            sortNavItemsAfterChange()
+            insertDataToRowItemVersion(["BranchName"])
+            mouseOverRowVersion()
+            HideBtnOptionsAfterChangeLanguage(["preview_page", "deactivate_block"])
+            $(".remove_page").unbind().click(removePage)
+            $(".page_item").unbind().click(markVersionPage);
+        })
 }

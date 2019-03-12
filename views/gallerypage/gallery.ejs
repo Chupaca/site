@@ -1,23 +1,24 @@
 <% layout('layoutindex/mainpage') -%>
 
 <div class="contentMainImgContainer">
-    <img class="contentMainImg" alt="תמונת רקע" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" />
+    <img class="contentMainImg" alt="" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" />
      <h1 tabindex="0"><%- Page.Header.Title %></h1>
      <div class="contentTxt" tabindex="0"><%- Page.Header.SubTitleHtml %></div>
      <% if(Desktop){ %>
     <div style="padding-top:2vh;" class="contentTxt" tabindex="0">מעוניינים לקבל הצעת מחיר?</div>
     <div class="tbContainer">
     <form class="clientcomment_form" action="/priceoffer" method="post" >
-            <input type="text" class="tb form_input" name="Name" placeholder="שם מלא:" />
-            <input type="text" class="tb form_input" name="PhoneNumber" placeholder="טלפון:" />
-            <input type="text" class="tb form_input" name="Email" placeholder="אימייל:" />
-            <input type="text" class="tb form_input" name="City" placeholder="עיר:" />
-            <input type="submit" class="tb send_btn" value="שליחה" />
+           <lable class="invisible_text">שם מלא</lable><input type="text" class="tb form_input" name="Name" placeholder="<%= global.GlobalVar.Name && global.GlobalVar.Name[Language] ?global.GlobalVar.Name[Language] : 'שם מלא'%>:" /><i style="color:#ffffff;font-size: 2vh;vertical-align: top;">*</i>
+            <lable class="invisible_text">טלפון</lable><input type="text" class="tb form_input" name="PhoneNumber" placeholder="<%= global.GlobalVar.Phone && global.GlobalVar.Phone[Language]? global.GlobalVar.Phone[Language] : 'טלפון'%>:" /><i style="color:#ffffff;font-size: 2vh;vertical-align: top;">*</i>
+            <lable class="invisible_text">אי-מייל</lable><input type="text" class="tb form_input" name="Email" placeholder="<%= global.GlobalVar.Email && global.GlobalVar.Email[Language]?global.GlobalVar.Email[Language] : 'אימייל'%>:" />
+            <lable class="invisible_text">עיר</lable><input type="text" class="tb form_input" name="City" placeholder="<%= global.GlobalVar.City && global.GlobalVar.City[Language] ?global.GlobalVar.City[Language] : 'עיר'%>:" /><i style="color:#ffffff;font-size: 2vh;vertical-align: top;">*</i>
+            <input type="submit" class="tb send_btn" value="<%= global.GlobalVar.Send && global.GlobalVar.Send[Language] ? global.GlobalVar.Send[Language] : 'שליחה'%>"  />
+            <br><span style="color: #ffffff;float: right;margin-right: 7vh;">*<%= global.GlobalVar.RequiredFields && global.GlobalVar.RequiredFields[Language] ? global.GlobalVar.RequiredFields[Language] : 'שדות חובה'%></span>
     </form>
     </div>
     <%}%>
      <span data-scrollto="bottom_side_form" class="event_scroll_to_el to_form_section">מעוניינים לקבל הצעת מחיר</span>
-    <span class="downBtn" data-scrollto="wrap_container"><i class="far fa-caret-square-down"></i></span>
+    <span class="downBtn" data-scrollto="wrap_container" tabindex="0"><i class="far fa-caret-square-down"></i></span>
 </div>
 <section id="wrap_container" class="wrap_container">
    <div class="container">
@@ -133,11 +134,11 @@
             <h2>מעוניינים לקבל הצעת מחיר?</h2>
             <div class="tbContainer bottom_side">
            <form class="clientcomment_form" action="/priceoffer" method="post"  >
-                    <input type="text" class="tb form_input" name="Name" placeholder="שם מלא:" />
-                    <input type="text" class="tb form_input" name="PhoneNumber" placeholder="טלפון:" />
-                    <input type="text" class="tb form_input" name="Email" placeholder="אימייל:" />
-                    <input type="text" class="tb form_input" name="City" placeholder="עיר:" />
-                    <input type="submit" class="tb send_btn" value="שליחה" />
+                    <input type="text" class="tb form_input" name="Name" placeholder="<%= global.GlobalVar.Name && global.GlobalVar.Name[Language] ?global.GlobalVar.Name[Language] : 'שם מלא'%>:" />
+                    <input type="text" class="tb form_input" name="PhoneNumber" placeholder="<%= global.GlobalVar.Phone && global.GlobalVar.Phone[Language]? global.GlobalVar.Phone[Language] : 'טלפון'%>:" />
+                    <input type="text" class="tb form_input" name="Email" placeholder="<%= global.GlobalVar.Email && global.GlobalVar.Email[Language]?global.GlobalVar.Email[Language] : 'אימייל'%>:" />
+                    <input type="text" class="tb form_input" name="City" placeholder="<%= global.GlobalVar.City && global.GlobalVar.City[Language] ?global.GlobalVar.City[Language] : 'עיר'%>:" />
+                    <input type="submit" class="tb send_btn" value="<%= global.GlobalVar.Send && global.GlobalVar.Send[Language] ? global.GlobalVar.Send[Language] : 'שליחה'%>" />
             </form>
             </div>
         </div>

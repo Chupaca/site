@@ -7,7 +7,7 @@ const imagesLogic = require("../../logic/imagesbucket.js");
 exports.GetGalleryEditor = (req, res) => {
     imagesLogic.GetAllImages("generals")
         .then(images => {
-            res.render("adminpanel/galleryeditor", { title: "גלריה תמונות", images, bucketFile: 'generals', controller: null, AllowRemove:true })
+            res.render("adminpanel/galleryeditor", { title: "גלריה תמונות", images, bucketFile: 'generals', controller: null, AllowRemove:true, UserType: req.user.UserType })
         })
 }
 

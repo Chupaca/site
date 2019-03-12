@@ -2,29 +2,38 @@
 
 
 function saveNewPage() {
+    let prefixLanguage = $("#language_select option:selected").val() != 'he' ? $("#language_select option:selected").val() + '_' : '';
+  
     let sale = {};
     sale.MetaData = GetMetaData();
     sale.Header = GetHeaderData();
     sale.Content = GetSimpleContent()
-
+    sale.StaticsBlocks = {};
     sale.Preview = {
         ImageId: $(".wrap_preview_page .wrap_images_ .image_one").attr("data-imageid"),
         LinkToBucket: "generals/",
         SubTitleHtml: $(".wrap_preview_page .original_html_text").html()
     }
+    sale.Language = $("#language_select option:selected").val() || 0;
+    let flagStatics = GetStaticsFieldsBlocks(sale.StaticsBlocks);
 
-    if (sale.MetaData && sale.Header && sale.Content && sale.Preview.LinkToBucket && sale.Preview.SubTitleHtml) {
+    if (sale.MetaData && sale.Header && sale.Content && sale.Preview.LinkToBucket && sale.Preview.SubTitleHtml && sale.Language && flagStatics) {
         ConformModal("האם אתה רוצה לשמור גרסה חדשה?", () => {
-            SaveNewPageToServer(sale, 'sales')
+            SaveNewPageToServer(sale, prefixLanguage + 'sales')
         })
     } else {
-        Flash('לא כל השדות מלאים!', 'warning');
+        if(!sale.Language){
+            Flash('נא לבחור שפה!', 'warning');
+        }else{
+            Flash('לא כל השדות מלאים!', 'warning');
+        }
         return;
     }
 }
 
 function publishPage() {
     let data = []
+    let prefixLanguage = $("#language_select_preview option:selected").val();
     $("#sortable li").each((i, item) => {
         data.push(
             {
@@ -36,7 +45,7 @@ function publishPage() {
 
     if (data.length == 0 || data.length == 3) {
         ConformModal("האם אתה רוצה לפרסם גרסה ?", () => {
-            SetActiveMultiPages(data, 'sales')
+            SetActiveMultiPages(data, prefixLanguage)
         })
     } else {
         Flash("נא לבחור גרסה!", "warning")
@@ -70,5 +79,24 @@ function SetFieldsTemplate(template) {
     $(".wrap_preview_page .original_html_text").html(template.Preview.SubTitleHtml);
     GetImagePreviewFormattingTemplate([template.Preview.ImageId], [template.Preview.LinkToBucket], "generals");
     $(".switch_wraps[data-wrap='metadata']").trigger("click");
+    SetStaticsFieldsBlocks(template)
+}
 
+
+function sortAndPreviewSelectedItemsByLanguage() {
+    $.get(`/admin/versionsbylanguage/${$(this).val()}/${$(this).attr('data-type')}`)
+        .then(html => {
+            $("#vertion_wrap").html(html)
+            $("#template_page").unbind().click(getTemplatePage);
+            $("#publish_page").unbind().click(publishPage);
+            $("#sortable, #sortable_tmp").sortable({
+                connectWith: ".connectedSortable",
+                stop: () => { sortNavItemsAfterChange() }
+            }).disableSelection();
+            sortNavItemsAfterChange()
+            insertDataToRowItemVersion(["Header", "Title"])
+            mouseOverRowVersion()
+            $(".remove_page").unbind().click(removePage)
+            $(".page_item").unbind().click(markVersionPage);
+        })
 }

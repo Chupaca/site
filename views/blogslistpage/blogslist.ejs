@@ -1,22 +1,29 @@
+<% if(!Partial){%>
 <% layout('layoutindex/mainpage') -%>
 
 <div class="contentMainImgContainer">
-    <img class="contentMainImg" alt="תמונת רקע" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" />
+    <img class="contentMainImg" alt="" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" />
     <h1 tabindex="0"><%- Page.Header.Title %></h1>
     <div class="contentTxt" tabindex="0"><%- Page.Header.SubTitleHtml %></div>
-    <span class="downBtn" data-scrollto="wrap_container"><i class="far fa-caret-square-down"></i></span>
+    <span class="downBtn" data-scrollto="wrap_container" tabindex="0"><i class="far fa-caret-square-down"></i></span>
 </div>
 
 <section id="wrap_container" class="wrap_container">
     <div class="container">
-    <h2 class="section_title" tabindex="0">מאמרים</h2>
+    <% if(Page.StaticsBlocks && Page.StaticsBlocks.TitleBlock){%>
+           <h2 class="section_title" tabindex="0"><%= Page.StaticsBlocks.TitleBlock %></h2>
+        <% } else {%>
+             <h2 class="section_title" tabindex="0">מאמרים</h2>
+        <%}%>
+ 
+    <article id="blocks_wrap">
     <% for(let i=0;i<Blogs.length;i++){%>
             <% if(i == 0 || i == 2 || i == 4){ %>
-                <div class="blog_wrap">
+                <div class="blog_wrap"  data-index="<%= PageNumber %>" >
             <%}%>
     
-                        <div class="blog_box">
-                        <a href="/blog/<%= Blogs[i].Position %>">
+                        <div class="blog_box" >
+                        <a href="<%= Language %>/blog/<%= Blogs[i].Position %>" tabindex="-1">
                             <img tabindex="0" alt="<%= Blogs[i].Data.Preview.ImageId %>" src="<%= process.env.LINKTOBUCKETS + Blogs[i].Data.Preview.LinkToBucket + Blogs[i].Data.Preview.ImageId %>" />
                             <div class="blog_description">
                                 <div class="blog_date" tabindex="0"><%= moment(Blogs[i].Data.Preview.Date, 'DD/MM/YYYY').format("MM.YYYY") %></div>
@@ -28,19 +35,47 @@
                         </div>
        <% if(i == 1 || i == 3 || i == 5){ %>
             </div>
-            </br></br></br>
+            <%if(!Desktop){%>
+                <div tabindex="-1" class='only_mobile' style="height:10px;" data-index='<%= PageNumber %>'></div>
+            <%}%>
       <%}%>
     <%}%>
+    </article>
 
-    
-   <!-- <div tabindex="0" class="num_pages_wrap">
-        <div tabindex="0" class="num_page_btn">1</div>
-        <div tabindex="0" class="num_page_btn">2</div>
-        <div tabindex="0" class="num_page_btn">3</div>
-        <div tabindex="0" class="num_page_btn">4</div>
-        <div tabindex="0" class="num_page_btn">...</div>
-        <div tabindex="0" class="num_page_btn">&gt;</div>
-        -->
+    <div class="num_pages_wrap">
+        <div class="num_prev_page_btn" tabindex="0" onclick="prevChangePageList('#blocks_wrap', '<%= Language %>blogs', 'block')" style="display:<%= (Number(PageNumber)>1?'':'none') %>;">&lt;</div>
+            <% for(let i= 1; i<= CountPages;i++ ){ %>
+                <div class="num_page_btn <%= (i == Number(PageNumber)?'active':'') %>" tabindex="0" onclick="changePageList(this, '#blocks_wrap', '<%= Language %>blogs', <%= i %>, 'block')" ><%= i %></div>
+            <%}%>
+            <div class="num_next_page_btn" tabindex="0" onclick="nextChangePageList('#blocks_wrap', '<%= Language %>blogs', 'block')" style="display:<%= (Number(PageNumber) == CountPages?'none':'') %>;">&gt;</div>
+         </div>
+    </div>
+
     </div>
     </div>
 </section>
+<%} else {%>
+    <% for(let i=0;i<Blogs.length;i++){%>
+            <% if(i == 0 || i == 2 || i == 4){ %>
+                <div class="blog_wrap" data-index='<%= PageNumber %>'>
+            <%}%>
+    
+                        <div class="blog_box" >
+                        <a href="<%= Language %>/blog/<%= Blogs[i].Position %>">
+                            <img tabindex="0" alt="<%= Blogs[i].Data.Preview.ImageId %>" src="<%= process.env.LINKTOBUCKETS + Blogs[i].Data.Preview.LinkToBucket + Blogs[i].Data.Preview.ImageId %>" />
+                            <div class="blog_description">
+                                <div class="blog_date" tabindex="0"><%= moment(Blogs[i].Data.Preview.Date, 'DD/MM/YYYY').format("MM.YYYY") %></div>
+                                <div class="blog_title">
+                                    <span tabindex="0"><%= Blogs[i].Data.Preview.SubTitleHtml %></span>
+                                </div>
+                            </div>
+                        </a>
+                        </div>
+       <% if(i == 1 || i == 3 || i == 5){ %>
+            </div>
+            <%if(!Desktop){%>
+                <div class='only_mobile' style="height:10px;" data-index='<%= PageNumber %>'></div>
+            <%}%>
+      <%}%>
+       <%}%>
+<%}%>

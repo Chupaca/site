@@ -87,7 +87,7 @@ function onChangeFileToUpload(e) {
     var files = e.target.files;
     $.each(files, function (i, file) {
         var typefile = file.name.split(".");
-        if (file.size < MAX_SIZE && permittedTypes.indexOf(typefile[typefile.length - 1]) > -1) {
+        if (file.size < MAX_SIZE && permittedTypes.indexOf(typefile[typefile.length - 1].toLowerCase()) > -1) {
             var reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onloadend = function (e) {
@@ -129,7 +129,7 @@ function dropUploadFiles() {
             var files = e.originalEvent.dataTransfer.files;
             $.each(files, function (i, file) {
                 var typefile = file.name.split(".");
-                if (file.size < MAX_SIZE && permittedTypes.indexOf(typefile[typefile.length - 1]) > -1) {
+                if (file.size < MAX_SIZE && permittedTypes.indexOf(typefile[typefile.length - 1].toLowerCase()) > -1) {
                     var reader = new FileReader();
                     reader.readAsDataURL(file);
                     let fileName = uuid() + file.name;

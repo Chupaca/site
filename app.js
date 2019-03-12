@@ -50,6 +50,15 @@ app.set('trust proxy', true);
 app.use(bodyParser.json({ limit: '5mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '5mb' }));
 
+if (process.env.NODE_ENV === 'production') {
+    app.use(function (req, res, next) {
+        if (req.secure) {
+            next();
+        } else {
+            res.redirect(301, 'https://' + req.headers.host + req.url);
+        }
+    });
+}
 
 app.use(methodOverride());
 app.use(cookieParser());
@@ -112,7 +121,7 @@ config.GetSettings()
                     accessType: 'offline',
                 }, oauth2.AuthenticateUser)
         );
-        
+
         app.use(passport.initialize());
         app.use(passport.session());
 
@@ -123,7 +132,7 @@ config.GetSettings()
             cb(null, obj);
         });
 
-      
+
 
 
         app.get('/auth/login', (req, res, next) => {
@@ -140,14 +149,33 @@ config.GetSettings()
             (req, res) => {
                 // const redirect = req.session.oauth2return || '/admin';
                 // delete req.session.oauth2return;
-                res.redirect("/admin/pagetoedit?page=startpage")
+                res.redirect("/admin/incomingrequests")
             }
         );
 
         //============= routes ====================================================
-        
+        app.use(function (req, res, next) {
+            var err = null;
+            try {
+                decodeURIComponent(req.path)
+            }
+            catch (e) {
+                console.log("Error reference url: " + err, req.url);
+                return res.redirect(global.Host);
+            }
+            next();
+        });
+
         app.use("/", require("./routes/generalpages"));
-        app.use("/admin",  oauth2.CheckUser, require("./routes/admin"))
+        app.use("/admin", oauth2.CheckUser, require("./routes/admin"))
+
+        app.use("/:language/", function (req, res, next) {
+            if (!req.params || req.params.language.length > 2) return next()
+            else {
+                req.language = req.params.language;
+                return require("./routes/generalpageslang")(req, res, next)
+            }
+        })
 
 
         const redirects = require("./routes/redirects")

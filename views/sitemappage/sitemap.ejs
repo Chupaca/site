@@ -1,0 +1,83 @@
+<% layout('layoutindex/mainpage') -%>
+
+<div class="contentMainImgContainer">
+    <img class="contentMainImg" alt="" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" />
+    <h1  tabindex="0"><%- Page.Header.Title %></h1>
+    <div class="contentTxt"  tabindex="0"><%- Page.Header.SubTitleHtml %></div>
+    <span class="downBtn" data-scrollto="wrap_container" tabindex="0"><i class="far fa-caret-square-down"></i></span>
+</div>
+<style>
+
+</style>
+<section id="wrap_container" class="wrap_container">
+    <div class="container">
+        <div class="" style="text-align: right;">
+        <ul id="map_list">
+        <% Nav.forEach(item => { %>
+            <% if(item.Data.Link.includes('sales') && Sales && Sales.length) { %>
+                     <li style="list-style: none;"><u><%= item.Data.Title %></u>
+                        <ul>
+                        <% Sales.forEach(sale => { %> 
+                            <li class="lower_level_map"><a  href="<%= Language %>/<%= 'sales/' + sale.Position %>" ><%= sale.Data.Preview.SubTitleHtml.replace(/<[^>]+>/g, '') %></a></li>
+                        <% }) %>
+                        </ul>
+                     </li>
+            <% } else if(item.Data.Link.includes('blogs')  && Blogs && Blogs.length) {%>
+                    <li style="list-style: none;"><u><%= item.Data.Title %></u>
+                        <ul>
+                        <% Blogs.forEach(blog => { %> 
+                            <li class="lower_level_map"><a  href="<%= Language %>/<%= 'blog/' + blog.Position %>" ><%= blog.Data.Preview.SubTitleHtml.replace(/<[^>]+>/g, '') %></a></li>
+                        <% }) %>
+                        </ul>
+                     </li>
+             <% } else if(item.Data.Link.includes('branches') && Branches && Branches.length) {%>
+                    <li style="list-style: none;"><u><%= item.Data.Title %></u>
+                        <ul>
+                        <% Branches.forEach(branch => { %> 
+                            <li class="lower_level_map"><a  href="<%= Language %>/<%= 'branches/' + (branch.Position-1) %>" ><%= branch.Data.BranchName %></a></li>
+                        <% }) %>
+                        </ul>
+                     </li>
+            <% } else if(item.Data.Link.includes('catalog') && Doors && Doors.length) {%>
+                    <li class="upper_level_map" ><a  href="<%= Language %>/<%= item.Data.Link %>" ><%= item.Data.Title %></a></li>
+                    <li style="list-style: none;"><u>סדרות</u>
+                        <ul>
+                        <% Doors.forEach(door => { %> 
+                            <li class="lower_level_map"><a  href="<%= Language %>/<%= 'door/' + door.Position %>" ><%= door.Data.Header.Title %></a></li>
+                        <% }) %>
+                        </ul>
+                     </li>
+            <% } else if(item.Data.Link.includes('architectslist') && Architects && Architects.length) {%>
+                    <li class="upper_level_map" ><a  href="<%= Language %>/<%= item.Data.Link %>" ><%= item.Data.Title %></a></li>
+                    <li style="list-style: none;"><u>אדריכלים</u>
+                        <ul>
+                        <% Architects.forEach(architect => { %> 
+                            <li class="lower_level_map"><a  href="<%= Language %>/<%= 'architect/' + architect.Id %>" ><%= architect.Data.Name %></a></li>
+                        <% }) %>
+                        </ul>
+                     </li>
+            <% } else if(item.Data.Link == 'projects' && Projects && Projects.length) {%>
+                    <li style="list-style: none;"><u>פרויקטים</u>
+                        <ul>
+                        <% Projects.forEach(project => { %> 
+                            <li class="lower_level_map"><a  href="<%= Language %>/<%= 'project/' + project.Id %>" ><%= project.Data.Header.Title %></a></li>
+                        <% }) %>
+                        </ul>
+                     </li>
+            <% } else if(item.Data.Link == 'video' && Video) {%>
+                <li class="upper_level_map" ><a  href="<%= Language %>/<%= item.Data.Link %>" ><%= Video.Data.Header.Title %></a></li>
+            <% } else if(item.Data.Link == 'architectscontact' && Architectscontact) {%>
+                <li class="upper_level_map" ><a  href="<%= Language %>/<%= item.Data.Link %>" ><%= Architectscontact.Data.Header.Title %></a></li>
+            <% } else if(item.Data.Link == 'privacy' && Privacy) {%>
+                <li class="upper_level_map" ><a  href="<%= Language %>/<%= item.Data.Link %>" ><%= Privacy.Data.Header.Title %></a></li>
+            <% } else if(item.Data.Link == 'accessibilitystatement' && Accessibilitystatement) {%>
+                <li class="upper_level_map" ><a  href="<%= Language %>/<%= item.Data.Link %>" ><%= Accessibilitystatement.Data.Header.Title %></a></li>
+            <% } else if(item.Data.Title){ %>
+                <li class="upper_level_map" ><a  href="<%= Language %>/<%= item.Data.Link %>" ><%= item.Data.Title %></a></li>
+           <%}%>
+        <%})%>
+
+        </ul>
+        </div>
+    </div>
+</section>

@@ -1,3 +1,11 @@
+<% const withSlideSideDoors = ['הזזה', 'sliding']%>
+<% const defaultPic = { 
+    'הזזה' : 'default_unik_slider_back.png',
+    'קלאסיק' : 'default_unik_clasic_back.png',
+    'אקסקלוסיב' : 'default_unik_exclusiv_back.png',
+    'פרימיום' : 'default_unik_premium_back.png',
+    'זירו' : 'default_unik_pan_ziro_back.png',
+}%>
 <% layout('layoutindex/mainpage') -%>
 
 <%if(!Desktop){%>
@@ -19,14 +27,25 @@
         <%}%>
         <% Page.DoorPages.forEach(item =>{ %> 
         <div class="doorsBox">
-            <a href="/door/<%= item.IndexPage %>" class="catalog_link_door">
-                <img tabindex="0" alt="דור קולקציה" src="<%= process.env.LINKTOBUCKETS + item.FrontModelImage %>" class="image_door" />
+            <a href="<%= Language %>/door/<%= item.IndexPage %>" tabindex="0" class="catalog_link_door">
+                <img tabindex="-1" alt="דלת קולקציה" 
+                    src="<%= process.env.LINKTOBUCKETS + item.FrontModelImage %>" 
+                    class="image_door 
+                    <% if(withSlideSideDoors.find(el => item.CollectionName.includes(el))) {%>
+                           slide_door_catalog
+                    <%}%>"
+                    />
                 <% if(Desktop){ %>
-                <img tabindex="0" class="catalog_frame_door" alt="הלבשה" src="<%= process.env.LINKTOBUCKETS + item.FrameModel %>" />
+                    <img tabindex="-1" class="catalog_frame_door" alt="הלבשה" src="<%= process.env.LINKTOBUCKETS + item.FrameModel %>" />
                 <%}%>
-                <div class="description_door_catalog" tabindex="0"><%= item.Description %></div>
+                <% if(Language){%>
+                    <div class="description_door_catalog" tabindex="-1"><%= item.Description %></div>
+                <%}else{%>
+                    <div class="description_door_catalog description_door_catalog_img" tabindex="-1" 
+                    style="background: #000000 url(<%= process.env.LINKTOBUCKETS + 'default/' + defaultPic[Object.keys(defaultPic).find(key => item.CollectionName.includes(key))] %>) no-repeat center /14vh;"></div>
+                <%}%>
             </a>
-            <a class="btn-model" href="/door/<%= item.IndexPage %>" tabindex="0" ><%= item.CollectionName %></a>
+            <a class="btn-model" href="<%= Language %>/door/<%= item.IndexPage %>" tabindex="0" ><%= item.CollectionName %></a>
         </div>
         <%})%>
     </div>

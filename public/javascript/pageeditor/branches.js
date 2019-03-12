@@ -1,10 +1,49 @@
 'use strict'
 
-
+const locationsSanitize = {
+    North : {
+        'en' : 'Northern Region',
+        'he' : 'איזור הצפון',
+        'ru' : 'Северный округ',
+        'ar' : 'المنطقة الشمالية',
+    },
+    Sharon : {
+        'en' : 'Sharon Area',
+        'he' : 'איזור השרון',
+        'ru' : 'Округ Шарон',
+        'ar' : 'منطقة شارون',
+    },
+    Jerusalem : {
+        'en' : 'Jerusalem Region',
+        'he' : 'איזור ירושלים',
+        'ru' : 'Иерусалимский округ',
+        'ar' : 'منطقة القدس',
+    },
+    Center : {
+        'en' : 'Central Region',
+        'he' : 'איזור מרכז',
+        'ru' : 'Центральный регион',
+        'ar' : 'المنطقة الوسطى',
+    },
+    Shfela : {
+        'en' : 'HaShfela Region',
+        'he' : 'אזור השפלה',
+        'ru' : 'Ха-Шфела регион',
+        'ar' : 'منطقة شفيلا',
+    },
+    South : {
+        'en' : 'Southern Region',
+        'he' : 'איזור הדרום',
+        'ru' : 'Южный регион',
+        'ar' : 'المنطقة الجنوبية',
+    }
+}
 function saveNewPage() {
+    let prefixLanguage = $("#language_select option:selected").val() != 'he' ? $("#language_select option:selected").val() + '_' : '';
     let branch = {};
     branch.MetaData = GetMetaData();
     branch.Header = GetHeaderData();
+    branch.Language = $("#language_select option:selected").val() || 0;
 
     branch.ExternalBranches = Array.from($(".ex_branch_row")).map(item => {
         let exB = {};
@@ -13,17 +52,25 @@ function saveNewPage() {
             return
         })
         exB.Location = $(item).find(".ex_branch_select option:selected").val();
-        exB.LocationHe = $(item).find(".ex_branch_select option:selected").text().trim();
+        exB.LocationHe = locationsSanitize[exB.Location][branch.Language];
         return exB;
     });
 
-    if(branch.MetaData && branch.Header){
+    
+    branch.StaticsBlocks = {};
+    let flagStatics = GetStaticsFieldsBlocks(branch.StaticsBlocks);
+
+    if(branch.MetaData && branch.Header && branch.Language && flagStatics){
         ConformModal("האם אתה רוצה לשמור גרסה חדשה?", () => {
-            SaveNewPageToServer(branch, "branches");
+            SaveNewPageToServer(branch, prefixLanguage + "branches");
             return;
         })
     }else{
-        Flash("לא כל השדות מיליאם!" , "warning");
+        if(!branch.Language){
+            Flash('נא לבחור שפה!', 'warning');
+        }else{
+            Flash('לא כל השדות מלאים!', 'warning');
+        }
         return;
     }
 }
@@ -31,6 +78,7 @@ function saveNewPage() {
 
 function publishPage() {
     let data = [];
+    let prefixLanguage = $("#language_select_preview option:selected").val();
     $("#sortable li").each((i, item) => {
         data.push(
             {
@@ -41,7 +89,7 @@ function publishPage() {
     })
     if (data && data.length == 1) {
         ConformModal("האם אתה רוצה לפרסם גרסה ?", () => {
-            SetActiveSinglePage(data[0].Id, "branches");
+            SetActiveSinglePage(data[0].Id, prefixLanguage);
             return;
         })
     } else {
@@ -93,6 +141,7 @@ function SetFieldsTemplate(template) {
     $(".external_branches_table tbody").html(BuildExternalBranch(template.ExternalBranches));
     $(".remove_row_external_branch").unbind().click(removeExternalBranch);
     $(".switch_wraps[data-wrap='metadata']").trigger("click");
+    SetStaticsFieldsBlocks(template)
 }
 
 
@@ -100,3 +149,22 @@ function SetFieldsTemplate(template) {
 $(document).ready(() => {
     $("#add_new_external_branch").unbind().click(addNewExternalBranch);
 });
+
+
+function sortAndPreviewSelectedItemsByLanguage() {
+    $.get(`/admin/versionsbylanguage/${$(this).val()}/${$(this).attr('data-type')}`)
+        .then(html => {
+            $("#vertion_wrap").html(html)
+            $("#template_page").unbind().click(getTemplatePage);
+            $("#publish_page").unbind().click(publishPage);
+            $("#sortable, #sortable_tmp").sortable({
+                connectWith: ".connectedSortable",
+                stop: () => { sortNavItemsAfterChange() }
+            }).disableSelection();
+            sortNavItemsAfterChange()
+            insertDataToRowItemVersion(["Header", "Title"])
+            mouseOverRowVersion()
+            $(".remove_page").unbind().click(removePage)
+            $(".page_item").unbind().click(markVersionPage);
+        })
+}

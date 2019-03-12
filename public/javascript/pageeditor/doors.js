@@ -2,23 +2,34 @@
 
 
 function saveNewPage() {
+    let prefixLanguage = $("#language_select option:selected").val() != 'he' ? $("#language_select option:selected").val() + '_' : '';
+   
     let doorPage = {};
     doorPage.MetaData = GetMetaData();
     doorPage.Header = GetHeaderData();
     doorPage.Collection = $("#select_collection option:selected").val().trim()
+    doorPage.Language = $("#language_select option:selected").val() || 0;
 
-    if (doorPage.MetaData && doorPage.Header && doorPage.Collection) {
+    doorPage.StaticsBlocks = {};
+    let flagStatics = GetStaticsFieldsBlocks(doorPage.StaticsBlocks);
+
+    if (doorPage.MetaData && doorPage.Header && doorPage.Collection && doorPage.Language) {
         ConformModal("האם אתה רוצה לשמור גרסה חדשה?", () => {
-            SaveNewPageToServer(doorPage, "doors");
+            SaveNewPageToServer(doorPage, prefixLanguage + "doors");
             return;
         })
     } else {
-        Flash('לא כל השדות מלאים!', 'warning');
+        if(!doorPage.Language){
+            Flash('נא לבחור שפה!', 'warning');
+        }else{
+            Flash('לא כל השדות מלאים!', 'warning');
+        }
         return;
     }
 }
 function publishPage() {
     let data = []
+    let prefixLanguage = $("#language_select_preview option:selected").val();
     $("#sortable li").each((i, item) => {
         data.push(
             {
@@ -30,7 +41,7 @@ function publishPage() {
 
     if (data.length != 0) {
         ConformModal("אתה בטוח רוצה לשנות ?", () => {
-            SetActiveMultiPages(data, 'doors')
+            SetActiveMultiPages(data, prefixLanguage)
         })
     } else {
         Flash("צריך לפחות מתקין אחד!", "warning")
@@ -45,9 +56,9 @@ function SetFieldsTemplate(template) {
     $(".wrap_header_page .title_header").val(template.Header.Title);
     $(".remove_text").trigger("click")
     $(".wrap_header_page .original_html_text").html(template.Header.SubTitleHtml); 
-    
     $("#select_collection option[value='" + template.Collection + "']").prop("selected", true).change();
     $(".switch_wraps[data-wrap='metadata']").trigger("click");
+    SetStaticsFieldsBlocks(template)
 }
 
 
@@ -70,3 +81,23 @@ $(document).ready(() => {
         getAllCollections();
     }, 0)
 })
+
+
+function sortAndPreviewSelectedItemsByLanguage() {
+    $.get(`/admin/versionsbylanguage/${$(this).val()}/${$(this).attr('data-type')}`)
+        .then(html => {
+            $("#vertion_wrap").html(html)
+            $("#template_page").unbind().click(getTemplatePage);
+            $("#publish_page").unbind().click(publishPage);
+            $("#sortable, #sortable_tmp").sortable({
+                connectWith: ".connectedSortable",
+                stop: () => { sortNavItemsAfterChange() }
+            }).disableSelection();
+            sortNavItemsAfterChange()
+            insertDataToRowItemVersion(["Header", "Title"])
+            mouseOverRowVersion()
+            HideBtnOptionsAfterChangeLanguage(["deactivate_block"])
+            $(".remove_page").unbind().click(removePage)
+            $(".page_item").unbind().click(markVersionPage);
+        })
+}

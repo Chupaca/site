@@ -2,10 +2,10 @@
 
 <%if(Desktop){%>
 <div class="contentMainImgContainer">
-    <img class="contentMainImg" alt="תמונת רקע" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" style="filter: brightness(50%);" />
+    <img class="contentMainImg" alt="" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" style="filter: brightness(50%);" />
     <h1 tabindex="0"><%- Page.Header.Title %></h1>
     <div class="contentTxt" tabindex="0"><%- Page.Header.SubTitleHtml %></div>
-    <span class="downBtn" data-scrollto="wrap_container"><i class="far fa-caret-square-down"></i></span>
+    <span class="downBtn" data-scrollto="wrap_container" tabindex="0"><i class="far fa-caret-square-down"></i></span>
 </div>
 <%}else{%>
 <div class="contentMainImgContainer" style="background: #000000 url(<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>) top right;">
@@ -19,7 +19,7 @@
 <div class="contentTextContainer" tabindex="0"><%- Page.Content.ContentHtml %></div>
         <div class="contentImages">
         <% if(Page.Content.ContentImages && Page.Content.ContentImages.length ) {  Page.Content.ContentImages.forEach(item => { %>
-        <img alt="<%= item.ImageId %>" tabindex="0" src="<%= process.env.LINKTOBUCKETS + item.LinkToBucket + item.ImageId %>" />
+        <img alt="" tabindex="-1" src="<%= process.env.LINKTOBUCKETS + item.LinkToBucket + item.ImageId %>" />
         <%})}%>
         </div>
 </div>
@@ -47,26 +47,27 @@
             <% if(Desktop) {%>
                 <form class="clientcomment_form" action="/project" method="post" >
                     <div>
-                        <input name="Name" type="text" class="tb form_input" placeholder="שם מלא:" required minlength="2"/>
-                        <input name="PhoneNumber" type="text" class="tb form_input" placeholder="טלפון:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                        <lable class="invisible_text">שם מלא</lable><input name="Name" type="text" class="tb form_input" placeholder="<%= global.GlobalVar.Name && global.GlobalVar.Name[Language] ?global.GlobalVar.Name[Language] : 'שם מלא'%>:" required minlength="2"/><i style="color:#000000;font-size: 2vh;vertical-align: top;">*</i>
+                        <lable class="invisible_text">טלפון</lable><input name="PhoneNumber" type="text" class="tb form_input" placeholder="<%= global.GlobalVar.Phone && global.GlobalVar.Phone[Language]? global.GlobalVar.Phone[Language] : 'טלפון'%>:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" /><i style="color:#000000;font-size: 2vh;vertical-align: top;">*</i>
                     </div>
                     <div>
-                        <input name="Email" type="email" class="tb form_input" placeholder="אימייל:"  required/>
-                        <input name="City" type="text" class="tb form_input" placeholder="עיר:" required minlength="2" /> 
+                        <lable class="invisible_text">אי-מייל</lable><input name="Email" type="email" class="tb form_input" placeholder="<%= global.GlobalVar.Email && global.GlobalVar.Email[Language]?global.GlobalVar.Email[Language] : 'אימייל'%>:" />
+                        <lable class="invisible_text">עיר</lable><input name="City" type="text" class="tb form_input" placeholder="<%= global.GlobalVar.City && global.GlobalVar.City[Language] ?global.GlobalVar.City[Language] : 'עיר'%>:" required minlength="2" /> <i style="color:#000000;font-size: 2vh;vertical-align: top;">*</i>
                     </div>
                     <div style="display:inline-flex;">
-                        <textarea name="Content" class="tb form_input" placeholder="תוכן:" style="height: 11vh;width: 62vh;resize:none;" required minlength="5" /></textarea>
-                        <input type="submit" class="tb send_btn" value="שליחה" style="height: 50%;margin-top: 8vh;" />
+                        <textarea name="Content" class="tb form_input" placeholder="<%= global.GlobalVar.Content && global.GlobalVar.Content[Language]? global.GlobalVar.Content[Language] : 'תוכן'%>:" style="height: 11vh;width: 62vh;resize:none;" required minlength="5" /></textarea><i style="color:#000000;font-size: 2vh;vertical-align: top;">*</i>
+                        <input type="submit" class="tb send_btn" value="<%= global.GlobalVar.Send && global.GlobalVar.Send[Language] ? global.GlobalVar.Send[Language] : 'שליחה'%>" style="height: 50%;margin-top: 8vh;" />
                     </div>
+                    <br><span style="color: #000000;float: right;margin-right: 7vh;">*<%= global.GlobalVar.RequiredFields && global.GlobalVar.RequiredFields[Language] ? global.GlobalVar.RequiredFields[Language] : 'שדות חובה'%></span>
                 </form>
             <%} else {%>
                 <form class="clientcomment_form" action="/project" method="post" >
-                    <input name="Name" type="text" class="tb form_input" placeholder="שם מלא:" required minlength="2"/>
-                    <input name="PhoneNumber"type="text" class="tb form_input" placeholder="טלפון:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
-                    <input name="Email"type="email" class="tb form_input" placeholder="אימייל:"  required/>
-                    <input name="City"type="text" class="tb form_input" placeholder="עיר:" required minlength="2" /> 
-                    <textarea name="Content" class="tb form_input" placeholder="תוכן:" style="font-size: 2vh;height: 11vh;width: 36vh;resize:none;" required minlength="5" /></textarea>
-                    <input type="submit" class="tb send_btn" value="שליחה" />
+                    <input name="Name" type="text" class="tb form_input" placeholder="<%= global.GlobalVar.Name && global.GlobalVar.Name[Language] ?global.GlobalVar.Name[Language] : 'שם מלא'%>:" required minlength="2"/>
+                    <input name="PhoneNumber"type="text" class="tb form_input" placeholder="<%= global.GlobalVar.Phone && global.GlobalVar.Phone[Language]? global.GlobalVar.Phone[Language] : 'טלפון'%>:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                    <input name="Email"type="email" class="tb form_input" placeholder="<%= global.GlobalVar.Email && global.GlobalVar.Email[Language]?global.GlobalVar.Email[Language] : 'אימייל'%>:"/>
+                    <input name="City"type="text" class="tb form_input" placeholder="<%= global.GlobalVar.City && global.GlobalVar.City[Language] ?global.GlobalVar.City[Language] : 'עיר'%>:" required minlength="2" /> 
+                    <textarea name="Content" class="tb form_input" placeholder="<%= global.GlobalVar.Content && global.GlobalVar.Content[Language]? global.GlobalVar.Content[Language] : 'תוכן'%>:" style="font-size: 2vh;height: 11vh;width: 36vh;resize:none;" required minlength="5" /></textarea>
+                    <input type="submit" class="tb send_btn" value="<%= global.GlobalVar.Send && global.GlobalVar.Send[Language] ? global.GlobalVar.Send[Language] : 'שליחה'%>" />
                 </form>
             <%}%>
         </div>

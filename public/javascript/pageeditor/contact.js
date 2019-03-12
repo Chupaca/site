@@ -2,6 +2,7 @@
 
 
 function saveNewPage() {
+    let prefixLanguage = $("#language_select option:selected").val() != 'he' ? $("#language_select option:selected").val() + '_' : '';
     let contact = {
         PhoneNumber: $("#contact_phonenumber").val().trim(),
         Fax: $("#contact_fax").val().trim(),
@@ -12,7 +13,7 @@ function saveNewPage() {
 
     contact.MetaData = GetMetaData();
     contact.Header = GetHeaderData();
-
+    contact.Language = $("#language_select option:selected").val() || 0;
 
     contact.Accordion = Array.from($(".accordion_row")).map(item => {
         return {
@@ -21,13 +22,20 @@ function saveNewPage() {
         }
     })
 
-    if (contact.MetaData && contact.Header) {
+    contact.StaticsBlocks = {};
+    let flagStatics = GetStaticsFieldsBlocks(contact.StaticsBlocks);
+
+    if (contact.MetaData && contact.Header && contact.Language && flagStatics) {
         ConformModal("האם אתה רוצה לשמור גרסה חדשה?", () => {
-            SaveNewPageToServer(contact, "contact");
+            SaveNewPageToServer(contact, prefixLanguage + "contact");
             return;
         })
     } else {
-        Flash("לא כל השדות מיליאם!" , "warning");
+        if(!contact.Language){
+            Flash('נא לבחור שפה!', 'warning');
+        }else{
+            Flash('לא כל השדות מלאים!', 'warning');
+        }
         return;
     }
 }
@@ -35,6 +43,7 @@ function saveNewPage() {
 
 function publishPage() {
     let data = [];
+    let prefixLanguage = $("#language_select_preview option:selected").val();
     $("#sortable li").each((i, item) => {
         data.push(
             {
@@ -45,7 +54,7 @@ function publishPage() {
     })
     if (data && data.length == 1) {
         ConformModal("האם אתה רוצה לפרסם גרסה ?", () => {
-            SetActiveSinglePage(data[0].Id, "contact");
+            SetActiveSinglePage(data[0].Id, prefixLanguage);
             return
         })
     } else {
@@ -71,6 +80,7 @@ function SetFieldsTemplate(template) {
     $("#contact_open").val(template.Open);
     $("#contact_close").val(template.Close);
     $(".switch_wraps[data-wrap='metadata']").trigger("click");
+    SetStaticsFieldsBlocks(template)
 }
 
 
@@ -82,3 +92,21 @@ $(document).ready(() => {
         "maxTime": "23:00"
     });
 });
+
+function sortAndPreviewSelectedItemsByLanguage() {
+    $.get(`/admin/versionsbylanguage/${$(this).val()}/${$(this).attr('data-type')}`)
+        .then(html => {
+            $("#vertion_wrap").html(html)
+            $("#template_page").unbind().click(getTemplatePage);
+            $("#publish_page").unbind().click(publishPage);
+            $("#sortable, #sortable_tmp").sortable({
+                connectWith: ".connectedSortable",
+                stop: () => { sortNavItemsAfterChange() }
+            }).disableSelection();
+            sortNavItemsAfterChange()
+            insertDataToRowItemVersion(["Header", "Title"])
+            mouseOverRowVersion()
+            $(".remove_page").unbind().click(removePage)
+            $(".page_item").unbind().click(markVersionPage);
+        })
+}

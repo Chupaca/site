@@ -1,10 +1,15 @@
 <% layout('layoutindex/mainpage') -%>
 
-<div class="contentMainImgContainer">
-    <img class="contentMainImg" alt="תמונת רקע" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" />
+
+<% if(Desktop){%>
+    <div class="contentMainImgContainer">
+    <img class="contentMainImg" alt="" src="<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>" />
+<%} else {%>
+    <div class="contentMainImgContainer" style="background: #000000 url('<%= process.env.LINKTOBUCKETS + Page.Header.LinkToBucket + Page.Header.ImageId %>') center /250% 100% no-repeat">
+<%}%>
     <h1  tabindex="0"><%- Page.Header.Title %></h1>
     <div class="contentTxt"  tabindex="0"><%- Page.Header.SubTitleHtml %></div>
-    <span class="downBtn" data-scrollto="wrap_container"><i class="far fa-caret-square-down"></i></span>
+    <span class="downBtn" data-scrollto="wrap_container" tabindex="0"><i class="far fa-caret-square-down"></i></span>
 </div>
 
 <section id="wrap_container" class="wrap_container">
@@ -14,7 +19,7 @@
         </div>
         <div class="contentImages">
         <% if(Page.Content.ContentImages && Page.Content.ContentImages.length ) {  Page.Content.ContentImages.forEach(item => { %>
-            <img alt="<%= item.ImageId %>"  tabindex="0" src="<%= process.env.LINKTOBUCKETS + item.LinkToBucket + item.ImageId %>" />
+            <img alt="<%= item.ImageId %>"  tabindex="-1" src="<%= process.env.LINKTOBUCKETS + item.LinkToBucket + item.ImageId %>" />
         <%})}%>
         </div>
     </div>

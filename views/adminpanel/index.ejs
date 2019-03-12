@@ -14,13 +14,16 @@
     <header>
         <input type="hidden" value="<%= process.env.LINKTOBUCKETS %>" id="LinkToBuckets">
         <div style="width: 11%;margin-right: 6vh;">
-            <img src="<%= process.env.LINKTOBUCKETS + 'default/admin_panel_header_logo.png' %>" onclick="window.open('/', '_blank')" style="width:100%;">
+            <img src="<%= process.env.LINKTOBUCKETS + 'default/admin_panel_header_logo.png' %>" onclick="window.open('/', '_blank')" style="width:100%;cursor:pointer;">
         </div>
         <div class="icons_wrap">
             <i class="far fa-envelope" style="cursor:pointer;" onclick="window.open('/admin/incomingrequests', '_self')"><span name="mailCount"></span></i>
             <i class="far fa-comments" style="cursor:pointer;" onclick="window.open('/admin/pagetoedit?page=commentslist', '_self')"><span name="commentsCount"></span></i>
         </div>
-        <div style="width: 30%;
+        <div>
+      
+        </div>
+        <div style="width: 20%;
     left: 4vh;
     position: absolute;
     text-align: left;">

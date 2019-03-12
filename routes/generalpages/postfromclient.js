@@ -3,12 +3,12 @@
 const promise = require("bluebird");
 const moment = require('moment');
 const postsFromClient = require("../../logic/postsfromclient");
+const globalSettingsLogic = require("../../logic/globalsettings");
 const request = promise.promisifyAll(require('request'))
-
 
 exports.PostNewClientComment = (req, res) => {
     const { Name, PhoneNumber, Email, City, Content } = req.body;
-    if (Name && Email && City && Content) {
+    if (Name && City && Content) {
         postsFromClient.PostClientComment(Name, PhoneNumber, Email, City, Content)
             .then(() => {
                 res.status(200).send("תודה רבה על תגובה");
@@ -61,8 +61,10 @@ exports.PostNewClientPriceOffer = (req, res) => {
                 else {
                     if (req.headers.referer.includes('pandoorwebmedia')) {
                         res.redirect(req.headers.referer + '?sent=true')
+                        return postsFromClient.BackUpLeadsAndServices(newLead, 'lead')
                     } else {
                         res.status(200).send("תודה לפנייתך, סוכן מחירות יחזור אלך בהמשך! ")
+                        return postsFromClient.BackUpLeadsAndServices(newLead, 'lead')
                     }
                 }
             })
@@ -97,7 +99,7 @@ let SchemaWebServiceCall = function (serviceCall) {
 
 exports.PostNewClientService = (req, res) => {
     let newServiceCall = SchemaWebServiceCall(req.body);
-    if ((newServiceCall.CustomerPhone || newServiceCall.CustomerEmail) && newServiceCall.CustomerName) {
+    if (newServiceCall.CustomerPhone && newServiceCall.CustomerName) {
         return request.postAsync({
             method: 'POST',
             uri: process.env.SEND_TO_CRM + "webservicecalls/add?access_token=65b2c100-efed-45ca-a453-e74a437332ba",
@@ -114,6 +116,9 @@ exports.PostNewClientService = (req, res) => {
                 }
                 else {
                     res.status(200).send("תודה לפנייתך, נציג שירות יחזור אלך בהמשך! ")
+                    newServiceCall.ContentClient = newServiceCall.Content
+                    delete newServiceCall.Content
+                    return postsFromClient.BackUpLeadsAndServices(newServiceCall, 'service')
                 }
             })
             .catch(err => {
@@ -127,7 +132,7 @@ exports.PostNewClientService = (req, res) => {
 
 exports.PostNewProject = (req, res) => {
     const { Name, PhoneNumber, Email, City, Content } = req.body;
-    if (Name && Email && City && Content) {
+    if (Name && City && Content) {
         postsFromClient.PostNewProject(Name, PhoneNumber, Email, City, Content)
             .then(() => {
                 res.status(200).send("תודה רבה על תגובה");
@@ -145,7 +150,7 @@ exports.PostNewProject = (req, res) => {
 
 exports.PostNewArchitect = (req, res) => {
     const { Name, PhoneNumber, Email, City, Content } = req.body;
-    if (Name && Email && City && Content) {
+    if (Name && City && Content) {
         postsFromClient.PostNewArchitect(Name, PhoneNumber, Email, City, Content)
             .then(() => {
                 res.status(200).send("תודה רבה על תגובה");
@@ -170,7 +175,9 @@ exports.GetPageForArchitectsBlank = (req, res) => {
         res.render("architectsblank/architectsblank.ejs", {
             Desktop: (req.device.type == 'desktop' ? true : false),
             Token: process.env.TOKEN,
-            Success:false
+            Success: false,
+            MulterError:false,
+            Name:'',PhoneNumber:'',PhoneNumber2:'',Email:'',City:'',Content:''
         })
     } else {
         res.redirect("/");
@@ -182,18 +189,36 @@ exports.PostNewArchitectBlank = (req, res) => {
     const { ...body } = req.body;
     if (validateToken(token) && req.files && req.files.length) {
         postsFromClient.PostNewArchitectBlank(body, req.files[0])
-            .then(result=> {
-                if(result){
+            .then(result => {
+                if (result) {
                     res.render("architectsblank/architectsblank.ejs", {
                         Desktop: (req.device.type == 'desktop' ? true : false),
-                        Success:true,
-                        Token:''
+                        Success: true,
+                        Token: '',
+                        MulterError:false
                     })
-                }else{
+                } else {
                     res.sendStatus(500)
                 }
             })
-    }else{
+    } else {
         res.sendStatus(403)
     }
+}
+
+exports.FinalSubmit = (req, res) => {
+    globalSettingsLogic.GetGlobalSettings("xx")
+        .then(generals => {
+            res.render('finalsubmitpage/finalsubmit', {
+                Desktop: (req.device.type == 'desktop' ? true : false),
+                Url: ('https://www.pandoor.co.il' + req.url),
+                moment,
+                Navigation: generals.Navigation,
+                Footer: generals.Footer,
+                Branches: generals.Branches,
+                Page: { Header: { Title: "אנחנו מודים על פנייתכם" } },
+                PixelsAndNav: generals.PixelsAndNav.Data,
+                Language:""
+            });
+        })
 }

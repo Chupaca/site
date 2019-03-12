@@ -2,6 +2,8 @@
 
 
 function saveNewPage() {
+    let prefixLanguage = $("#language_select option:selected").val() != 'he' ? $("#language_select option:selected").val() + '_' : '';
+  
     let door = {
         Title: $("#recommendedlist_title").val().trim(),
         Link: $("#recommendedlist_link").val().trim(),
@@ -16,19 +18,24 @@ function saveNewPage() {
             $("#recommendedlist_" + key.toLowerCase()).css({ "background": "#e3f4e5" })
         }
     });
-
-    if (flag) {
+    door.Language = $("#language_select option:selected").val() || 0;
+    if (flag && door.Language) {
         ConformModal("האם אתה רוצה לשמור חדש?", () => {
-            SaveNewPageToServer(door, 'recommendedlist')
+            SaveNewPageToServer(door, prefixLanguage + 'recommendedlist')
         })
     } else {
-        Flash("לא כל השדות של לקוח מלאים", "warning")
-
+        if(!door.Language){
+            Flash('נא לבחור שפה!', 'warning');
+        }else{
+            Flash('לא כל השדות מלאים!', 'warning');
+        }
+        return;
     }
 }
 
 function publishPage() {
     let data = []
+    let prefixLanguage = $("#language_select_preview option:selected").val();
     $("#sortable li").each((i, item) => {
         data.push(
             {
@@ -40,7 +47,7 @@ function publishPage() {
 
     if (data) {
         ConformModal("אתה בטוח רוצה לשנות ?", () => {
-            SetActiveMultiPages(data, 'recommendedlist')
+            SetActiveMultiPages(data, prefixLanguage)
         })
     } else {
         Flash("צריך לפחות 4 לקוחות אחד!", "warning")
@@ -73,6 +80,18 @@ $("#deactivate_block").unbind().click(() => {
         })
 })
 
+
+function SetFieldsTemplate(template) {
+    SetEmptyBlocks()
+    $("#recommendedlist_title").val(template.Title);
+    $("#recommendedlist_link").val(template.Link);
+    $("#recommendedlist_profileimage").attr("src", $("#LinkToBuckets").val().trim() + template.ProfileImage);
+    $("#recommendedlist_profileimage").attr("data-bucket", template.ProfileImage.split("/")[0])
+    $("#recommendedlist_profileimage").attr("data-imgid", template.ProfileImage.split("/")[1])
+    $(".switch_wraps[data-wrap='active_version']").trigger("click");
+}
+
+
 //=====================
 
 $(document).ready(() => {
@@ -84,3 +103,24 @@ $(document).ready(() => {
         })
     }, 0)
 })
+
+
+function sortAndPreviewSelectedItemsByLanguage() {
+    $.get(`/admin/versionsbylanguage/${$(this).val()}/${$(this).attr('data-type')}`)
+        .then(html => {
+            $("#vertion_wrap").html(html)
+            $("#template_page").unbind().click(getTemplatePage);
+            $("#publish_page").unbind().click(publishPage);
+            $("#sortable, #sortable_tmp").sortable({
+                connectWith: ".connectedSortable",
+                stop: () => { sortNavItemsAfterChange() }
+            }).disableSelection();
+            sortNavItemsAfterChange()
+            insertDataToRowItemVersion(["Title"])
+            insertDataToRowItemVersion(["Link"], " / ")
+            mouseOverRowVersion()
+            HideBtnOptionsAfterChangeLanguage(["preview_page"])
+            $(".remove_page").unbind().click(removePage)
+            $(".page_item").unbind().click(markVersionPage);
+        })
+}

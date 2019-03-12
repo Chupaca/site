@@ -19,7 +19,7 @@ var upload = multer(
     {
         storage: storageMulter,
         limits: {
-            fileSize: 100 * 1024
+            fileSize: 150 * 1024
         }
     },
     {
@@ -34,7 +34,7 @@ var upload = multer(
 
 router.use(oauth2.AddTemplateVariables);
 
-router.get("/", (req, res) => { res.redirect("/admin/pagetoedit?page=startpage") });
+router.get("/", (req, res) => { res.redirect("/admin/incomingrequests") });
 
 router.get("/logout", oauth2.Logout)
 
@@ -71,13 +71,16 @@ router.post("/architect/:id", pageEdit.UpdateArchitectById);
 router.get("/architect/:id/projects", pageEdit.GetProjectsByArchitectId);
 
 router.get("/collectionslist", pageEdit.GetCollectionsList);
-router.get("/collection/:id", pageEdit.GetCollectionById)
-router.post("/collection/:id", pageEdit.UpdateCollectionById);
+router.get("/collection/:id/:bucket", pageEdit.GetCollectionById)
+router.post("/collection/:id/:bucket", pageEdit.UpdateCollectionById);
 
 router.get("/doorspageslist", pageEdit.GetDoorsPagesList)
 
 router.post("/saveredirects", pageEdit.SetRedirects)
 
-router.post("/setnewcatalogpage", pageEdit.SetNewCatalogPage);
+router.post("/setnewcatalogpage/:lang", pageEdit.SetNewCatalogPage);
+
+router.get("/versionsbylanguage/:bucket/:type", pageEdit.SetVersionsByLanguage)
+router.post("/commonwords", pageEdit.SetCommonWords)
 
 module.exports = router;

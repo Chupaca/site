@@ -37,11 +37,11 @@
         </div>
         <div id="form_wrap">
             <form id="form" class="clientcomment_form" action="/priceoffer" method="post">
-                <input name="Name" type="text" class="tb form_input" placeholder="שם מלא:" required minlength="2" />
-                <input name="PhoneNumber" type="text" class="tb form_input" placeholder="טלפון:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
-                <input name="City" type="text" class="tb form_input" placeholder="עיר:" required minlength="2" />
+                <input name="Name" type="text" class="tb form_input" placeholder="<%= global.GlobalVar.Name && global.GlobalVar.Name[Language] ?global.GlobalVar.Name[Language] : 'שם מלא'%>:" required minlength="2" />
+                <input name="PhoneNumber" type="text" class="tb form_input" placeholder="<%= global.GlobalVar.Phone && global.GlobalVar.Phone[Language]? global.GlobalVar.Phone[Language] : 'טלפון'%>:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                <input name="City" type="text" class="tb form_input" placeholder="<%= global.GlobalVar.City && global.GlobalVar.City[Language] ?global.GlobalVar.City[Language] : 'עיר'%>:" required minlength="2" />
                 <input name="FromPage" type="hidden" class="tb form_input" value="<%= FromPage %>" />
-                <input type="submit" class="tb send_btn" value="שליחה"  />
+                <input type="submit" class="tb send_btn" value="<%= global.GlobalVar.Send && global.GlobalVar.Send[Language] ? global.GlobalVar.Send[Language] : 'שליחה'%>"  />
             </form>
         </div>
         <a href="tel:*5058" class="phone_wrap"></a>
@@ -61,11 +61,11 @@
     <div style="height: 38%;">
         <div id="form_wrap" style="background: url(<%= ImagePath + 'backg_form_mobile.jpg'%>) no-repeat top /145% 86%">
                 <form id="form" class="clientcomment_form" action="/priceoffer" method="post">
-                    <input name="Name" type="text" class="tb form_input" placeholder="שם מלא:" required minlength="2" />
-                    <input name="PhoneNumber" type="text" class="tb form_input" placeholder="טלפון:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
-                    <input name="City" type="text" class="tb form_input" placeholder="עיר:" required minlength="2" />
+                    <input name="Name" type="text" class="tb form_input" placeholder="<%= global.GlobalVar.Name && global.GlobalVar.Name[Language] ?global.GlobalVar.Name[Language] : 'שם מלא'%>:" required minlength="2" />
+                    <input name="PhoneNumber" type="text" class="tb form_input" placeholder="<%= global.GlobalVar.Phone && global.GlobalVar.Phone[Language]? global.GlobalVar.Phone[Language] : 'טלפון'%>:" onkeypress="return event.charCode >= 48 && event.charCode <= 57" />
+                    <input name="City" type="text" class="tb form_input" placeholder="<%= global.GlobalVar.City && global.GlobalVar.City[Language] ?global.GlobalVar.City[Language] : 'עיר'%>:" required minlength="2" />
                     <input name="FromPage" type="hidden" class="tb form_input" value="<%= FromPage %>" />
-                    <input type="submit" class="tb send_btn" value="שליחה"  />
+                    <input type="submit" class="tb send_btn" value="<%= global.GlobalVar.Send && global.GlobalVar.Send[Language] ? global.GlobalVar.Send[Language] : 'שליחה'%>"  />
                 </form>
         </div>
     </div>
@@ -113,8 +113,7 @@
    
    window.onload  = function(){
         if(window.location.href.indexOf('sent=true') > -1 ){
-            alert("תודה לפנייתך, סוכן מכירות יחזור אלך בהמשך! ")
-            window.history.pushState('<%= title %>', '<%= title %>', window.location.href.split('?')[0])
+            window.location = '/thankyou'
         }
         if(window.location.href.indexOf('sent=false') > -1){
              alert("התרחשה שגיאה")
